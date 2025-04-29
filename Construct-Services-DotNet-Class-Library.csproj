@@ -107,7 +107,7 @@
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="CHANGELOG" />
+    <None Include="CHANGELOG.md" />
     <Content Include="LICENSE.txt" />
     <None Include="VERSION" />
   </ItemGroup>
