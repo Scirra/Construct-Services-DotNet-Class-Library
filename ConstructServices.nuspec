@@ -9,7 +9,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="expression">MIT</license>
     <!-- <icon>icon.png</icon> -->
-    <projectUrl>https://www.construct.net/en/game-services</projectUrl>
+    <projectUrl>https://github.com/Scirra/Construct-Services-DotNet-Class-Library</projectUrl>
     <description>A helpful library for interacting with cloud services offered on Construct.net including leaderboard services.</description>
     <releaseNotes>Initial beta release.</releaseNotes>
     <copyright>Scirra Ltd</copyright>
