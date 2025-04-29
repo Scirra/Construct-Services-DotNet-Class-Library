@@ -2,6 +2,7 @@
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
+    <LangVersion>preview</LangVersion>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{D2E600F8-F2AE-4CDC-A3A9-8E74D16810D5}</ProjectGuid>
@@ -14,6 +15,7 @@
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <LangVersion>preview</LangVersion>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,6 +25,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <LangVersion>preview</LangVersion>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -41,8 +44,63 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Common\Functions.cs" />
+    <Compile Include="Common\GenericMethodResult.cs" />
+    <Compile Include="Common\ObjectReturnMethodResult.cs" />
+    <Compile Include="Common\Validators.cs" />
+    <Compile Include="GlobalConfig.cs" />
+    <Compile Include="Leaderboards\Actions\AdjustScore.cs" />
+    <Compile Include="Leaderboards\Actions\DeleteScore.cs" />
+    <Compile Include="Leaderboards\Actions\GetNewestScores.cs" />
+    <Compile Include="Leaderboards\Actions\GetPlayerScores.cs" />
+    <Compile Include="Leaderboards\Actions\GetScoreHistory.cs" />
+    <Compile Include="Leaderboards\Actions\GetScoreNeighbours.cs" />
+    <Compile Include="Leaderboards\Actions\GetScores.cs" />
+    <Compile Include="Leaderboards\Actions\PostScore.cs" />
+    <Compile Include="Leaderboards\Actions\ShadowBan.cs" />
+    <Compile Include="Leaderboards\Actions\ShadowBansGetIPs.cs" />
+    <Compile Include="Leaderboards\Actions\ShadowBansGetPlayerIDs.cs" />
+    <Compile Include="Leaderboards\Actions\ShadowBansRemove.cs" />
+    <Compile Include="Leaderboards\Actions\TeamGet.cs" />
+    <Compile Include="Leaderboards\Actions\TeamsAssignPlayer.cs" />
+    <Compile Include="Leaderboards\Actions\TeamsCreate.cs" />
+    <Compile Include="Leaderboards\Actions\TeamsDelete.cs" />
+    <Compile Include="Leaderboards\Actions\TeamsGet.cs" />
+    <Compile Include="Leaderboards\Actions\TeamsGetPlayers.cs" />
+    <Compile Include="Leaderboards\Actions\TeamsRemovePlayer.cs" />
+    <Compile Include="Leaderboards\Actions\TeamsRename.cs" />
+    <Compile Include="Leaderboards\Config.cs" />
+    <Compile Include="Leaderboards\Enums\ScoreRange.cs" />
+    <Compile Include="Leaderboards\LeaderboardService.cs" />
+    <Compile Include="Leaderboards\Objects\Leaderboard.cs" />
+    <Compile Include="Leaderboards\Objects\Pagination.cs" />
+    <Compile Include="Leaderboards\Objects\Player.cs" />
+    <Compile Include="Leaderboards\Objects\Score.cs" />
+    <Compile Include="Leaderboards\Objects\ScoreHistory.cs" />
+    <Compile Include="Leaderboards\Objects\ShadowBan.cs" />
+    <Compile Include="Leaderboards\Objects\Team.cs" />
+    <Compile Include="Leaderboards\Objects\Tier.cs" />
+    <Compile Include="Leaderboards\PaginationOptions.cs" />
+    <Compile Include="Leaderboards\Request.cs" />
+    <Compile Include="Leaderboards\RequestPerspective.cs" />
+    <Compile Include="Leaderboards\Responses\BaseResponse.cs" />
+    <Compile Include="Leaderboards\Responses\CreateTeamResponse.cs" />
+    <Compile Include="Leaderboards\Responses\DeleteScoresResponse.cs" />
+    <Compile Include="Leaderboards\Responses\GetScoreHistoryResponse.cs" />
+    <Compile Include="Leaderboards\Responses\GetScoreNeighboursResponse.cs" />
+    <Compile Include="Leaderboards\Responses\GetScoreResponse.cs" />
+    <Compile Include="Leaderboards\Responses\GetShadowBansResponse.cs" />
+    <Compile Include="Leaderboards\Responses\GetTeamPlayersResponse.cs" />
+    <Compile Include="Leaderboards\Responses\GetTeamResponse.cs" />
+    <Compile Include="Leaderboards\Responses\GetTeamsResponse.cs" />
+    <Compile Include="Leaderboards\Responses\PostScoreResponse.cs" />
+    <Compile Include="Leaderboards\Responses\ShadowBanResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>13.0.3</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
