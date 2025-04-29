@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>ConstructServices</id>
+    <version>1.0.5.0</version>
+    <title>Construct.net Services</title>
+    <authors>Thomas Gullen, Scirra Ltd</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <!-- <icon>icon.png</icon> -->
+    <projectUrl>https://www.construct.net/en/game-services</projectUrl>
+    <description>A helpful library for interacting with cloud services offered on Construct.net including leaderboard services.</description>
+    <releaseNotes>Initial beta release.</releaseNotes>
+    <copyright>Scirra Ltd</copyright>
+    <tags>leaderboard leaderboards games gaming</tags>
+  </metadata>
+</package>
