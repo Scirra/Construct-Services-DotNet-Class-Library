@@ -9,11 +9,11 @@ namespace ConstructServices.Leaderboards.Actions
     {
         public static GetScoreNeighboursResponse GetScoreNeighbours(
             this LeaderboardService service,
-            string playerIdentifier,
+            string playerID,
             int range = 5,
             int? compareRanks = null,
             RequestPerspective requestPerspective = null)
-            => Execute(service, playerIdentifier, null, range, compareRanks, requestPerspective);
+            => Execute(service, playerID, null, range, compareRanks, requestPerspective);
 
         public static GetScoreNeighboursResponse GetScoreNeighbours(
             this LeaderboardService service,
@@ -24,7 +24,7 @@ namespace ConstructServices.Leaderboards.Actions
             => Execute(service, null, scoreID, range, compareRanks, requestPerspective);
         private static GetScoreNeighboursResponse Execute(
             LeaderboardService service,
-            string playerIdentifier,
+            string playerID,
             Guid? scoreID,
             int range,
             int? compareRanks = null,
@@ -35,9 +35,9 @@ namespace ConstructServices.Leaderboards.Actions
             {
                 { "range", range.ToString() }
             };
-            if (!string.IsNullOrWhiteSpace(playerIdentifier))
+            if (!string.IsNullOrWhiteSpace(playerID))
             {
-                formData.Add("playerID", playerIdentifier);
+                formData.Add("playerID", playerID);
             }
             if (scoreID.HasValue)
             {

@@ -9,7 +9,7 @@ namespace ConstructServices.Leaderboards.Actions
     {
         public static ShadowBanResponse DeleteAllPlayerIDScores(
             this LeaderboardService service,
-            string playerIdentifier)
+            string playerID)
         {
             const string path = "/deletescores.json";
             return Task.Run(() => Request.ExecuteLeaderboardRequest<ShadowBanResponse>(
@@ -17,7 +17,7 @@ namespace ConstructServices.Leaderboards.Actions
                 service,
                 new Dictionary<string, string>
                 {
-                    { "playerID", playerIdentifier },
+                    { "playerID", playerID },
                 }
             )).Result;
         }

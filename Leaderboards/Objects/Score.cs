@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using ConstructServices.Leaderboards.Objects;
 
 namespace ConstructServices.Leaderboards.Objects
 {
@@ -38,8 +39,8 @@ namespace ConstructServices.Leaderboards.Objects
         [JsonProperty(PropertyName = "date")]
         public DateTime Date { get; private set; }
 
-        [JsonProperty(PropertyName = "playerIdentifier")]
-        public string PlayerIdentifier { get; private set; }
+        [JsonProperty(PropertyName = "player")]
+        public Player Player { get; private set; }
 
         [JsonProperty(PropertyName = "updates")]
         public int Updates { get; private set; }

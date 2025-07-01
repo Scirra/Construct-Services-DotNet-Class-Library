@@ -9,12 +9,12 @@ namespace ConstructServices.Leaderboards.Actions
     {
         public static GetScoreHistoryResponse GetPlayersScoreHistory(
             this LeaderboardService service,
-            string playerIdentifier)
+            string playerID)
         {
             const string path = "/getscorehistory.json";
             var formData = new Dictionary<string, string>
             {
-                { "playerID", playerIdentifier },
+                { "playerID", playerID },
             };
             return Task.Run(() => Request.ExecuteLeaderboardRequest<GetScoreHistoryResponse>(
                 path,

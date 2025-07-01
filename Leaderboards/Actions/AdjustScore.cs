@@ -47,24 +47,24 @@ namespace ConstructServices.Leaderboards.Actions
         }
         public static PostScoreResponse AdjustExistingScore(
             this LeaderboardService service,
-            string playerIdentifier,
+            string strPlayerID,
             long adjustment,
             short optValue1 = 0,
             short optValue2 = 0,
             short optValue3 = 0)
         {
             const string path = "/adjustscore.json";
-            playerIdentifier = (playerIdentifier ?? string.Empty).Trim();
+            strPlayerID = (strPlayerID ?? string.Empty).Trim();
 
             var timestamp = ((DateTimeOffset)DateTime.Now.ToUniversalTime()).ToUnixTimeSeconds();
-            var hash = Common.Functions.GetSHA256Hash(service.LeaderboardID + "." + adjustment + ".." + timestamp + "." + playerIdentifier);
+            var hash = Common.Functions.GetSHA256Hash(service.LeaderboardID + "." + adjustment + ".." + timestamp + "." + strPlayerID);
 
             var formData = new Dictionary<string, string>
             {
                 { "hash", hash },
                 { "adjustment", adjustment.ToString() },
                 { "timestamp", timestamp.ToString() },
-                { "playerID", playerIdentifier }
+                { "playerID", strPlayerID }
             };
             if (optValue1 != 0)
             {

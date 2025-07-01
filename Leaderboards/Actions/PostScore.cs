@@ -10,7 +10,7 @@ namespace ConstructServices.Leaderboards.Actions
         public static PostScoreResponse PostNewScore(
             this LeaderboardService service,
             long score,
-            string playerIdentifier,
+            string strPlayerID,
             short? optValue1,
             short? optValue2,
             short? optValue3,
@@ -18,10 +18,10 @@ namespace ConstructServices.Leaderboards.Actions
         {
             const string path = "/postscore.json";
 
-            playerIdentifier = (playerIdentifier ?? string.Empty).Trim();
+            strPlayerID = (strPlayerID ?? string.Empty).Trim();
 
             var timestamp = ((DateTimeOffset)DateTime.Now.ToUniversalTime()).ToUnixTimeSeconds();
-            var hash = Common.Functions.GetSHA256Hash(service.LeaderboardID + "." + score + "." + timestamp + "." + playerIdentifier);
+            var hash = Common.Functions.GetSHA256Hash(service.LeaderboardID + "." + score + "." + timestamp + "." + strPlayerID);
 
             var formData = new Dictionary<string, string>
             {
@@ -30,9 +30,9 @@ namespace ConstructServices.Leaderboards.Actions
                 { "timestamp", timestamp.ToString() },
             };
 
-            if (!string.IsNullOrWhiteSpace(playerIdentifier))
+            if (!string.IsNullOrWhiteSpace(strPlayerID))
             {
-                formData.Add("playerID", playerIdentifier);
+                formData.Add("playerID", strPlayerID);
             }
             if (optValue1.HasValue)
             {

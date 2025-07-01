@@ -10,18 +10,18 @@ namespace ConstructServices.Leaderboards.Actions
         public static BaseResponse AssignPlayerToTeam(
             this LeaderboardService service,
             string strTeamID,
-            string playerIdentifier)
+            string playerID)
         {
             if (string.IsNullOrWhiteSpace(strTeamID))
                 return new BaseResponse("No Team ID was provided.", false);
             if (!Guid.TryParse(strTeamID, out var teamID))
                 return new BaseResponse("Team ID was not a valid GUID.", false);
-            return AssignPlayerToTeam(service, teamID, playerIdentifier);
+            return AssignPlayerToTeam(service, teamID, playerID);
         }
         public static BaseResponse AssignPlayerToTeam(
             this LeaderboardService service,
             Guid teamID,
-            string playerIdentifier)
+            string playerID)
         {
             const string path = "/assignplayertoteam.json";
 
@@ -31,7 +31,7 @@ namespace ConstructServices.Leaderboards.Actions
                 new Dictionary<string, string>
                 {
                     { "teamID", teamID.ToString() },
-                    { "playerID", playerIdentifier }
+                    { "playerID", playerID }
                 }
             )).Result;
         }

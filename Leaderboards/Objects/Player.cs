@@ -1,21 +1,18 @@
 ﻿using Newtonsoft.Json;
+using System;
 
 namespace ConstructServices.Leaderboards.Objects
 {
     public class Player
     {
-        [JsonProperty(PropertyName = "playerID")]
-        public string PlayerID { get; private set; }
+        [JsonProperty(PropertyName = "id")]
+        public Guid ID { get; private set; }
 
-        [JsonProperty(PropertyName = "currentScore")]
-        public long? CurrentScore { get; private set; }
-
-        [JsonProperty(PropertyName = "formattedScore")]
-        public string FormattedScore { get; private set; }
+        [JsonProperty(PropertyName = "username")]
+        public string Username { get; private set; }
 
         public Player()
         {
-
         }
     }
 }

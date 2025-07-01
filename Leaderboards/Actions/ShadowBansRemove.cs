@@ -7,9 +7,9 @@ namespace ConstructServices.Leaderboards.Actions
 {
     public static partial class ShadowBans
     {
-        public static ShadowBanResponse UnbanPlayerIdentifier(
+        public static ShadowBanResponse UnbanPlayerID(
             this LeaderboardService service,
-            string playerIdentifier)
+            string playerID)
         {
             const string path = "/unshadowban.json";
             return Task.Run(() => Request.ExecuteLeaderboardRequest<ShadowBanResponse>(
@@ -17,7 +17,7 @@ namespace ConstructServices.Leaderboards.Actions
                 service,
                 new Dictionary<string, string>
                 {
-                    { "playerID", playerIdentifier },
+                    { "playerID", playerID },
                 }
             )).Result;
         }

@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+
 namespace ConstructServices.Leaderboards.Responses
 {
     public class GetScoreHistoryResponse : BaseResponse
@@ -10,8 +11,8 @@ namespace ConstructServices.Leaderboards.Responses
         [JsonProperty(PropertyName = "scoreID")]
         public Guid ScoreID { get; set; }
 
-        [JsonProperty(PropertyName = "playerIdentifier")]
-        public string PlayerIdentifier { get; set; }
+        [JsonProperty(PropertyName = "player")]
+        public Player Player { get; set; }
 
         [JsonProperty(PropertyName = "country")]
         public string Country { get; set; }

@@ -44,6 +44,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Authentication\Actions\GetPlayer.cs" />
+    <Compile Include="Authentication\Actions\RegisterPlayer.cs" />
+    <Compile Include="Authentication\AuthenticationService.cs" />
+    <Compile Include="Authentication\Config.cs" />
+    <Compile Include="Authentication\Objects\Player.cs" />
+    <Compile Include="Authentication\Request.cs" />
+    <Compile Include="Authentication\Responses\GetPlayerResponse.cs" />
     <Compile Include="Common\Functions.cs" />
     <Compile Include="Common\GenericMethodResult.cs" />
     <Compile Include="Common\ObjectReturnMethodResult.cs" />
@@ -79,6 +86,7 @@
     <Compile Include="Leaderboards\Objects\ScoreHistory.cs" />
     <Compile Include="Leaderboards\Objects\ShadowBan.cs" />
     <Compile Include="Leaderboards\Objects\Team.cs" />
+    <Compile Include="Leaderboards\Objects\TeamPlayer.cs" />
     <Compile Include="Leaderboards\Objects\Tier.cs" />
     <Compile Include="Leaderboards\PaginationOptions.cs" />
     <Compile Include="Leaderboards\Request.cs" />

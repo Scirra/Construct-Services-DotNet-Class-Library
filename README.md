@@ -33,11 +33,30 @@ From within Visual Studio:
 
 ## Documentation
 
-For a comprehensive list of examples, check out the [API documentation][api-docs].
+For a comprehensive list of examples, check out the [API documentation][api-docs].  The first thing you'll need to do is [create a game][create-game] in your Construct Services account..
 
-## Usage
+# Usage
 
-### Leaderboard Requests
+## Authentication Requests
+
+Create a new authentication service object, and pass in the game ID you're making requests against.
+
+```C#
+var service = new AuthenticationService("c59fca77-46f0-4069-9af2-8b40008906c0");
+```
+
+### Register a Player
+
+Register a player in your game with the authentication service object.  This will return a `Player` object with a unique ID which can be used to make further requests in other services.
+
+```C#
+var result = service.RegisterPlayer("Tom");
+if (result.Success){
+	var playerID = result.Player.ID;
+}
+```
+
+## Leaderboard Requests
 
 Create a leaderboard service object, and pass in the leaderboard ID you're making requests against.
 
@@ -76,6 +95,7 @@ Queries always return `Success` indicating if the response was succesfull.  If n
 For any requests, bug or comments, please [open an issue][issues] or [submit a
 pull request][pulls].
 
+[create-game]: https://www.construct.net/en/game-services/account
 [api-docs]: https://www.construct.net/en/game-services/manuals/game-services
 [dotnet-core-cli-tools]: https://docs.microsoft.com/en-us/dotnet/core/tools/
 [nuget-cli]: https://docs.microsoft.com/en-us/nuget/tools/nuget-exe-cli-reference

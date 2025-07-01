@@ -18,7 +18,7 @@ namespace ConstructServices.Leaderboards.Responses
         public Team Team { get; set; }
 
         [JsonProperty(PropertyName = "players")]
-        public List<Player> Players { get; set; }
+        public List<TeamPlayer> Players { get; set; }
 
         public GetTeamPlayersResponse()
         {

@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using ConstructServices.Leaderboards.Objects;
 
 namespace ConstructServices.Leaderboards.Objects
 {
@@ -14,8 +15,8 @@ namespace ConstructServices.Leaderboards.Objects
         [JsonProperty(PropertyName = "country")]
         public string ISOAlpha2 { get; private set; }
 
-        [JsonProperty(PropertyName = "playerIdentifier")]
-        public string PlayerIdentifier { get; private set; }
+        [JsonProperty(PropertyName = "player")]
+        public Player Player { get; private set; }
 
         public ShadowBan()
         {

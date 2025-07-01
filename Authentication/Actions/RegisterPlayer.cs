@@ -1,0 +1,25 @@
+﻿using ConstructServices.Authentication.Responses;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace ConstructServices.Authentication.Actions
+{
+    public static partial class Players
+    {
+        public static GetPlayerResponse RegisterPlayer(
+            this AuthenticationService service,
+            string username)
+        {
+            const string path = "/registerplayer.json";
+
+            return Task.Run(() => Request.ExecuteAuthenticationRequest<GetPlayerResponse>(
+                path,
+                service,
+                new Dictionary<string, string>
+                {
+                    { "username", username },
+                }
+            )).Result;
+        }
+    }
+}

@@ -6,44 +6,21 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace ConstructServices.Leaderboards
+namespace ConstructServices.Authentication
 {
     internal static class Request
     {
-        internal static async Task<T> ExecuteLeaderboardRequest<T>(
+        internal static async Task<T> ExecuteAuthenticationRequest<T>(
             string relativeEndPointPath,
-            LeaderboardService service,
-            Dictionary<string, string> formData,
-            RequestPerspective requestPerspective = null,
-            PaginationOptions paginationOptions = null) where T : BaseResponse
+            AuthenticationService service,
+            Dictionary<string, string> formData) where T : BaseResponse
         {
             // Add form data
             if (formData == null) formData = new Dictionary<string, string>();
             if (!string.IsNullOrWhiteSpace(service.APIKey))
                 formData.Add("secret", service.APIKey);
-            formData.Add("leaderboardID", service.LeaderboardID.ToString());
-            if(service.Culture != null) formData.Add("culture", service.Culture.ToString());
-
-            // Add perspective
-            if (requestPerspective != null)
-            {
-                formData.Add("requesterIP", requestPerspective.RequesterIP);
-                if (requestPerspective.RequesterPlayerID.HasValue)
-                {
-                    formData.Add("requesterPlayerID", requestPerspective.RequesterPlayerID.Value.ToString());
-                }
-            }
-
-            // Pagination
-            if (paginationOptions != null)
-            {
-                formData.Add("page", paginationOptions.RequestedPage.ToString());
-                if (paginationOptions.RecordsPerPage.HasValue)
-                {
-                    formData.Add("perPage", paginationOptions.RecordsPerPage.Value.ToString());
-                }
-            }
-
+            formData.Add("gameID", service.GameID.ToString());
+            
             // Get URL to query
             string apiURL;
             {
@@ -89,7 +66,6 @@ namespace ConstructServices.Leaderboards
                     return new BaseResponse(ex.Message, false) as T;
                 }
             }
-
             if (!json.IsValidJson())
             {
                 return (T)Activator.CreateInstance(typeof(T), "Response was not valid JSON.", false);
