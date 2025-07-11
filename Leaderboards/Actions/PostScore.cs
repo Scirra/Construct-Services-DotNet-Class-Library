@@ -16,6 +16,33 @@ namespace ConstructServices.Leaderboards.Actions
             short? optValue3,
             RequestPerspective requestPerspective = null)
         {
+            return DoPostNewScore(service, null, score, strPlayerID, optValue1, optValue2, optValue3,
+                requestPerspective);
+        }
+        public static PostScoreResponse PostNewScore(
+            this LeaderboardService service,
+            string sessionKey,
+            long score,
+            string strPlayerID,
+            short? optValue1,
+            short? optValue2,
+            short? optValue3,
+            RequestPerspective requestPerspective = null)
+        {
+            return DoPostNewScore(service, sessionKey, score, strPlayerID, optValue1, optValue2, optValue3,
+                requestPerspective);
+        }
+
+        private static PostScoreResponse DoPostNewScore(
+            this LeaderboardService service,
+            string sessionKey,
+            long score,
+            string strPlayerID,
+            short? optValue1,
+            short? optValue2,
+            short? optValue3,
+            RequestPerspective requestPerspective = null)
+        {
             const string path = "/postscore.json";
 
             strPlayerID = (strPlayerID ?? string.Empty).Trim();
@@ -29,7 +56,10 @@ namespace ConstructServices.Leaderboards.Actions
                 { "score", score.ToString() },
                 { "timestamp", timestamp.ToString() },
             };
-
+            if (!string.IsNullOrWhiteSpace(sessionKey))
+            {
+                formData.Add("sessionKey", sessionKey);
+            }
             if (!string.IsNullOrWhiteSpace(strPlayerID))
             {
                 formData.Add("playerID", strPlayerID);

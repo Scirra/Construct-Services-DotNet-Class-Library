@@ -1,5 +1,13 @@
 ﻿# Changelog
 
+## 1.0.8.0 - 11th July 2025
+
+<ul>
+	<li>Introduction of expanded authentication service</li>
+	<li>Some leaderboard requests now take session keys in as authentication parameters</li>
+	<li>Various minor bug fixes and improvements.</li>
+</ul>
+
 ## 1.0.7.0 - 1st July 2025
 
 <ul>
