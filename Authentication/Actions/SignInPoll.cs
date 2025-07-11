@@ -6,18 +6,18 @@ namespace ConstructServices.Authentication.Actions;
 
 public static partial class Players
 {
-    public static GetPlayerResponse GetPlayer(
+    public static SignInPollResponse SignIn(
         this AuthenticationService service,
-        string playerName)
+        string pollToken)
     {
-        const string path = "/getplayer.json";
+        const string path = "/signinpoll.json";
 
-        return Task.Run(() => Request.ExecuteAuthenticationRequest<GetPlayerResponse>(
+        return Task.Run(() => Request.ExecuteAuthenticationRequest<SignInPollResponse>(
             path,
             service,
             new Dictionary<string, string>
             {
-                { "playerName", playerName }
+                { "pollToken", pollToken }
             }
         )).Result;
     }

@@ -1,15 +1,14 @@
-﻿using ConstructServices.Leaderboards.Responses;
+﻿using ConstructServices.Authentication.Objects;
+using ConstructServices.Leaderboards.Responses;
 using Newtonsoft.Json;
-using ConstructServices.Authentication.Objects;
 
 namespace ConstructServices.Authentication.Responses
 {
     public class GetPlayerResponse : BaseResponse
-    {        
+    {
         [JsonProperty(PropertyName = "player")]
         public Player Player { get; set; }
-        public bool ShouldSerializePlayer() => Success;
-
+        
         public GetPlayerResponse()
         {
         }

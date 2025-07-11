@@ -1,4 +1,4 @@
-﻿using ConstructServices.Authentication.Responses;
+﻿using ConstructServices.Leaderboards.Responses;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -6,18 +6,18 @@ namespace ConstructServices.Authentication.Actions;
 
 public static partial class Players
 {
-    public static GetPlayerResponse GetPlayer(
+    public static BaseResponse EndSession(
         this AuthenticationService service,
-        string playerName)
+        string sessionKey)
     {
-        const string path = "/getplayer.json";
+        const string path = "/endsession.json";
 
-        return Task.Run(() => Request.ExecuteAuthenticationRequest<GetPlayerResponse>(
+        return Task.Run(() => Request.ExecuteAuthenticationRequest<BaseResponse>(
             path,
             service,
             new Dictionary<string, string>
             {
-                { "playerName", playerName }
+                { "sessionKey", sessionKey }
             }
         )).Result;
     }

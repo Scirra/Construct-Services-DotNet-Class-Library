@@ -8,8 +8,8 @@
     <ProjectGuid>{D2E600F8-F2AE-4CDC-A3A9-8E74D16810D5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Construct_Services_DotNet_Class_Library</RootNamespace>
-    <AssemblyName>Construct-Services-DotNet-Class-Library</AssemblyName>
+    <RootNamespace>ConstructServices</RootNamespace>
+    <AssemblyName>ConstructServices</AssemblyName>
     <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -44,13 +44,37 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Authentication\Actions\ChangePassword.cs" />
+    <Compile Include="Authentication\Actions\ChangePlayerName.cs" />
+    <Compile Include="Authentication\Actions\DeleteAvatar.cs" />
+    <Compile Include="Authentication\Actions\DeletePlayer.cs" />
+    <Compile Include="Authentication\Actions\Disconnect.cs" />
+    <Compile Include="Authentication\Actions\EndSession.cs" />
+    <Compile Include="Authentication\Actions\ForceLink.cs" />
+    <Compile Include="Authentication\Actions\GetLoginProviders.cs" />
     <Compile Include="Authentication\Actions\GetPlayer.cs" />
+    <Compile Include="Authentication\Actions\GetSession.cs" />
+    <Compile Include="Authentication\Actions\LinkLoginProvider.cs" />
+    <Compile Include="Authentication\Actions\RefreshSession.cs" />
     <Compile Include="Authentication\Actions\RegisterPlayer.cs" />
+    <Compile Include="Authentication\Actions\SetAvatar.cs" />
+    <Compile Include="Authentication\Actions\SignIn.cs" />
+    <Compile Include="Authentication\Actions\SignInPoll.cs" />
     <Compile Include="Authentication\AuthenticationService.cs" />
     <Compile Include="Authentication\Config.cs" />
+    <Compile Include="Authentication\Objects\AvailableAvatar.cs" />
+    <Compile Include="Authentication\Objects\LoginProvider.cs" />
     <Compile Include="Authentication\Objects\Player.cs" />
+    <Compile Include="Authentication\Objects\PlayerLoginProvider.cs" />
+    <Compile Include="Authentication\Objects\Session.cs" />
     <Compile Include="Authentication\Request.cs" />
+    <Compile Include="Authentication\Responses\GetLoginProvidersResponse.cs" />
     <Compile Include="Authentication\Responses\GetPlayerResponse.cs" />
+    <Compile Include="Authentication\Responses\GetSessionResponse.cs" />
+    <Compile Include="Authentication\Responses\LinkLoginProviderResponse.cs" />
+    <Compile Include="Authentication\Responses\RegisterPlayerResponse.cs" />
+    <Compile Include="Authentication\Responses\SignInPollResponse.cs" />
+    <Compile Include="Authentication\Responses\SignInResponse.cs" />
     <Compile Include="Common\Functions.cs" />
     <Compile Include="Common\GenericMethodResult.cs" />
     <Compile Include="Common\ObjectReturnMethodResult.cs" />
@@ -106,6 +130,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="JetBrains.Annotations">
+      <Version>2024.3.0</Version>
+    </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>13.0.3</Version>
     </PackageReference>

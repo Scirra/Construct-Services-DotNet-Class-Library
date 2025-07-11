@@ -1,0 +1,26 @@
+﻿using ConstructServices.Authentication.Objects;
+using ConstructServices.Authentication.Responses;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace ConstructServices.Authentication.Actions;
+public static partial class Players
+{
+    public static SignInResponse LinkLoginProvider(
+        this AuthenticationService service,
+        LoginProvider provider,
+        string sessionKey)
+    {
+        const string path = "/link.json";
+
+        return Task.Run(() => Request.ExecuteAuthenticationRequest<SignInResponse>(
+            path,
+            service,
+            new Dictionary<string, string>
+            {
+                { "provider", provider.ToString() },
+                { "sessionKey", sessionKey }
+            }
+        )).Result;
+    }
+}

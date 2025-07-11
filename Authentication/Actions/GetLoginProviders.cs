@@ -6,18 +6,18 @@ namespace ConstructServices.Authentication.Actions;
 
 public static partial class Players
 {
-    public static GetPlayerResponse GetPlayer(
+    public static GetConnectedLoginProvidersResponse GetLoginProviders(
         this AuthenticationService service,
-        string playerName)
+        string sessionKey)
     {
-        const string path = "/getplayer.json";
+        const string path = "/getconnectedloginproviders.json";
 
-        return Task.Run(() => Request.ExecuteAuthenticationRequest<GetPlayerResponse>(
+        return Task.Run(() => Request.ExecuteAuthenticationRequest<GetConnectedLoginProvidersResponse>(
             path,
             service,
             new Dictionary<string, string>
             {
-                { "playerName", playerName }
+                { "sessionKey", sessionKey }
             }
         )).Result;
     }
