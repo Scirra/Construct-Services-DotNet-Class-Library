@@ -1,7 +1,7 @@
-﻿using ConstructServices.Leaderboards.Responses;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 using ConstructServices.Authentication.Objects;
+using ConstructServices.Common;
 
 namespace ConstructServices.Authentication.Responses;
 

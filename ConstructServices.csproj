@@ -115,7 +115,7 @@
     <Compile Include="Leaderboards\PaginationOptions.cs" />
     <Compile Include="Leaderboards\Request.cs" />
     <Compile Include="Leaderboards\RequestPerspective.cs" />
-    <Compile Include="Leaderboards\Responses\BaseResponse.cs" />
+    <Compile Include="Common\BaseResponse.cs" />
     <Compile Include="Leaderboards\Responses\CreateTeamResponse.cs" />
     <Compile Include="Leaderboards\Responses\DeleteScoresResponse.cs" />
     <Compile Include="Leaderboards\Responses\GetScoreHistoryResponse.cs" />

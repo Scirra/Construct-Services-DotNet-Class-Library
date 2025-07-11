@@ -1,5 +1,4 @@
 ﻿using ConstructServices.Common;
-using ConstructServices.Leaderboards.Responses;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;

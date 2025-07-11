@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using ConstructServices.Common;
 
 namespace ConstructServices.Leaderboards.Responses
 {

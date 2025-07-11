@@ -1,14 +1,16 @@
 ﻿using ConstructServices.Authentication.Objects;
-using ConstructServices.Leaderboards.Responses;
+using ConstructServices.Common;
 using Newtonsoft.Json;
-using System.Collections.Generic;
 
 namespace ConstructServices.Authentication.Responses;
 
 public class RegisterPlayerResponse : BaseResponse
 {
-    [JsonProperty(PropertyName = "player")] 
-    public List<Player> ConnectedProviders { get; set; }
+    [JsonProperty(PropertyName = "player")]
+    public Player Player { get; set; }
+
+    [JsonProperty(PropertyName = "session")]
+    public Session Session { get; set; }
 
     public RegisterPlayerResponse()
     {

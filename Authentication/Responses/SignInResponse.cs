@@ -1,6 +1,6 @@
-﻿using ConstructServices.Leaderboards.Responses;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
+using ConstructServices.Common;
 
 namespace ConstructServices.Authentication.Responses
 {

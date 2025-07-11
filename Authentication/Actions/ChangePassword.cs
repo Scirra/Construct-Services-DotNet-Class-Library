@@ -1,8 +1,8 @@
-﻿using ConstructServices.Leaderboards.Responses;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ConstructServices.Common;
 
 namespace ConstructServices.Authentication.Actions;
 

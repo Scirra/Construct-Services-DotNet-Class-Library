@@ -34,5 +34,14 @@ namespace ConstructServices.Authentication
             GameID = gameID;
             APIKey = aPIKey;
         }
+
+        /// <summary>
+        /// Create a new instance of auth service
+        /// </summary>
+        /// <param name="gameID">Game ID service is for</param>
+        public AuthenticationService(Guid gameID)
+        {
+            GameID = gameID;
+        }
     }
 }

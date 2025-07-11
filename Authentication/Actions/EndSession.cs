@@ -1,6 +1,6 @@
-﻿using ConstructServices.Leaderboards.Responses;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using ConstructServices.Common;
 
 namespace ConstructServices.Authentication.Actions;
 

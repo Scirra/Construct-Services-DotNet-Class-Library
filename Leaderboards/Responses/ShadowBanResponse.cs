@@ -1,4 +1,6 @@
-﻿namespace ConstructServices.Leaderboards.Responses
+﻿using ConstructServices.Common;
+
+namespace ConstructServices.Leaderboards.Responses
 {
     public class ShadowBanResponse : BaseResponse
     {

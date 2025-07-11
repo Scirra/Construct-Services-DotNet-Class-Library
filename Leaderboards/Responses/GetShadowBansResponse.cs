@@ -1,6 +1,7 @@
 ﻿using ConstructServices.Leaderboards.Objects;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using ConstructServices.Common;
 
 namespace ConstructServices.Leaderboards.Responses
 {

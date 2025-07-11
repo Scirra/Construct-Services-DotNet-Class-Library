@@ -1,5 +1,5 @@
 ﻿using ConstructServices.Authentication.Objects;
-using ConstructServices.Leaderboards.Responses;
+using ConstructServices.Common;
 using Newtonsoft.Json;
 
 namespace ConstructServices.Authentication.Responses;
