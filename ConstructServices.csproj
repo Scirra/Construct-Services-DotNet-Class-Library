@@ -105,7 +105,6 @@
     <Compile Include="Leaderboards\LeaderboardService.cs" />
     <Compile Include="Leaderboards\Objects\Leaderboard.cs" />
     <Compile Include="Leaderboards\Objects\Pagination.cs" />
-    <Compile Include="Leaderboards\Objects\Player.cs" />
     <Compile Include="Leaderboards\Objects\Score.cs" />
     <Compile Include="Leaderboards\Objects\ScoreHistory.cs" />
     <Compile Include="Leaderboards\Objects\ShadowBan.cs" />

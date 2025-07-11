@@ -1,5 +1,11 @@
 ﻿# Changelog
 
+## 1.0.9.0 - 11th July 2025
+
+<ul>
+	<li>Use Authentication Player object as the main player object - removed all other player objects.</li>
+</ul>
+
 ## 1.0.8.0 - 11th July 2025
 
 <ul>

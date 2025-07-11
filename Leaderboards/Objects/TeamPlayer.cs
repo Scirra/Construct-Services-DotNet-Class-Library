@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using ConstructServices.Authentication.Objects;
+using Newtonsoft.Json;
 
 namespace ConstructServices.Leaderboards.Objects
 {

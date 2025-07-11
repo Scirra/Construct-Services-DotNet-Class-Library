@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using ConstructServices.Authentication.Objects;
 
 namespace ConstructServices.Leaderboards.Objects
 {

@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using ConstructServices.Authentication.Objects;
 using ConstructServices.Common;
 
 namespace ConstructServices.Leaderboards.Responses
