@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Globalization;
 using ConstructServices.Common;
+using Pagination = ConstructServices.Leaderboards.Objects.Pagination;
 
 namespace ConstructServices.Leaderboards.Responses
 {

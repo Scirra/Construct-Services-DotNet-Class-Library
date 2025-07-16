@@ -53,6 +53,7 @@
     <Compile Include="Authentication\Actions\ForceLink.cs" />
     <Compile Include="Authentication\Actions\GetLoginProviders.cs" />
     <Compile Include="Authentication\Actions\GetPlayer.cs" />
+    <Compile Include="Authentication\Actions\GetPlayers.cs" />
     <Compile Include="Authentication\Actions\GetSession.cs" />
     <Compile Include="Authentication\Actions\LinkLoginProvider.cs" />
     <Compile Include="Authentication\Actions\RefreshSession.cs" />
@@ -62,7 +63,9 @@
     <Compile Include="Authentication\Actions\SignInPoll.cs" />
     <Compile Include="Authentication\AuthenticationService.cs" />
     <Compile Include="Authentication\Config.cs" />
+    <Compile Include="Authentication\Enums\PlayerOrdering.cs" />
     <Compile Include="Authentication\Objects\AvailableAvatar.cs" />
+    <Compile Include="Authentication\Objects\ExpandedPlayer.cs" />
     <Compile Include="Authentication\Objects\LoginProvider.cs" />
     <Compile Include="Authentication\Objects\Player.cs" />
     <Compile Include="Authentication\Objects\PlayerLoginProvider.cs" />
@@ -70,6 +73,7 @@
     <Compile Include="Authentication\Request.cs" />
     <Compile Include="Authentication\Responses\GetLoginProvidersResponse.cs" />
     <Compile Include="Authentication\Responses\GetPlayerResponse.cs" />
+    <Compile Include="Authentication\Responses\GetPlayersResponse.cs" />
     <Compile Include="Authentication\Responses\GetSessionResponse.cs" />
     <Compile Include="Authentication\Responses\LinkLoginProviderResponse.cs" />
     <Compile Include="Authentication\Responses\RegisterPlayerResponse.cs" />
@@ -78,6 +82,7 @@
     <Compile Include="Common\Functions.cs" />
     <Compile Include="Common\GenericMethodResult.cs" />
     <Compile Include="Common\ObjectReturnMethodResult.cs" />
+    <Compile Include="Common\Pagination.cs" />
     <Compile Include="Common\Validators.cs" />
     <Compile Include="GlobalConfig.cs" />
     <Compile Include="Leaderboards\Actions\AdjustScore.cs" />
@@ -145,5 +150,6 @@
     <Content Include="LICENSE.txt" />
     <None Include="VERSION" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

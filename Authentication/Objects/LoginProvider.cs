@@ -12,6 +12,7 @@
         Steam,
         Apple,
         BattleNet,
-        BattleNetChina
+        BattleNetChina,
+        Microsoft
     }
 }
