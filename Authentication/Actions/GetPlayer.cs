@@ -1,4 +1,5 @@
-﻿using ConstructServices.Authentication.Responses;
+﻿using System;
+using ConstructServices.Authentication.Responses;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -18,6 +19,21 @@ public static partial class Players
             new Dictionary<string, string>
             {
                 { "playerName", playerName }
+            }
+        )).Result;
+    }
+    public static GetPlayerResponse GetPlayer(
+        this AuthenticationService service,
+        Guid playerID)
+    {
+        const string path = "/getplayer.json";
+
+        return Task.Run(() => Request.ExecuteAuthenticationRequest<GetPlayerResponse>(
+            path,
+            service,
+            new Dictionary<string, string>
+            {
+                { "playerID", playerID.ToString() }
             }
         )).Result;
     }

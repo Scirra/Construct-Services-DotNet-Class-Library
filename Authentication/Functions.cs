@@ -18,6 +18,11 @@ namespace ConstructServices.Authentication
             string logoFilename;
             switch (provider)
             {
+                case LoginProvider.UsernamePassword:
+                {
+                    logoFilename = "username-password.svg";
+                    break;
+                }
                 case LoginProvider.Facebook:
                 {
                     logoFilename = "faceboook-logo.svg";
