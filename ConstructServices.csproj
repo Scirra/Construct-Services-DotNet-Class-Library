@@ -64,6 +64,7 @@
     <Compile Include="Authentication\AuthenticationService.cs" />
     <Compile Include="Authentication\Config.cs" />
     <Compile Include="Authentication\Enums\PlayerOrdering.cs" />
+    <Compile Include="Authentication\Functions.cs" />
     <Compile Include="Authentication\Objects\AvailableAvatar.cs" />
     <Compile Include="Authentication\Objects\ExpandedPlayer.cs" />
     <Compile Include="Authentication\Objects\LoginProvider.cs" />
