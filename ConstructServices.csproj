@@ -59,6 +59,7 @@
     <Compile Include="Authentication\Actions\RefreshSession.cs" />
     <Compile Include="Authentication\Actions\RegisterPlayer.cs" />
     <Compile Include="Authentication\Actions\SetAvatar.cs" />
+    <Compile Include="Authentication\Actions\SetUsernamePassword.cs" />
     <Compile Include="Authentication\Actions\SignIn.cs" />
     <Compile Include="Authentication\Actions\SignInPoll.cs" />
     <Compile Include="Authentication\AuthenticationService.cs" />
