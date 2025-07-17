@@ -59,12 +59,14 @@
     <Compile Include="Authentication\Actions\RefreshSession.cs" />
     <Compile Include="Authentication\Actions\RegisterPlayer.cs" />
     <Compile Include="Authentication\Actions\SetAvatar.cs" />
+    <Compile Include="Authentication\Actions\SetPlayerRestrictions.cs" />
     <Compile Include="Authentication\Actions\SetUsernamePassword.cs" />
     <Compile Include="Authentication\Actions\SignIn.cs" />
     <Compile Include="Authentication\Actions\SignInPoll.cs" />
     <Compile Include="Authentication\AuthenticationService.cs" />
     <Compile Include="Authentication\Config.cs" />
     <Compile Include="Authentication\Enums\PlayerOrdering.cs" />
+    <Compile Include="Authentication\Enums\PlayerRestrictions.cs" />
     <Compile Include="Authentication\Functions.cs" />
     <Compile Include="Authentication\Objects\AvailableAvatar.cs" />
     <Compile Include="Authentication\Objects\ExpandedPlayer.cs" />

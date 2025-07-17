@@ -14,6 +14,9 @@ namespace ConstructServices.Authentication.Objects
         [JsonProperty(PropertyName = "provider")]
         public string Provider { get; private set; }
 
+        [JsonProperty(PropertyName = "username")]
+        public string Username { get; private set; }
+
         [JsonProperty(PropertyName = "avatarURL")]
         public string AvatarURL { get; private set; }
         

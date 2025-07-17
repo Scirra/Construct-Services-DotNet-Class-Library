@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using ConstructServices.Authentication.Enums;
 
 namespace ConstructServices.Authentication.Objects
 {
@@ -26,6 +28,21 @@ namespace ConstructServices.Authentication.Objects
         
         [JsonProperty(PropertyName = "loginProviders")]
         public List<PlayerLoginProvider> LoginProviders { get; set; }
+        
+        [JsonProperty(PropertyName = "restrictedActionIDs")]
+        public HashSet<int> RestrictedActionIDs { get; set; }
+        public bool ShouldSerializeRestrictedActionIDs() => false; 
+
+        [JsonProperty(PropertyName = "restrictedActions")]
+        public HashSet<PlayerRestriction> RestrictedActions {
+            get
+            {
+                if (!RestrictedActionIDs.Any()) return [];
+                return RestrictedActionIDs.Where(c => Enum.IsDefined(typeof(PlayerRestriction), c))
+                    .Select(c => (PlayerRestriction)c).ToHashSet();
+            }
+            set{}
+        }
 
         public ExpandedPlayer()
         {
