@@ -43,6 +43,15 @@ namespace ConstructServices.Authentication.Objects
             }
             set{}
         }
+        
+        [JsonProperty(PropertyName = "leaderboardScores")]
+        public int LeaderboardScores { get; set; }
+        
+        [JsonProperty(PropertyName = "totalCloudSaves")]
+        internal int TotalCloudSaves { get; set; }
+
+        [JsonProperty(PropertyName = "totalCloudSavesSize")]
+        internal long TotalCloudSavesSize { get; set; }
 
         public ExpandedPlayer()
         {
