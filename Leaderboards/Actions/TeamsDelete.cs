@@ -3,33 +3,32 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using ConstructServices.Common;
 
-namespace ConstructServices.Leaderboards.Actions
+namespace ConstructServices.Leaderboards.Actions;
+
+public static partial class Teams
 {
-    public static partial class Teams
+    public static BaseResponse DeleteExistingTeam(
+        this LeaderboardService service,
+        string strTeamID)
     {
-        public static BaseResponse DeleteExistingTeam(
-            this LeaderboardService service,
-            string strTeamID)
-        {
-            if (string.IsNullOrWhiteSpace(strTeamID))
-                return new BaseResponse("No Team ID was provided.", false);
-            if (!Guid.TryParse(strTeamID, out var teamID))
-                return new BaseResponse("Team ID was not a valid GUID.", false);
-            return DeleteExistingTeam(service, teamID);
-        }
-        public static BaseResponse DeleteExistingTeam(
-            this LeaderboardService service,
-            Guid teamID)
-        {
-            const string path = "/deleteteam.json";
-            return Task.Run(() => Request.ExecuteLeaderboardRequest<BaseResponse>(
-                path,
-                service,
-                new Dictionary<string, string>
-                {
-                    { "teamID", teamID.ToString() },
-                }
-            )).Result;
-        }
+        if (string.IsNullOrWhiteSpace(strTeamID))
+            return new BaseResponse("No Team ID was provided.", false);
+        if (!Guid.TryParse(strTeamID, out var teamID))
+            return new BaseResponse("Team ID was not a valid GUID.", false);
+        return DeleteExistingTeam(service, teamID);
+    }
+    public static BaseResponse DeleteExistingTeam(
+        this LeaderboardService service,
+        Guid teamID)
+    {
+        const string path = "/deleteteam.json";
+        return Task.Run(() => Request.ExecuteLeaderboardRequest<BaseResponse>(
+            path,
+            service,
+            new Dictionary<string, string>
+            {
+                { "teamID", teamID.ToString() },
+            }
+        )).Result;
     }
 }

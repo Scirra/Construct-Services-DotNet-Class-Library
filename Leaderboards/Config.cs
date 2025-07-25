@@ -1,14 +1,13 @@
-﻿namespace ConstructServices.Leaderboards
+﻿namespace ConstructServices.Leaderboards;
+
+internal class Config
 {
-    internal class Config
+    internal static string APIDomain
     {
-        internal static string APIDomain
+        get
         {
-            get
-            {
-                if (!GlobalConfig.DevMode) return "https://leaderboards.construct.net";
-                return "https://leaderboards.constructdev.net";
-            }
+            if (!GlobalConfig.DevMode) return "https://leaderboards.construct.net";
+            return "https://leaderboards.constructdev.net";
         }
     }
 }

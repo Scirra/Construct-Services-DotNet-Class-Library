@@ -1,14 +1,13 @@
-﻿namespace ConstructServices.Authentication
+﻿namespace ConstructServices.Authentication;
+
+internal class Config
 {
-    internal class Config
+    internal static string APIDomain
     {
-        internal static string APIDomain
+        get
         {
-            get
-            {
-                if (!GlobalConfig.DevMode) return "https://auth.construct.net";
-                return "https://auth.constructdev.net";
-            }
+            if (!GlobalConfig.DevMode) return "https://auth.construct.net";
+            return "https://auth.constructdev.net";
         }
     }
 }

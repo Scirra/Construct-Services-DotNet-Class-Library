@@ -2,18 +2,17 @@
 using ConstructServices.Common;
 using Newtonsoft.Json;
 
-namespace ConstructServices.Authentication.Responses
-{
-    public class GetSessionResponse : BaseResponse
-    {
-        [JsonProperty(PropertyName = "session")]
-        public Session Session { get; set; }
+namespace ConstructServices.Authentication.Responses;
 
-        public GetSessionResponse()
-        {
-        }
-        public GetSessionResponse(string errorMessage, bool shouldRetry) : base(errorMessage, shouldRetry)
-        {
-        }
+public class GetSessionResponse : BaseResponse
+{
+    [JsonProperty(PropertyName = "session")]
+    public Session Session { get; set; }
+
+    public GetSessionResponse()
+    {
+    }
+    public GetSessionResponse(string errorMessage, bool shouldRetry) : base(errorMessage, shouldRetry)
+    {
     }
 }

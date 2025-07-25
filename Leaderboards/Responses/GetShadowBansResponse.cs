@@ -4,22 +4,21 @@ using System.Collections.Generic;
 using ConstructServices.Common;
 using Pagination = ConstructServices.Leaderboards.Objects.Pagination;
 
-namespace ConstructServices.Leaderboards.Responses
+namespace ConstructServices.Leaderboards.Responses;
+
+public class GetShadowBansResponse : BaseResponse
 {
-    public class GetShadowBansResponse : BaseResponse
+    [JsonProperty(PropertyName = "bans")]
+    public List<ShadowBan> Bans { get; set; }
+
+    [JsonProperty(PropertyName = "pagination")]
+    public Pagination Pagination { get; set; }
+
+    public GetShadowBansResponse()
     {
-        [JsonProperty(PropertyName = "bans")]
-        public List<ShadowBan> Bans { get; set; }
+    }
+    public GetShadowBansResponse(string errorMessage, bool shouldRetry) : base(errorMessage, shouldRetry)
+    {
 
-        [JsonProperty(PropertyName = "pagination")]
-        public Pagination Pagination { get; set; }
-
-        public GetShadowBansResponse()
-        {
-        }
-        public GetShadowBansResponse(string errorMessage, bool shouldRetry) : base(errorMessage, shouldRetry)
-        {
-
-        }
     }
 }

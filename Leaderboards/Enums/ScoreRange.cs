@@ -1,11 +1,10 @@
-﻿namespace ConstructServices.Leaderboards.Enums
+﻿namespace ConstructServices.Leaderboards.Enums;
+
+public enum ScoreRange
 {
-    public enum ScoreRange
-    {
-        All,
-        Daily,
-        Weekly,
-        Monthly,
-        Yearly
-    }
+    All,
+    Daily,
+    Weekly,
+    Monthly,
+    Yearly
 }
