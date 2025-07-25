@@ -14,7 +14,11 @@
         PlayerUploadCloudSaveGameBucketBlobs = 101,
 
         [PlayerRestriction("Cloud Save To Player Account", "Prevents player from being able to cloud save files to their own player account.")]
-        PlayerUploadCloudSavePlayerBlobs = 102
+        PlayerUploadCloudSavePlayerBlobs = 102,
+
+        /* 201-300 Rating restrictions */
+        [PlayerRestriction("Rate Things", "Prevents player from being able to rate things.")]
+        PlayerRateObjects = 200
     }
 
     public class PlayerRestrictionAttribute : System.Attribute

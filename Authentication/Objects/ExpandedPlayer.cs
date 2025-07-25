@@ -48,10 +48,19 @@ namespace ConstructServices.Authentication.Objects
         public int LeaderboardScores { get; set; }
         
         [JsonProperty(PropertyName = "totalCloudSaves")]
-        internal int TotalCloudSaves { get; set; }
+        public int TotalCloudSaves { get; set; }
 
         [JsonProperty(PropertyName = "totalCloudSavesSize")]
-        internal long TotalCloudSavesSize { get; set; }
+        public long TotalCloudSavesSize { get; set; }
+
+        [JsonProperty(PropertyName = "totalRatings")]
+        public int TotalRatings { get; set; }
+
+        [JsonProperty(PropertyName = "totalRatingsValue")]
+        public long TotalRatingsValue { get; set; }
+
+        [JsonProperty(PropertyName = "averageRatingPercent")]
+        public decimal AverageRatingPercent { get; set; }
 
         public ExpandedPlayer()
         {

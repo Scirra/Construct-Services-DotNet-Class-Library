@@ -13,6 +13,10 @@
         Apple = 8,
         BattleNet = 9,
         BattleNetChina = 10,
-        Microsoft = 11
+        Microsoft = 11,
+        ItchIO = 12,
+        Github = 13,
+        TikTok = 14,
+        Twitch = 15
     }
 }

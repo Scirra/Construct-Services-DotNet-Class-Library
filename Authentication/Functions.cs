@@ -1,4 +1,5 @@
-﻿using ConstructServices.Authentication.Objects;
+﻿using System;
+using ConstructServices.Authentication.Objects;
 using JetBrains.Annotations;
 
 namespace ConstructServices.Authentication
@@ -61,7 +62,7 @@ namespace ConstructServices.Authentication
                 case LoginProvider.BattleNet:
                 case LoginProvider.BattleNetChina:
                 {
-                    logoFilename = "battlenet-logo.svg";
+                    logoFilename = "battlenet-logo.svg"; 
                     break;
                 }
                 case LoginProvider.Microsoft:
@@ -72,6 +73,26 @@ namespace ConstructServices.Authentication
                 case LoginProvider.Apple:
                 {
                     logoFilename = "apple-logo.svg";
+                    break;
+                }
+                case LoginProvider.Github:
+                {
+                    logoFilename = "github-logo.svg";
+                    break;
+                }
+                case LoginProvider.TikTok:
+                {
+                    logoFilename = "tiktok-logo.svg";
+                    break;
+                }
+                case LoginProvider.ItchIO:
+                {
+                    logoFilename = "itchio-logo.svg";
+                    break;
+                }
+                case LoginProvider.Twitch:
+                {
+                    logoFilename = "twitch-logo.svg";
                     break;
                 }
                 default: return string.Empty;
