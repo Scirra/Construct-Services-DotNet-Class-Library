@@ -1,7 +1,9 @@
-﻿using System;
+﻿using ConstructServices.Common;
+using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Net.Http;
 using System.Threading.Tasks;
-using ConstructServices.Common;
 
 namespace ConstructServices.Authentication.Actions;
 
@@ -40,5 +42,29 @@ public static partial class Players
                 { "avatarURL", avatarURL.ToString() }
             }
         )).Result;
+    }
+    public static BaseResponse SetAvatar(
+        this AuthenticationService service,
+        string sessionKey,
+        byte[] avatarBytes)
+    {
+        const string path = "/setavatar.json";
+
+        using (var ms = new MemoryStream(avatarBytes))
+        {
+            using (var avatarFile = new StreamContent(ms))
+            {
+                var sc = new List<StreamContent> { avatarFile };
+                return Task.Run(() => Request.ExecuteAuthenticationMultiPartFormRequest<BaseResponse>(
+                    path,
+                    service,
+                    new Dictionary<string, string>
+                    {
+                        { "sessionKey", sessionKey }
+                    },
+                    sc
+                )).Result;
+            }
+        }
     }
 }
