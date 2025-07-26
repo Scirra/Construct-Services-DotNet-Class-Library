@@ -1,7 +1,6 @@
 ﻿using ConstructServices.Common;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -49,22 +48,14 @@ public static partial class Players
         byte[] avatarBytes)
     {
         const string path = "/setavatar.json";
-
-        using (var ms = new MemoryStream(avatarBytes))
-        {
-            using (var avatarFile = new StreamContent(ms))
+        return Task.Run(() => Request.ExecuteAuthenticationMultiPartFormRequest<BaseResponse>(
+            path,
+            service,
+            new Dictionary<string, string>
             {
-                var sc = new List<StreamContent> { avatarFile };
-                return Task.Run(() => Request.ExecuteAuthenticationMultiPartFormRequest<BaseResponse>(
-                    path,
-                    service,
-                    new Dictionary<string, string>
-                    {
-                        { "sessionKey", sessionKey }
-                    },
-                    sc
-                )).Result;
-            }
-        }
+                { "sessionKey", sessionKey }
+            },
+            [new ByteArrayContent(avatarBytes)]
+        )).Result;
     }
 }

@@ -13,7 +13,7 @@ internal static class Request
         string relativeEndPointPath,
         AuthenticationService service,
         Dictionary<string, string> formData,
-        List<StreamContent> streamContents) where T : BaseResponse
+        List<ByteArrayContent> files) where T : BaseResponse
     {
         // Get URL to query
         string apiURL;
@@ -37,9 +37,12 @@ internal static class Request
                     formContent.Add(new StringContent(kvp.Value), kvp.Key);
                 }
             }
-            foreach (var streamContent in streamContents)
+
+            var i = 0;
+            foreach (var file in files)
             {
-                formContent.Add(streamContent);
+                formContent.Add(file, "file" + i, "file" + i);
+                i++;
             }
 
             try
