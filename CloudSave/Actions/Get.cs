@@ -19,7 +19,7 @@ public static partial class CloudSaves
     {
         var formData = new Dictionary<string, string>
         {
-            { "cloudSaveID", cloudSaveID.ToString() }
+            { "blobID", cloudSaveID.ToString() }
         };
         const string path = "/getcloudsave.json";
         return Task.Run(() => Request.ExecuteRequest<CloudSaveResponse>(
@@ -40,7 +40,7 @@ public static partial class CloudSaves
         var formData = new Dictionary<string, string>
         {
             { "sessionKey", sessionKey },
-            { "cloudSaveID", cloudSaveID.ToString() }
+            { "blobID", cloudSaveID.ToString() }
         };
         const string path = "/getcloudsave.json";
         return Task.Run(() => Request.ExecuteRequest<CloudSaveResponse>(

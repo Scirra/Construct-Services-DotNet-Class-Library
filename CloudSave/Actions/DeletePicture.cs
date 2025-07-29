@@ -19,7 +19,7 @@ public static partial class CloudSaves
     {
         var formData = new Dictionary<string, string>
         {
-            { "cloudSaveID", cloudSaveID.ToString() }
+            { "blobID", cloudSaveID.ToString() }
         };
         if (!string.IsNullOrWhiteSpace(sessionKey))
         {
