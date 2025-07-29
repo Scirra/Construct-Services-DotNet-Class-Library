@@ -102,13 +102,14 @@
     <Compile Include="CloudSave\Config.cs" />
     <Compile Include="CloudSave\Enums\GameBucketAccessMode.cs" />
     <Compile Include="CloudSave\Enums\GetBucketsSortMethod.cs" />
-    <Compile Include="CloudSave\Enums\GetCloudSaveFilters.cs" />
     <Compile Include="CloudSave\Enums\GetCloudSavesMode.cs" />
     <Compile Include="CloudSave\Enums\GetCloudSavesOrderMethod.cs" />
     <Compile Include="CloudSave\Objects\CloudSave.cs" />
     <Compile Include="CloudSave\Objects\GameBucket.cs" />
     <Compile Include="CloudSave\Responses\BucketResponse.cs" />
     <Compile Include="CloudSave\Responses\BucketsResponse.cs" />
+    <Compile Include="CloudSave\Responses\CloudSaveResponse.cs" />
+    <Compile Include="CloudSave\Responses\CloudSavesResponse.cs" />
     <Compile Include="Common\AvailablePicture.cs" />
     <Compile Include="Common\BaseService.cs" />
     <Compile Include="Common\Functions.cs" />

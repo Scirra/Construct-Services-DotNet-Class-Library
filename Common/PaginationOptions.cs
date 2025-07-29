@@ -1,4 +1,6 @@
-﻿namespace ConstructServices.Common;
+﻿using System.Collections.Generic;
+
+namespace ConstructServices.Common;
 
 public class PaginationOptions
 {

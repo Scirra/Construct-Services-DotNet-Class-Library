@@ -23,21 +23,12 @@ public static partial class GameBuckets
             { "orderBy", sortBy.ToString() }
         };
 
-        // Pagination
-        if (paginationOptions != null)
-        {
-            formData.Add("page", paginationOptions.RequestedPage.ToString());
-            if (paginationOptions.RecordsPerPage.HasValue)
-            {
-                formData.Add("perPage", paginationOptions.RecordsPerPage.Value.ToString());
-            }
-        }
-
         const string path = "/getbuckets.json";
         return Task.Run(() => Request.ExecuteRequest<BucketsResponse>(
             path,
             service,
-            formData
+            formData,
+            paginationOptions
         )).Result;
     }
 }

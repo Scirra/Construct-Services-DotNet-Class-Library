@@ -18,24 +18,16 @@ public static partial class Players
     {
         const string path = "/getplayers.json";
 
-        var formData = new Dictionary<string, string>();
-
-        // Pagination
-        if (paginationOptions != null)
+        var formData = new Dictionary<string, string>
         {
-            formData.Add("page", paginationOptions.RequestedPage.ToString());
-            if (paginationOptions.RecordsPerPage.HasValue)
-            {
-                formData.Add("perPage", paginationOptions.RecordsPerPage.Value.ToString());
-            }
-        }
-
-        formData.Add("order", ordering.ToString());
+            { "order", ordering.ToString() }
+        };
 
         return Task.Run(() => Request.ExecuteRequest<GetPlayersResponse>(
             path,
             service,
-            formData
+            formData,
+            paginationOptions
         )).Result;
     }
     
