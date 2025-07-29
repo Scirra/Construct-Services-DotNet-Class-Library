@@ -1,19 +1,19 @@
 ﻿using Newtonsoft.Json;
 
-namespace ConstructServices.Authentication.Objects;
+namespace ConstructServices.Common;
 
-public class AvailableAvatar
+public class AvailablePicture
 {
     [JsonProperty(PropertyName = "width")]
     public uint Width { get; set; }
-            
+
     [JsonProperty(PropertyName = "height")]
     public uint Height { get; set; }
-            
+
     [JsonProperty(PropertyName = "url")]
     public string URL { get; set; }
 
-    public AvailableAvatar()
+    public AvailablePicture()
     {
 
     }

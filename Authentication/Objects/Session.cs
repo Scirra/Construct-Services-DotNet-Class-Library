@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using ConstructServices.Common;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 
@@ -22,7 +23,7 @@ public class Session
     public DateTime Expiry { get; set; }
         
     [JsonProperty(PropertyName = "avatars")]
-    public List<AvailableAvatar> Avatars { get; set; }
+    public List<AvailablePicture> Avatars { get; set; }
 
     public Session()
     {

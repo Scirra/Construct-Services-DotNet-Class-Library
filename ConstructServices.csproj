@@ -68,7 +68,6 @@
     <Compile Include="Authentication\Enums\PlayerOrdering.cs" />
     <Compile Include="Authentication\Enums\PlayerRestrictions.cs" />
     <Compile Include="Authentication\Functions.cs" />
-    <Compile Include="Authentication\Objects\AvailableAvatar.cs" />
     <Compile Include="Authentication\Objects\ExpandedPlayer.cs" />
     <Compile Include="Authentication\Objects\LoginProvider.cs" />
     <Compile Include="Authentication\Objects\Player.cs" />
@@ -106,9 +105,11 @@
     <Compile Include="CloudSave\Enums\GetCloudSaveFilters.cs" />
     <Compile Include="CloudSave\Enums\GetCloudSavesMode.cs" />
     <Compile Include="CloudSave\Enums\GetCloudSavesOrderMethod.cs" />
+    <Compile Include="CloudSave\Objects\CloudSave.cs" />
     <Compile Include="CloudSave\Objects\GameBucket.cs" />
     <Compile Include="CloudSave\Responses\BucketResponse.cs" />
     <Compile Include="CloudSave\Responses\BucketsResponse.cs" />
+    <Compile Include="Common\AvailablePicture.cs" />
     <Compile Include="Common\BaseService.cs" />
     <Compile Include="Common\Functions.cs" />
     <Compile Include="Common\Pagination.cs" />

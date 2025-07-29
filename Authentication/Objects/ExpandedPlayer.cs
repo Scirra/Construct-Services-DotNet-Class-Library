@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ConstructServices.Authentication.Enums;
+using ConstructServices.Common;
 
 namespace ConstructServices.Authentication.Objects;
 
@@ -24,7 +25,7 @@ public class ExpandedPlayer
     public DateTime? LastSuccessfulSignIn { get; set; }
         
     [JsonProperty(PropertyName = "avatars")]
-    public List<AvailableAvatar> Avatars { get; set; }
+    public List<AvailablePicture> Avatars { get; set; }
         
     [JsonProperty(PropertyName = "loginProviders")]
     public List<PlayerLoginProvider> LoginProviders { get; set; }

@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using ConstructServices.Common;
 
 namespace ConstructServices.Authentication.Objects;
 
@@ -16,7 +17,7 @@ public class Player
     public DateTime Created { get; private set; }
 
     [JsonProperty(PropertyName = "avatars")]
-    public List<AvailableAvatar> Avatars { get; private set; }
+    public List<AvailablePicture> Avatars { get; private set; }
 
     public Player()
     {
