@@ -5,6 +5,7 @@ namespace ConstructServices.Common;
 
 internal static class Functions
 {
+    internal static int ToInt(this bool v) => v ? 1 : 0;
     internal static string GetSHA256Hash(string key)
     {
         key = key.Normalize();

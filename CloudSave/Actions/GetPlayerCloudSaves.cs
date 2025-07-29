@@ -2,7 +2,7 @@
 
 public static partial class CloudSaves
 {
-    public static void Get()
+    public static void Get(bool p)
     {
 
     }
