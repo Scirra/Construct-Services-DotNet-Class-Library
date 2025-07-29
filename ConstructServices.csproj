@@ -160,6 +160,16 @@
     <Compile Include="Leaderboards\Responses\PostScoreResponse.cs" />
     <Compile Include="Leaderboards\Responses\ShadowBanResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Ratings\Actions\CreateRatingSlot.cs" />
+    <Compile Include="Ratings\Actions\DeleteRatingSlot.cs" />
+    <Compile Include="Ratings\Actions\EditRatingSlot.cs" />
+    <Compile Include="Ratings\Actions\GetRatingSlots.cs" />
+    <Compile Include="Ratings\Actions\Rate.cs" />
+    <Compile Include="Ratings\Objects\RatingAggregate.cs" />
+    <Compile Include="Ratings\Objects\RatingSlot.cs" />
+    <Compile Include="Ratings\Responses\RateResponse.cs" />
+    <Compile Include="Ratings\Responses\SlotResponse.cs" />
+    <Compile Include="Ratings\Responses\SlotsResponse.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="JetBrains.Annotations">
