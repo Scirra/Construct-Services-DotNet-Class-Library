@@ -7,7 +7,6 @@ using ConstructServices.Ratings.Responses;
 
 namespace ConstructServices.Ratings.Actions;
 
-
 public static partial class Rating
 {
     /// <summary>
