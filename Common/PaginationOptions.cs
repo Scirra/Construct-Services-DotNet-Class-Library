@@ -1,4 +1,4 @@
-﻿namespace ConstructServices.Leaderboards;
+﻿namespace ConstructServices.Common;
 
 public class PaginationOptions
 {

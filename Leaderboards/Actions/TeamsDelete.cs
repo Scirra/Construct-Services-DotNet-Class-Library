@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ConstructServices.Common;
+using JetBrains.Annotations;
 
 namespace ConstructServices.Leaderboards.Actions;
 
 public static partial class Teams
 {
+    [UsedImplicitly]
     public static BaseResponse DeleteExistingTeam(
         this LeaderboardService service,
         string strTeamID)
@@ -22,12 +24,12 @@ public static partial class Teams
         Guid teamID)
     {
         const string path = "/deleteteam.json";
-        return Task.Run(() => Request.ExecuteLeaderboardRequest<BaseResponse>(
+        return Task.Run(() => Request.ExecuteRequest<BaseResponse>(
             path,
             service,
             new Dictionary<string, string>
             {
-                { "teamID", teamID.ToString() },
+                { "teamID", teamID.ToString() }
             }
         )).Result;
     }

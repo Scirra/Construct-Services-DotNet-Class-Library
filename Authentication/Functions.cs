@@ -1,5 +1,4 @@
-﻿using System;
-using ConstructServices.Authentication.Objects;
+﻿using ConstructServices.Authentication.Objects;
 using JetBrains.Annotations;
 
 namespace ConstructServices.Authentication;

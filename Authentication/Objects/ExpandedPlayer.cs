@@ -41,6 +41,7 @@ public class ExpandedPlayer
             return RestrictedActionIDs.Where(c => Enum.IsDefined(typeof(PlayerRestriction), c))
                 .Select(c => (PlayerRestriction)c).ToHashSet();
         }
+        // ReSharper disable once ValueParameterNotUsed
         set{}
     }
         

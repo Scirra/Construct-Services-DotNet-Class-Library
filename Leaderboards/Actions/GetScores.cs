@@ -2,11 +2,14 @@
 using ConstructServices.Leaderboards.Responses;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ConstructServices.Common;
+using JetBrains.Annotations;
 
 namespace ConstructServices.Leaderboards.Actions;
 
 public static partial class Scores
 {
+    [UsedImplicitly]
     public static GetScoreResponse GetScores(
         this LeaderboardService service,
         PaginationOptions paginationOptions,
@@ -34,11 +37,13 @@ public static partial class Scores
         {
             formData.Add("compareRanks", compareRanks.Value.ToString());
         }
-        return Task.Run(() => Request.ExecuteLeaderboardRequest<GetScoreResponse>(
+
+        service.AddRequestPerspectiveFormData(requestPerspective, formData);
+
+        return Task.Run(() => Request.ExecuteRequest<GetScoreResponse>(
             path,
             service,
             formData,
-            requestPerspective,
             paginationOptions
         )).Result;
     }

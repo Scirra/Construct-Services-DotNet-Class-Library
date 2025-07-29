@@ -2,11 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ConstructServices.Common;
+using JetBrains.Annotations;
 
 namespace ConstructServices.Leaderboards.Actions;
 
 public static partial class Scores
 {
+    [UsedImplicitly]
     public static GetScoreNeighboursResponse GetScoreNeighbours(
         this LeaderboardService service,
         string playerID,
@@ -15,6 +18,7 @@ public static partial class Scores
         RequestPerspective requestPerspective = null)
         => Execute(service, playerID, null, range, compareRanks, requestPerspective);
 
+    [UsedImplicitly]
     public static GetScoreNeighboursResponse GetScoreNeighbours(
         this LeaderboardService service,
         Guid scoreID,
@@ -47,11 +51,13 @@ public static partial class Scores
         {
             formData.Add("compareRanks", compareRanks.Value.ToString());
         }
-        return Task.Run(() => Request.ExecuteLeaderboardRequest<GetScoreNeighboursResponse>(
+
+        service.AddRequestPerspectiveFormData(requestPerspective, formData);
+
+        return Task.Run(() => Request.ExecuteRequest<GetScoreNeighboursResponse>(
             path,
             service,
-            formData,
-            requestPerspective
+            formData
         )).Result;
     }
 }

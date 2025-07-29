@@ -2,11 +2,14 @@
 using ConstructServices.Leaderboards.Responses;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ConstructServices.Common;
+using JetBrains.Annotations;
 
 namespace ConstructServices.Leaderboards.Actions;
 
 public static partial class Teams
 {
+    [UsedImplicitly]
     public static GetTeamPlayersResponse GetTeamPlayers(
         this LeaderboardService service,
         PaginationOptions paginationOptions,
@@ -23,11 +26,10 @@ public static partial class Teams
         {
             formData.Add("order", order);
         }
-        return Task.Run(() => Request.ExecuteLeaderboardRequest<GetTeamPlayersResponse>(
+        return Task.Run(() => Request.ExecuteRequest<GetTeamPlayersResponse>(
             path,
             service,
             formData,
-            null,
             paginationOptions
         )).Result;
     }

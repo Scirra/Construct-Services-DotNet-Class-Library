@@ -1,9 +1,9 @@
 ﻿using System;
 using ConstructServices.Authentication.Enums;
 using ConstructServices.Authentication.Responses;
-using ConstructServices.Leaderboards;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ConstructServices.Common;
 using JetBrains.Annotations;
 
 namespace ConstructServices.Authentication.Actions;
@@ -32,7 +32,7 @@ public static partial class Players
 
         formData.Add("order", ordering.ToString());
 
-        return Task.Run(() => Request.ExecuteAuthenticationRequest<GetPlayersResponse>(
+        return Task.Run(() => Request.ExecuteRequest<GetPlayersResponse>(
             path,
             service,
             formData
@@ -55,7 +55,7 @@ public static partial class Players
         {
             { "playerIDs", string.Join(",", playerIDs) }
         };
-        return Task.Run(() => Request.ExecuteAuthenticationRequest<GetPlayersResponse>(
+        return Task.Run(() => Request.ExecuteRequest<GetPlayersResponse>(
             path,
             service,
             formData

@@ -1,8 +1,9 @@
-﻿using ConstructServices.Leaderboards.Objects;
+﻿using ConstructServices.Common;
+using ConstructServices.Leaderboards.Objects;
+using JetBrains.Annotations;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Globalization;
-using ConstructServices.Common;
 using Pagination = ConstructServices.Leaderboards.Objects.Pagination;
 
 namespace ConstructServices.Leaderboards.Responses;
@@ -14,6 +15,7 @@ public class GetTeamPlayersResponse : BaseResponse
 
     [JsonProperty(PropertyName = "formattingCulture")]
     private string FormattingCulture_ { get; set; }
+    [UsedImplicitly] 
     public CultureInfo FormattingCulture => new(FormattingCulture_);
 
     [JsonProperty(PropertyName = "team")]

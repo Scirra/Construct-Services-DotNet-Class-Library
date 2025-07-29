@@ -2,11 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 
 namespace ConstructServices.Authentication.Actions;
 
 public static partial class Players
 {
+    [UsedImplicitly]
     public static BaseResponse SetUsernameAndPassword(
         this AuthenticationService service,
         Guid playerID,
@@ -15,7 +17,7 @@ public static partial class Players
     {
         const string path = "/setusernamepassword.json";
 
-        return Task.Run(() => Request.ExecuteAuthenticationRequest<BaseResponse>(
+        return Task.Run(() => Request.ExecuteRequest<BaseResponse>(
             path,
             service,
             new Dictionary<string, string>

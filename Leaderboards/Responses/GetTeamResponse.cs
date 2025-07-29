@@ -1,7 +1,8 @@
-﻿using ConstructServices.Leaderboards.Objects;
+﻿using ConstructServices.Common;
+using ConstructServices.Leaderboards.Objects;
+using JetBrains.Annotations;
 using Newtonsoft.Json;
 using System.Globalization;
-using ConstructServices.Common;
 
 namespace ConstructServices.Leaderboards.Responses;
 
@@ -9,6 +10,7 @@ public class GetTeamResponse : BaseResponse
 {
     [JsonProperty(PropertyName = "formattingCulture")]
     private string FormattingCulture_ { get; set; }
+    [UsedImplicitly] 
     public CultureInfo FormattingCulture => new(FormattingCulture_);
 
     [JsonProperty(PropertyName = "team")]

@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ConstructServices.Common;
+using JetBrains.Annotations;
 
 namespace ConstructServices.Authentication.Actions;
 
 public static partial class Players
 {
+    [UsedImplicitly]
     public static BaseResponse ChangePlayerName(
         this AuthenticationService service,
         Guid playerID,
@@ -14,16 +16,17 @@ public static partial class Players
     {
         const string path = "/changeplayername.json";
 
-        return Task.Run(() => Request.ExecuteAuthenticationRequest<BaseResponse>(
+        return Task.Run(() => Request.ExecuteRequest<BaseResponse>(
             path,
             service,
             new Dictionary<string, string>
             {
                 { "playerID", playerID.ToString() },
-                { "playerName", newPlayerName },
+                { "playerName", newPlayerName }
             }
         )).Result;
     }
+    [UsedImplicitly]
     public static BaseResponse ChangePlayerName(
         this AuthenticationService service,
         string sessionKey,
@@ -31,13 +34,13 @@ public static partial class Players
     {
         const string path = "/changeplayername.json";
 
-        return Task.Run(() => Request.ExecuteAuthenticationRequest<BaseResponse>(
+        return Task.Run(() => Request.ExecuteRequest<BaseResponse>(
             path,
             service,
             new Dictionary<string, string>
             {
                 { "sessionKey", sessionKey },
-                { "playerName", newPlayerName },
+                { "playerName", newPlayerName }
             }
         )).Result;
     }

@@ -2,11 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ConstructServices.Common;
+using JetBrains.Annotations;
 
 namespace ConstructServices.Leaderboards.Actions;
 
 public static partial class Scores
 {
+    [UsedImplicitly]
     public static PostScoreResponse PostNewScore(
         this LeaderboardService service,
         long score,
@@ -19,6 +22,7 @@ public static partial class Scores
         return DoPostNewScore(service, null, score, strPlayerID, optValue1, optValue2, optValue3,
             requestPerspective);
     }
+    [UsedImplicitly]
     public static PostScoreResponse PostNewScore(
         this LeaderboardService service,
         string sessionKey,
@@ -48,13 +52,13 @@ public static partial class Scores
         strPlayerID = (strPlayerID ?? string.Empty).Trim();
 
         var timestamp = ((DateTimeOffset)DateTime.Now.ToUniversalTime()).ToUnixTimeSeconds();
-        var hash = Common.Functions.GetSHA256Hash(service.LeaderboardID + "." + score + "." + timestamp + "." + strPlayerID);
+        var hash = Functions.GetSHA256Hash(service.LeaderboardID + "." + score + "." + timestamp + "." + strPlayerID);
 
         var formData = new Dictionary<string, string>
         {
             { "hash", hash },
             { "score", score.ToString() },
-            { "timestamp", timestamp.ToString() },
+            { "timestamp", timestamp.ToString() }
         };
         if (!string.IsNullOrWhiteSpace(sessionKey))
         {
@@ -77,11 +81,12 @@ public static partial class Scores
             formData.Add("opt3", optValue3.Value.ToString());
         }
 
-        return Task.Run(() => Request.ExecuteLeaderboardRequest<PostScoreResponse>(
+        service.AddRequestPerspectiveFormData(requestPerspective, formData);
+
+        return Task.Run(() => Request.ExecuteRequest<PostScoreResponse>(
             path,
             service,
-            formData,
-            requestPerspective
+            formData
         )).Result;
     }
 }

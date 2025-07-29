@@ -2,11 +2,14 @@
 using ConstructServices.Leaderboards.Responses;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ConstructServices.Common;
+using JetBrains.Annotations;
 
 namespace ConstructServices.Leaderboards.Actions;
 
 public static partial class Scores
 {
+    [UsedImplicitly]
     public static GetScoreHistoryResponse GetPlayersScoreHistory(
         this LeaderboardService service,
         string playerID)
@@ -14,15 +17,16 @@ public static partial class Scores
         const string path = "/getscorehistory.json";
         var formData = new Dictionary<string, string>
         {
-            { "playerID", playerID },
+            { "playerID", playerID }
         };
-        return Task.Run(() => Request.ExecuteLeaderboardRequest<GetScoreHistoryResponse>(
+        return Task.Run(() => Request.ExecuteRequest<GetScoreHistoryResponse>(
             path,
             service,
             formData
         )).Result;
     }
         
+    [UsedImplicitly]
     public static GetScoreHistoryResponse GetScoreHistoryOnScoreID(
         this LeaderboardService service,
         string strScoreID)
@@ -40,9 +44,9 @@ public static partial class Scores
         const string path = "/getscorehistory.json";
         var formData = new Dictionary<string, string>
         {
-            { "scoreID", scoreID.ToString() },
+            { "scoreID", scoreID.ToString() }
         };
-        return Task.Run(() => Request.ExecuteLeaderboardRequest<GetScoreHistoryResponse>(
+        return Task.Run(() => Request.ExecuteRequest<GetScoreHistoryResponse>(
             path,
             service,
             formData

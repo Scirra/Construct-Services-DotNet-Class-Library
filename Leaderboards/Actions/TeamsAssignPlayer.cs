@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ConstructServices.Common;
+using JetBrains.Annotations;
 
 namespace ConstructServices.Leaderboards.Actions;
 
 public static partial class Teams
 {
+    [UsedImplicitly]
     public static BaseResponse AssignPlayerToTeam(
         this LeaderboardService service,
         string strTeamID,
@@ -25,7 +27,7 @@ public static partial class Teams
     {
         const string path = "/assignplayertoteam.json";
 
-        return Task.Run(() => Request.ExecuteLeaderboardRequest<BaseResponse>(
+        return Task.Run(() => Request.ExecuteRequest<BaseResponse>(
             path,
             service,
             new Dictionary<string, string>

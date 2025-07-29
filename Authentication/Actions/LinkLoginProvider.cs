@@ -2,10 +2,12 @@
 using ConstructServices.Authentication.Responses;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 
 namespace ConstructServices.Authentication.Actions;
 public static partial class Players
 {
+    [UsedImplicitly]
     public static SignInResponse LinkLoginProvider(
         this AuthenticationService service,
         LoginProvider provider,
@@ -13,7 +15,7 @@ public static partial class Players
     {
         const string path = "/link.json";
 
-        return Task.Run(() => Request.ExecuteAuthenticationRequest<SignInResponse>(
+        return Task.Run(() => Common.Request.ExecuteRequest<SignInResponse>(
             path,
             service,
             new Dictionary<string, string>

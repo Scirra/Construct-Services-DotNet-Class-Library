@@ -1,5 +1,4 @@
-﻿using ConstructServices.Authentication;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -9,7 +8,7 @@ namespace ConstructServices.Common;
 
 internal static class Request
 {
-    internal static async Task<T> ExecuteAuthenticationMultiPartFormRequest<T>(
+    internal static async Task<T> ExecuteMultiPartFormRequest<T>(
         string relativeEndPointPath,
         BaseService service,
         Dictionary<string, string> formData,
@@ -54,22 +53,18 @@ internal static class Request
                         ClientCertificateOptions = ClientCertificateOption.Manual,
                         ServerCertificateCustomValidationCallback = (_, _, _, _) => true
                     };
-                    using (var httpClient = new HttpClient(handler))
+                    using var httpClient = new HttpClient(handler);
+                    using (var response = await httpClient.PostAsync(apiURL, formContent))
                     {
-                        using (var response = await httpClient.PostAsync(apiURL, formContent))
-                        {
-                            json = await response.Content.ReadAsStringAsync();
-                        }
+                        json = await response.Content.ReadAsStringAsync();
                     }
                 }
                 else
                 {
-                    using (var httpClient = new HttpClient())
+                    using var httpClient = new HttpClient();
+                    using (var response = await httpClient.PostAsync(apiURL, formContent))
                     {
-                        using (var response = await httpClient.PostAsync(apiURL, formContent))
-                        {
-                            json = await response.Content.ReadAsStringAsync();
-                        }
+                        json = await response.Content.ReadAsStringAsync();
                     }
                 }
             }
@@ -85,16 +80,27 @@ internal static class Request
         return JsonConvert.DeserializeObject<T>(json);
     }
 
-    internal static async Task<T> ExecuteAuthenticationRequest<T>(
+    internal static async Task<T> ExecuteRequest<T>(
         string relativeEndPointPath,
         BaseService service,
-        Dictionary<string, string> formData) where T : BaseResponse
+        Dictionary<string, string> formData,
+        PaginationOptions paginationOptions = null) where T : BaseResponse
     {
         // Add form data
-        if (formData == null) formData = new Dictionary<string, string>();
+        formData ??= new Dictionary<string, string>();
         if (!string.IsNullOrWhiteSpace(service.APIKey))
             formData.Add("secret", service.APIKey);
         formData.Add("gameID", service.GameID.ToString());
+
+        // Pagination
+        if (paginationOptions != null)
+        {
+            formData.Add("page", paginationOptions.RequestedPage.ToString());
+            if (paginationOptions.RecordsPerPage.HasValue)
+            {
+                formData.Add("perPage", paginationOptions.RecordsPerPage.Value.ToString());
+            }
+        }
 
         // Get URL to query
         string apiURL;
@@ -116,22 +122,18 @@ internal static class Request
                         ClientCertificateOptions = ClientCertificateOption.Manual,
                         ServerCertificateCustomValidationCallback = (_, _, _, _) => true
                     };
-                    using (var httpClient = new HttpClient(handler))
+                    using var httpClient = new HttpClient(handler);
+                    using (var response = await httpClient.PostAsync(apiURL, formContent))
                     {
-                        using (var response = await httpClient.PostAsync(apiURL, formContent))
-                        {
-                            json = await response.Content.ReadAsStringAsync();
-                        }
+                        json = await response.Content.ReadAsStringAsync();
                     }
                 }
                 else
                 {
-                    using (var httpClient = new HttpClient())
+                    using var httpClient = new HttpClient();
+                    using (var response = await httpClient.PostAsync(apiURL, formContent))
                     {
-                        using (var response = await httpClient.PostAsync(apiURL, formContent))
-                        {
-                            json = await response.Content.ReadAsStringAsync();
-                        }
+                        json = await response.Content.ReadAsStringAsync();
                     }
                 }
             }

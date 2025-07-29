@@ -9,6 +9,7 @@ namespace ConstructServices.Authentication.Actions;
 [UsedImplicitly]
 public static partial class Players
 {
+    [UsedImplicitly]
     public static BaseResponse ChangePassword(
         this AuthenticationService service,
         Guid playerID,
@@ -16,16 +17,17 @@ public static partial class Players
     {
         const string path = "/changepassword.json";
 
-        return Task.Run(() => Request.ExecuteAuthenticationRequest<BaseResponse>(
+        return Task.Run(() => Request.ExecuteRequest<BaseResponse>(
             path,
             service,
             new Dictionary<string, string>
             {
                 { "playerID", playerID.ToString() },
-                { "newPassword", newPassword },
+                { "newPassword", newPassword }
             }
         )).Result;
     }
+    [UsedImplicitly]
     public static BaseResponse ChangePassword(
         this AuthenticationService service,
         string sessionKey,
@@ -34,14 +36,14 @@ public static partial class Players
     {
         const string path = "/changepassword.json";
 
-        return Task.Run(() => Request.ExecuteAuthenticationRequest<BaseResponse>(
+        return Task.Run(() => Request.ExecuteRequest<BaseResponse>(
             path,
             service,
             new Dictionary<string, string>
             {
                 { "sessionKey", sessionKey },
                 { "password", currentPassword },
-                { "newPassword", newPassword },
+                { "newPassword", newPassword }
             }
         )).Result;
     }

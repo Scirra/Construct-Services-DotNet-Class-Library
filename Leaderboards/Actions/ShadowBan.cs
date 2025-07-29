@@ -2,41 +2,46 @@
 using ConstructServices.Leaderboards.Responses;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ConstructServices.Common;
+using JetBrains.Annotations;
 
 namespace ConstructServices.Leaderboards.Actions;
 
 public static partial class ShadowBans
 {
+    [UsedImplicitly]
     public static ShadowBanResponse BanPlayerID(
         this LeaderboardService service,
         string playerID)
     {
         const string path = "/shadowban.json";
-        return Task.Run(() => Request.ExecuteLeaderboardRequest<ShadowBanResponse>(
+        return Task.Run(() => Request.ExecuteRequest<ShadowBanResponse>(
             path,
             service,
             new Dictionary<string, string>
             {
-                { "playerID", playerID },
+                { "playerID", playerID }
             }
         )).Result;
     }
 
+    [UsedImplicitly]
     public static ShadowBanResponse BanIPAddress(
         this LeaderboardService service,
         string ipAddress)
     {
         const string path = "/shadowban.json";
-        return Task.Run(() => Request.ExecuteLeaderboardRequest<ShadowBanResponse>(
+        return Task.Run(() => Request.ExecuteRequest<ShadowBanResponse>(
             path,
             service,
             new Dictionary<string, string>
             {
-                { "ipAddress", ipAddress },
+                { "ipAddress", ipAddress }
             }
         )).Result;
     }
         
+    [UsedImplicitly]
     public static ShadowBanResponse BanScoreID(
         this LeaderboardService service,
         string strScoreID)
@@ -53,16 +58,17 @@ public static partial class ShadowBans
     {
         const string path = "/shadowban.json";
 
-        return Task.Run(() => Request.ExecuteLeaderboardRequest<ShadowBanResponse>(
+        return Task.Run(() => Request.ExecuteRequest<ShadowBanResponse>(
             path,
             service,
             new Dictionary<string, string>
             {
-                { "scoreID", scoreID.ToString() },
+                { "scoreID", scoreID.ToString() }
             }
         )).Result;
     }
         
+    [UsedImplicitly]
     public static ShadowBanResponse BanIPHash(
         this LeaderboardService service,
         string strIPHash)
@@ -78,12 +84,12 @@ public static partial class ShadowBans
         int ipHash)
     {
         const string path = "/shadowban.json";
-        return Task.Run(() => Request.ExecuteLeaderboardRequest<ShadowBanResponse>(
+        return Task.Run(() => Request.ExecuteRequest<ShadowBanResponse>(
             path,
             service,
             new Dictionary<string, string>
             {
-                { "ipHash", ipHash.ToString() },
+                { "ipHash", ipHash.ToString() }
             }
         )).Result;
     }

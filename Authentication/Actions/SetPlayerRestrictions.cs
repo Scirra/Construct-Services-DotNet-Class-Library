@@ -18,13 +18,13 @@ public static partial class Players
     {
         const string path = "/setplayerrestrictions.json";
 
-        return Task.Run(() => Request.ExecuteAuthenticationRequest<BaseResponse>(
+        return Task.Run(() => Request.ExecuteRequest<BaseResponse>(
             path,
             service,
             new Dictionary<string, string>
             {
                 { "playerID", playerID.ToString() },
-                { "restrictedActions", string.Join(",", actions.Select(c=> (int)c)) },
+                { "restrictedActions", string.Join(",", actions.Select(c=> (int)c)) }
             }
         )).Result;
     }

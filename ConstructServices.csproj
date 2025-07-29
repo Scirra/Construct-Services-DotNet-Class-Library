@@ -74,7 +74,6 @@
     <Compile Include="Authentication\Objects\Player.cs" />
     <Compile Include="Authentication\Objects\PlayerLoginProvider.cs" />
     <Compile Include="Authentication\Objects\Session.cs" />
-    <Compile Include="Authentication\Request.cs" />
     <Compile Include="Authentication\Responses\GetLoginProvidersResponse.cs" />
     <Compile Include="Authentication\Responses\GetPlayerResponse.cs" />
     <Compile Include="Authentication\Responses\GetPlayersResponse.cs" />
@@ -87,8 +86,6 @@
     <Compile Include="CloudSave\Config.cs" />
     <Compile Include="Common\BaseService.cs" />
     <Compile Include="Common\Functions.cs" />
-    <Compile Include="Common\GenericMethodResult.cs" />
-    <Compile Include="Common\ObjectReturnMethodResult.cs" />
     <Compile Include="Common\Pagination.cs" />
     <Compile Include="Common\Request.cs" />
     <Compile Include="Common\Validators.cs" />
@@ -124,8 +121,7 @@
     <Compile Include="Leaderboards\Objects\Team.cs" />
     <Compile Include="Leaderboards\Objects\TeamPlayer.cs" />
     <Compile Include="Leaderboards\Objects\Tier.cs" />
-    <Compile Include="Leaderboards\PaginationOptions.cs" />
-    <Compile Include="Leaderboards\Request.cs" />
+    <Compile Include="Common\PaginationOptions.cs" />
     <Compile Include="Leaderboards\RequestPerspective.cs" />
     <Compile Include="Common\BaseResponse.cs" />
     <Compile Include="Leaderboards\Responses\CreateTeamResponse.cs" />

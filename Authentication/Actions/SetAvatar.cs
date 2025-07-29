@@ -3,11 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 
 namespace ConstructServices.Authentication.Actions;
 
 public static partial class Players
 {
+    [UsedImplicitly]
     public static BaseResponse SetAvatar(
         this AuthenticationService service,
         string sessionKey,
@@ -15,7 +17,7 @@ public static partial class Players
     {
         const string path = "/setavatar.json";
 
-        return Task.Run(() => Request.ExecuteAuthenticationRequest<BaseResponse>(
+        return Task.Run(() => Request.ExecuteRequest<BaseResponse>(
             path,
             service,
             new Dictionary<string, string>
@@ -25,6 +27,8 @@ public static partial class Players
             }
         )).Result;
     }
+
+    [UsedImplicitly]
     public static BaseResponse SetAvatar(
         this AuthenticationService service,
         string sessionKey,
@@ -32,7 +36,7 @@ public static partial class Players
     {
         const string path = "/setavatar.json";
 
-        return Task.Run(() => Request.ExecuteAuthenticationRequest<BaseResponse>(
+        return Task.Run(() => Request.ExecuteRequest<BaseResponse>(
             path,
             service,
             new Dictionary<string, string>
@@ -42,13 +46,15 @@ public static partial class Players
             }
         )).Result;
     }
+
+    [UsedImplicitly]
     public static BaseResponse SetAvatar(
         this AuthenticationService service,
         string sessionKey,
         byte[] avatarBytes)
     {
         const string path = "/setavatar.json";
-        return Task.Run(() => Request.ExecuteAuthenticationMultiPartFormRequest<BaseResponse>(
+        return Task.Run(() => Request.ExecuteMultiPartFormRequest<BaseResponse>(
             path,
             service,
             new Dictionary<string, string>

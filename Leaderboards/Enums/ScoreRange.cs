@@ -1,10 +1,12 @@
-﻿namespace ConstructServices.Leaderboards.Enums;
+﻿using JetBrains.Annotations;
+
+namespace ConstructServices.Leaderboards.Enums;
 
 public enum ScoreRange
 {
-    All,
-    Daily,
-    Weekly,
-    Monthly,
-    Yearly
+    [UsedImplicitly] All,
+    [UsedImplicitly] Daily,
+    [UsedImplicitly] Weekly,
+    [UsedImplicitly] Monthly,
+    [UsedImplicitly] Yearly
 }

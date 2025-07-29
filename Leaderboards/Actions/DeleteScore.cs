@@ -2,26 +2,30 @@
 using ConstructServices.Leaderboards.Responses;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ConstructServices.Common;
+using JetBrains.Annotations;
 
 namespace ConstructServices.Leaderboards.Actions;
 
 public static partial class Scores
 {
+    [UsedImplicitly]
     public static ShadowBanResponse DeleteAllPlayerIDScores(
         this LeaderboardService service,
         string playerID)
     {
         const string path = "/deletescores.json";
-        return Task.Run(() => Request.ExecuteLeaderboardRequest<ShadowBanResponse>(
+        return Task.Run(() => Request.ExecuteRequest<ShadowBanResponse>(
             path,
             service,
             new Dictionary<string, string>
             {
-                { "playerID", playerID },
+                { "playerID", playerID }
             }
         )).Result;
     }
         
+    [UsedImplicitly]
     public static ShadowBanResponse DeleteScoreByID(
         this LeaderboardService service,
         string strScoreID)
@@ -38,12 +42,12 @@ public static partial class Scores
     {
         const string path = "/deletescores.json";
 
-        return Task.Run(() => Request.ExecuteLeaderboardRequest<ShadowBanResponse>(
+        return Task.Run(() => Request.ExecuteRequest<ShadowBanResponse>(
             path,
             service,
             new Dictionary<string, string>
             {
-                { "scoreID", scoreID.ToString() },
+                { "scoreID", scoreID.ToString() }
             }
         )).Result;
     }

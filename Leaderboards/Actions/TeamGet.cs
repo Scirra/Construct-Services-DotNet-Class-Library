@@ -2,11 +2,14 @@
 using ConstructServices.Leaderboards.Responses;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ConstructServices.Common;
+using JetBrains.Annotations;
 
 namespace ConstructServices.Leaderboards.Actions;
 
 public static partial class Teams
 {
+    [UsedImplicitly]
     public static GetTeamResponse GetTeam(
         this LeaderboardService service,
         string strTeamID)
@@ -26,7 +29,7 @@ public static partial class Teams
         {
             { "teamID", teamID.ToString() }
         };
-        return Task.Run(() => Request.ExecuteLeaderboardRequest<GetTeamResponse>(
+        return Task.Run(() => Request.ExecuteRequest<GetTeamResponse>(
             path,
             service,
             formData

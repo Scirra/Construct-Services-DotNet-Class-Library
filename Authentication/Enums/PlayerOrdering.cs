@@ -1,9 +1,11 @@
-﻿namespace ConstructServices.Authentication.Enums;
+﻿using JetBrains.Annotations;
+
+namespace ConstructServices.Authentication.Enums;
 
 public enum PlayerOrdering
 {
-    AZ,
-    ZA,
-    Newest,
-    Oldest
+    [UsedImplicitly] AZ,
+    [UsedImplicitly] ZA,
+    [UsedImplicitly] Newest,
+    [UsedImplicitly] Oldest
 }

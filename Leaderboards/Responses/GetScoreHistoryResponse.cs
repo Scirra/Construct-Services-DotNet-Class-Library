@@ -1,10 +1,11 @@
-﻿using ConstructServices.Leaderboards.Objects;
+﻿using ConstructServices.Authentication.Objects;
+using ConstructServices.Common;
+using ConstructServices.Leaderboards.Objects;
+using JetBrains.Annotations;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using ConstructServices.Authentication.Objects;
-using ConstructServices.Common;
 
 namespace ConstructServices.Leaderboards.Responses;
 
@@ -21,6 +22,7 @@ public class GetScoreHistoryResponse : BaseResponse
 
     [JsonProperty(PropertyName = "formattingCulture")]
     private string FormattingCulture_ { get; set; }
+    [UsedImplicitly] 
     public CultureInfo FormattingCulture => new(FormattingCulture_);
 
     [JsonProperty(PropertyName = "scoreHistory")]

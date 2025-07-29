@@ -2,12 +2,6 @@
 
 internal static class Config
 {
-    internal static string APIDomain
-    {
-        get
-        {
-            if (!GlobalConfig.DevMode) return "https://cloudsave.construct.net";
-            return "https://cloudsave.constructdev.net";
-        }
-    }
+    internal static string APIDomain => 
+        !GlobalConfig.DevMode ? "https://cloudsave.construct.net" : "https://cloudsave.constructdev.net";
 }

@@ -9,23 +9,20 @@ internal static class Validators
     internal static bool IsValidJson(this string strInput)
     {
         strInput = strInput.Trim();
-        if ((strInput.StartsWith("{") && strInput.EndsWith("}")) || //For object
-            (strInput.StartsWith("[") && strInput.EndsWith("]"))) //For array
+        if ((!strInput.StartsWith("{") || !strInput.EndsWith("}")) && //For object
+            (!strInput.StartsWith("[") || !strInput.EndsWith("]"))) return false; //For array
+        try
         {
-            try
-            {
-                var obj = JToken.Parse(strInput);
-                return true;
-            }
-            catch (JsonReaderException)
-            {
-                return false;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            JToken.Parse(strInput);
+            return true;
         }
-        return false;
+        catch (JsonReaderException)
+        {
+            return false;
+        }
+        catch (Exception)
+        {
+            return false;
+        }
     }
 }

@@ -2,11 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ConstructServices.Common;
+using JetBrains.Annotations;
 
 namespace ConstructServices.Leaderboards.Actions;
 
 public static partial class Scores
 {
+    [UsedImplicitly]
     public static PostScoreResponse AdjustExistingScore(
         this LeaderboardService service,
         Guid scoreID,
@@ -17,6 +20,8 @@ public static partial class Scores
     {
         return DoAdjustExistingScore(service, null, scoreID, adjustment, optValue1, optValue2, optValue3);
     }
+
+    [UsedImplicitly]
     public static PostScoreResponse AdjustExistingScore(
         this LeaderboardService service,
         string sessionKey,
@@ -40,7 +45,7 @@ public static partial class Scores
         const string path = "/adjustscore.json";
 
         var timestamp = ((DateTimeOffset)DateTime.Now.ToUniversalTime()).ToUnixTimeSeconds();
-        var hash = Common.Functions.GetSHA256Hash(service.LeaderboardID + "." + adjustment + "." + scoreID + "." + timestamp + ".");
+        var hash = Functions.GetSHA256Hash(service.LeaderboardID + "." + adjustment + "." + scoreID + "." + timestamp + ".");
 
         var formData = new Dictionary<string, string>
         {
@@ -62,7 +67,7 @@ public static partial class Scores
         {
             formData.Add("opt3", optValue3.ToString());
         }
-        return Task.Run(() => Request.ExecuteLeaderboardRequest<PostScoreResponse>(
+        return Task.Run(() => Request.ExecuteRequest<PostScoreResponse>(
             path,
             service,
             formData
