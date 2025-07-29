@@ -165,6 +165,7 @@
     <Compile Include="Ratings\Actions\EditRatingSlot.cs" />
     <Compile Include="Ratings\Actions\GetRatingSlots.cs" />
     <Compile Include="Ratings\Actions\Rate.cs" />
+    <Compile Include="Ratings\Enums\RatableThing.cs" />
     <Compile Include="Ratings\Objects\RatingAggregate.cs" />
     <Compile Include="Ratings\Objects\RatingSlot.cs" />
     <Compile Include="Ratings\Responses\RateResponse.cs" />
