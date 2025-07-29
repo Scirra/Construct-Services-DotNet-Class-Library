@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ConstructServices.CloudSave.Objects;
 
 namespace ConstructServices.CloudSave.Actions;
 
@@ -80,4 +81,16 @@ public static partial class GameBuckets
             paginationOptions
         )).Result;
     }
+
+    /// <summary>
+    /// Return paginated cloud saves within a bucket
+    /// </summary>
+    [UsedImplicitly]
+    public static CloudSavesResponse GetCloudSaves(
+        this CloudSaveService service,
+        GameBucket bucket,
+        PaginationOptions paginationOptions,
+        Enums.GetBucketCloudSaveSortMethod? orderBy = null,
+        GetBucketCloudSaveFilters filters = null)
+        => GetCloudSaves(service, bucket.ID, paginationOptions, orderBy, filters);
 }
