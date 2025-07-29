@@ -2,10 +2,10 @@
 using JetBrains.Annotations;
 using System;
 
-namespace ConstructServices.Authentication;
+namespace ConstructServices.CloudSave;
 
 [UsedImplicitly]
-public class AuthenticationService : BaseService
+public class CloudSaveService : BaseService
 {
     internal Guid GameID { get; private set; }
 
@@ -14,7 +14,7 @@ public class AuthenticationService : BaseService
     /// </summary>
     /// <param name="gameID">Game ID service is for</param>
     /// <param name="aPIKey">API key</param>
-    public AuthenticationService(Guid gameID, string aPIKey) : base(aPIKey)
+    public CloudSaveService(Guid gameID, string aPIKey) : base(aPIKey)
     {
         GameID = gameID;
     }
@@ -24,7 +24,7 @@ public class AuthenticationService : BaseService
     /// </summary>
     /// <param name="strGameID">Game ID service is for</param>
     /// <param name="aPIKey">API key</param>
-    public AuthenticationService(string strGameID, string aPIKey) : base(aPIKey)
+    public CloudSaveService(string strGameID, string aPIKey) : base(aPIKey)
     {
         if(!Guid.TryParse(strGameID, out var gameID) || gameID == Guid.Empty)
         {
@@ -37,7 +37,7 @@ public class AuthenticationService : BaseService
     /// Create a new instance of auth service
     /// </summary>
     /// <param name="gameID">Game ID service is for</param>
-    public AuthenticationService(Guid gameID)
+    public CloudSaveService(Guid gameID)
     {
         GameID = gameID;
     }

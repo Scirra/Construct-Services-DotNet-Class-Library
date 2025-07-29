@@ -83,6 +83,8 @@
     <Compile Include="Authentication\Responses\RegisterPlayerResponse.cs" />
     <Compile Include="Authentication\Responses\SignInPollResponse.cs" />
     <Compile Include="Authentication\Responses\SignInResponse.cs" />
+    <Compile Include="CloudSave\CloudSaveService.cs" />
+    <Compile Include="Common\BaseService.cs" />
     <Compile Include="Common\Functions.cs" />
     <Compile Include="Common\GenericMethodResult.cs" />
     <Compile Include="Common\ObjectReturnMethodResult.cs" />
