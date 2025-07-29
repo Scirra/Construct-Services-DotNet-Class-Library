@@ -1,15 +1,17 @@
-﻿namespace ConstructServices.CloudSave.Enums;
+﻿using JetBrains.Annotations;
+
+namespace ConstructServices.CloudSave.Enums;
 
 public enum GetPlayerCloudSaveFilters
 {
-    Key,
-    Name
+    [UsedImplicitly] Key,
+    [UsedImplicitly] Name
 }
 public enum GetBucketCloudSaveFilters
 {
-    Key,
-    Name,
-    PlayerIDs,
-    Rating,
-    TotalRatings
+    [UsedImplicitly] Key,
+    [UsedImplicitly] Name,
+    [UsedImplicitly] PlayerIDs,
+    [UsedImplicitly] Rating,
+    [UsedImplicitly] TotalRatings
 }

@@ -1,22 +1,24 @@
-﻿namespace ConstructServices.CloudSave.Enums;
+﻿using JetBrains.Annotations;
+
+namespace ConstructServices.CloudSave.Enums;
 
 public enum GetPlayerCloudSaveSortMethod
 {
-    NameAZ,
-    NameZA,
-    KeyAZ,
-    KeyZA,
-    Newest,
-    Oldest
+    [UsedImplicitly] NameAZ,
+    [UsedImplicitly] NameZA,
+    [UsedImplicitly] KeyAZ,
+    [UsedImplicitly] KeyZA,
+    [UsedImplicitly] Newest,
+    [UsedImplicitly] Oldest
 }
 public enum GetBucketCloudSaveSortMethod
 {
-    NameAZ,
-    NameZA,
-    KeyAZ,
-    KeyZA,
-    Newest,
-    Oldest,
-    HighestRated,
-    LowestRated
+    [UsedImplicitly] NameAZ,
+    [UsedImplicitly] NameZA,
+    [UsedImplicitly] KeyAZ,
+    [UsedImplicitly] KeyZA,
+    [UsedImplicitly] Newest,
+    [UsedImplicitly] Oldest,
+    [UsedImplicitly] HighestRated,
+    [UsedImplicitly] LowestRated
 }

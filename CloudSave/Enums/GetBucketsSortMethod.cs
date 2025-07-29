@@ -1,11 +1,13 @@
-﻿namespace ConstructServices.CloudSave.Enums;
+﻿using JetBrains.Annotations;
+
+namespace ConstructServices.CloudSave.Enums;
 
 public enum GetBucketsSortMethod
 {
-    AZ,
-    ZA,
-    MostBlobs,
-    LeastBlobs,
-    MostData,
-    LeastData
+    [UsedImplicitly] AZ,
+    [UsedImplicitly] ZA,
+    [UsedImplicitly] MostBlobs,
+    [UsedImplicitly] LeastBlobs,
+    [UsedImplicitly] MostData,
+    [UsedImplicitly] LeastData
 }

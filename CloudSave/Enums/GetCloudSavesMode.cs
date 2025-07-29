@@ -1,7 +1,9 @@
-﻿namespace ConstructServices.CloudSave.Enums;
+﻿using JetBrains.Annotations;
+
+namespace ConstructServices.CloudSave.Enums;
 
 public enum GetCloudSavesMode
 {
-    Bucket,
-    Player
+    [UsedImplicitly] Bucket,
+    [UsedImplicitly] Player
 }
