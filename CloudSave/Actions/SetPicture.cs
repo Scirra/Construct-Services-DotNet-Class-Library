@@ -1,64 +1,24 @@
 ﻿using ConstructServices.CloudSave.Responses;
 using ConstructServices.Common;
-using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 
 namespace ConstructServices.CloudSave.Actions;
 
 public static partial class CloudSaves
 {
     /// <summary>
-    /// Set a cloud saves picture by URL
+    /// Set a cloud saves picture
     /// </summary>
     [UsedImplicitly]
-    public static BaseResponse SetPictureByURL(CloudSaveService service, string sessionKey, Guid cloudSaveID, string pictureURL)
-        => SetPicture(service, sessionKey, cloudSaveID, null, pictureURL, null);
-
-    /// <summary>
-    /// Set a cloud saves picture by URL
-    /// </summary>
-    [UsedImplicitly]
-    public static BaseResponse SetPictureByURL(CloudSaveService service, string sessionKey, Objects.CloudSave cloudSave, string pictureURL)
-        => SetPicture(service, sessionKey, cloudSave.ID, null, pictureURL, null);
-
-    /// <summary>
-    /// Set a cloud saves picture by base 64 encoded picture data
-    /// </summary>
-    [UsedImplicitly]
-    public static BaseResponse SetPictureByBase64(CloudSaveService service, string sessionKey, Guid cloudSaveID, string base64PictureData)
-        => SetPicture(service, sessionKey, cloudSaveID, base64PictureData, null, null);
-
-    /// <summary>
-    /// Set a cloud saves picture by URL
-    /// </summary>
-    [UsedImplicitly]
-    public static BaseResponse SetPictureByBase64(CloudSaveService service, string sessionKey, Objects.CloudSave cloudSave, string base64PictureData)
-        => SetPicture(service, sessionKey, cloudSave.ID, base64PictureData, null, null);
-
-    /// <summary>
-    /// Set a cloud saves picture by binary picture data
-    /// </summary>
-    [UsedImplicitly]
-    public static BaseResponse SetPicture(CloudSaveService service, string sessionKey, Guid cloudSaveID, byte[] picture)
-        => SetPicture(service, sessionKey, cloudSaveID, null, null, picture);
-
-    /// <summary>
-    /// Set a cloud saves picture by binary picture data
-    /// </summary>
-    [UsedImplicitly]
-    public static BaseResponse SetPicture(CloudSaveService service, string sessionKey, Objects.CloudSave cloudSave, byte[] picture)
-        => SetPicture(service, sessionKey, cloudSave.ID, null, null, picture);
-
-    private static BaseResponse SetPicture(
+    public static BaseResponse SetPicture(
         CloudSaveService service,
         string sessionKey,
         Guid cloudSaveID,
-        string base64PictureData,
-        string pictureURL,
-        byte[] postedFile)
+        PictureData picture)
     {
         const string path = "/setpicture.json";
 
@@ -72,20 +32,20 @@ public static partial class CloudSaves
         }
 
         // Picture by data
-        if (postedFile != null)
+        if (picture.Bytes != null)
         {
             return Task.Run(() => Request.ExecuteMultiPartFormRequest<BaseResponse>(
                 path,
                 service,
                 formData,
-                [new ByteArrayContent(postedFile)]
+                new Dictionary<string, ByteArrayContent>{ {"picture", new ByteArrayContent(picture.Bytes) } }
             )).Result;
         }
 
         // By URL
-        if (!string.IsNullOrWhiteSpace(pictureURL))
+        if (picture.URL != null)
         {
-            formData.Add("pictureURL", pictureURL);
+            formData.Add("pictureURL", picture.URL.ToString());
             return Task.Run(() => Request.ExecuteRequest<CloudSaveResponse>(
                 path,
                 service,
@@ -94,9 +54,9 @@ public static partial class CloudSaves
         }
 
         // By base 64
-        if (!string.IsNullOrWhiteSpace(base64PictureData))
+        if (!string.IsNullOrWhiteSpace(picture.Base64))
         {
-            formData.Add("picture", base64PictureData);
+            formData.Add("picture", picture.Base64);
             return Task.Run(() => Request.ExecuteRequest<CloudSaveResponse>(
                 path,
                 service,

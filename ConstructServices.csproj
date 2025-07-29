@@ -114,6 +114,7 @@
     <Compile Include="Common\BaseService.cs" />
     <Compile Include="Common\Functions.cs" />
     <Compile Include="Common\Pagination.cs" />
+    <Compile Include="Common\PictureData.cs" />
     <Compile Include="Common\Request.cs" />
     <Compile Include="Common\Validators.cs" />
     <Compile Include="GlobalConfig.cs" />

@@ -12,7 +12,7 @@ internal static class Request
         string relativeEndPointPath,
         BaseService service,
         Dictionary<string, string> formData,
-        List<ByteArrayContent> files) where T : BaseResponse
+        Dictionary<string, ByteArrayContent> files) where T : BaseResponse
     {
         // Get URL to query
         string apiURL;
@@ -39,7 +39,12 @@ internal static class Request
             var i = 0;
             foreach (var file in files)
             {
-                formContent.Add(file, "file" + i, "file" + i);
+                var fileName = "file" + i;
+                if (!string.IsNullOrWhiteSpace(file.Key))
+                {
+                    fileName = file.Key;
+                }
+                formContent.Add(file.Value, fileName, fileName);
                 i++;
             }
 
