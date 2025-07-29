@@ -84,6 +84,10 @@
     <Compile Include="Authentication\Responses\SignInResponse.cs" />
     <Compile Include="CloudSave\CloudSaveService.cs" />
     <Compile Include="CloudSave\Config.cs" />
+    <Compile Include="CloudSave\Enums\GetBucketsSortMethod.cs" />
+    <Compile Include="CloudSave\Enums\GetCloudSaveFilters.cs" />
+    <Compile Include="CloudSave\Enums\GetCloudSavesMode.cs" />
+    <Compile Include="CloudSave\Enums\GetCloudSavesOrderMethod.cs" />
     <Compile Include="Common\BaseService.cs" />
     <Compile Include="Common\Functions.cs" />
     <Compile Include="Common\Pagination.cs" />
@@ -154,6 +158,8 @@
     <Content Include="LICENSE.txt" />
     <None Include="VERSION" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="CloudSave\Objects\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
