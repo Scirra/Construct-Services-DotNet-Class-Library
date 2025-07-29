@@ -84,11 +84,13 @@
     <Compile Include="Authentication\Responses\SignInPollResponse.cs" />
     <Compile Include="Authentication\Responses\SignInResponse.cs" />
     <Compile Include="CloudSave\CloudSaveService.cs" />
+    <Compile Include="CloudSave\Config.cs" />
     <Compile Include="Common\BaseService.cs" />
     <Compile Include="Common\Functions.cs" />
     <Compile Include="Common\GenericMethodResult.cs" />
     <Compile Include="Common\ObjectReturnMethodResult.cs" />
     <Compile Include="Common\Pagination.cs" />
+    <Compile Include="Common\Request.cs" />
     <Compile Include="Common\Validators.cs" />
     <Compile Include="GlobalConfig.cs" />
     <Compile Include="Leaderboards\Actions\AdjustScore.cs" />

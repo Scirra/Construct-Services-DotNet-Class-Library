@@ -1,6 +1,6 @@
 ﻿namespace ConstructServices.Authentication;
 
-internal class Config
+internal static class Config
 {
     internal static string APIDomain
     {
