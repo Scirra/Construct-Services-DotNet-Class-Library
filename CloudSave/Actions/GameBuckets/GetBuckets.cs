@@ -13,7 +13,7 @@ public static partial class GameBuckets
     /// Get paginated buckets for a game
     /// </summary>
     [UsedImplicitly]
-    public static BucketsResponse Get(
+    public static BucketsResponse GetBuckets(
         this CloudSaveService service,
         GetBucketsSortMethod sortBy,
         PaginationOptions paginationOptions)

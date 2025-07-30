@@ -13,7 +13,7 @@ public static partial class GameBuckets
     /// Delete a bucket and all it's contained data
     /// </summary>
     [UsedImplicitly]
-    public static BucketResponse Create(
+    public static BucketResponse CreateBucket(
         this CloudSaveService service,
         CloudSaveGameBucketAccessMode accessMode,
         string bucketName,

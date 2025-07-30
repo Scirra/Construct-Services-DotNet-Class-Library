@@ -14,7 +14,7 @@ public static partial class GameBuckets
     /// Edit a buckets properties.
     /// </summary>
     [UsedImplicitly]
-    public static BaseResponse Edit(
+    public static BaseResponse EditBucket(
         this CloudSaveService service,
         Guid bucketID,
         CloudSaveGameBucketAccessMode? newAccessMode,
@@ -66,7 +66,7 @@ public static partial class GameBuckets
     /// Edit a buckets properties.
     /// </summary>
     [UsedImplicitly]
-    public static BaseResponse Edit(
+    public static BaseResponse EditBucket(
         this CloudSaveService service,
         GameBucket bucket,
         CloudSaveGameBucketAccessMode? newAccessMode,
@@ -75,6 +75,6 @@ public static partial class GameBuckets
         uint? newMaxBlobs = null,
         uint? newMaxBlobSizeBytes = null,
         uint? newMaxBlobsPerPlayer = null)
-        => Edit(service, bucket.ID, newAccessMode, newBucketName, newAllowRatings, newMaxBlobs, newMaxBlobSizeBytes,
+        => EditBucket(service, bucket.ID, newAccessMode, newBucketName, newAllowRatings, newMaxBlobs, newMaxBlobSizeBytes,
             newMaxBlobsPerPlayer);
 }

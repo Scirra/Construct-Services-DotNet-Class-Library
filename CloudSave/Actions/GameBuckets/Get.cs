@@ -13,7 +13,7 @@ public static partial class GameBuckets
     /// Get a bucket by its ID.  Doesn't return cloud saves in bucket, just the bucket itself.
     /// </summary>
     [UsedImplicitly]
-    public static BucketResponse Get(
+    public static BucketResponse GetBucket(
         this CloudSaveService service,
         Guid bucketID)
     {
