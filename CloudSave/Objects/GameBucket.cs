@@ -33,7 +33,7 @@ public class GameBucket
     public int MaxBlobs { get; private set; }
 
     [JsonProperty(PropertyName = "maxBlobsPerPlayer")]
-    public short MaxBlobsPerPlayer { get; private set; }
+    public short? MaxBlobsPerPlayer { get; private set; }
 
     public GameBucket()
     {
