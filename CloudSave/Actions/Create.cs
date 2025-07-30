@@ -16,7 +16,7 @@ public static partial class CloudSaves
     /// </summary>
     [UsedImplicitly]
     public static CloudSaveResponse Create(
-        CloudSaveService service,
+        this CloudSaveService service,
         string sessionKey,
         Guid bucketID,
         byte[] cloudSaveData,
@@ -30,7 +30,7 @@ public static partial class CloudSaves
     /// </summary>
     [UsedImplicitly]
     public static CloudSaveResponse Create(
-        CloudSaveService service,
+        this CloudSaveService service,
         string sessionKey,
         GameBucket bucket,
         byte[] cloudSaveData,
@@ -44,7 +44,7 @@ public static partial class CloudSaves
     /// </summary>
     [UsedImplicitly]
     public static CloudSaveResponse Create(
-        CloudSaveService service,
+        this CloudSaveService service,
         Guid bucketID,
         byte[] cloudSaveData,
         string cloudSaveName,
@@ -57,7 +57,7 @@ public static partial class CloudSaves
     /// </summary>
     [UsedImplicitly]
     public static CloudSaveResponse Create(
-        CloudSaveService service,
+        this CloudSaveService service,
         GameBucket bucket,
         byte[] cloudSaveData,
         string cloudSaveName,
