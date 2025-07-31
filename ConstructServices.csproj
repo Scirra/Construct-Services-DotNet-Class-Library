@@ -86,6 +86,7 @@
     <Compile Include="CloudSave\Actions\GameBuckets\EditRatingSlot.cs" />
     <Compile Include="CloudSave\Actions\GameBuckets\GetRatingSlots.cs" />
     <Compile Include="CloudSave\Actions\DeletePicture.cs" />
+    <Compile Include="CloudSave\Actions\GetBlobBytes.cs" />
     <Compile Include="CloudSave\Actions\SetPicture.cs" />
     <Compile Include="CloudSave\Actions\GameBuckets\Create.cs" />
     <Compile Include="CloudSave\Actions\Create.cs" />

@@ -153,4 +153,52 @@ internal static class Request
         }
         return JsonConvert.DeserializeObject<T>(json);
     }
+    internal static async Task<byte[]> DownloadBytes(
+        Uri absolutePath,
+        BaseService service,
+        string sessionKey = null)
+    {        
+        // Add form data
+        var formData = new Dictionary<string, string>();
+        if (!string.IsNullOrWhiteSpace(service.APIKey))
+            formData.Add("secret", service.APIKey);
+        formData.Add("gameID", service.GameID.ToString());
+        if (!string.IsNullOrWhiteSpace(sessionKey))
+            formData.Add("sessionKey", sessionKey);
+
+        byte[] r;
+        using (var formContent = new FormUrlEncodedContent(formData))
+        {
+            try
+            {
+                // Accept self-signed
+                if (GlobalConfig.DevMode)
+                {
+                    var handler = new HttpClientHandler
+                    {
+                        ClientCertificateOptions = ClientCertificateOption.Manual,
+                        ServerCertificateCustomValidationCallback = (_, _, _, _) => true
+                    };
+                    using var httpClient = new HttpClient(handler);
+                    using (var response = await httpClient.PostAsync(absolutePath, formContent))
+                    {
+                        r = await response.Content.ReadAsByteArrayAsync();
+                    }
+                }
+                else
+                {
+                    using var httpClient = new HttpClient();
+                    using (var response = await httpClient.PostAsync(absolutePath, formContent))
+                    {
+                        r = await response.Content.ReadAsByteArrayAsync();
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        return r;
+    }
 }
