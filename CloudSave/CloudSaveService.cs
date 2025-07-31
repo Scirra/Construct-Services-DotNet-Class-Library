@@ -1,6 +1,7 @@
 ﻿using ConstructServices.Common;
 using JetBrains.Annotations;
 using System;
+using System.Collections.Generic;
 
 namespace ConstructServices.CloudSave;
 
@@ -21,6 +22,10 @@ public class CloudSaveService : BaseService
     /// </summary>
     /// <param name="gameID">Game ID service is for</param>
     public CloudSaveService(Guid gameID) : base(gameID, Config.APIDomain)
+    {
+    }
+
+    internal override void AddServiceSpecificFormData(Dictionary<string, string> formData)
     {
     }
 }

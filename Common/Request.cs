@@ -30,6 +30,7 @@ internal static class Request
             formContent.Add(new StringContent(service.GameID.ToString()), "gameID");
             if (formData != null)
             {
+                service.AddServiceSpecificFormData(formData);
                 foreach (var kvp in formData)
                 {
                     formContent.Add(new StringContent(kvp.Value), kvp.Key);
@@ -96,6 +97,7 @@ internal static class Request
         if (!string.IsNullOrWhiteSpace(service.APIKey))
             formData.Add("secret", service.APIKey);
         formData.Add("gameID", service.GameID.ToString());
+        service.AddServiceSpecificFormData(formData);
 
         // Pagination
         if (paginationOptions != null)
@@ -165,6 +167,7 @@ internal static class Request
         formData.Add("gameID", service.GameID.ToString());
         if (!string.IsNullOrWhiteSpace(sessionKey))
             formData.Add("sessionKey", sessionKey);
+        service.AddServiceSpecificFormData(formData);
 
         byte[] r;
         using (var formContent = new FormUrlEncodedContent(formData))

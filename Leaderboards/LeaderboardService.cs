@@ -53,4 +53,16 @@ public class LeaderboardService : BaseService
             formData.Add("requesterPlayerID", perspective.RequesterPlayerID.Value.ToString());
         }
     }
+
+    internal override void AddServiceSpecificFormData(Dictionary<string, string> formData)
+    {
+        if (!formData.ContainsKey("leaderboardID"))
+        {
+            formData.Add("leaderboardID", LeaderboardID.ToString());
+        }
+        if (!formData.ContainsKey("culture"))
+        {
+            formData.Add("culture", Culture.ToString());
+        }
+    }
 }

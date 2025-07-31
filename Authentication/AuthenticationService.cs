@@ -1,6 +1,9 @@
 ﻿using ConstructServices.Common;
+using ConstructServices.Leaderboards.Objects;
 using JetBrains.Annotations;
 using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace ConstructServices.Authentication;
 
@@ -22,6 +25,10 @@ public class AuthenticationService : BaseService
     /// </summary>
     /// <param name="gameID">Game ID service is for</param>
     public AuthenticationService(Guid gameID) : base(gameID, Config.APIDomain)
+    {
+    }
+
+    internal override void AddServiceSpecificFormData(Dictionary<string, string> formData)
     {
     }
 }
