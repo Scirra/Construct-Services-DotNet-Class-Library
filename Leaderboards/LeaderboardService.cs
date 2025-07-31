@@ -60,7 +60,7 @@ public class LeaderboardService : BaseService
         {
             formData.Add("leaderboardID", LeaderboardID.ToString());
         }
-        if (!formData.ContainsKey("culture"))
+        if (Culture != null && !formData.ContainsKey("culture"))
         {
             formData.Add("culture", Culture.ToString());
         }
