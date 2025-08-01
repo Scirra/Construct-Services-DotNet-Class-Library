@@ -107,6 +107,7 @@
     <Compile Include="CloudSave\Enums\GetCloudSavesOrderMethod.cs" />
     <Compile Include="CloudSave\Objects\CloudSave.cs" />
     <Compile Include="CloudSave\Objects\GameBucket.cs" />
+    <Compile Include="CloudSave\Objects\Rating.cs" />
     <Compile Include="CloudSave\Responses\BucketResponse.cs" />
     <Compile Include="CloudSave\Responses\BucketsResponse.cs" />
     <Compile Include="CloudSave\Responses\CloudSaveResponse.cs" />
