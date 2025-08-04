@@ -2,7 +2,7 @@
 
 namespace ConstructServices.Ratings.Objects;
 
-public class RatingSlot
+public class RatingDimension
 {
     [JsonProperty(PropertyName = "id")] 
     public string ID { get; set; }
@@ -19,7 +19,7 @@ public class RatingSlot
     [JsonProperty(PropertyName = "rating")]
     public RatingAggregate Rating { get; set; }
 
-    public RatingSlot()
+    public RatingDimension()
     {
     }
 }

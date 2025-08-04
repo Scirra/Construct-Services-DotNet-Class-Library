@@ -118,6 +118,7 @@
     <Compile Include="Common\Pagination.cs" />
     <Compile Include="Common\PictureData.cs" />
     <Compile Include="Common\Request.cs" />
+    <Compile Include="Common\Thing.cs" />
     <Compile Include="Common\Validators.cs" />
     <Compile Include="GlobalConfig.cs" />
     <Compile Include="Leaderboards\Actions\AdjustScore.cs" />
@@ -171,11 +172,10 @@
     <Compile Include="Ratings\Actions\EditRatingSlot.cs" />
     <Compile Include="Ratings\Actions\GetRatingSlots.cs" />
     <Compile Include="Ratings\Actions\Rate.cs" />
-    <Compile Include="Ratings\Enums\RatableThing.cs" />
     <Compile Include="Ratings\Objects\RatingAggregate.cs" />
-    <Compile Include="Ratings\Objects\RatingSlot.cs" />
+    <Compile Include="Ratings\Objects\RatingDimension.cs" />
     <Compile Include="Ratings\Responses\RateResponse.cs" />
-    <Compile Include="Ratings\Responses\SlotResponse.cs" />
+    <Compile Include="Ratings\Responses\DimensionResponse.cs" />
     <Compile Include="Ratings\Responses\SlotsResponse.cs" />
   </ItemGroup>
   <ItemGroup>

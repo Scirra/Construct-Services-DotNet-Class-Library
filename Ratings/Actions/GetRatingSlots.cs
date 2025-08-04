@@ -1,5 +1,4 @@
 ﻿using ConstructServices.Common;
-using ConstructServices.Ratings.Enums;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -12,10 +11,10 @@ public static partial class Rating
     /// <summary>
     /// Get all rating slots
     /// </summary>
-    internal static SlotsResponse GetSlots(
+    internal static DimensionsResponse GetSlots(
         this BaseService service,
         string apiEndPointPath,
-        RatableThing ratableThing,
+        Thing ratableThing,
         Guid thingID)
     {
         var formData = new Dictionary<string, string>
@@ -23,7 +22,7 @@ public static partial class Rating
             { "thingTypeID", ((byte)ratableThing).ToString()},
             { "thingID", thingID.ToString()}
         };
-        return Task.Run(() => Request.ExecuteRequest<SlotsResponse>(
+        return Task.Run(() => Request.ExecuteRequest<DimensionsResponse>(
             apiEndPointPath,
             service,
             formData

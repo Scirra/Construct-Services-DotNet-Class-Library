@@ -2,32 +2,31 @@
 using ConstructServices.CloudSave.Objects;
 using ConstructServices.Common;
 using JetBrains.Annotations;
-using ConstructServices.Ratings.Enums;
 
 namespace ConstructServices.CloudSave.Actions;
 
 public static partial class GameBuckets
 {
     /// <summary>
-    /// Delete a rating slot for a bucket
+    /// Delete a rating dimension for a bucket
     /// </summary>
     [UsedImplicitly]
-    public static BaseResponse DeleteRatingSlot(
+    public static BaseResponse DeleteRatingDimension(
         this CloudSaveService service,
         Guid bucketID,
-        string slotID)
+        string dimensionID)
     {
-        const string path = "/bucketdeleteratingslot.json";
-        return Ratings.Actions.Rating.DeleteSlot(service, path, RatableThing.CloudSaveBlob, bucketID, slotID);
+        const string path = "/bucketdeleteratingsdimension.json";
+        return Ratings.Actions.Rating.DeleteDimension(service, path, Thing.CloudSaveBlob, bucketID, dimensionID);
     }
 
     /// <summary>
-    /// Delete a rating slot for a bucket
+    /// Delete a rating dimension for a bucket
     /// </summary>
     [UsedImplicitly]
-    public static BaseResponse DeleteRatingSlot(
+    public static BaseResponse DeleteRatingDimension(
         this CloudSaveService service,
         GameBucket bucket,
-        string slotID) 
-        => DeleteRatingSlot(service, bucket.ID, slotID);
+        string dimensionID) 
+        => DeleteRatingDimension(service, bucket.ID, dimensionID);
 }

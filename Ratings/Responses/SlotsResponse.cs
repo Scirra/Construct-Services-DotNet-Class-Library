@@ -4,15 +4,15 @@ using System.Collections.Generic;
 
 namespace ConstructServices.Ratings.Responses;
 
-public class SlotsResponse : BaseResponse
+public class DimensionsResponse : BaseResponse
 {
-    [JsonProperty(PropertyName = "slots")]
-    public List<Objects.RatingSlot> Slots { get; set; }
+    [JsonProperty(PropertyName = "dimensions")]
+    public List<Objects.RatingDimension> Dimensions { get; set; }
 
-    public SlotsResponse()
+    public DimensionsResponse()
     {
     }
-    public SlotsResponse(string errorMessage, bool shouldRetry = false) : base(errorMessage, shouldRetry)
+    public DimensionsResponse(string errorMessage, bool shouldRetry = false) : base(errorMessage, shouldRetry)
     {
     }
 }

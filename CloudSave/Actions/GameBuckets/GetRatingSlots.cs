@@ -1,5 +1,5 @@
 ﻿using ConstructServices.CloudSave.Objects;
-using ConstructServices.Ratings.Enums;
+using ConstructServices.Common;
 using ConstructServices.Ratings.Responses;
 using JetBrains.Annotations;
 using System;
@@ -12,19 +12,19 @@ public static partial class GameBuckets
     /// Edit a rating slot for a bucket
     /// </summary>
     [UsedImplicitly]
-    public static SlotsResponse GetRatingSlots(
+    public static DimensionsResponse GetRatingSlots(
         this CloudSaveService service,
         Guid bucketID)
     {
         const string path = "/bucketgetratingslots.json";
-        return Ratings.Actions.Rating.GetSlots(service, path, RatableThing.CloudSaveBlob, bucketID);
+        return Ratings.Actions.Rating.GetSlots(service, path, Thing.CloudSaveBlob, bucketID);
     }
 
     /// <summary>
     /// Edit a rating slot for a bucket
     /// </summary>
     [UsedImplicitly]
-    public static SlotsResponse GetRatingSlots(
+    public static DimensionsResponse GetRatingSlots(
         this CloudSaveService service,
         GameBucket bucket)
         => GetRatingSlots(service, bucket.ID);

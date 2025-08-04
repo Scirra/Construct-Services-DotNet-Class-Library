@@ -1,5 +1,4 @@
 ﻿using ConstructServices.Common;
-using ConstructServices.Ratings.Enums;
 using ConstructServices.Ratings.Responses;
 using System;
 using System.Collections.Generic;
@@ -12,10 +11,10 @@ public static partial class Rating
     /// <summary>
     /// Create a rating slot
     /// </summary>
-    internal static SlotResponse EditSlot(
+    internal static DimensionResponse EditSlot(
         this BaseService service,
         string apiEndPointPath,
-        RatableThing ratableThing,
+        Thing ratableThing,
         Guid thingID,
         string slotID,
         string newTitle = null,
@@ -41,7 +40,7 @@ public static partial class Rating
             formData.Add("maxRating", newMaxRating.Value.ToString());
         }
 
-        return Task.Run(() => Request.ExecuteRequest<SlotResponse>(
+        return Task.Run(() => Request.ExecuteRequest<DimensionResponse>(
             apiEndPointPath,
             service,
             formData

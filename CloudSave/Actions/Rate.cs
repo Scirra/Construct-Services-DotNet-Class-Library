@@ -1,4 +1,4 @@
-﻿using ConstructServices.Ratings.Enums;
+﻿using ConstructServices.Common;
 using ConstructServices.Ratings.Responses;
 using JetBrains.Annotations;
 using System;
@@ -19,7 +19,7 @@ public static partial class CloudSaves
         Dictionary<string, byte> slotRatings)
     {
         const string path = "/rate.json";
-        return Ratings.Actions.Rating.Rate(service, path, sessionID, RatableThing.CloudSaveBlob, cloudSaveID, slotRatings);
+        return Ratings.Actions.Rating.Rate(service, path, sessionID, Thing.CloudSaveBlob, cloudSaveID, slotRatings);
     }
 
     /// <summary>

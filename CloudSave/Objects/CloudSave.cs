@@ -39,11 +39,11 @@ public class CloudSave
     [JsonProperty(PropertyName = "myRating")]
     public Rating MyRating { get; set; }
 
-    [JsonProperty(PropertyName = "slotRatings")]
-    public Dictionary<string, RatingAggregate> SlotRatings { get; set; }
+    [JsonProperty(PropertyName = "dimensionRatings")]
+    public Dictionary<string, RatingAggregate> DimensionRatings { get; set; }
 
-    [JsonProperty(PropertyName = "mySlotRatings")]
-    public Dictionary<string, Rating> MySlotRatings { get; set; }
+    [JsonProperty(PropertyName = "myDimensionRatings")]
+    public Dictionary<string, Rating> MyDimensionRatings { get; set; }
 
     [JsonProperty(PropertyName = "pictures")]
     public List<AvailablePicture> Pictures { get; set; }

@@ -1,5 +1,4 @@
 ﻿using ConstructServices.Common;
-using ConstructServices.Ratings.Enums;
 using ConstructServices.Ratings.Responses;
 using System;
 using System.Collections.Generic;
@@ -17,7 +16,7 @@ public static partial class Rating
         this BaseService service,
         string apiEndPointPath,
         string sessionKey,
-        RatableThing ratableThing,
+        Thing ratableThing,
         Guid thingID,
         Dictionary<string, byte> slotRatings)
     {
@@ -42,7 +41,7 @@ public static partial class Rating
         this BaseService service,
         string apiEndPointPath,
         string sessionKey,
-        RatableThing ratableThing,
+        Thing ratableThing,
         Guid thingID,
         byte rating)
         => Rate(service, sessionKey, apiEndPointPath, ratableThing, thingID,

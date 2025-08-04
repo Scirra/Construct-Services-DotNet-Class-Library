@@ -2,27 +2,26 @@
 using ConstructServices.Common;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using ConstructServices.Ratings.Enums;
 
 namespace ConstructServices.Ratings.Actions;
 
 public static partial class Rating
 {
     /// <summary>
-    /// Delete a rating slot
+    /// Delete a rating dimension
     /// </summary>
-    internal static BaseResponse DeleteSlot(
+    internal static BaseResponse DeleteDimension(
         this BaseService service,
         string apiEndPointPath,
-        RatableThing ratableThing,
+        Thing ratableThing,
         Guid thingID,
-        string slotID)
+        string dimensionID)
     {
         var formData = new Dictionary<string, string>
         {
             { "thingTypeID", ((byte)ratableThing).ToString()},
             { "thingID", thingID.ToString()},
-            { "slotID", slotID }
+            { "dimensionID", dimensionID }
         };
         return Task.Run(() => Request.ExecuteRequest<BaseResponse>(
             apiEndPointPath,

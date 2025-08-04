@@ -10,8 +10,8 @@ public class RateResponse : BaseResponse
     [JsonProperty(PropertyName = "rating")]
     public RatingAggregate Rating { get; set; }
 
-    [JsonProperty(PropertyName = "slotRatings")]
-    public List<RatingSlot> Slots { get; set; }
+    [JsonProperty(PropertyName = "dimensions")]
+    public List<RatingDimension> Dimensions { get; set; }
 
     public RateResponse()
     {
