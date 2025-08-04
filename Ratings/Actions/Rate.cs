@@ -18,14 +18,14 @@ public static partial class Rating
         string sessionKey,
         Thing ratableThing,
         Guid thingID,
-        Dictionary<string, byte> slotRatings)
+        Dictionary<string, byte> dimensionRatings)
     {
         var formData = new Dictionary<string, string>
         {
             { "sessionKey", sessionKey},
             { "thingTypeID", ((byte)ratableThing).ToString()},
             { "thingID", thingID.ToString()},
-            { "value", string.Join(",", slotRatings.Select(c=> c.Key + "=" + c.Value))}
+            { "value", string.Join(",", dimensionRatings.Select(c=> c.Key + "=" + c.Value))}
         };
         return Task.Run(() => Request.ExecuteRequest<RateResponse>(
             apiEndPointPath,

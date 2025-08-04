@@ -9,9 +9,9 @@ namespace ConstructServices.Ratings.Actions;
 public static partial class Rating
 {
     /// <summary>
-    /// Get all rating slots
+    /// Get all rating dimensions
     /// </summary>
-    internal static DimensionsResponse GetSlots(
+    internal static DimensionsResponse GetDimensions(
         this BaseService service,
         string apiEndPointPath,
         Thing ratableThing,

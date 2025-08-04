@@ -9,14 +9,14 @@ namespace ConstructServices.Ratings.Actions;
 public static partial class Rating
 {
     /// <summary>
-    /// Create a rating slot
+    /// Update a rating dimension
     /// </summary>
-    internal static DimensionResponse EditSlot(
+    internal static DimensionResponse EditDimension(
         this BaseService service,
         string apiEndPointPath,
         Thing ratableThing,
         Guid thingID,
-        string slotID,
+        string dimensionID,
         string newTitle = null,
         string newDescription = null,
         byte? newMaxRating = null)
@@ -25,7 +25,7 @@ public static partial class Rating
         {
             { "thingTypeID", ((byte)ratableThing).ToString()},
             { "thingID", thingID.ToString()},
-            { "slotID", slotID }
+            { "dimensionID", dimensionID }
         };
         if (!string.IsNullOrEmpty(newTitle))
         {

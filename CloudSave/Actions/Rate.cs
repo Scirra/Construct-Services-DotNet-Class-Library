@@ -16,10 +16,10 @@ public static partial class CloudSaves
         this CloudSaveService service,
         string sessionID,
         Guid cloudSaveID,
-        Dictionary<string, byte> slotRatings)
+        Dictionary<string, byte> dimensionRatings)
     {
         const string path = "/rate.json";
-        return Ratings.Actions.Rating.Rate(service, path, sessionID, Thing.CloudSaveBlob, cloudSaveID, slotRatings);
+        return Ratings.Actions.Rating.Rate(service, path, sessionID, Thing.CloudSaveBlob, cloudSaveID, dimensionRatings);
     }
 
     /// <summary>

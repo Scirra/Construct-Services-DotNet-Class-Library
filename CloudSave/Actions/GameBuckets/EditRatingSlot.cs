@@ -21,11 +21,11 @@ public static partial class GameBuckets
         byte? newMaxRating = null)
     {
         const string path = "/bucketeditratingdimension.json";
-        return Ratings.Actions.Rating.EditSlot(service, path, Thing.CloudSaveBlob, bucketID, dimensionID, newTitle, newDescription, newMaxRating);
+        return Ratings.Actions.Rating.EditDimension(service, path, Thing.CloudSaveBlob, bucketID, dimensionID, newTitle, newDescription, newMaxRating);
     }
 
     /// <summary>
-    /// Edit a rating slot for a bucket
+    /// Edit a rating dimension for a bucket
     /// </summary>
     [UsedImplicitly]
     public static DimensionResponse EditRatingDimension(
