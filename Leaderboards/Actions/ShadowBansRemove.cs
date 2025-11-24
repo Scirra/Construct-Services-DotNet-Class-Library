@@ -9,87 +9,82 @@ namespace ConstructServices.Leaderboards.Actions;
 
 public static partial class ShadowBans
 {
-    [UsedImplicitly]
-    public static ShadowBanResponse UnbanPlayerID(
-        this LeaderboardService service,
-        string playerID)
+    extension(LeaderboardService service)
     {
-        const string path = "/unshadowban.json";
-        return Task.Run(() => Request.ExecuteRequest<ShadowBanResponse>(
-            path,
-            service,
-            new Dictionary<string, string>
-            {
-                { "playerID", playerID }
-            }
-        )).Result;
-    }
+        [UsedImplicitly]
+        public ShadowBanResponse UnbanPlayerID(string playerID)
+        {
+            const string path = "/unshadowban.json";
+            return Task.Run(() => Request.ExecuteRequest<ShadowBanResponse>(
+                path,
+                service,
+                new Dictionary<string, string>
+                {
+                    { "playerID", playerID }
+                }
+            )).Result;
+        }
 
-    [UsedImplicitly]
-    public static ShadowBanResponse UnbanIPAddress(
-        this LeaderboardService service,
-        string ipAddress)
-    {
-        const string path = "/unshadowban.json";
-        return Task.Run(() => Request.ExecuteRequest<ShadowBanResponse>(
-            path,
-            service,
-            new Dictionary<string, string>
-            {
-                { "ipAddress", ipAddress }
-            }
-        )).Result;
-    }
+        [UsedImplicitly]
+        public ShadowBanResponse UnbanIPAddress(string ipAddress)
+        {
+            const string path = "/unshadowban.json";
+            return Task.Run(() => Request.ExecuteRequest<ShadowBanResponse>(
+                path,
+                service,
+                new Dictionary<string, string>
+                {
+                    { "ipAddress", ipAddress }
+                }
+            )).Result;
+        }
+
+        [UsedImplicitly]
+        public ShadowBanResponse UnbanScoreID(string strScoreID)
+        {
+            if (string.IsNullOrWhiteSpace(strScoreID))
+                return new ShadowBanResponse("No Score ID was provided.", false);
+            if (!Guid.TryParse(strScoreID, out var scoreID))
+                return new ShadowBanResponse("Score ID was not a valid GUID.", false);
+            return UnbanScoreID(service, scoreID);
+        }
         
-    [UsedImplicitly]
-    public static ShadowBanResponse UnbanScoreID(
-        this LeaderboardService service,
-        string strScoreID)
-    {
-        if (string.IsNullOrWhiteSpace(strScoreID))
-            return new ShadowBanResponse("No Score ID was provided.", false);
-        if (!Guid.TryParse(strScoreID, out var scoreID))
-            return new ShadowBanResponse("Score ID was not a valid GUID.", false);
-        return UnbanScoreID(service, scoreID);
-    }
-    public static ShadowBanResponse UnbanScoreID(
-        this LeaderboardService service,
-        Guid scoreID)
-    {
-        const string path = "/unshadowban.json";
-        return Task.Run(() => Request.ExecuteRequest<ShadowBanResponse>(
-            path,
-            service,
-            new Dictionary<string, string>
-            {
-                { "scoreID", scoreID.ToString() }
-            }
-        )).Result;
-    }
+        [UsedImplicitly]
+        public ShadowBanResponse UnbanScoreID(Guid scoreID)
+        {
+            const string path = "/unshadowban.json";
+            return Task.Run(() => Request.ExecuteRequest<ShadowBanResponse>(
+                path,
+                service,
+                new Dictionary<string, string>
+                {
+                    { "scoreID", scoreID.ToString() }
+                }
+            )).Result;
+        }
+
+        [UsedImplicitly]
+        public ShadowBanResponse UnbanIPHash(string strIPHash)
+        {
+            if (string.IsNullOrWhiteSpace(strIPHash))
+                return new ShadowBanResponse("No IP Hash was provided.", false);
+            if (!int.TryParse(strIPHash, out var ipHash))
+                return new ShadowBanResponse("IP Hash was not a valid int.", false);
+            return UnbanIPHash(service, ipHash);
+        }
         
-    [UsedImplicitly]
-    public static ShadowBanResponse UnbanIPHash(    
-        this LeaderboardService service,
-        string strIPHash)
-    {
-        if (string.IsNullOrWhiteSpace(strIPHash))
-            return new ShadowBanResponse("No IP Hash was provided.", false);
-        if (!int.TryParse(strIPHash, out var ipHash))
-            return new ShadowBanResponse("IP Hash was not a valid int.", false);
-        return UnbanIPHash(service, ipHash);
-    }
-    public static ShadowBanResponse UnbanIPHash(    
-        this LeaderboardService service,
-        int ipHash)
-    {
-        const string path = "/unshadowban.json";
-        return Task.Run(() => Request.ExecuteRequest<ShadowBanResponse>(
-            path,
-            service,
-            new Dictionary<string, string>
-            {
-                { "ipHash", ipHash.ToString() }
-            }
-        )).Result;
+        [UsedImplicitly]
+        public ShadowBanResponse UnbanIPHash(int ipHash)
+        {
+            const string path = "/unshadowban.json";
+            return Task.Run(() => Request.ExecuteRequest<ShadowBanResponse>(
+                path,
+                service,
+                new Dictionary<string, string>
+                {
+                    { "ipHash", ipHash.ToString() }
+                }
+            )).Result;
+        }
     }
 }

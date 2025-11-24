@@ -10,47 +10,44 @@ namespace ConstructServices.Authentication.Actions;
 
 public static partial class Players
 {
-    [UsedImplicitly]
-    public static GetPlayersResponse GetPlayers(
-        this AuthenticationService service,
-        PlayerOrdering ordering,
-        PaginationOptions paginationOptions)
+    extension(AuthenticationService service)
     {
-        const string path = "/getplayers.json";
-
-        var formData = new Dictionary<string, string>
+        [UsedImplicitly]
+        public GetPlayersResponse GetPlayers(PlayerOrdering ordering,
+            PaginationOptions paginationOptions)
         {
-            { "order", ordering.ToString() }
-        };
+            const string path = "/getplayers.json";
 
-        return Task.Run(() => Request.ExecuteRequest<GetPlayersResponse>(
-            path,
-            service,
-            formData,
-            paginationOptions
-        )).Result;
-    }
-    
-    [UsedImplicitly]
-    public static GetPlayersResponse GetPlayers(
-        this AuthenticationService service,
-        Guid playerID)
-        => GetPlayers(service, [playerID]);
+            var formData = new Dictionary<string, string>
+            {
+                { "order", ordering.ToString() }
+            };
 
-    [UsedImplicitly]
-    public static GetPlayersResponse GetPlayers(
-        this AuthenticationService service,
-        List<Guid> playerIDs)
-    {
-        const string path = "/getplayers.json";
-        var formData = new Dictionary<string, string>
+            return Task.Run(() => Request.ExecuteRequest<GetPlayersResponse>(
+                path,
+                service,
+                formData,
+                paginationOptions
+            )).Result;
+        }
+
+        [UsedImplicitly]
+        public GetPlayersResponse GetPlayers(Guid playerID)
+            => GetPlayers(service, [playerID]);
+
+        [UsedImplicitly]
+        public GetPlayersResponse GetPlayers(List<Guid> playerIDs)
         {
-            { "playerIDs", string.Join(",", playerIDs) }
-        };
-        return Task.Run(() => Request.ExecuteRequest<GetPlayersResponse>(
-            path,
-            service,
-            formData
-        )).Result;
+            const string path = "/getplayers.json";
+            var formData = new Dictionary<string, string>
+            {
+                { "playerIDs", string.Join(",", playerIDs) }
+            };
+            return Task.Run(() => Request.ExecuteRequest<GetPlayersResponse>(
+                path,
+                service,
+                formData
+            )).Result;
+        }
     }
 }

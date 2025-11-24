@@ -4,5 +4,5 @@ public enum CloudSaveGameBucketAccessMode
 {
     Private,
     PublicRead,
-    PublicReadWrite,
+    PublicReadWrite
 }

@@ -9,37 +9,37 @@ namespace ConstructServices.CloudSave.Actions;
 [UsedImplicitly]
 public static partial class CloudSaves
 {
-    /// <summary>
-    /// Delete a picture associated with a cloud save
-    /// </summary>
-    public static BaseResponse DeletePicture(
-        this CloudSaveService service,
-        string sessionKey,
-        Guid cloudSaveID)
+    extension(CloudSaveService service)
     {
-        var formData = new Dictionary<string, string>
+        /// <summary>
+        /// Delete a picture associated with a cloud save
+        /// </summary>
+        [UsedImplicitly]
+        public BaseResponse DeletePicture(string sessionKey,
+            Guid cloudSaveID)
         {
-            { "blobID", cloudSaveID.ToString() }
-        };
-        if (!string.IsNullOrWhiteSpace(sessionKey))
-        {
-            formData.Add("sessionKey", sessionKey);
+            var formData = new Dictionary<string, string>
+            {
+                { "blobID", cloudSaveID.ToString() }
+            };
+            if (!string.IsNullOrWhiteSpace(sessionKey))
+            {
+                formData.Add("sessionKey", sessionKey);
+            }
+
+            const string path = "/deletepicture.json";
+            return Task.Run(() => Request.ExecuteRequest<BaseResponse>(
+                path,
+                service,
+                formData
+            )).Result;
         }
 
-        const string path = "/deletepicture.json";
-        return Task.Run(() => Request.ExecuteRequest<BaseResponse>(
-            path,
-            service,
-            formData
-        )).Result;
+        /// <summary>
+        /// Delete a picture associated with a cloud save
+        /// </summary>
+        [UsedImplicitly]
+        public BaseResponse DeletePicture(Guid cloudSaveID)
+            => DeletePicture(service, null, cloudSaveID);
     }
-
-    /// <summary>
-    /// Delete a picture associated with a cloud save
-    /// </summary>
-    [UsedImplicitly]
-    public static BaseResponse DeletePicture(
-        this CloudSaveService service,
-        Guid cloudSaveID)
-        => DeletePicture(service, null, cloudSaveID);
 }

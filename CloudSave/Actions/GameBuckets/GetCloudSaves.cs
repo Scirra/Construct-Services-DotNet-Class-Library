@@ -11,86 +11,85 @@ namespace ConstructServices.CloudSave.Actions;
 
 public static partial class GameBuckets
 {
-    public class GetBucketCloudSaveFilters
+    public sealed class GetBucketCloudSaveFilters
     {
-        public string Name { get; set; }
-        public string Key { get; set; }
-        public HashSet<Guid> PlayerIDs { get; set; }
-        public Dictionary<string, int> TotalRatings { get; set; }
-        public Dictionary<string, byte> MinRating { get; set; }
+        public string Name { get; [UsedImplicitly] set; }
+        public string Key { get; [UsedImplicitly] set; }
+        public HashSet<Guid> PlayerIDs { get; [UsedImplicitly] set; }
+        public Dictionary<string, int> TotalRatings { get; [UsedImplicitly] set; }
+        public Dictionary<string, byte> MinRating { get; [UsedImplicitly] set; }
     }
 
-    /// <summary>
-    /// Return paginated cloud saves within a bucket
-    /// </summary>
-    [UsedImplicitly]
-    public static CloudSavesResponse GetCloudSaves(
-        this CloudSaveService service,
-        Guid bucketID,
-        PaginationOptions paginationOptions,
-        Enums.GetBucketCloudSaveSortMethod? orderBy = null,
-        GetBucketCloudSaveFilters filters = null)
+    extension(CloudSaveService service)
     {
-        var formData = new Dictionary<string, string>
+        /// <summary>
+        /// Return paginated cloud saves within a bucket
+        /// </summary>
+        [UsedImplicitly]
+        public CloudSavesResponse GetCloudSaves(Guid bucketID,
+            PaginationOptions paginationOptions,
+            Enums.GetBucketCloudSaveSortMethod? orderBy = null,
+            GetBucketCloudSaveFilters filters = null)
         {
-            { "mode", "Bucket" },
-            { "bucketID", bucketID.ToString() }
-        };
-        if (orderBy.HasValue)
-        {
-            formData.Add("orderBy", orderBy.Value.ToString());
+            var formData = new Dictionary<string, string>
+            {
+                { "mode", "Bucket" },
+                { "bucketID", bucketID.ToString() }
+            };
+            if (orderBy.HasValue)
+            {
+                formData.Add("orderBy", orderBy.Value.ToString());
+            }
+
+            // Filters
+            if (filters != null)
+            {
+                if (!string.IsNullOrWhiteSpace(filters.Name))
+                {
+                    formData.Add("name", filters.Name);
+                }
+
+                if (!string.IsNullOrWhiteSpace(filters.Key))
+                {
+                    formData.Add("key", filters.Key);
+                }
+
+                var playerIDs = filters.PlayerIDs;
+                if (playerIDs != null && playerIDs.Any())
+                {
+                    formData.Add("playerIDs", string.Join(",", playerIDs));
+                }
+
+                var totalRatings = filters.TotalRatings;
+                if (totalRatings != null && totalRatings.Any())
+                {
+                    formData.Add("totalRatings", string.Join(",", totalRatings.Select(c => (c.Key ?? string.Empty).Trim() + "=" + c.Value)));
+                }
+
+                var minRatings = filters.MinRating;
+                if (minRatings != null && minRatings.Any())
+                {
+                    formData.Add("rating", string.Join(",", minRatings.Select(c => (c.Key ?? string.Empty).Trim() + "=" + c.Value)));
+                }
+            }
+
+            const string path = "/getbucketsaves.json";
+            return Task.Run(() => Request.ExecuteRequest<CloudSavesResponse>(
+                path,
+                service,
+                formData,
+                paginationOptions
+            )).Result;
         }
 
-        // Filters
-        if (filters != null)
-        {
-            if (!string.IsNullOrWhiteSpace(filters.Name))
-            {
-                formData.Add("name", filters.Name);
-            }
-
-            if (!string.IsNullOrWhiteSpace(filters.Key))
-            {
-                formData.Add("key", filters.Key);
-            }
-
-            var playerIDs = filters.PlayerIDs;
-            if (playerIDs != null && playerIDs.Any())
-            {
-                formData.Add("playerIDs", string.Join(",", playerIDs));
-            }
-
-            var totalRatings = filters.TotalRatings;
-            if (totalRatings != null && totalRatings.Any())
-            {
-                formData.Add("totalRatings", string.Join(",", totalRatings.Select(c => (c.Key ?? string.Empty).Trim() + "=" + c.Value)));
-            }
-
-            var minRatings = filters.MinRating;
-            if (minRatings != null && minRatings.Any())
-            {
-                formData.Add("rating", string.Join(",", minRatings.Select(c => (c.Key ?? string.Empty).Trim() + "=" + c.Value)));
-            }
-        }
-
-        const string path = "/getbucketsaves.json";
-        return Task.Run(() => Request.ExecuteRequest<CloudSavesResponse>(
-            path,
-            service,
-            formData,
-            paginationOptions
-        )).Result;
+        /// <summary>
+        /// Return paginated cloud saves within a bucket
+        /// </summary>
+        [UsedImplicitly]
+        public CloudSavesResponse GetCloudSaves(GameBucket bucket,
+            PaginationOptions paginationOptions,
+            Enums.GetBucketCloudSaveSortMethod? orderBy = null,
+            GetBucketCloudSaveFilters filters = null)
+            => GetCloudSaves(service, bucket.ID, paginationOptions, orderBy, filters);
     }
-
-    /// <summary>
-    /// Return paginated cloud saves within a bucket
-    /// </summary>
-    [UsedImplicitly]
-    public static CloudSavesResponse GetCloudSaves(
-        this CloudSaveService service,
-        GameBucket bucket,
-        PaginationOptions paginationOptions,
-        Enums.GetBucketCloudSaveSortMethod? orderBy = null,
-        GetBucketCloudSaveFilters filters = null)
-        => GetCloudSaves(service, bucket.ID, paginationOptions, orderBy, filters);
 }

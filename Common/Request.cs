@@ -17,7 +17,7 @@ internal static class Request
         // Get URL to query
         string apiURL;
         {
-            if (!relativeEndPointPath.StartsWith("/")) relativeEndPointPath = "/" + relativeEndPointPath;
+            if (!relativeEndPointPath.StartsWith("/", StringComparison.Ordinal)) relativeEndPointPath = "/" + relativeEndPointPath;
             apiURL = service.APIHost + relativeEndPointPath;
         }
 
@@ -112,7 +112,7 @@ internal static class Request
         // Get URL to query
         string apiURL;
         {
-            if (!relativeEndPointPath.StartsWith("/")) relativeEndPointPath = "/" + relativeEndPointPath;
+            if (!relativeEndPointPath.StartsWith("/", StringComparison.Ordinal)) relativeEndPointPath = "/" + relativeEndPointPath;
             apiURL = service.APIHost + relativeEndPointPath;
         }
 

@@ -9,30 +9,31 @@ namespace ConstructServices.Leaderboards.Actions;
 
 public static partial class Teams
 {
-    [UsedImplicitly]
-    public static GetTeamResponse GetTeam(
-        this LeaderboardService service,
-        string strTeamID)
+    extension(LeaderboardService service)
     {
-        if (string.IsNullOrWhiteSpace(strTeamID))
-            return new GetTeamResponse("No Team ID was provided.", false);
-        if (!Guid.TryParse(strTeamID, out var teamID))
-            return new GetTeamResponse("Team ID was not a valid GUID.", false);
-        return GetTeam(service, teamID);
-    }
-    public static GetTeamResponse GetTeam(
-        this LeaderboardService service,
-        Guid teamID)
-    {
-        const string path = "/getteam.json";
-        var formData = new Dictionary<string, string>
+        [UsedImplicitly]
+        public GetTeamResponse GetTeam(string strTeamID)
         {
-            { "teamID", teamID.ToString() }
-        };
-        return Task.Run(() => Request.ExecuteRequest<GetTeamResponse>(
-            path,
-            service,
-            formData
-        )).Result;
+            if (string.IsNullOrWhiteSpace(strTeamID))
+                return new GetTeamResponse("No Team ID was provided.", false);
+            if (!Guid.TryParse(strTeamID, out var teamID))
+                return new GetTeamResponse("Team ID was not a valid GUID.", false);
+            return GetTeam(service, teamID);
+        }
+        
+        [UsedImplicitly]
+        public GetTeamResponse GetTeam(Guid teamID)
+        {
+            const string path = "/getteam.json";
+            var formData = new Dictionary<string, string>
+            {
+                { "teamID", teamID.ToString() }
+            };
+            return Task.Run(() => Request.ExecuteRequest<GetTeamResponse>(
+                path,
+                service,
+                formData
+            )).Result;
+        }
     }
 }

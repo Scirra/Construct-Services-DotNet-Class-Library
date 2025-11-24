@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConstructServices.Ratings.Actions;
 
-public static partial class Rating
+internal static partial class Rating
 {
     /// <summary>
     /// Update a rating dimension

@@ -7,7 +7,8 @@ public sealed class ShadowBanResponse : BaseResponse
     public ShadowBanResponse()
     {
     }
-    public ShadowBanResponse(string errorMessage, bool shouldRetry) : base(errorMessage, shouldRetry)
+
+    internal ShadowBanResponse(string errorMessage, bool shouldRetry) : base(errorMessage, shouldRetry)
     {
 
     }

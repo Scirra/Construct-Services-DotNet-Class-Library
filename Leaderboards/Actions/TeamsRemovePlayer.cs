@@ -8,33 +8,34 @@ namespace ConstructServices.Leaderboards.Actions;
 
 public static partial class Teams
 {
-    [UsedImplicitly]
-    public static BaseResponse RemovePlayerFromTeam(
-        this LeaderboardService service,
-        string strTeamID,
-        string playerID)
+    extension(LeaderboardService service)
     {
-        if (string.IsNullOrWhiteSpace(strTeamID))
-            return new BaseResponse("No Team ID was provided.", false);
-        if (!Guid.TryParse(strTeamID, out var teamID))
-            return new BaseResponse("Score Team was not a valid GUID.", false);
-        return RemovePlayerFromTeam(service, teamID, playerID);
-    }
-    public static BaseResponse RemovePlayerFromTeam(
-        this LeaderboardService service,
-        Guid teamID,
-        string playerID)
-    {
-        const string path = "/removeplayerfromteam.json";
+        [UsedImplicitly]
+        public BaseResponse RemovePlayerFromTeam(string strTeamID,
+            string playerID)
+        {
+            if (string.IsNullOrWhiteSpace(strTeamID))
+                return new BaseResponse("No Team ID was provided.", false);
+            if (!Guid.TryParse(strTeamID, out var teamID))
+                return new BaseResponse("Score Team was not a valid GUID.", false);
+            return RemovePlayerFromTeam(service, teamID, playerID);
+        }
+        
+        [UsedImplicitly]
+        public BaseResponse RemovePlayerFromTeam(Guid teamID,
+            string playerID)
+        {
+            const string path = "/removeplayerfromteam.json";
 
-        return Task.Run(() => Request.ExecuteRequest<BaseResponse>(
-            path,
-            service,
-            new Dictionary<string, string>
-            {
-                { "teamID", teamID.ToString() },
-                { "playerID", playerID }
-            }
-        )).Result;
+            return Task.Run(() => Request.ExecuteRequest<BaseResponse>(
+                path,
+                service,
+                new Dictionary<string, string>
+                {
+                    { "teamID", teamID.ToString() },
+                    { "playerID", playerID }
+                }
+            )).Result;
+        }
     }
 }

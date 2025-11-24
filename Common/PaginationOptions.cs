@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using JetBrains.Annotations;
 
 namespace ConstructServices.Common;
 
-public class PaginationOptions
+[UsedImplicitly]
+public sealed class PaginationOptions
 {
     internal int RequestedPage { get; private set; }
     internal int? RecordsPerPage { get; private set; }

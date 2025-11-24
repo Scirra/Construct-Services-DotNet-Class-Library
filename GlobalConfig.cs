@@ -2,7 +2,8 @@
 
 namespace ConstructServices;
 
-public class GlobalConfig
+[UsedImplicitly]
+public sealed class GlobalConfig
 {
     internal static bool DevMode { get; private set; }
 

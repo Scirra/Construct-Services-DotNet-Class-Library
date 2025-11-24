@@ -8,47 +8,46 @@ namespace ConstructServices.CloudSave.Actions;
 
 public static partial class CloudSaves
 {
-    /// <summary>
-    /// Delete a cloud save
-    /// </summary>
-    [UsedImplicitly]
-    public static BaseResponse Delete(
-        this CloudSaveService service,
-        Guid cloudSaveID)
+    extension(CloudSaveService service)
     {
-        var formData = new Dictionary<string, string>
+        /// <summary>
+        /// Delete a cloud save
+        /// </summary>
+        [UsedImplicitly]
+        public BaseResponse Delete(Guid cloudSaveID)
         {
-            { "blobID", cloudSaveID.ToString() }
-        };
+            var formData = new Dictionary<string, string>
+            {
+                { "blobID", cloudSaveID.ToString() }
+            };
 
-        const string path = "/delete.json";
-        return Task.Run(() => Request.ExecuteRequest<BaseResponse>(
-            path,
-            service,
-            formData
-        )).Result;
-    }
+            const string path = "/delete.json";
+            return Task.Run(() => Request.ExecuteRequest<BaseResponse>(
+                path,
+                service,
+                formData
+            )).Result;
+        }
 
-    /// <summary>
-    /// Delete a cloud save
-    /// </summary>
-    [UsedImplicitly]
-    public static BaseResponse Delete(
-        this CloudSaveService service,
-        string sessionKey,
-        Guid cloudSaveID)
-    {
-        var formData = new Dictionary<string, string>
+        /// <summary>
+        /// Delete a cloud save
+        /// </summary>
+        [UsedImplicitly]
+        public BaseResponse Delete(string sessionKey,
+            Guid cloudSaveID)
         {
-            { "sessionKey", sessionKey },
-            { "blobID", cloudSaveID.ToString() }
-        };
+            var formData = new Dictionary<string, string>
+            {
+                { "sessionKey", sessionKey },
+                { "blobID", cloudSaveID.ToString() }
+            };
 
-        const string path = "/delete.json";
-        return Task.Run(() => Request.ExecuteRequest<BaseResponse>(
-            path,
-            service,
-            formData
-        )).Result;
+            const string path = "/delete.json";
+            return Task.Run(() => Request.ExecuteRequest<BaseResponse>(
+                path,
+                service,
+                formData
+            )).Result;
+        }
     }
 }

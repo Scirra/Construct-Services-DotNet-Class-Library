@@ -33,20 +33,12 @@ public sealed class CloudSave
     [JsonProperty(PropertyName = "downloadURL")]
     public string DownloadURL { get; private set; }
 
-    [JsonProperty(PropertyName = "rating")]
-    public RatingAggregate Rating { get; set; }
-
-    [JsonProperty(PropertyName = "myRating")]
-    public Rating MyRating { get; set; }
-
-    [JsonProperty(PropertyName = "dimensionRatings")]
-    public Dictionary<string, RatingAggregate> DimensionRatings { get; set; }
-
-    [JsonProperty(PropertyName = "myDimensionRatings")]
-    public Dictionary<string, Rating> MyDimensionRatings { get; set; }
-
     [JsonProperty(PropertyName = "pictures")]
     public List<AvailablePicture> Pictures { get; set; }
+
+    [JsonProperty(PropertyName = "ratingStatus")]
+    public RatingStatus RatingStatus { get; set; }
+    public bool ShouldSerializeRatingStatus() => RatingStatus != null;
 
     public CloudSave()
     {

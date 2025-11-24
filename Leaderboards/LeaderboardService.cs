@@ -8,8 +8,8 @@ namespace ConstructServices.Leaderboards;
 
 public sealed class LeaderboardService : BaseService
 {
-    internal Guid LeaderboardID { get; private set; }
-    internal CultureInfo Culture { get; private set; }
+    internal Guid LeaderboardID { get; }
+    private CultureInfo Culture { get; set; }
 
     /// <summary>
     /// Set the culture of responses
@@ -44,7 +44,7 @@ public sealed class LeaderboardService : BaseService
         Culture = culture;
     }
 
-    internal void AddRequestPerspectiveFormData(RequestPerspective perspective, Dictionary<string, string> formData)
+    internal static void AddRequestPerspectiveFormData(RequestPerspective perspective, Dictionary<string, string> formData)
     {
         if (perspective == null) return;
         formData.Add("requesterIP", perspective.RequesterIP);

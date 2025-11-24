@@ -8,36 +8,36 @@ namespace ConstructServices.Authentication.Actions;
 
 public static partial class Players
 {
-    [UsedImplicitly]
-    public static BaseResponse DeleteAvatar(
-        this AuthenticationService service,
-        Guid playerID)
+    extension(AuthenticationService service)
     {
-        const string path = "/deleteavatar.json";
+        [UsedImplicitly]
+        public BaseResponse DeleteAvatar(Guid playerID)
+        {
+            const string path = "/deleteavatar.json";
 
-        return Task.Run(() => Request.ExecuteRequest<BaseResponse>(
-            path,
-            service,
-            new Dictionary<string, string>
-            {
-                { "playerID", playerID.ToString() }
-            }
-        )).Result;
-    }
-    [UsedImplicitly]
-    public static BaseResponse DeleteAvatar(
-        this AuthenticationService service,
-        string sessionKey)
-    {
-        const string path = "/deleteavatar.json";
+            return Task.Run(() => Request.ExecuteRequest<BaseResponse>(
+                path,
+                service,
+                new Dictionary<string, string>
+                {
+                    { "playerID", playerID.ToString() }
+                }
+            )).Result;
+        }
 
-        return Task.Run(() => Request.ExecuteRequest<BaseResponse>(
-            path,
-            service,
-            new Dictionary<string, string>
-            {
-                { "sessionKey", sessionKey }
-            }
-        )).Result;
+        [UsedImplicitly]
+        public BaseResponse DeleteAvatar(string sessionKey)
+        {
+            const string path = "/deleteavatar.json";
+
+            return Task.Run(() => Request.ExecuteRequest<BaseResponse>(
+                path,
+                service,
+                new Dictionary<string, string>
+                {
+                    { "sessionKey", sessionKey }
+                }
+            )).Result;
+        }
     }
 }

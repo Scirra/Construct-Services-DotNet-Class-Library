@@ -1,8 +1,10 @@
 ﻿using System;
+using JetBrains.Annotations;
 
 namespace ConstructServices.Common;
 
-public class PictureData
+[UsedImplicitly]
+public sealed class PictureData
 {
     internal string Base64 { get; private set; }
     internal Uri URL { get; private set; }

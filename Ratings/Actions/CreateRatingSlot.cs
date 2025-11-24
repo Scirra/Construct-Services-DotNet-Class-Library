@@ -6,7 +6,7 @@ using ConstructServices.Ratings.Responses;
 
 namespace ConstructServices.Ratings.Actions;
 
-public static partial class Rating
+internal static partial class Rating
 {
     /// <summary>
     /// Create a rating dimension

@@ -8,28 +8,27 @@ namespace ConstructServices.CloudSave.Actions;
 
 public static partial class CloudSaves
 {
-    /// <summary>
-    /// Rate a cloud save
-    /// </summary>
-    [UsedImplicitly]
-    public static RateResponse Rate(
-        this CloudSaveService service,
-        string sessionID,
-        Guid cloudSaveID,
-        Dictionary<string, byte> dimensionRatings)
+    extension(CloudSaveService service)
     {
-        const string path = "/rate.json";
-        return Ratings.Actions.Rating.Rate(service, path, sessionID, Thing.CloudSaveBlob, cloudSaveID, dimensionRatings);
-    }
+        /// <summary>
+        /// Rate a cloud save
+        /// </summary>
+        [UsedImplicitly]
+        public RateResponse Rate(string sessionID,
+            Guid cloudSaveID,
+            Dictionary<string, byte> dimensionRatings)
+        {
+            const string path = "/rate.json";
+            return Ratings.Actions.Rating.Rate(service, path, sessionID, Thing.CloudSaveBlob, cloudSaveID, dimensionRatings);
+        }
 
-    /// <summary>
-    /// Rate a cloud save
-    /// </summary>
-    [UsedImplicitly]
-    public static RateResponse Rate(
-        this CloudSaveService service,
-        string sessionID,
-        Guid cloudSaveID,
-        byte rating)
-        => Rate(service, sessionID, cloudSaveID, new Dictionary<string, byte>{ { string.Empty, rating } });
+        /// <summary>
+        /// Rate a cloud save
+        /// </summary>
+        [UsedImplicitly]
+        public RateResponse Rate(string sessionID,
+            Guid cloudSaveID,
+            byte rating)
+            => Rate(service, sessionID, cloudSaveID, new Dictionary<string, byte>{ { string.Empty, rating } });
+    }
 }

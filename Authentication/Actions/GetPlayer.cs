@@ -8,36 +8,36 @@ namespace ConstructServices.Authentication.Actions;
 
 public static partial class Players
 {
-    [UsedImplicitly]
-    public static GetPlayerResponse GetPlayer(
-        this AuthenticationService service,
-        string playerName)
+    extension(AuthenticationService service)
     {
-        const string path = "/getplayer.json";
+        [UsedImplicitly]
+        public GetPlayerResponse GetPlayer(string playerName)
+        {
+            const string path = "/getplayer.json";
 
-        return Task.Run(() => Common.Request.ExecuteRequest<GetPlayerResponse>(
-            path,
-            service,
-            new Dictionary<string, string>
-            {
-                { "playerName", playerName }
-            }
-        )).Result;
-    }
-    [UsedImplicitly]
-    public static GetPlayerResponse GetPlayer(
-        this AuthenticationService service,
-        Guid playerID)
-    {
-        const string path = "/getplayer.json";
+            return Task.Run(() => Common.Request.ExecuteRequest<GetPlayerResponse>(
+                path,
+                service,
+                new Dictionary<string, string>
+                {
+                    { "playerName", playerName }
+                }
+            )).Result;
+        }
 
-        return Task.Run(() => Common.Request.ExecuteRequest<GetPlayerResponse>(
-            path,
-            service,
-            new Dictionary<string, string>
-            {
-                { "playerID", playerID.ToString() }
-            }
-        )).Result;
+        [UsedImplicitly]
+        public GetPlayerResponse GetPlayer(Guid playerID)
+        {
+            const string path = "/getplayer.json";
+
+            return Task.Run(() => Common.Request.ExecuteRequest<GetPlayerResponse>(
+                path,
+                service,
+                new Dictionary<string, string>
+                {
+                    { "playerID", playerID.ToString() }
+                }
+            )).Result;
+        }
     }
 }

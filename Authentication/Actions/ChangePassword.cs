@@ -9,42 +9,42 @@ namespace ConstructServices.Authentication.Actions;
 [UsedImplicitly]
 public static partial class Players
 {
-    [UsedImplicitly]
-    public static BaseResponse ChangePassword(
-        this AuthenticationService service,
-        Guid playerID,
-        string newPassword)
+    extension(AuthenticationService service)
     {
-        const string path = "/changepassword.json";
+        [UsedImplicitly]
+        public BaseResponse ChangePassword(Guid playerID,
+            string newPassword)
+        {
+            const string path = "/changepassword.json";
 
-        return Task.Run(() => Request.ExecuteRequest<BaseResponse>(
-            path,
-            service,
-            new Dictionary<string, string>
-            {
-                { "playerID", playerID.ToString() },
-                { "newPassword", newPassword }
-            }
-        )).Result;
-    }
-    [UsedImplicitly]
-    public static BaseResponse ChangePassword(
-        this AuthenticationService service,
-        string sessionKey,
-        string currentPassword,
-        string newPassword)
-    {
-        const string path = "/changepassword.json";
+            return Task.Run(() => Request.ExecuteRequest<BaseResponse>(
+                path,
+                service,
+                new Dictionary<string, string>
+                {
+                    { "playerID", playerID.ToString() },
+                    { "newPassword", newPassword }
+                }
+            )).Result;
+        }
 
-        return Task.Run(() => Request.ExecuteRequest<BaseResponse>(
-            path,
-            service,
-            new Dictionary<string, string>
-            {
-                { "sessionKey", sessionKey },
-                { "password", currentPassword },
-                { "newPassword", newPassword }
-            }
-        )).Result;
+        [UsedImplicitly]
+        public BaseResponse ChangePassword(string sessionKey,
+            string currentPassword,
+            string newPassword)
+        {
+            const string path = "/changepassword.json";
+
+            return Task.Run(() => Request.ExecuteRequest<BaseResponse>(
+                path,
+                service,
+                new Dictionary<string, string>
+                {
+                    { "sessionKey", sessionKey },
+                    { "password", currentPassword },
+                    { "newPassword", newPassword }
+                }
+            )).Result;
+        }
     }
 }

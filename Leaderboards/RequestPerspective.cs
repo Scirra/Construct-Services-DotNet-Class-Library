@@ -1,20 +1,11 @@
 ﻿using System;
+using JetBrains.Annotations;
 
 namespace ConstructServices.Leaderboards;
 
-public class RequestPerspective
+[UsedImplicitly]
+public sealed class RequestPerspective(string requesterIP, Guid? requesterPlayerID = null)
 {
-    internal string RequesterIP { get; set; }
-    internal Guid? RequesterPlayerID { get; set; }
-        
-    public RequestPerspective(string requesterIP)
-    {
-        RequesterIP = requesterIP;
-        RequesterPlayerID = null;
-    }
-    public RequestPerspective(string requesterIP, Guid? requesterPlayerID)
-    {
-        RequesterIP = requesterIP;
-        RequesterPlayerID = requesterPlayerID;
-    }
+    internal string RequesterIP { get; } = requesterIP;
+    internal Guid? RequesterPlayerID { get; } = requesterPlayerID;
 }

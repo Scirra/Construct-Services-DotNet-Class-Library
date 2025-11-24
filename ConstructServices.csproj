@@ -107,7 +107,6 @@
     <Compile Include="CloudSave\Enums\GetCloudSavesOrderMethod.cs" />
     <Compile Include="CloudSave\Objects\CloudSave.cs" />
     <Compile Include="CloudSave\Objects\GameBucket.cs" />
-    <Compile Include="CloudSave\Objects\Rating.cs" />
     <Compile Include="CloudSave\Responses\BucketResponse.cs" />
     <Compile Include="CloudSave\Responses\BucketsResponse.cs" />
     <Compile Include="CloudSave\Responses\CloudSaveResponse.cs" />
@@ -172,8 +171,10 @@
     <Compile Include="Ratings\Actions\EditRatingSlot.cs" />
     <Compile Include="Ratings\Actions\GetRatingSlots.cs" />
     <Compile Include="Ratings\Actions\Rate.cs" />
+    <Compile Include="Ratings\Objects\Rating.cs" />
     <Compile Include="Ratings\Objects\RatingAggregate.cs" />
     <Compile Include="Ratings\Objects\RatingDimension.cs" />
+    <Compile Include="Ratings\Objects\RatingStatus.cs" />
     <Compile Include="Ratings\Responses\RateResponse.cs" />
     <Compile Include="Ratings\Responses\DimensionResponse.cs" />
     <Compile Include="Ratings\Responses\SlotsResponse.cs" />

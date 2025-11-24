@@ -9,23 +9,23 @@ namespace ConstructServices.Leaderboards.Actions;
 
 public static partial class Scores
 {
-    [UsedImplicitly]
-    public static GetScoreNeighboursResponse GetScoreNeighbours(
-        this LeaderboardService service,
-        string playerID,
-        int range = 5,
-        int? compareRanks = null,
-        RequestPerspective requestPerspective = null)
-        => Execute(service, playerID, null, range, compareRanks, requestPerspective);
+    extension(LeaderboardService service)
+    {
+        [UsedImplicitly]
+        public GetScoreNeighboursResponse GetScoreNeighbours(string playerID,
+            int range = 5,
+            int? compareRanks = null,
+            RequestPerspective requestPerspective = null)
+            => Execute(service, playerID, null, range, compareRanks, requestPerspective);
 
-    [UsedImplicitly]
-    public static GetScoreNeighboursResponse GetScoreNeighbours(
-        this LeaderboardService service,
-        Guid scoreID,
-        int range = 5,
-        int? compareRanks = null,
-        RequestPerspective requestPerspective = null)
-        => Execute(service, null, scoreID, range, compareRanks, requestPerspective);
+        [UsedImplicitly]
+        public GetScoreNeighboursResponse GetScoreNeighbours(Guid scoreID,
+            int range = 5,
+            int? compareRanks = null,
+            RequestPerspective requestPerspective = null)
+            => Execute(service, null, scoreID, range, compareRanks, requestPerspective);
+    }
+
     private static GetScoreNeighboursResponse Execute(
         LeaderboardService service,
         string playerID,
@@ -52,7 +52,7 @@ public static partial class Scores
             formData.Add("compareRanks", compareRanks.Value.ToString());
         }
 
-        service.AddRequestPerspectiveFormData(requestPerspective, formData);
+        LeaderboardService.AddRequestPerspectiveFormData(requestPerspective, formData);
 
         return Task.Run(() => Request.ExecuteRequest<GetScoreNeighboursResponse>(
             path,

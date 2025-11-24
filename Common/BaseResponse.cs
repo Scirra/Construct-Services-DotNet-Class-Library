@@ -9,7 +9,7 @@ public class BaseResponse
 
     [JsonProperty(PropertyName = "errorMessage")]
     public string ErrorMessage { get; private protected set; }
-    public bool ShouldSerializeErrorMessage() => Success == false;
+    public bool ShouldSerializeErrorMessage() => !Success;
 
     [JsonProperty(PropertyName = "shouldRetry")]
     public bool ShouldRetry { get; private set; }

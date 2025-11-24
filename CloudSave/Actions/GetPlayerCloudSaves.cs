@@ -9,83 +9,80 @@ namespace ConstructServices.CloudSave.Actions;
 
 public static partial class CloudSaves
 {
-    public class GetPlayerCloudSaveFilters
+    public sealed class GetPlayerCloudSaveFilters
     {
-        public string Name { get; set; }
-        public string Key { get; set; }
+        public string Name { get; [UsedImplicitly] set; }
+        public string Key { get; [UsedImplicitly] set; }
     }
 
-    /// <summary>
-    /// Return paginated players cloud saves
-    /// </summary>
-    [UsedImplicitly]
-    public static CloudSavesResponse GetCloudSaves(
-        this CloudSaveService service,
-        string sessionKey,
-        PaginationOptions paginationOptions,
-        Enums.GetPlayerCloudSaveSortMethod? orderBy = null,
-        GetPlayerCloudSaveFilters filters = null)
-        => GetCloudSaves(service, null, sessionKey, paginationOptions, orderBy, filters);
-
-    /// <summary>
-    /// Return paginated players cloud saves
-    /// </summary>
-    [UsedImplicitly]
-    public static CloudSavesResponse GetCloudSaves(
-        this CloudSaveService service,
-        Guid playerID,
-        PaginationOptions paginationOptions,
-        Enums.GetPlayerCloudSaveSortMethod? orderBy = null,
-        GetPlayerCloudSaveFilters filters = null)
-    => GetCloudSaves(service, playerID, null, paginationOptions, orderBy, filters);
-
-    private static CloudSavesResponse GetCloudSaves(
-        this CloudSaveService service,
-        Guid? playerID,
-        string sessionKey,
-        PaginationOptions paginationOptions,
-        Enums.GetPlayerCloudSaveSortMethod? orderBy = null,
-        GetPlayerCloudSaveFilters filters = null)
+    extension(CloudSaveService service)
     {
-        var formData = new Dictionary<string, string>
-        {
-            { "mode", "Player" }
-        };
+        /// <summary>
+        /// Return paginated players cloud saves
+        /// </summary>
+        [UsedImplicitly]
+        public CloudSavesResponse GetCloudSaves(string sessionKey,
+            PaginationOptions paginationOptions,
+            Enums.GetPlayerCloudSaveSortMethod? orderBy = null,
+            GetPlayerCloudSaveFilters filters = null)
+            => GetCloudSaves(service, null, sessionKey, paginationOptions, orderBy, filters);
 
-        if (playerID.HasValue)
-        {
-            formData.Add("playerID", playerID.Value.ToString());
-        }
-        else
-        {
-            formData.Add("sessionKey", sessionKey);
-        }
+        /// <summary>
+        /// Return paginated players cloud saves
+        /// </summary>
+        [UsedImplicitly]
+        public CloudSavesResponse GetCloudSaves(Guid playerID,
+            PaginationOptions paginationOptions,
+            Enums.GetPlayerCloudSaveSortMethod? orderBy = null,
+            GetPlayerCloudSaveFilters filters = null)
+            => GetCloudSaves(service, playerID, null, paginationOptions, orderBy, filters);
 
-        if (orderBy.HasValue)
+        private CloudSavesResponse GetCloudSaves(Guid? playerID,
+            string sessionKey,
+            PaginationOptions paginationOptions,
+            Enums.GetPlayerCloudSaveSortMethod? orderBy = null,
+            GetPlayerCloudSaveFilters filters = null)
         {
-            formData.Add("orderBy", orderBy.Value.ToString());
-        }
-
-        // Filters
-        if (filters != null)
-        {
-            if (!string.IsNullOrWhiteSpace(filters.Name))
+            var formData = new Dictionary<string, string>
             {
-                formData.Add("name", filters.Name);
+                { "mode", "Player" }
+            };
+
+            if (playerID.HasValue)
+            {
+                formData.Add("playerID", playerID.Value.ToString());
+            }
+            else
+            {
+                formData.Add("sessionKey", sessionKey);
             }
 
-            if (!string.IsNullOrWhiteSpace(filters.Key))
+            if (orderBy.HasValue)
             {
-                formData.Add("key", filters.Key);
+                formData.Add("orderBy", orderBy.Value.ToString());
             }
-        }
 
-        const string path = "/getcloudsaves.json";
-        return Task.Run(() => Request.ExecuteRequest<CloudSavesResponse>(
-            path,
-            service,
-            formData,
-            paginationOptions
-        )).Result;
+            // Filters
+            if (filters != null)
+            {
+                if (!string.IsNullOrWhiteSpace(filters.Name))
+                {
+                    formData.Add("name", filters.Name);
+                }
+
+                if (!string.IsNullOrWhiteSpace(filters.Key))
+                {
+                    formData.Add("key", filters.Key);
+                }
+            }
+
+            const string path = "/getcloudsaves.json";
+            return Task.Run(() => Request.ExecuteRequest<CloudSavesResponse>(
+                path,
+                service,
+                formData,
+                paginationOptions
+            )).Result;
+        }
     }
 }

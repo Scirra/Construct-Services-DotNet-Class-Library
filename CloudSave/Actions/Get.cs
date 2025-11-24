@@ -9,179 +9,166 @@ namespace ConstructServices.CloudSave.Actions;
 
 public static partial class CloudSaves
 {
-    /// <summary>
-    /// Get a cloud save by its key
-    /// </summary>
-    [UsedImplicitly]
-    public static CloudSaveResponse GetByKey(
-        this CloudSaveService service,
-        string cloudSaveKey)
+    extension(CloudSaveService service)
     {
-        var formData = new Dictionary<string, string>
+        /// <summary>
+        /// Get a cloud save by its key
+        /// </summary>
+        [UsedImplicitly]
+        public CloudSaveResponse GetByKey(string cloudSaveKey)
         {
-            { "key", cloudSaveKey }
-        };
-        const string path = "/getcloudsave.json";
-        return Task.Run(() => Request.ExecuteRequest<CloudSaveResponse>(
-            path,
-            service,
-            formData
-        )).Result;
-    }
+            var formData = new Dictionary<string, string>
+            {
+                { "key", cloudSaveKey }
+            };
+            const string path = "/getcloudsave.json";
+            return Task.Run(() => Request.ExecuteRequest<CloudSaveResponse>(
+                path,
+                service,
+                formData
+            )).Result;
+        }
 
-    /// <summary>
-    /// Get a cloud save in a bucket by its key
-    /// </summary>
-    [UsedImplicitly]
-    public static CloudSaveResponse GetByID(
-        this CloudSaveService service,
-        Guid bucketID,
-        string cloudSaveKey)
-    {
-        var formData = new Dictionary<string, string>
+        /// <summary>
+        /// Get a cloud save in a bucket by its key
+        /// </summary>
+        [UsedImplicitly]
+        public CloudSaveResponse GetByID(Guid bucketID,
+            string cloudSaveKey)
         {
-            { "blobID", cloudSaveKey },
-            { "bucketID", bucketID.ToString() }
-        };
-        const string path = "/getcloudsave.json";
-        return Task.Run(() => Request.ExecuteRequest<CloudSaveResponse>(
-            path,
-            service,
-            formData
-        )).Result;
-    }
-    
-    /// <summary>
-    /// Get a cloud save in a bucket by its key
-    /// </summary>
-    [UsedImplicitly]
-    public static CloudSaveResponse GetByID(
-        this CloudSaveService service,
-        string sessionKey,
-        Guid bucketID,
-        string cloudSaveKey)
-    {
-        var formData = new Dictionary<string, string>
-        {
-            { "sessionKey", sessionKey },
-            { "key", cloudSaveKey },
-            { "bucketID", bucketID.ToString() }
-        };
-        const string path = "/getcloudsave.json";
-        return Task.Run(() => Request.ExecuteRequest<CloudSaveResponse>(
-            path,
-            service,
-            formData
-        )).Result;
-    }
+            var formData = new Dictionary<string, string>
+            {
+                { "blobID", cloudSaveKey },
+                { "bucketID", bucketID.ToString() }
+            };
+            const string path = "/getcloudsave.json";
+            return Task.Run(() => Request.ExecuteRequest<CloudSaveResponse>(
+                path,
+                service,
+                formData
+            )).Result;
+        }
 
-    /// <summary>
-    /// Get a cloud save by its key
-    /// </summary>
-    [UsedImplicitly]
-    public static CloudSaveResponse GetByID(
-        this CloudSaveService service,
-        string sessionKey,
-        string cloudSaveKey)
-    {
-        var formData = new Dictionary<string, string>
+        /// <summary>
+        /// Get a cloud save in a bucket by its key
+        /// </summary>
+        [UsedImplicitly]
+        public CloudSaveResponse GetByID(string sessionKey,
+            Guid bucketID,
+            string cloudSaveKey)
         {
-            { "sessionKey", sessionKey },
-            { "key", cloudSaveKey }
-        };
-        const string path = "/getcloudsave.json";
-        return Task.Run(() => Request.ExecuteRequest<CloudSaveResponse>(
-            path,
-            service,
-            formData
-        )).Result;
-    }
-    
-    /// <summary>
-    /// Get a cloud save by its ID
-    /// </summary>
-    [UsedImplicitly]
-    public static CloudSaveResponse GetByID(
-        this CloudSaveService service,
-        Guid cloudSaveID)
-    {
-        var formData = new Dictionary<string, string>
-        {
-            { "blobID", cloudSaveID.ToString() }
-        };
-        const string path = "/getcloudsave.json";
-        return Task.Run(() => Request.ExecuteRequest<CloudSaveResponse>(
-            path,
-            service,
-            formData
-        )).Result;
-    }
+            var formData = new Dictionary<string, string>
+            {
+                { "sessionKey", sessionKey },
+                { "key", cloudSaveKey },
+                { "bucketID", bucketID.ToString() }
+            };
+            const string path = "/getcloudsave.json";
+            return Task.Run(() => Request.ExecuteRequest<CloudSaveResponse>(
+                path,
+                service,
+                formData
+            )).Result;
+        }
 
-    /// <summary>
-    /// Get a cloud save in a bucket by its ID
-    /// </summary>
-    [UsedImplicitly]
-    public static CloudSaveResponse GetByID(
-        this CloudSaveService service,
-        Guid bucketID,
-        Guid cloudSaveID)
-    {
-        var formData = new Dictionary<string, string>
+        /// <summary>
+        /// Get a cloud save by its key
+        /// </summary>
+        [UsedImplicitly]
+        public CloudSaveResponse GetByID(string sessionKey,
+            string cloudSaveKey)
         {
-            { "blobID", cloudSaveID.ToString() },
-            { "bucketID", bucketID.ToString() }
-        };
-        const string path = "/getcloudsave.json";
-        return Task.Run(() => Request.ExecuteRequest<CloudSaveResponse>(
-            path,
-            service,
-            formData
-        )).Result;
-    }
-    
-    /// <summary>
-    /// Get a cloud save in a bucket by its ID
-    /// </summary>
-    [UsedImplicitly]
-    public static CloudSaveResponse GetByID(
-        this CloudSaveService service,
-        string sessionKey,
-        Guid bucketID,
-        Guid cloudSaveID)
-    {
-        var formData = new Dictionary<string, string>
-        {
-            { "sessionKey", sessionKey },
-            { "blobID", cloudSaveID.ToString() },
-            { "bucketID", bucketID.ToString() }
-        };
-        const string path = "/getcloudsave.json";
-        return Task.Run(() => Request.ExecuteRequest<CloudSaveResponse>(
-            path,
-            service,
-            formData
-        )).Result;
-    }
+            var formData = new Dictionary<string, string>
+            {
+                { "sessionKey", sessionKey },
+                { "key", cloudSaveKey }
+            };
+            const string path = "/getcloudsave.json";
+            return Task.Run(() => Request.ExecuteRequest<CloudSaveResponse>(
+                path,
+                service,
+                formData
+            )).Result;
+        }
 
-    /// <summary>
-    /// Get a cloud save by its ID
-    /// </summary>
-    [UsedImplicitly]
-    public static CloudSaveResponse GetByID(
-        this CloudSaveService service,
-        string sessionKey,
-        Guid cloudSaveID)
-    {
-        var formData = new Dictionary<string, string>
+        /// <summary>
+        /// Get a cloud save by its ID
+        /// </summary>
+        [UsedImplicitly]
+        public CloudSaveResponse GetByID(Guid cloudSaveID)
         {
-            { "sessionKey", sessionKey },
-            { "blobID", cloudSaveID.ToString() }
-        };
-        const string path = "/getcloudsave.json";
-        return Task.Run(() => Request.ExecuteRequest<CloudSaveResponse>(
-            path,
-            service,
-            formData
-        )).Result;
+            var formData = new Dictionary<string, string>
+            {
+                { "blobID", cloudSaveID.ToString() }
+            };
+            const string path = "/getcloudsave.json";
+            return Task.Run(() => Request.ExecuteRequest<CloudSaveResponse>(
+                path,
+                service,
+                formData
+            )).Result;
+        }
+
+        /// <summary>
+        /// Get a cloud save in a bucket by its ID
+        /// </summary>
+        [UsedImplicitly]
+        public CloudSaveResponse GetByID(Guid bucketID,
+            Guid cloudSaveID)
+        {
+            var formData = new Dictionary<string, string>
+            {
+                { "blobID", cloudSaveID.ToString() },
+                { "bucketID", bucketID.ToString() }
+            };
+            const string path = "/getcloudsave.json";
+            return Task.Run(() => Request.ExecuteRequest<CloudSaveResponse>(
+                path,
+                service,
+                formData
+            )).Result;
+        }
+
+        /// <summary>
+        /// Get a cloud save in a bucket by its ID
+        /// </summary>
+        [UsedImplicitly]
+        public CloudSaveResponse GetByID(string sessionKey,
+            Guid bucketID,
+            Guid cloudSaveID)
+        {
+            var formData = new Dictionary<string, string>
+            {
+                { "sessionKey", sessionKey },
+                { "blobID", cloudSaveID.ToString() },
+                { "bucketID", bucketID.ToString() }
+            };
+            const string path = "/getcloudsave.json";
+            return Task.Run(() => Request.ExecuteRequest<CloudSaveResponse>(
+                path,
+                service,
+                formData
+            )).Result;
+        }
+
+        /// <summary>
+        /// Get a cloud save by its ID
+        /// </summary>
+        [UsedImplicitly]
+        public CloudSaveResponse GetByID(string sessionKey,
+            Guid cloudSaveID)
+        {
+            var formData = new Dictionary<string, string>
+            {
+                { "sessionKey", sessionKey },
+                { "blobID", cloudSaveID.ToString() }
+            };
+            const string path = "/getcloudsave.json";
+            return Task.Run(() => Request.ExecuteRequest<CloudSaveResponse>(
+                path,
+                service,
+                formData
+            )).Result;
+        }
     }
 }

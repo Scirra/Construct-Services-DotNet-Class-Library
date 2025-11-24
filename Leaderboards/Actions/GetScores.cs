@@ -38,7 +38,7 @@ public static partial class Scores
             formData.Add("compareRanks", compareRanks.Value.ToString());
         }
 
-        service.AddRequestPerspectiveFormData(requestPerspective, formData);
+        LeaderboardService.AddRequestPerspectiveFormData(requestPerspective, formData);
 
         return Task.Run(() => Request.ExecuteRequest<GetScoreResponse>(
             path,

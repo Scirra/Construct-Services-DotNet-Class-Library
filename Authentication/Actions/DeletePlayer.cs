@@ -8,36 +8,36 @@ namespace ConstructServices.Authentication.Actions;
 
 public static partial class Players
 {
-    [UsedImplicitly]
-    public static BaseResponse DeletePlayer(
-        this AuthenticationService service,
-        Guid playerID)
+    extension(AuthenticationService service)
     {
-        const string path = "/deleteplayer.json";
+        [UsedImplicitly]
+        public BaseResponse DeletePlayer(Guid playerID)
+        {
+            const string path = "/deleteplayer.json";
 
-        return Task.Run(() => Request.ExecuteRequest<BaseResponse>(
-            path,
-            service,
-            new Dictionary<string, string>
-            {
-                { "playerID", playerID.ToString() }
-            }
-        )).Result;
-    }
-    [UsedImplicitly]
-    public static BaseResponse DeletePlayer(
-        this AuthenticationService service,
-        string sessionKey)
-    {
-        const string path = "/deleteplayer.json";
+            return Task.Run(() => Request.ExecuteRequest<BaseResponse>(
+                path,
+                service,
+                new Dictionary<string, string>
+                {
+                    { "playerID", playerID.ToString() }
+                }
+            )).Result;
+        }
 
-        return Task.Run(() => Request.ExecuteRequest<BaseResponse>(
-            path,
-            service,
-            new Dictionary<string, string>
-            {
-                { "sessionKey", sessionKey }
-            }
-        )).Result;
+        [UsedImplicitly]
+        public BaseResponse DeletePlayer(string sessionKey)
+        {
+            const string path = "/deleteplayer.json";
+
+            return Task.Run(() => Request.ExecuteRequest<BaseResponse>(
+                path,
+                service,
+                new Dictionary<string, string>
+                {
+                    { "sessionKey", sessionKey }
+                }
+            )).Result;
+        }
     }
 }

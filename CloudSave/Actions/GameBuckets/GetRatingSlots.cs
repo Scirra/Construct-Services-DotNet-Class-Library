@@ -8,24 +8,23 @@ namespace ConstructServices.CloudSave.Actions;
 
 public static partial class GameBuckets
 {
-    /// <summary>
-    /// Edit a rating dimension for a bucket
-    /// </summary>
-    [UsedImplicitly]
-    public static DimensionsResponse GetRatingDimensions(
-        this CloudSaveService service,
-        Guid bucketID)
+    extension(CloudSaveService service)
     {
-        const string path = "/bucketgetratingdimensions.json";
-        return Ratings.Actions.Rating.GetDimensions(service, path, Thing.CloudSaveBlob, bucketID);
-    }
+        /// <summary>
+        /// Edit a rating dimension for a bucket
+        /// </summary>
+        [UsedImplicitly]
+        public DimensionsResponse GetRatingDimensions(Guid bucketID)
+        {
+            const string path = "/bucketgetratingdimensions.json";
+            return Ratings.Actions.Rating.GetDimensions(service, path, Thing.CloudSaveBlob, bucketID);
+        }
 
-    /// <summary>
-    /// Edit a rating dimension for a bucket
-    /// </summary>
-    [UsedImplicitly]
-    public static DimensionsResponse GetRatingDimensions(
-        this CloudSaveService service,
-        GameBucket bucket)
-        => GetRatingDimensions(service, bucket.ID);
+        /// <summary>
+        /// Edit a rating dimension for a bucket
+        /// </summary>
+        [UsedImplicitly]
+        public DimensionsResponse GetRatingDimensions(GameBucket bucket)
+            => GetRatingDimensions(service, bucket.ID);
+    }
 }

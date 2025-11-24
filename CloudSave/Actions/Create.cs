@@ -11,59 +11,54 @@ namespace ConstructServices.CloudSave.Actions;
 
 public static partial class CloudSaves
 {
-    /// <summary>
-    /// Upload a new cloud save to a bucket from a player
-    /// </summary>
-    [UsedImplicitly]
-    public static CloudSaveResponse Create(
-        this CloudSaveService service,
-        string sessionKey,
-        Guid bucketID,
-        byte[] cloudSaveData,
-        string cloudSaveName,
-        string cloudSaveKey,
-        PictureData picture = null)
-        => DoCreate(service, sessionKey, bucketID, cloudSaveData, cloudSaveName, cloudSaveKey, picture);
+    extension(CloudSaveService service)
+    {
+        /// <summary>
+        /// Upload a new cloud save to a bucket from a player
+        /// </summary>
+        [UsedImplicitly]
+        public CloudSaveResponse Create(string sessionKey,
+            Guid bucketID,
+            byte[] cloudSaveData,
+            string cloudSaveName,
+            string cloudSaveKey,
+            PictureData picture = null)
+            => DoCreate(service, sessionKey, bucketID, cloudSaveData, cloudSaveName, cloudSaveKey, picture);
 
-    /// <summary>
-    /// Upload a new cloud save to a bucket from a player
-    /// </summary>
-    [UsedImplicitly]
-    public static CloudSaveResponse Create(
-        this CloudSaveService service,
-        string sessionKey,
-        GameBucket bucket,
-        byte[] cloudSaveData,
-        string cloudSaveName,
-        string cloudSaveKey,
-        PictureData picture = null)
-        => DoCreate(service, sessionKey, bucket.ID, cloudSaveData, cloudSaveName, cloudSaveKey, picture);
+        /// <summary>
+        /// Upload a new cloud save to a bucket from a player
+        /// </summary>
+        [UsedImplicitly]
+        public CloudSaveResponse Create(string sessionKey,
+            GameBucket bucket,
+            byte[] cloudSaveData,
+            string cloudSaveName,
+            string cloudSaveKey,
+            PictureData picture = null)
+            => DoCreate(service, sessionKey, bucket.ID, cloudSaveData, cloudSaveName, cloudSaveKey, picture);
 
-    /// <summary>
-    /// Upload a new cloud save to a bucket with no player association
-    /// </summary>
-    [UsedImplicitly]
-    public static CloudSaveResponse Create(
-        this CloudSaveService service,
-        Guid bucketID,
-        byte[] cloudSaveData,
-        string cloudSaveName,
-        string cloudSaveKey,
-        PictureData picture = null)
-        => DoCreate(service, null, bucketID, cloudSaveData, cloudSaveName, cloudSaveKey, picture);
+        /// <summary>
+        /// Upload a new cloud save to a bucket with no player association
+        /// </summary>
+        [UsedImplicitly]
+        public CloudSaveResponse Create(Guid bucketID,
+            byte[] cloudSaveData,
+            string cloudSaveName,
+            string cloudSaveKey,
+            PictureData picture = null)
+            => DoCreate(service, null, bucketID, cloudSaveData, cloudSaveName, cloudSaveKey, picture);
 
-    /// <summary>
-    /// Upload a new cloud save to a bucket with no player association
-    /// </summary>
-    [UsedImplicitly]
-    public static CloudSaveResponse Create(
-        this CloudSaveService service,
-        GameBucket bucket,
-        byte[] cloudSaveData,
-        string cloudSaveName,
-        string cloudSaveKey,
-        PictureData picture = null)
-        => DoCreate(service, null, bucket.ID, cloudSaveData, cloudSaveName, cloudSaveKey, picture);
+        /// <summary>
+        /// Upload a new cloud save to a bucket with no player association
+        /// </summary>
+        [UsedImplicitly]
+        public CloudSaveResponse Create(GameBucket bucket,
+            byte[] cloudSaveData,
+            string cloudSaveName,
+            string cloudSaveKey,
+            PictureData picture = null)
+            => DoCreate(service, null, bucket.ID, cloudSaveData, cloudSaveName, cloudSaveKey, picture);
+    }
 
     private static CloudSaveResponse DoCreate(
         CloudSaveService service,
