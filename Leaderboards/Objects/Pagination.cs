@@ -2,7 +2,7 @@
 
 namespace ConstructServices.Leaderboards.Objects;
 
-public class Pagination : ConstructServices.Common.Pagination
+public sealed class Pagination : ConstructServices.Common.Pagination
 {
     [JsonProperty(PropertyName = "formattedRequestedPage")]
     public string FormattedRequestedPage { get; private set; }

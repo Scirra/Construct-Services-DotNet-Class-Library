@@ -2,7 +2,7 @@
 
 namespace ConstructServices.Leaderboards.Objects;
 
-public class Leaderboard
+public sealed class Leaderboard
 {
     [JsonProperty(PropertyName = "globalScores")]
     public int GlobalScores { get; private set; }

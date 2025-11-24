@@ -3,7 +3,7 @@ using System;
 
 namespace ConstructServices.Authentication.Objects;
 
-public class PlayerLoginProvider
+public sealed class PlayerLoginProvider
 {
     [JsonProperty(PropertyName = "playerID")]
     public Guid PlayerID { get; set; }

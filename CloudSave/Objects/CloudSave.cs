@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace ConstructServices.CloudSave.Objects;
 
-public class CloudSave
+public sealed class CloudSave
 {
     [JsonProperty(PropertyName = "id")]
     public Guid ID { get; private set; }

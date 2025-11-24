@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace ConstructServices.Leaderboards.Responses;
 
-public class DeleteScoresResponse : BaseResponse
+public sealed class DeleteScoresResponse : BaseResponse
 {
     [JsonProperty(PropertyName = "scoresDeleted")]
     public int ScoresDeleted { get; set; }

@@ -2,7 +2,7 @@
 
 namespace ConstructServices.Leaderboards.Responses;
 
-public class ShadowBanResponse : BaseResponse
+public sealed class ShadowBanResponse : BaseResponse
 {
     public ShadowBanResponse()
     {

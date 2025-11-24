@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace ConstructServices.Authentication.Responses;
 
-public class SignInPollResponse : BaseResponse
+public sealed class SignInPollResponse : BaseResponse
 {
     [JsonProperty(PropertyName = "session")]
     public Session Session { get; set; }

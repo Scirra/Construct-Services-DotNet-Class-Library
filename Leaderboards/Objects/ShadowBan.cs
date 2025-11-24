@@ -4,7 +4,7 @@ using ConstructServices.Authentication.Objects;
 
 namespace ConstructServices.Leaderboards.Objects;
 
-public class ShadowBan
+public sealed class ShadowBan
 {
     [JsonProperty(PropertyName = "dateBanned")]
     public DateTime Date { get; private set; }

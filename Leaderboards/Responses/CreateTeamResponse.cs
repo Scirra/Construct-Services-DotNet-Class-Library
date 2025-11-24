@@ -4,7 +4,7 @@ using ConstructServices.Common;
 
 namespace ConstructServices.Leaderboards.Responses;
 
-public class CreateTeamResponse : BaseResponse
+public sealed class CreateTeamResponse : BaseResponse
 {
     [JsonProperty(PropertyName = "id")]
     public Guid TeamID { get; set; }

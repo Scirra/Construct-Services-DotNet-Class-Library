@@ -4,7 +4,7 @@ using ConstructServices.Authentication.Objects;
 
 namespace ConstructServices.Leaderboards.Objects;
 
-public class Score
+public sealed class Score
 {
     [JsonProperty(PropertyName = "scoreID")]
     public Guid ScoreID { get; private set; }

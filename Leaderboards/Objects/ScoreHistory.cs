@@ -3,7 +3,7 @@ using System;
 
 namespace ConstructServices.Leaderboards.Objects;
 
-public class ScoreHistory
+public sealed class ScoreHistory
 {
     [JsonProperty(PropertyName = "date")]
     public DateTime Date { get; private set; }

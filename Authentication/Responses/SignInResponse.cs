@@ -4,7 +4,7 @@ using ConstructServices.Common;
 
 namespace ConstructServices.Authentication.Responses;
 
-public class SignInResponse : BaseResponse
+public sealed class SignInResponse : BaseResponse
 {
     [JsonProperty(PropertyName = "redirectToURL")]
     public string RedirectToURL { get; set; }

@@ -8,7 +8,7 @@ using Pagination = ConstructServices.Leaderboards.Objects.Pagination;
 
 namespace ConstructServices.Leaderboards.Responses;
 
-public class GetTeamsResponse : BaseResponse
+public sealed class GetTeamsResponse : BaseResponse
 {
     [JsonProperty(PropertyName = "pagination")]
     public Pagination Pagination { get; set; }

@@ -5,7 +5,7 @@ using ConstructServices.Common;
 
 namespace ConstructServices.Authentication.Objects;
 
-public class Player
+public sealed class Player
 {
     [JsonProperty(PropertyName = "id")]
     public Guid ID { get; private set; }

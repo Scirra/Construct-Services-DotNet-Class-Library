@@ -3,7 +3,7 @@ using System;
 
 namespace ConstructServices.Leaderboards.Objects;
 
-public class Team
+public sealed class Team
 {
     [JsonProperty(PropertyName = "teamID")]
     public Guid ID { get; private set; }

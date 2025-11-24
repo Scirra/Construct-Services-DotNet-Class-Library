@@ -4,7 +4,7 @@ using ConstructServices.CloudSave.Objects;
 
 namespace ConstructServices.CloudSave.Responses;
 
-public class BucketResponse : BaseResponse
+public sealed class BucketResponse : BaseResponse
 {
     [JsonProperty(PropertyName = "bucket")]
     public GameBucket Bucket { get; set; }

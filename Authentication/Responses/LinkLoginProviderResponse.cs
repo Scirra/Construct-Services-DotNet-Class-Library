@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace ConstructServices.Authentication.Responses;
 
-public class LinkLoginProviderResponse : BaseResponse
+public sealed class LinkLoginProviderResponse : BaseResponse
 {                
     [JsonProperty(PropertyName = "linked")]
     public bool Linked { get; set; }

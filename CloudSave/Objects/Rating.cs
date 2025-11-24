@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace ConstructServices.CloudSave.Objects;
 
-public class Rating
+public sealed class Rating
 {
     [JsonProperty(PropertyName = "date")]
     public DateTime Date { get; set; }

@@ -7,7 +7,7 @@ using JetBrains.Annotations;
 
 namespace ConstructServices.Leaderboards.Responses;
 
-public class GetScoreNeighboursResponse : BaseResponse
+public sealed class GetScoreNeighboursResponse : BaseResponse
 {
     [JsonProperty(PropertyName = "formattingCulture")]
     private string FormattingCulture_ { get; set; }

@@ -5,7 +5,7 @@ using ConstructServices.Authentication.Objects;
 
 namespace ConstructServices.Authentication.Responses;
 
-public class GetPlayersResponse : BaseResponse
+public sealed class GetPlayersResponse : BaseResponse
 {
     [JsonProperty(PropertyName = "pagination")]
     public Pagination Pagination { get; set; }

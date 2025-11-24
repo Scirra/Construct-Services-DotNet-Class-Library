@@ -3,7 +3,7 @@ using System;
 
 namespace ConstructServices.CloudSave.Objects;
 
-public class GameBucket
+public sealed class GameBucket
 {
     [JsonProperty(PropertyName = "id")]
     public Guid ID { get; private set; }

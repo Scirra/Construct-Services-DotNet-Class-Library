@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace ConstructServices.Ratings.Responses;
 
-public class DimensionResponse : BaseResponse
+public sealed class DimensionResponse : BaseResponse
 {
     [JsonProperty(PropertyName = "dimension")]
     public Objects.RatingDimension Dimension { get; set; }

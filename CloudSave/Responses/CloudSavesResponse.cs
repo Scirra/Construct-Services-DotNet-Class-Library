@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace ConstructServices.CloudSave.Responses
 {
-    public class CloudSavesResponse : BaseResponse
+    public sealed class CloudSavesResponse : BaseResponse
     {
         [JsonProperty(PropertyName = "pagination")]
         public Pagination Pagination { get; set; }

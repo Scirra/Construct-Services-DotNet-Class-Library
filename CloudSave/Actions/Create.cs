@@ -105,7 +105,7 @@ public static partial class CloudSaves
             }
             if (picture.Bytes != null)
             {
-                postedBinaryData.Add("picture", new ByteArrayContent(picture.Bytes));
+                postedBinaryData.Add("pictureData", new ByteArrayContent(picture.Bytes));
             }
         }
 

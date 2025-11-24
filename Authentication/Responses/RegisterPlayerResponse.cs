@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace ConstructServices.Authentication.Responses;
 
-public class RegisterPlayerResponse : BaseResponse
+public sealed class RegisterPlayerResponse : BaseResponse
 {
     [JsonProperty(PropertyName = "player")]
     public Player Player { get; set; }

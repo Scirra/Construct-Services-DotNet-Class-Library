@@ -5,7 +5,7 @@ using ConstructServices.CloudSave.Objects;
 
 namespace ConstructServices.CloudSave.Responses
 {
-    public class BucketsResponse : BaseResponse
+    public sealed class BucketsResponse : BaseResponse
     {
         [JsonProperty(PropertyName = "pagination")]
         public Pagination Pagination { get; set; }

@@ -6,7 +6,7 @@ using JetBrains.Annotations;
 
 namespace ConstructServices.Leaderboards;
 
-public class LeaderboardService : BaseService
+public sealed class LeaderboardService : BaseService
 {
     internal Guid LeaderboardID { get; private set; }
     internal CultureInfo Culture { get; private set; }

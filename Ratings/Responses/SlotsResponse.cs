@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace ConstructServices.Ratings.Responses;
 
-public class DimensionsResponse : BaseResponse
+public sealed class DimensionsResponse : BaseResponse
 {
     [JsonProperty(PropertyName = "dimensions")]
     public List<Objects.RatingDimension> Dimensions { get; set; }

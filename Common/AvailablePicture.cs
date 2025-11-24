@@ -2,7 +2,7 @@
 
 namespace ConstructServices.Common;
 
-public class AvailablePicture
+public sealed class AvailablePicture
 {
     [JsonProperty(PropertyName = "width")]
     public uint Width { get; set; }

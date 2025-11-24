@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace ConstructServices.Leaderboards.Objects;
 
-public class TeamPlayer
+public sealed class TeamPlayer
 {
     [JsonProperty(PropertyName = "player")]
     public Player Player { get; private set; }

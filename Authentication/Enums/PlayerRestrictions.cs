@@ -23,7 +23,7 @@ public enum PlayerRestriction
     [UsedImplicitly] PlayerRateObjects = 200
 }
 
-public class PlayerRestrictionAttribute : System.Attribute
+public sealed class PlayerRestrictionAttribute : System.Attribute
 {
     public string FriendlyName { get; set; }
     public string Description { get; set; }

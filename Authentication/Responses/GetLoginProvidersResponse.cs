@@ -5,7 +5,7 @@ using ConstructServices.Common;
 
 namespace ConstructServices.Authentication.Responses;
 
-public class GetConnectedLoginProvidersResponse : BaseResponse
+public sealed class GetConnectedLoginProvidersResponse : BaseResponse
 {
     [JsonProperty(PropertyName = "connectedProviders")] 
     public List<PlayerLoginProvider> ConnectedProviders { get; set; }

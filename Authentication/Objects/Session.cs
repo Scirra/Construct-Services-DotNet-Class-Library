@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace ConstructServices.Authentication.Objects;
 
-public class Session
+public sealed class Session
 {
     [JsonProperty(PropertyName = "playerID")]
     public Guid PlayerID { get; set; }

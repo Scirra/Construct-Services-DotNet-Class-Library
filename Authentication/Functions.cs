@@ -25,7 +25,7 @@ public static class Functions
             }
             case LoginProvider.Facebook:
             {
-                logoFilename = "faceboook-logo.svg";
+                logoFilename = "facebook-logo.svg";
                 break;
             }
             case LoginProvider.Discord:

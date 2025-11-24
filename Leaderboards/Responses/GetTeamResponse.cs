@@ -6,7 +6,7 @@ using System.Globalization;
 
 namespace ConstructServices.Leaderboards.Responses;
 
-public class GetTeamResponse : BaseResponse
+public sealed class GetTeamResponse : BaseResponse
 {
     [JsonProperty(PropertyName = "formattingCulture")]
     private string FormattingCulture_ { get; set; }

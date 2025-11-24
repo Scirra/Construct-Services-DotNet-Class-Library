@@ -2,7 +2,7 @@
 
 namespace ConstructServices.Ratings.Objects;
 
-public class RatingDimension
+public sealed class RatingDimension
 {
     [JsonProperty(PropertyName = "id")] 
     public string ID { get; set; }

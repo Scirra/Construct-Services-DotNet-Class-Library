@@ -3,7 +3,7 @@ using System;
 
 namespace ConstructServices.Ratings.Objects;
 
-public class RatingAggregate
+public sealed class RatingAggregate
 {
     [JsonProperty(PropertyName = "totalRatings")]
     public int TotalRatings { get; set; }

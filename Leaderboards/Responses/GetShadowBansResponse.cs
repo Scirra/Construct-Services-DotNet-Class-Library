@@ -6,7 +6,7 @@ using Pagination = ConstructServices.Leaderboards.Objects.Pagination;
 
 namespace ConstructServices.Leaderboards.Responses;
 
-public class GetShadowBansResponse : BaseResponse
+public sealed class GetShadowBansResponse : BaseResponse
 {
     [JsonProperty(PropertyName = "bans")]
     public List<ShadowBan> Bans { get; set; }

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace ConstructServices.Ratings.Responses;
 
-public class RateResponse : BaseResponse
+public sealed class RateResponse : BaseResponse
 {
     [JsonProperty(PropertyName = "rating")]
     public RatingAggregate Rating { get; set; }

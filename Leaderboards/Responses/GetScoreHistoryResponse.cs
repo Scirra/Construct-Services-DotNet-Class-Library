@@ -9,7 +9,7 @@ using System.Globalization;
 
 namespace ConstructServices.Leaderboards.Responses;
 
-public class GetScoreHistoryResponse : BaseResponse
+public sealed class GetScoreHistoryResponse : BaseResponse
 {
     [JsonProperty(PropertyName = "scoreID")]
     public Guid ScoreID { get; set; }

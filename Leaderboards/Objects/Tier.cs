@@ -2,7 +2,7 @@
 
 namespace ConstructServices.Leaderboards.Objects;
 
-public class Tier
+public sealed class Tier
 {
     [JsonProperty(PropertyName = "id")]
     public string ID { get; private set; }
