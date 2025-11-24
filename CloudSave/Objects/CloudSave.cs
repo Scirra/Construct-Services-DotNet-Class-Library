@@ -38,6 +38,10 @@ public sealed class CloudSave
 
     [JsonProperty(PropertyName = "ratingStatus")]
     public RatingStatus RatingStatus { get; set; }
+
+    [JsonProperty(PropertyName = "pictureSizeBytes")]
+    public long? PictureSizeBytes { get; set; }
+
     public bool ShouldSerializeRatingStatus() => RatingStatus != null;
 
     public CloudSave()
