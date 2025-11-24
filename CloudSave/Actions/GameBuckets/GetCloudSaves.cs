@@ -18,6 +18,7 @@ public static partial class GameBuckets
         public HashSet<Guid> PlayerIDs { get; [UsedImplicitly] set; }
         public Dictionary<string, int> TotalRatings { get; [UsedImplicitly] set; }
         public Dictionary<string, byte> MinRating { get; [UsedImplicitly] set; }
+        public HashSet<Guid> BlobIDs { get; [UsedImplicitly] set; }
     }
 
     extension(CloudSaveService service)
@@ -58,6 +59,12 @@ public static partial class GameBuckets
                 if (playerIDs != null && playerIDs.Any())
                 {
                     formData.Add("playerIDs", string.Join(",", playerIDs));
+                }
+
+                var blobIDs = filters.BlobIDs;
+                if (blobIDs != null && blobIDs.Any())
+                {
+                    formData.Add("blobIDs", string.Join(",", blobIDs));
                 }
 
                 var totalRatings = filters.TotalRatings;
