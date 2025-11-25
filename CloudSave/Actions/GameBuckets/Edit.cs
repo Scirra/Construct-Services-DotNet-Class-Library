@@ -49,10 +49,7 @@ public static partial class GameBuckets
             {
                 formData.Add("maxBlobSize", newMaxBlobSizeBytes.Value.ToString());
             }
-            if (newMaxBlobsPerPlayer.HasValue)
-            {
-                formData.Add("maxBlobsPerPlayer", newMaxBlobsPerPlayer.Value.ToString());
-            }
+            formData.Add("maxBlobsPerPlayer", newMaxBlobsPerPlayer?.ToString() ?? string.Empty);
 
             const string path = "/editbucket.json";
             return Task.Run(() => Request.ExecuteRequest<BaseResponse>(
