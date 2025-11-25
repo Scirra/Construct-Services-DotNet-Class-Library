@@ -16,9 +16,6 @@ public sealed class RatingDimension
     [JsonProperty(PropertyName = "maxRating")]
     public byte MaxRating { get; set; }
 
-    [JsonProperty(PropertyName = "rating")]
-    public RatingAggregate Rating { get; set; }
-
     public RatingDimension()
     {
     }
