@@ -17,7 +17,7 @@ public static partial class GameBuckets
         public DimensionsResponse GetRatingDimensions(Guid bucketID)
         {
             const string path = "/bucketgetratingdimensions.json";
-            return Ratings.Actions.Rating.GetDimensions(service, path, Thing.CloudSaveBlob, bucketID);
+            return Ratings.Actions.Rating.GetDimensions(service, path, Thing.CloudSaveBucket, bucketID);
         }
 
         /// <summary>
