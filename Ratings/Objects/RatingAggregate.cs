@@ -10,10 +10,13 @@ public sealed class RatingAggregate
 
     [JsonProperty(PropertyName = "formattedTotalRatings")]
     public string FormattedTotalRatings { get; set; }
-    
+
     [JsonProperty(PropertyName = "averageRating")]
     public decimal AverageRating { get; set; }
-    
+
+    [JsonProperty(PropertyName = "averageRatingAsPercentage")]
+    public decimal AverageRatingAsPercentage { get; set; }
+
     [JsonProperty(PropertyName = "formattedAverageRating")]
     public string FormattedAverageRating { get; set; }
     
