@@ -21,7 +21,7 @@ public static partial class GameBuckets
             byte maxRating)
         {
             const string path = "/bucketcreateratingdimension.json";
-            return Ratings.Actions.Rating.CreateDimension(service, path, Thing.CloudSaveBlob, bucketID, dimensionID, title, description, maxRating);
+            return Ratings.Actions.Rating.CreateDimension(service, path, Thing.CloudSaveBucket, bucketID, dimensionID, title, description, maxRating);
         }
 
         /// <summary>

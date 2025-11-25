@@ -17,7 +17,7 @@ public static partial class GameBuckets
             string dimensionID)
         {
             const string path = "/bucketdeleteratingsdimension.json";
-            return Ratings.Actions.Rating.DeleteDimension(service, path, Thing.CloudSaveBlob, bucketID, dimensionID);
+            return Ratings.Actions.Rating.DeleteDimension(service, path, Thing.CloudSaveBucket, bucketID, dimensionID);
         }
 
         /// <summary>
