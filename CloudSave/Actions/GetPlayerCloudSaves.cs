@@ -4,6 +4,7 @@ using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ConstructServices.Authentication.Objects;
 
 namespace ConstructServices.CloudSave.Actions;
 
@@ -18,34 +19,83 @@ public static partial class CloudSaves
     extension(CloudSaveService service)
     {
         /// <summary>
-        /// Return paginated players cloud saves
+        /// Return paginated players private cloud saves
         /// </summary>
         [UsedImplicitly]
-        public CloudSavesResponse GetCloudSaves(string sessionKey,
+        public CloudSavesResponse GetPlayersPrivateCloudSaves(
+            string sessionKey,
             PaginationOptions paginationOptions,
             Enums.GetPlayerCloudSaveSortMethod? orderBy = null,
             GetPlayerCloudSaveFilters filters = null)
-            => GetCloudSaves(service, null, sessionKey, paginationOptions, orderBy, filters);
+            => GetPlayersCloudSaves(service, null, sessionKey, false, paginationOptions, orderBy, filters);
+        
+        /// <summary>
+        /// Return paginated players private cloud saves
+        /// </summary>
+        [UsedImplicitly]
+        public CloudSavesResponse GetPlayersPrivateCloudSaves(
+            ExpandedPlayer player,
+            PaginationOptions paginationOptions,
+            Enums.GetPlayerCloudSaveSortMethod? orderBy = null,
+            GetPlayerCloudSaveFilters filters = null)
+            => GetPlayersCloudSaves(service, player.ID, null, false, paginationOptions, orderBy, filters);
 
         /// <summary>
-        /// Return paginated players cloud saves
+        /// Return paginated players private cloud saves
         /// </summary>
         [UsedImplicitly]
-        public CloudSavesResponse GetCloudSaves(Guid playerID,
+        public CloudSavesResponse GetPlayersPrivateCloudSaves(
+            Guid playerID,
             PaginationOptions paginationOptions,
             Enums.GetPlayerCloudSaveSortMethod? orderBy = null,
             GetPlayerCloudSaveFilters filters = null)
-            => GetCloudSaves(service, playerID, null, paginationOptions, orderBy, filters);
-
-        private CloudSavesResponse GetCloudSaves(Guid? playerID,
+            => GetPlayersCloudSaves(service, playerID, null, false, paginationOptions, orderBy, filters);
+        
+        /// <summary>
+        /// Return paginated players cloud saves in game buckets
+        /// </summary>
+        [UsedImplicitly]
+        public CloudSavesResponse GetPlayersBucketCloudSaves(
             string sessionKey,
+            PaginationOptions paginationOptions,
+            Enums.GetPlayerCloudSaveSortMethod? orderBy = null,
+            GetPlayerCloudSaveFilters filters = null)
+            => GetPlayersCloudSaves(service, null, sessionKey, true, paginationOptions, orderBy, filters);
+        
+        /// <summary>
+        /// Return paginated players cloud saves in game buckets
+        /// </summary>
+        [UsedImplicitly]
+        public CloudSavesResponse GetPlayersBucketCloudSaves(
+            ExpandedPlayer player,
+            PaginationOptions paginationOptions,
+            Enums.GetPlayerCloudSaveSortMethod? orderBy = null,
+            GetPlayerCloudSaveFilters filters = null)
+            => GetPlayersCloudSaves(service, player.ID, null, true, paginationOptions, orderBy, filters);
+
+        /// <summary>
+        /// Return paginated players cloud saves in game buckets
+        /// </summary>
+        [UsedImplicitly]
+        public CloudSavesResponse GetPlayersBucketCloudSaves(
+            Guid playerID,
+            PaginationOptions paginationOptions,
+            Enums.GetPlayerCloudSaveSortMethod? orderBy = null,
+            GetPlayerCloudSaveFilters filters = null)
+            => GetPlayersCloudSaves(service, playerID, null, true, paginationOptions, orderBy, filters);
+        
+        private CloudSavesResponse GetPlayersCloudSaves(
+            Guid? playerID,
+            string sessionKey,
+            bool getBucketSaves,
             PaginationOptions paginationOptions,
             Enums.GetPlayerCloudSaveSortMethod? orderBy = null,
             GetPlayerCloudSaveFilters filters = null)
         {
             var formData = new Dictionary<string, string>
             {
-                { "mode", "Player" }
+                { "mode", "Player" },
+                { "bucketSaves", getBucketSaves.ToInt().ToString() }
             };
 
             if (playerID.HasValue)
