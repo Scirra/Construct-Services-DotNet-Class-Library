@@ -54,6 +54,18 @@ public sealed class ExpandedPlayer
 
     [JsonProperty(PropertyName = "totalCloudSavesSize")]
     public long TotalCloudSavesSize { get; set; }
+        
+    [JsonProperty(PropertyName = "totalPrivateCloudSaves")]
+    internal int TotalPrivateCloudSaves { get; set; }
+
+    [JsonProperty(PropertyName = "totalPrivateCloudSavesSize")]
+    internal long TotalPrivateCloudSavesSize { get; set; }
+
+    [JsonProperty(PropertyName = "totalBucketCloudSaves")]
+    internal int TotalBucketCloudSaves { get; set; }
+
+    [JsonProperty(PropertyName = "totalBucketCloudSavesSize")]
+    internal long TotalBucketCloudSavesSize { get; set; }
 
     [JsonProperty(PropertyName = "totalRatings")]
     public int TotalRatings { get; set; }
