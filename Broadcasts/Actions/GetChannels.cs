@@ -13,10 +13,10 @@ public static class Get
     /// Get all channels in this game
     /// </summary>
     [UsedImplicitly]
-    public static ChannelsResponse GetChannels(
-        this BroadcastService service,
-        string requestedLanguage = null,
-        CultureInfo culture = null)
+    private static ChannelsResponse DoGetChannels(
+        BroadcastService service,
+        string requestedLanguage,
+        CultureInfo culture)
     {
         var formData = new Dictionary<string, string>();
         if (!string.IsNullOrEmpty(requestedLanguage))
@@ -34,5 +34,37 @@ public static class Get
             service,
             formData
         )).Result;
+    }
+
+    extension(BroadcastService service)
+    {
+        /// <summary>
+        /// Get all channels in this game
+        /// </summary>
+        [UsedImplicitly]
+        public ChannelsResponse GetChannels()
+            => DoGetChannels(service, null, null);
+        
+        /// <summary>
+        /// Get all channels in this game returning the translatable elements as requestedLanguage if possible.
+        /// </summary>
+        [UsedImplicitly]
+        public ChannelsResponse GetChannels(string requestedLanguage)
+            => DoGetChannels(service, requestedLanguage, null);
+        
+        /// <summary>
+        /// Get all channels in this game returning the translatable elements as requestedLanguage if possible
+        /// and data returned formatted to a specified culture.
+        /// </summary>
+        [UsedImplicitly]
+        public ChannelsResponse GetChannels(string requestedLanguage, CultureInfo inCulture)
+            => DoGetChannels(service, requestedLanguage, inCulture);
+
+        /// <summary>
+        /// Get all channels in this game with data returned formatted to a specified culture.
+        /// </summary>
+        [UsedImplicitly]
+        public ChannelsResponse GetChannels(CultureInfo inCulture)
+            => DoGetChannels(service, null, inCulture);
     }
 }
