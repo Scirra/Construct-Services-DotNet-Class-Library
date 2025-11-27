@@ -83,6 +83,7 @@
     <Compile Include="Authentication\Responses\SignInResponse.cs" />
     <Compile Include="Broadcasts\Actions\CreateChannel.cs" />
     <Compile Include="Broadcasts\Actions\Delete.cs" />
+    <Compile Include="Broadcasts\Actions\GetChannel.cs" />
     <Compile Include="Broadcasts\Actions\GetChannels.cs" />
     <Compile Include="Broadcasts\BroadcastService.cs" />
     <Compile Include="Broadcasts\Config.cs" />
