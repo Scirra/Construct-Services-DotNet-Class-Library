@@ -82,10 +82,12 @@
     <Compile Include="Authentication\Responses\SignInPollResponse.cs" />
     <Compile Include="Authentication\Responses\SignInResponse.cs" />
     <Compile Include="Broadcasts\Actions\CreateChannel.cs" />
+    <Compile Include="Broadcasts\Actions\GetChannels.cs" />
     <Compile Include="Broadcasts\BroadcastService.cs" />
     <Compile Include="Broadcasts\Config.cs" />
     <Compile Include="Broadcasts\Objects\Channel.cs" />
     <Compile Include="Broadcasts\Responses\ChannelResponse.cs" />
+    <Compile Include="Broadcasts\Responses\ChannelsResponse.cs" />
     <Compile Include="CloudSave\Actions\GameBuckets\CreateRatingDimension.cs" />
     <Compile Include="CloudSave\Actions\GameBuckets\DeleteRatingDimension.cs" />
     <Compile Include="CloudSave\Actions\GameBuckets\EditRatingSlot.cs" />

@@ -9,7 +9,7 @@ namespace ConstructServices.Broadcasts.Actions;
 public static class Create
 {
     /// <summary>
-    /// Delete a bucket and all it's contained data
+    /// Create a new channel
     /// </summary>
     [UsedImplicitly]
     public static ChannelResponse CreateChannel(
