@@ -81,8 +81,11 @@
     <Compile Include="Authentication\Responses\RegisterPlayerResponse.cs" />
     <Compile Include="Authentication\Responses\SignInPollResponse.cs" />
     <Compile Include="Authentication\Responses\SignInResponse.cs" />
+    <Compile Include="Broadcasts\Actions\CreateChannel.cs" />
     <Compile Include="Broadcasts\BroadcastService.cs" />
     <Compile Include="Broadcasts\Config.cs" />
+    <Compile Include="Broadcasts\Objects\Channel.cs" />
+    <Compile Include="Broadcasts\Responses\ChannelResponse.cs" />
     <Compile Include="CloudSave\Actions\GameBuckets\CreateRatingDimension.cs" />
     <Compile Include="CloudSave\Actions\GameBuckets\DeleteRatingDimension.cs" />
     <Compile Include="CloudSave\Actions\GameBuckets\EditRatingSlot.cs" />
@@ -116,6 +119,7 @@
     <Compile Include="Common\AvailablePicture.cs" />
     <Compile Include="Common\BaseService.cs" />
     <Compile Include="Common\Functions.cs" />
+    <Compile Include="Common\Language.cs" />
     <Compile Include="Common\Pagination.cs" />
     <Compile Include="Common\PictureData.cs" />
     <Compile Include="Common\Request.cs" />
