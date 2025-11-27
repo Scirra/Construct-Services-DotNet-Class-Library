@@ -20,7 +20,10 @@ public static partial class Get
         string requestedLanguage,
         CultureInfo culture)
     {
-        var formData = new Dictionary<string, string>();
+        var formData = new Dictionary<string, string>
+        {
+            {"channelID", channelID.ToString() }
+        };
         if (!string.IsNullOrEmpty(requestedLanguage))
         {
             formData.Add("requestedLanguage", requestedLanguage);
