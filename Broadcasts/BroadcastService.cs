@@ -2,6 +2,7 @@
 using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace ConstructServices.Broadcasts;
 
@@ -13,7 +14,10 @@ public class BroadcastService : BaseService
     /// </summary>
     /// <param name="gameID">Game ID service is for</param>
     /// <param name="aPIKey">API key</param>
-    public BroadcastService(Guid gameID, string aPIKey) : base(gameID, Config.APIDomain, aPIKey)
+    /// <param name="requestedLanguage">ISO Alpha 2 language to return translatable strings to</param>
+    /// <param name="culture">Culture to return formatted values in</param>
+    public BroadcastService(Guid gameID, string aPIKey, string requestedLanguage = null, CultureInfo culture = null) 
+        : base(gameID, Config.APIDomain, aPIKey, requestedLanguage, culture)
     {
     }
 
@@ -21,7 +25,10 @@ public class BroadcastService : BaseService
     /// Create a new instance of the broadcast service
     /// </summary>
     /// <param name="gameID">Game ID service is for</param>
-    public BroadcastService(Guid gameID) : base(gameID, Config.APIDomain)
+    /// <param name="requestedLanguage">ISO Alpha 2 language to return translatable strings to</param>
+    /// <param name="culture">Culture to return formatted values in</param>
+    public BroadcastService(Guid gameID, string requestedLanguage = null, CultureInfo culture = null) 
+        : base(gameID, Config.APIDomain, null, requestedLanguage, culture)
     {
     }
 

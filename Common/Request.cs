@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 
 namespace ConstructServices.Common;
 
@@ -98,6 +99,15 @@ internal static class Request
             formData.Add("secret", service.APIKey);
         formData.Add("gameID", service.GameID.ToString());
         service.AddServiceSpecificFormData(formData);
+
+        if (!string.IsNullOrWhiteSpace(service.RequestedLanguage))
+        {
+            formData.Add("requestedLanguage", service.RequestedLanguage.Trim());
+        }
+        if (service.Culture != null)
+        {
+            formData.Add("culture", service.Culture.ToString());
+        }
 
         // Pagination
         if (paginationOptions != null)
