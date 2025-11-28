@@ -4,10 +4,15 @@ using System.Globalization;
 
 namespace ConstructServices.Common;
 
+public class SecretAPIKey(string key)
+{
+    internal string Key { get; private set; } = key;
+}
+
 public abstract class BaseService(
     Guid gameID, 
     string apiHost, 
-    string aPiKey = null, 
+    SecretAPIKey aPiKey = null, 
     string requestedLanguage = null, 
     CultureInfo culture = null)
 {
@@ -17,7 +22,7 @@ public abstract class BaseService(
     /// EG. https://service.construct.net
     /// </summary>
     internal string APIHost { get; private set; } = apiHost;
-    internal string APIKey { get; private set; } = aPiKey;
+    internal SecretAPIKey APIKey { get; private set; } = aPiKey;
     internal string RequestedLanguage { get; private set; } = requestedLanguage;
     internal CultureInfo Culture { get; private set; } = culture;
     

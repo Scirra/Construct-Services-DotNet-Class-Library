@@ -16,7 +16,7 @@ public class BroadcastService : BaseService
     /// <param name="aPIKey">API key</param>
     /// <param name="requestedLanguage">ISO Alpha 2 language to return translatable strings to</param>
     /// <param name="culture">Culture to return formatted values in</param>
-    public BroadcastService(Guid gameID, string aPIKey, string requestedLanguage = null, CultureInfo culture = null) 
+    public BroadcastService(Guid gameID, SecretAPIKey aPIKey, string requestedLanguage = null, CultureInfo culture = null) 
         : base(gameID, Config.APIDomain, aPIKey, requestedLanguage, culture)
     {
     }

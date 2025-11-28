@@ -17,7 +17,7 @@ public sealed class LeaderboardService : BaseService
     /// <param name="aPIKey">Optional API key, may be required for some request types and should never be exposed client side.</param>
     /// <param name="requestedLanguage">ISO Alpha 2 language to return translatable strings to</param>
     /// <param name="culture">Culture to return formatted values in</param>
-    public LeaderboardService(Guid gameID, Guid leaderboardID, string aPIKey, string requestedLanguage = null, CultureInfo culture = null) 
+    public LeaderboardService(Guid gameID, Guid leaderboardID, SecretAPIKey aPIKey, string requestedLanguage = null, CultureInfo culture = null) 
         : base(gameID, Config.APIDomain, aPIKey, requestedLanguage, culture)
     {
         LeaderboardID = leaderboardID;

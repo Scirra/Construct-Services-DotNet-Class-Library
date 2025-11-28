@@ -13,7 +13,7 @@ public class AuthenticationService : BaseService
     /// </summary>
     /// <param name="gameID">Game ID service is for</param>
     /// <param name="aPIKey">API key</param>
-    public AuthenticationService(Guid gameID, string aPIKey) : base(gameID, Config.APIDomain, aPIKey)
+    public AuthenticationService(Guid gameID, SecretAPIKey aPIKey) : base(gameID, Config.APIDomain, aPIKey)
     {
 
     }

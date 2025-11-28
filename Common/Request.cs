@@ -26,8 +26,8 @@ internal static class Request
         using (var formContent = new MultipartFormDataContent())
         {
             // Add form data
-            if (!string.IsNullOrWhiteSpace(service.APIKey))
-                formContent.Add(new StringContent(service.APIKey), "secret");
+            if (service.APIKey != null)
+                formContent.Add(new StringContent(service.APIKey.Key), "secret");
             formContent.Add(new StringContent(service.GameID.ToString()), "gameID");
             if (formData != null)
             {
@@ -95,8 +95,8 @@ internal static class Request
     {
         // Add form data
         formData ??= new Dictionary<string, string>();
-        if (!string.IsNullOrWhiteSpace(service.APIKey))
-            formData.Add("secret", service.APIKey);
+        if (service.APIKey != null)
+            formData.Add("secret", service.APIKey.Key);
         formData.Add("gameID", service.GameID.ToString());
         service.AddServiceSpecificFormData(formData);
 
@@ -172,8 +172,8 @@ internal static class Request
     {        
         // Add form data
         var formData = new Dictionary<string, string>();
-        if (!string.IsNullOrWhiteSpace(service.APIKey))
-            formData.Add("secret", service.APIKey);
+        if (service.APIKey != null)
+            formData.Add("secret", service.APIKey.Key);
         formData.Add("gameID", service.GameID.ToString());
         if (!string.IsNullOrWhiteSpace(sessionKey))
             formData.Add("sessionKey", sessionKey);
