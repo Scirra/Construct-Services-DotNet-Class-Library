@@ -13,8 +13,8 @@ public static partial class Get
     /// Get all channels in this game
     /// </summary>
     [UsedImplicitly]
-    public static ChannelResponse DoGetChannel(
-        BroadcastService service,
+    public static ChannelResponse GetChannel(
+        this BroadcastService service,
         Guid channelID)
     {
         var formData = new Dictionary<string, string>

@@ -12,8 +12,8 @@ public static partial class Get
     /// Get all channels in this game
     /// </summary>
     [UsedImplicitly]
-    public static ChannelsResponse DoGetChannels(
-        BroadcastService service)
+    public static ChannelsResponse GetChannels(
+        this BroadcastService service)
     {
         var formData = new Dictionary<string, string>();
         const string path = "/getchannels.json";
