@@ -1,30 +1,30 @@
-﻿using ConstructServices.CloudSave.Objects;
+﻿using ConstructServices.Broadcasts.Objects;
 using ConstructServices.Common;
 using ConstructServices.Ratings.Responses;
 using JetBrains.Annotations;
 using System;
 
-namespace ConstructServices.CloudSave.Actions;
+namespace ConstructServices.Broadcasts.Actions;
 
 public static partial class RatingDimensions
 {
-    extension(CloudSaveService service)
+    extension(BroadcastService service)
     {
         /// <summary>
-        /// Edit a rating dimension for a bucket
+        /// Edit a rating dimension for a channel
         /// </summary>
         [UsedImplicitly]
         public DimensionsResponse GetRatingDimensions(Guid bucketID)
         {
-            const string path = "/bucketgetratingdimensions.json";
+            const string path = "/channelgetratingdimensions.json";
             return Ratings.Actions.Rating.GetDimensions(service, path, Thing.BroadcastChannel, bucketID);
         }
 
         /// <summary>
-        /// Edit a rating dimension for a bucket
+        /// Edit a rating dimension for a channel
         /// </summary>
         [UsedImplicitly]
-        public DimensionsResponse GetRatingDimensions(GameBucket bucket)
-            => GetRatingDimensions(service, bucket.ID);
+        public DimensionsResponse GetRatingDimensions(Channel channel)
+            => GetRatingDimensions(service, channel.ID);
     }
 }

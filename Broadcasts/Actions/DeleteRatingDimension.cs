@@ -1,31 +1,31 @@
-﻿using ConstructServices.CloudSave.Objects;
+﻿using ConstructServices.Broadcasts.Objects;
 using ConstructServices.Common;
 using JetBrains.Annotations;
 using System;
 
-namespace ConstructServices.CloudSave.Actions;
+namespace ConstructServices.Broadcasts.Actions;
 
 public static partial class RatingDimensions
 {
-    extension(CloudSaveService service)
+    extension(BroadcastService service)
     {
         /// <summary>
-        /// Delete a rating dimension for a bucket
+        /// Delete a rating dimension for a channel
         /// </summary>
         [UsedImplicitly]
         public BaseResponse DeleteRatingDimension(Guid bucketID,
             string dimensionID)
         {
-            const string path = "/bucketdeleteratingsdimension.json";
+            const string path = "/channeldeleteratingsdimension.json";
             return Ratings.Actions.Rating.DeleteDimension(service, path, Thing.BroadcastChannel, bucketID, dimensionID);
         }
 
         /// <summary>
-        /// Delete a rating dimension for a bucket
+        /// Delete a rating dimension for a channel
         /// </summary>
         [UsedImplicitly]
-        public BaseResponse DeleteRatingDimension(GameBucket bucket,
+        public BaseResponse DeleteRatingDimension(Channel channel,
             string dimensionID) 
-            => DeleteRatingDimension(service, bucket.ID, dimensionID);
+            => DeleteRatingDimension(service, channel.ID, dimensionID);
     }
 }

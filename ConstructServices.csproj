@@ -83,6 +83,7 @@
     <Compile Include="Authentication\Responses\SignInResponse.cs" />
     <Compile Include="Broadcasts\Actions\CreateChannel.cs" />
     <Compile Include="Broadcasts\Actions\Delete.cs" />
+    <Compile Include="Broadcasts\Actions\EditRatingDimension.cs" />
     <Compile Include="Broadcasts\Actions\GetChannel.cs" />
     <Compile Include="Broadcasts\Actions\GetChannels.cs" />
     <Compile Include="Broadcasts\Actions\UpdateChannel.cs" />
@@ -91,11 +92,14 @@
     <Compile Include="Broadcasts\Objects\Channel.cs" />
     <Compile Include="Broadcasts\Responses\ChannelResponse.cs" />
     <Compile Include="Broadcasts\Responses\ChannelsResponse.cs" />
+    <Compile Include="Broadcasts\Actions\CreateRatingDimension.cs" />
+    <Compile Include="Broadcasts\Actions\DeleteRatingDimension.cs" />
     <Compile Include="CloudSave\Actions\GameBuckets\CreateRatingDimension.cs" />
     <Compile Include="CloudSave\Actions\GameBuckets\DeleteRatingDimension.cs" />
-    <Compile Include="CloudSave\Actions\GameBuckets\EditRatingSlot.cs" />
-    <Compile Include="CloudSave\Actions\GameBuckets\GetRatingDimensions.cs" />
+    <Compile Include="CloudSave\Actions\GameBuckets\EditRatingDimension.cs" />
+    <Compile Include="Broadcasts\Actions\GetRatingDimensions.cs" />
     <Compile Include="CloudSave\Actions\DeletePicture.cs" />
+    <Compile Include="CloudSave\Actions\GameBuckets\GetRatingDimensions.cs" />
     <Compile Include="CloudSave\Actions\GetBlobBytes.cs" />
     <Compile Include="CloudSave\Actions\SetPicture.cs" />
     <Compile Include="CloudSave\Actions\GameBuckets\Create.cs" />
