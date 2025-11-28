@@ -8,7 +8,7 @@ using JetBrains.Annotations;
 
 namespace ConstructServices.Broadcasts.Actions;
 
-public static class Update
+public static partial class Update
 {
     extension(BroadcastService service)
     {

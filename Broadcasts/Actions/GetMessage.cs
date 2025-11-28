@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ConstructServices.Broadcasts.Actions;
 
-public static class Delete
+public static partial class Get
 {
     extension(BroadcastService service)
     {
@@ -16,15 +16,15 @@ public static class Delete
         /// Delete a message
         /// </summary>
         [UsedImplicitly]
-        public BaseResponse DeleteMessage(
+        public MessageResponse GetMessage(
             Message message)
-            => DeleteMessage(service, message.ID);
+            => GetMessage(service, message.ID);
 
         /// <summary>
         /// Delete a message
         /// </summary>
         [UsedImplicitly]
-        public BaseResponse DeleteMessage(
+        public MessageResponse GetMessage(
             Guid messageID)
         {
             var formData = new Dictionary<string, string>
@@ -32,27 +32,8 @@ public static class Delete
                 { "messageID", messageID.ToString() }
             };
 
-            const string path = "/createmessage.json";
+            const string path = "/getmessage.json";
             return Task.Run(() => Request.ExecuteRequest<MessageResponse>(
-                path,
-                service,
-                formData
-            )).Result;
-        }
-
-        /// <summary>
-        /// Create a new channel
-        /// </summary>
-        [UsedImplicitly]
-        public BaseResponse DeleteChannel(Guid channelID)
-        {
-            var formData = new Dictionary<string, string>
-            {
-                { "channelID", channelID.ToString() }
-            };
-
-            const string path = "/deletechannel.json";
-            return Task.Run(() => Request.ExecuteRequest<BaseResponse>(
                 path,
                 service,
                 formData

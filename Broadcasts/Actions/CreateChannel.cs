@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConstructServices.Broadcasts.Actions;
 
-public static class Create
+public static partial class Create
 {
     /// <summary>
     /// Create a new channel
