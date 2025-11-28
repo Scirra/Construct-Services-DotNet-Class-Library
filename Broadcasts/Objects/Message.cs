@@ -1,8 +1,7 @@
-﻿using ConstructServices.Ratings.Objects;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using ConstructServices.Common;
+using ConstructServices.Ratings.Objects;
 
 namespace ConstructServices.Broadcasts.Objects;
 
@@ -10,46 +9,64 @@ public sealed class Message
 {
     [JsonProperty(PropertyName = "id")]
     public Guid ID { get; private set; }
+
+    [JsonProperty(PropertyName = "channelID")]
+    public Guid ChannelID { get; private set; }
+
+    [JsonProperty(PropertyName = "date")]
+    public DateTime Date { get; private set; }
+
+    [JsonProperty(PropertyName = "formattedDate")]
+    public string FormattedDate { get; private set; }
+
+    [JsonProperty(PropertyName = "title")]
+    public string Title { get; private set; }
+
+    [JsonProperty(PropertyName = "text")]
+    public string Text { get; private set; }
+
+    [JsonProperty(PropertyName = "textLength")]
+    public int TextLength { get; private set; }
     
-    [JsonProperty(PropertyName = "name")]
-    public string Name { get; private set; }
-    
-    [JsonProperty(PropertyName = "description")]
-    public string Description { get; private set; }
-    
-    [JsonProperty(PropertyName = "created")]
-    public DateTime Created { get; private set; }
-    
-    [JsonProperty(PropertyName = "formattedCreated")]
-    public string FormattedCreated { get; private set; }
-    
-    [JsonProperty(PropertyName = "broadcasts")]
-    public int Broadcasts { get; private set; }
-    
-    [JsonProperty(PropertyName = "formattedBroadcasts")]
-    public string FormattedBroadcasts { get; private set; }
-    
-    [JsonProperty(PropertyName = "lastBroadcast")]
-    public DateTime? LastBroadcast { get; private set; }
-    
-    [JsonProperty(PropertyName = "formattedLastBroadcast")]
-    public string FormattedLastBroadcast { get; private set; }
-    
-    [JsonProperty(PropertyName = "allowRatings")]
-    public bool AllowRatings { get; private set; }
-    
-    [JsonProperty(PropertyName = "anyUnreadMessages")]
-    public bool AnyUnreadMessages { get; private set; }
-    
-    [JsonProperty(PropertyName = "dimensionlessMaxRatingValue")]
-    public byte DimensionlessMaxRatingValue { get; private set; }
-    
-    [JsonProperty(PropertyName = "ratingDimensions")]
-    public Dictionary<string, RatingDimension> RatingDimensions { get; private set; }
-    
-    [JsonProperty(PropertyName = "originalLanguage ")]
+    [JsonProperty(PropertyName = "formattedTextLength")]
+    public string FormattedTextLength { get; private set; }
+
+    [JsonProperty(PropertyName = "excerpt")]
+    public string Excerpt { get; private set; }
+
+    [JsonProperty(PropertyName = "reads")]
+    public int Reads { get; private set; }
+
+    [JsonProperty(PropertyName = "formattedReads")]
+    public string FormattedReads { get; private set; }
+
+    [JsonProperty(PropertyName = "ratingStatus")]
+    public RatingStatus RatingStatus { get; private set; }
+
+    [JsonProperty(PropertyName = "uniqueReads")]
+    public int UniqueReads { get; private set; }
+
+    [JsonProperty(PropertyName = "formattedUniqueReads")]
+    public string FormattedUniqueReads { get; private set; }
+
+    [JsonProperty(PropertyName = "updates")]
+    public int Updates { get; private set; }
+
+    [JsonProperty(PropertyName = "formattedUpdates")]
+    public string FormattedUpdates { get; private set; }
+
+    [JsonProperty(PropertyName = "lastUpdate")]
+    public DateTime? LastUpdate { get; private set; }
+
+    [JsonProperty(PropertyName = "formattedLastUpdate")]
+    public string FormattedLastUpdate { get; private set; }
+
+    [JsonProperty(PropertyName = "isUnread")]
+    public bool IsUnread { get; private set; }
+
+    [JsonProperty(PropertyName = "originalLanguage")]
     public Language OriginalLanguage { get; private set; }
-    
+
     public Message()
     {
     }
