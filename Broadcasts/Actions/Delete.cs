@@ -32,7 +32,7 @@ public static class Delete
                 { "messageID", messageID.ToString() }
             };
 
-            const string path = "/createmessage.json";
+            const string path = "/deletemessage.json";
             return Task.Run(() => Request.ExecuteRequest<MessageResponse>(
                 path,
                 service,
