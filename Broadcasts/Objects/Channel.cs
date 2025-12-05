@@ -48,7 +48,10 @@ public sealed class Channel
     public Dictionary<string, RatingDimension> RatingDimensions { get; private set; }
 
     [JsonProperty(PropertyName = "originalLanguage")]
-    public Language OriginalLanguage { get; private set; }
+    public Language OriginalLanguage { get; private set; }    
+    
+    [JsonProperty(PropertyName = "responseLanguage")]
+    public Language ResponseLanguage { get; private set; }
 
     public Channel()
     {

@@ -66,6 +66,9 @@ public sealed class Message
 
     [JsonProperty(PropertyName = "originalLanguage")]
     public Language OriginalLanguage { get; private set; }
+    
+    [JsonProperty(PropertyName = "responseLanguage")]
+    public Language ResponseLanguage { get; private set; }
 
     public Message()
     {
