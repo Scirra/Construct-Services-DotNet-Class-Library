@@ -18,10 +18,11 @@ public static partial class RatingDimensions
             string dimensionID,
             string newTitle = null,
             string newDescription = null,
-            byte? newMaxRating = null)
+            byte? newMaxRating = null,
+            string newLanguageISO = null)
         {
             const string path = "/channeleditratingdimension.json";
-            return Ratings.Actions.Rating.EditDimension(service, path, Thing.CloudSaveBlob, bucketID, dimensionID, newTitle, newDescription, newMaxRating);
+            return Ratings.Actions.Rating.EditDimension(service, path, Thing.CloudSaveBlob, bucketID, dimensionID, newTitle, newDescription, newMaxRating, newLanguageISO);
         }
 
         /// <summary>
@@ -32,7 +33,8 @@ public static partial class RatingDimensions
             string dimensionID,
             string newTitle = null,
             string newDescription = null,
-            byte? newMaxRating = null)
-            => EditRatingDimension(service, channel.ID, dimensionID, newTitle, newDescription, newMaxRating);
+            byte? newMaxRating = null,
+            string newLanguageISO = null)
+            => EditRatingDimension(service, channel.ID, dimensionID, newTitle, newDescription, newMaxRating, newLanguageISO);
     }
 }

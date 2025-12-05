@@ -19,7 +19,8 @@ internal static partial class Rating
         string dimensionID,
         string newTitle = null,
         string newDescription = null,
-        byte? newMaxRating = null)
+        byte? newMaxRating = null,
+        string newLanguageISO = null)
     {
         var formData = new Dictionary<string, string>
         {
@@ -38,6 +39,10 @@ internal static partial class Rating
         if (newMaxRating.HasValue)
         {
             formData.Add("maxRating", newMaxRating.Value.ToString());
+        }
+        if (!string.IsNullOrWhiteSpace(newLanguageISO))
+        {
+            formData.Add("language", newLanguageISO);
         }
 
         return Task.Run(() => Request.ExecuteRequest<DimensionResponse>(

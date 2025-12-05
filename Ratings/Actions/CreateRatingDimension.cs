@@ -33,7 +33,7 @@ internal static partial class Rating
         };
         if (!string.IsNullOrWhiteSpace(languageISO))
         {
-            formData.Add("language", languageISO.Trim());
+            formData.Add("language", languageISO);
         }
 
         return Task.Run(() => Request.ExecuteRequest<DimensionResponse>(
