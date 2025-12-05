@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using ConstructServices.Common;
+using Newtonsoft.Json;
 using System;
 
 namespace ConstructServices.Ratings.Objects;
@@ -28,6 +29,18 @@ public sealed class RatingAggregate
     
     [JsonProperty(PropertyName = "formattedLastRating")]
     public string FormattedLastRating { get; set; }
+    
+    [JsonProperty(PropertyName = "title")]
+    public string Title { get; set; }
+    
+    [JsonProperty(PropertyName = "description")]
+    public string Description { get; set; }
+    
+    [JsonProperty(PropertyName = "originalLanguage")]
+    public Language OriginalLanguage { get; private set; }
+    
+    [JsonProperty(PropertyName = "responseLanguage")]
+    public Language ResponseLanguage { get; private set; }
 
     public RatingAggregate()
     {
