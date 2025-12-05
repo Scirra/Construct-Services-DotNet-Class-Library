@@ -15,10 +15,6 @@ public class BaseResponse
     public bool ShouldRetry { get; private set; }
     public bool ShouldSerializeShouldRetry() => !Success;
 
-    [JsonProperty(PropertyName = "responseLanguage")]
-    public Language ResponseLanguage { get; private set; }
-    public bool ShouldSerializeResponseLanguage() => Success;
-
     protected BaseResponse()
     {
         Success = true;
