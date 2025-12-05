@@ -18,10 +18,11 @@ public static partial class RatingDimensions
             string dimensionID,
             string title,
             string description,
-            byte maxRating)
+            byte maxRating,
+            string languageISO = null)
         {
             const string path = "/channelcreateratingdimension.json";
-            return Ratings.Actions.Rating.CreateDimension(service, path, Thing.BroadcastChannel, bucketID, dimensionID, title, description, maxRating);
+            return Ratings.Actions.Rating.CreateDimension(service, path, Thing.BroadcastChannel, bucketID, dimensionID, title, description, maxRating, languageISO);
         }
 
         /// <summary>
@@ -32,7 +33,8 @@ public static partial class RatingDimensions
             string dimensionID,
             string title,
             string description,
-            byte maxRating)
-            => CreateRatingDimension(service, channel.ID, dimensionID, title, description, maxRating);
+            byte maxRating,
+            string languageISO = null)
+            => CreateRatingDimension(service, channel.ID, dimensionID, title, description, maxRating, languageISO);
     }
 }
