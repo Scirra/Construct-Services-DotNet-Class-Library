@@ -164,6 +164,7 @@
     <Compile Include="Leaderboards\Actions\TeamsRename.cs" />
     <Compile Include="Leaderboards\Config.cs" />
     <Compile Include="Leaderboards\Enums\ScoreRange.cs" />
+    <Compile Include="Leaderboards\Enums\TeamsOrdering.cs" />
     <Compile Include="Leaderboards\LeaderboardService.cs" />
     <Compile Include="Leaderboards\Objects\Leaderboard.cs" />
     <Compile Include="Leaderboards\Objects\Pagination.cs" />
