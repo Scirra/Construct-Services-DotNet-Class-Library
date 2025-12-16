@@ -20,7 +20,13 @@ public static partial class Teams
                 return new BaseResponse("Team ID was not a valid GUID.", false);
             return AssignPlayerToTeam(service, teamID, playerID);
         }
-        
+
+        [UsedImplicitly]
+        public BaseResponse AssignPlayerToTeam(Guid teamID, Guid playerID)
+        {
+            return AssignPlayerToTeam(service, teamID, playerID.ToString());
+        }
+
         [UsedImplicitly]
         public BaseResponse AssignPlayerToTeam(Guid teamID,
             string playerID)
