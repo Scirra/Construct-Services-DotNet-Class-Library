@@ -1,1 +1,2 @@
-nuget pack -p Configuration="Release"
+dotnet pack -p Configuration="Release" -p:NuspecFile=~ConstructServices.nuspec 
+
