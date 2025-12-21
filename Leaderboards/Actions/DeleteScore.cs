@@ -15,14 +15,14 @@ public static partial class Scores
         public ShadowBanResponse DeleteAllPlayerIDScores(string playerID)
         {
             const string path = "/deletescores.json";
-            return Task.Run(() => Request.ExecuteRequest<ShadowBanResponse>(
+            return Request.ExecuteSyncRequest<ShadowBanResponse>(
                 path,
                 service,
                 new Dictionary<string, string>
                 {
                     { "playerID", playerID }
                 }
-            )).Result;
+            );
         }
 
         [UsedImplicitly]
@@ -40,14 +40,14 @@ public static partial class Scores
         {
             const string path = "/deletescores.json";
 
-            return Task.Run(() => Request.ExecuteRequest<ShadowBanResponse>(
+            return Request.ExecuteSyncRequest<ShadowBanResponse>(
                 path,
                 service,
                 new Dictionary<string, string>
                 {
                     { "scoreID", scoreID.ToString() }
                 }
-            )).Result;
+            );
         }
     }
 }

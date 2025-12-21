@@ -33,11 +33,11 @@ public static partial class Update
             };
 
             const string path = "/updatechannel.json";
-            return Task.Run(() => Request.ExecuteRequest<ChannelResponse>(
+            return Request.ExecuteSyncRequest<ChannelResponse>(
                 path,
                 service,
                 formData
-            )).Result;
+            );
         }
 
         /// <summary>

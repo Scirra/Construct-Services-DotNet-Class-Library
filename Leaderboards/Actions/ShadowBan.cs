@@ -15,28 +15,28 @@ public static partial class ShadowBans
         public ShadowBanResponse BanPlayerID(string playerID)
         {
             const string path = "/shadowban.json";
-            return Task.Run(() => Request.ExecuteRequest<ShadowBanResponse>(
+            return Request.ExecuteSyncRequest<ShadowBanResponse>(
                 path,
                 service,
                 new Dictionary<string, string>
                 {
                     { "playerID", playerID }
                 }
-            )).Result;
+            );
         }
 
         [UsedImplicitly]
         public ShadowBanResponse BanIPAddress(string ipAddress)
         {
             const string path = "/shadowban.json";
-            return Task.Run(() => Request.ExecuteRequest<ShadowBanResponse>(
+            return Request.ExecuteSyncRequest<ShadowBanResponse>(
                 path,
                 service,
                 new Dictionary<string, string>
                 {
                     { "ipAddress", ipAddress }
                 }
-            )).Result;
+            );
         }
 
         [UsedImplicitly]
@@ -54,14 +54,14 @@ public static partial class ShadowBans
         {
             const string path = "/shadowban.json";
 
-            return Task.Run(() => Request.ExecuteRequest<ShadowBanResponse>(
+            return Request.ExecuteSyncRequest<ShadowBanResponse>(
                 path,
                 service,
                 new Dictionary<string, string>
                 {
                     { "scoreID", scoreID.ToString() }
                 }
-            )).Result;
+            );
         }
 
         [UsedImplicitly]
@@ -78,14 +78,14 @@ public static partial class ShadowBans
         public ShadowBanResponse BanIPHash(int ipHash)
         {
             const string path = "/shadowban.json";
-            return Task.Run(() => Request.ExecuteRequest<ShadowBanResponse>(
+            return Request.ExecuteSyncRequest<ShadowBanResponse>(
                 path,
                 service,
                 new Dictionary<string, string>
                 {
                     { "ipHash", ipHash.ToString() }
                 }
-            )).Result;
+            );
         }
     }
 }

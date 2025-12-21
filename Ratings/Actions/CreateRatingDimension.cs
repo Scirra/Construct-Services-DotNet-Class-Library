@@ -36,10 +36,10 @@ internal static partial class Rating
             formData.Add("language", languageISO);
         }
 
-        return Task.Run(() => Request.ExecuteRequest<DimensionResponse>(
+        return Request.ExecuteSyncRequest<DimensionResponse>(
             apiEndPointPath,
             service,
             formData
-        )).Result;
+        );
     }
 }

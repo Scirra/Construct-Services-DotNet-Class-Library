@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using ConstructServices.Common;
 using JetBrains.Annotations;
 
@@ -27,7 +26,7 @@ public static partial class Teams
         {
             const string path = "/renameteam.json";
 
-            return Task.Run(() => Request.ExecuteRequest<BaseResponse>(
+            return Request.ExecuteSyncRequest<BaseResponse>(
                 path,
                 service,
                 new Dictionary<string, string>
@@ -35,7 +34,7 @@ public static partial class Teams
                     { "teamID", teamID.ToString() },
                     { "teamName", teamName }
                 }
-            )).Result;
+            );
         }
     }
 }

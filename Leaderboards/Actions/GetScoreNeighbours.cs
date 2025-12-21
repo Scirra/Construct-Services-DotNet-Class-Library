@@ -54,10 +54,10 @@ public static partial class Scores
 
         LeaderboardService.AddRequestPerspectiveFormData(requestPerspective, formData);
 
-        return Task.Run(() => Request.ExecuteRequest<GetScoreNeighboursResponse>(
+        return Request.ExecuteSyncRequest<GetScoreNeighboursResponse>(
             path,
             service,
             formData
-        )).Result;
+        );
     }
 }

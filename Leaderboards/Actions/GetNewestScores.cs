@@ -24,11 +24,11 @@ public static partial class Scores
         
         LeaderboardService.AddRequestPerspectiveFormData(requestPerspective, formData);
 
-        return Task.Run(() => Request.ExecuteRequest<GetScoreResponse>(
+        return Request.ExecuteSyncRequest<GetScoreResponse>(
             path,
             service,
             formData,
             paginationOptions
-        )).Result;
+        );
     }
 }

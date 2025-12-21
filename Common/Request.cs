@@ -1,16 +1,27 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using JetBrains.Annotations;
 
 namespace ConstructServices.Common;
 
 internal static class Request
 {
-    internal static async Task<T> ExecuteMultiPartFormRequest<T>(
+    internal static T ExecuteMultiPartFormSyncRequest<T>(
+        string relativeEndPointPath,
+        BaseService service,
+        Dictionary<string, string> formData,
+        Dictionary<string, ByteArrayContent> files) where T : BaseResponse
+    {           
+        return ExecuteMultiPartFormAsyncRequest<T>(
+            relativeEndPointPath,
+            service,
+            formData,
+            files
+        ).GetAwaiter().GetResult();
+    }  
+    internal static async Task<T> ExecuteMultiPartFormAsyncRequest<T>(
         string relativeEndPointPath,
         BaseService service,
         Dictionary<string, string> formData,
@@ -19,7 +30,8 @@ internal static class Request
         // Get URL to query
         string apiURL;
         {
-            if (!relativeEndPointPath.StartsWith("/", StringComparison.Ordinal)) relativeEndPointPath = "/" + relativeEndPointPath;
+            if (!relativeEndPointPath.StartsWith("/", StringComparison.Ordinal))
+                relativeEndPointPath = "/" + relativeEndPointPath;
             apiURL = service.APIHost + relativeEndPointPath;
         }
 
@@ -47,6 +59,7 @@ internal static class Request
                 {
                     fileName = file.Key;
                 }
+
                 formContent.Add(file.Value, fileName, fileName);
                 i++;
             }
@@ -81,14 +94,30 @@ internal static class Request
                 return new BaseResponse(ex.Message, false) as T;
             }
         }
+
         if (!json.IsValidJson())
         {
             return (T)Activator.CreateInstance(typeof(T), "Response was not valid JSON.", false);
         }
+
         return JsonConvert.DeserializeObject<T>(json);
     }
 
-    internal static async Task<T> ExecuteRequest<T>(
+    internal static T ExecuteSyncRequest<T>(
+        string relativeEndPointPath,
+        BaseService service,
+        Dictionary<string, string> formData,
+        PaginationOptions paginationOptions = null) where T : BaseResponse
+    {           
+        return ExecuteAsyncRequest<T>(
+            relativeEndPointPath,
+            service,
+            formData,
+            paginationOptions
+        ).GetAwaiter().GetResult();
+    }  
+
+    internal static async Task<T> ExecuteAsyncRequest<T>(
         string relativeEndPointPath,
         BaseService service,
         Dictionary<string, string> formData,

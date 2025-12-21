@@ -14,13 +14,13 @@ public static partial class Players
     {
         const string path = "/forcelink.json";
 
-        return Task.Run(() => Common.Request.ExecuteRequest<LinkLoginProviderResponse>(
+        return Common.Request.ExecuteSyncRequest<LinkLoginProviderResponse>(
             path,
             service,
             new Dictionary<string, string>
             {
                 { "code", forceLinkCode }
             }
-        )).Result;
+        );
     }
 }

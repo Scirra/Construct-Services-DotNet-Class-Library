@@ -22,10 +22,10 @@ internal static partial class Rating
             { "thingTypeID", ((byte)ratableThing).ToString()},
             { "thingID", thingID.ToString()}
         };
-        return Task.Run(() => Request.ExecuteRequest<DimensionsResponse>(
+        return Request.ExecuteSyncRequest<DimensionsResponse>(
             apiEndPointPath,
             service,
             formData
-        )).Result;
+        );
     }
 }

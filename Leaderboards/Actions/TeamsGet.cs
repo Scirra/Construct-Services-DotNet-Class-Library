@@ -16,7 +16,7 @@ public static partial class Teams
         PaginationOptions paginationOptions)
     {
         const string path = "/getteams.json";
-        return Task.Run(() => Request.ExecuteRequest<GetTeamsResponse>(
+        return Request.ExecuteSyncRequest<GetTeamsResponse>(
             path,
             service,
             new Dictionary<string, string>
@@ -24,6 +24,6 @@ public static partial class Teams
                 { "order", ordering.ToString() }
             },
             paginationOptions
-        )).Result;
+        );
     }
 }

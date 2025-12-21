@@ -1,7 +1,6 @@
 ﻿using ConstructServices.Common;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using JetBrains.Annotations;
 
 namespace ConstructServices.Authentication.Actions;
@@ -17,7 +16,7 @@ public static partial class Players
     {
         const string path = "/setusernamepassword.json";
 
-        return Task.Run(() => Request.ExecuteRequest<BaseResponse>(
+        return Request.ExecuteSyncRequest<BaseResponse>(
             path,
             service,
             new Dictionary<string, string>
@@ -26,6 +25,6 @@ public static partial class Players
                 { "username", username },
                 { "password", password }
             }
-        )).Result;
+        );
     }
 }

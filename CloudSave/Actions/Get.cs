@@ -22,11 +22,11 @@ public static partial class CloudSaves
                 { "key", cloudSaveKey }
             };
             const string path = "/getcloudsave.json";
-            return Task.Run(() => Request.ExecuteRequest<CloudSaveResponse>(
+            return Request.ExecuteSyncRequest<CloudSaveResponse>(
                 path,
                 service,
                 formData
-            )).Result;
+            );
         }
 
         /// <summary>
@@ -42,11 +42,11 @@ public static partial class CloudSaves
                 { "bucketID", bucketID.ToString() }
             };
             const string path = "/getcloudsave.json";
-            return Task.Run(() => Request.ExecuteRequest<CloudSaveResponse>(
+            return Request.ExecuteSyncRequest<CloudSaveResponse>(
                 path,
                 service,
                 formData
-            )).Result;
+            );
         }
 
         /// <summary>
@@ -64,11 +64,11 @@ public static partial class CloudSaves
                 { "bucketID", bucketID.ToString() }
             };
             const string path = "/getcloudsave.json";
-            return Task.Run(() => Request.ExecuteRequest<CloudSaveResponse>(
+            return Request.ExecuteSyncRequest<CloudSaveResponse>(
                 path,
                 service,
                 formData
-            )).Result;
+            );
         }
 
         /// <summary>
@@ -84,11 +84,11 @@ public static partial class CloudSaves
                 { "key", cloudSaveKey }
             };
             const string path = "/getcloudsave.json";
-            return Task.Run(() => Request.ExecuteRequest<CloudSaveResponse>(
+            return Request.ExecuteSyncRequest<CloudSaveResponse>(
                 path,
                 service,
                 formData
-            )).Result;
+            );
         }
 
         /// <summary>
@@ -102,11 +102,11 @@ public static partial class CloudSaves
                 { "blobID", cloudSaveID.ToString() }
             };
             const string path = "/getcloudsave.json";
-            return Task.Run(() => Request.ExecuteRequest<CloudSaveResponse>(
+            return Request.ExecuteSyncRequest<CloudSaveResponse>(
                 path,
                 service,
                 formData
-            )).Result;
+            );
         }
 
         /// <summary>
@@ -122,11 +122,11 @@ public static partial class CloudSaves
                 { "bucketID", bucketID.ToString() }
             };
             const string path = "/getcloudsave.json";
-            return Task.Run(() => Request.ExecuteRequest<CloudSaveResponse>(
+            return Request.ExecuteSyncRequest<CloudSaveResponse>(
                 path,
                 service,
                 formData
-            )).Result;
+            );
         }
 
         /// <summary>
@@ -144,11 +144,11 @@ public static partial class CloudSaves
                 { "bucketID", bucketID.ToString() }
             };
             const string path = "/getcloudsave.json";
-            return Task.Run(() => Request.ExecuteRequest<CloudSaveResponse>(
+            return Request.ExecuteSyncRequest<CloudSaveResponse>(
                 path,
                 service,
                 formData
-            )).Result;
+            );
         }
 
         /// <summary>
@@ -164,11 +164,11 @@ public static partial class CloudSaves
                 { "blobID", cloudSaveID.ToString() }
             };
             const string path = "/getcloudsave.json";
-            return Task.Run(() => Request.ExecuteRequest<CloudSaveResponse>(
+            return Request.ExecuteSyncRequest<CloudSaveResponse>(
                 path,
                 service,
                 formData
-            )).Result;
+            );
         }
     }
 }

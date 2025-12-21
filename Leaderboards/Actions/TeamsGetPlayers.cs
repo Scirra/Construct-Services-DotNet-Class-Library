@@ -26,11 +26,11 @@ public static partial class Teams
         {
             formData.Add("order", order);
         }
-        return Task.Run(() => Request.ExecuteRequest<GetTeamPlayersResponse>(
+        return Request.ExecuteSyncRequest<GetTeamPlayersResponse>(
             path,
             service,
             formData,
             paginationOptions
-        )).Result;
+        );
     }
 }

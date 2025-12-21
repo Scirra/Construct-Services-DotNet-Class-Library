@@ -23,12 +23,12 @@ public static partial class Players
                 { "order", ordering.ToString() }
             };
 
-            return Task.Run(() => Request.ExecuteRequest<GetPlayersResponse>(
+            return Request.ExecuteSyncRequest<GetPlayersResponse>(
                 path,
                 service,
                 formData,
                 paginationOptions
-            )).Result;
+            );
         }
 
         [UsedImplicitly]
@@ -43,11 +43,11 @@ public static partial class Players
             {
                 { "playerIDs", string.Join(",", playerIDs) }
             };
-            return Task.Run(() => Request.ExecuteRequest<GetPlayersResponse>(
+            return Request.ExecuteSyncRequest<GetPlayersResponse>(
                 path,
                 service,
                 formData
-            )).Result;
+            );
         }
     }
 }

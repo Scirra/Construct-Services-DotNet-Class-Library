@@ -1,7 +1,6 @@
 ﻿using System;
 using ConstructServices.Common;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace ConstructServices.Ratings.Actions;
 internal static partial class Rating
@@ -22,10 +21,10 @@ internal static partial class Rating
             { "thingID", thingID.ToString()},
             { "dimensionID", dimensionID }
         };
-        return Task.Run(() => Request.ExecuteRequest<BaseResponse>(
+        return Request.ExecuteSyncRequest<BaseResponse>(
             apiEndPointPath,
             service,
             formData
-        )).Result;
+        );
     }
 }

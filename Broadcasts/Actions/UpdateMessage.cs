@@ -42,11 +42,11 @@ public static partial class Update
             };
 
             const string path = "/updatemessage.json";
-            return Task.Run(() => Request.ExecuteRequest<MessageResponse>(
+            return Request.ExecuteSyncRequest<MessageResponse>(
                 path,
                 service,
                 formData
-            )).Result;
+            );
         }
     }
 }

@@ -15,28 +15,28 @@ public static partial class ShadowBans
         public ShadowBanResponse UnbanPlayerID(string playerID)
         {
             const string path = "/unshadowban.json";
-            return Task.Run(() => Request.ExecuteRequest<ShadowBanResponse>(
+            return Request.ExecuteSyncRequest<ShadowBanResponse>(
                 path,
                 service,
                 new Dictionary<string, string>
                 {
                     { "playerID", playerID }
                 }
-            )).Result;
+            );
         }
 
         [UsedImplicitly]
         public ShadowBanResponse UnbanIPAddress(string ipAddress)
         {
             const string path = "/unshadowban.json";
-            return Task.Run(() => Request.ExecuteRequest<ShadowBanResponse>(
+            return Request.ExecuteSyncRequest<ShadowBanResponse>(
                 path,
                 service,
                 new Dictionary<string, string>
                 {
                     { "ipAddress", ipAddress }
                 }
-            )).Result;
+            );
         }
 
         [UsedImplicitly]
@@ -53,14 +53,14 @@ public static partial class ShadowBans
         public ShadowBanResponse UnbanScoreID(Guid scoreID)
         {
             const string path = "/unshadowban.json";
-            return Task.Run(() => Request.ExecuteRequest<ShadowBanResponse>(
+            return Request.ExecuteSyncRequest<ShadowBanResponse>(
                 path,
                 service,
                 new Dictionary<string, string>
                 {
                     { "scoreID", scoreID.ToString() }
                 }
-            )).Result;
+            );
         }
 
         [UsedImplicitly]
@@ -77,14 +77,14 @@ public static partial class ShadowBans
         public ShadowBanResponse UnbanIPHash(int ipHash)
         {
             const string path = "/unshadowban.json";
-            return Task.Run(() => Request.ExecuteRequest<ShadowBanResponse>(
+            return Request.ExecuteSyncRequest<ShadowBanResponse>(
                 path,
                 service,
                 new Dictionary<string, string>
                 {
                     { "ipHash", ipHash.ToString() }
                 }
-            )).Result;
+            );
         }
     }
 }

@@ -42,10 +42,10 @@ public static partial class GameBuckets
         }
 
         const string path = "/createbucket.json";
-        return Task.Run(() => Request.ExecuteRequest<BucketResponse>(
+        return Request.ExecuteSyncRequest<BucketResponse>(
             path,
             service,
             formData
-        )).Result;
+        );
     }
 }

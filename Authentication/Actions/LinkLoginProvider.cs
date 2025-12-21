@@ -15,7 +15,7 @@ public static partial class Players
     {
         const string path = "/link.json";
 
-        return Task.Run(() => Common.Request.ExecuteRequest<SignInResponse>(
+        return Common.Request.ExecuteSyncRequest<SignInResponse>(
             path,
             service,
             new Dictionary<string, string>
@@ -23,6 +23,6 @@ public static partial class Players
                 { "provider", provider.ToString() },
                 { "sessionKey", sessionKey }
             }
-        )).Result;
+        );
     }
 }

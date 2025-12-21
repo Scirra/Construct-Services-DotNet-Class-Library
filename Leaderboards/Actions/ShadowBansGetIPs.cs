@@ -15,11 +15,11 @@ public static partial class ShadowBans
     {
         const string path = "/getipshadowbans.json";
         var formData = new Dictionary<string, string>();
-        return Task.Run(() => Request.ExecuteRequest<GetShadowBansResponse>(
+        return Request.ExecuteSyncRequest<GetShadowBansResponse>(
             path,
             service,
             formData,
             paginationOptions
-        )).Result;
+        );
     }
 }

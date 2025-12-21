@@ -14,13 +14,13 @@ public static partial class Teams
         string teamName)
     {
         const string path = "/createteam.json";
-        return Task.Run(() => Request.ExecuteRequest<CreateTeamResponse>(
+        return Request.ExecuteSyncRequest<CreateTeamResponse>(
             path,
             service,
             new Dictionary<string, string>
             {
                 { "teamName", teamName }
             }
-        )).Result;
+        );
     }
 }

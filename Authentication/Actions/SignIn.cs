@@ -2,7 +2,6 @@
 using ConstructServices.Authentication.Responses;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using JetBrains.Annotations;
 
 namespace ConstructServices.Authentication.Actions;
@@ -26,10 +25,10 @@ public static partial class Players
             formData.Add("expiryMins", Convert.ToInt32(sessionExpiry.Value.TotalMinutes).ToString());
         }
 
-        return Task.Run(() => Common.Request.ExecuteRequest<SignInResponse>(
+        return Common.Request.ExecuteSyncRequest<SignInResponse>(
             path,
             service,
             formData
-        )).Result;
+        );
     }
 }

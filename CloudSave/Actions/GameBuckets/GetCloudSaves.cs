@@ -81,12 +81,12 @@ public static partial class GameBuckets
             }
 
             const string path = "/getbucketsaves.json";
-            return Task.Run(() => Request.ExecuteRequest<CloudSavesResponse>(
+            return Request.ExecuteSyncRequest<CloudSavesResponse>(
                 path,
                 service,
                 formData,
                 paginationOptions
-            )).Result;
+            );
         }
 
         /// <summary>

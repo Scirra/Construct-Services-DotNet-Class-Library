@@ -19,11 +19,11 @@ public static partial class Scores
             {
                 { "playerID", playerID }
             };
-            return Task.Run(() => Request.ExecuteRequest<GetScoreHistoryResponse>(
+            return Request.ExecuteSyncRequest<GetScoreHistoryResponse>(
                 path,
                 service,
                 formData
-            )).Result;
+            );
         }
 
         [UsedImplicitly]
@@ -44,11 +44,11 @@ public static partial class Scores
             {
                 { "scoreID", scoreID.ToString() }
             };
-            return Task.Run(() => Request.ExecuteRequest<GetScoreHistoryResponse>(
+            return Request.ExecuteSyncRequest<GetScoreHistoryResponse>(
                 path,
                 service,
                 formData
-            )).Result;
+            );
         }
     }
 }

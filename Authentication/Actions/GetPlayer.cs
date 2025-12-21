@@ -15,14 +15,14 @@ public static partial class Players
         {
             const string path = "/getplayer.json";
 
-            return Task.Run(() => Common.Request.ExecuteRequest<GetPlayerResponse>(
+            return Common.Request.ExecuteSyncRequest<GetPlayerResponse>(
                 path,
                 service,
                 new Dictionary<string, string>
                 {
                     { "playerName", playerName }
                 }
-            )).Result;
+            );
         }
 
         [UsedImplicitly]
@@ -30,14 +30,14 @@ public static partial class Players
         {
             const string path = "/getplayer.json";
 
-            return Task.Run(() => Common.Request.ExecuteRequest<GetPlayerResponse>(
+            return Common.Request.ExecuteSyncRequest<GetPlayerResponse>(
                 path,
                 service,
                 new Dictionary<string, string>
                 {
                     { "playerID", playerID.ToString() }
                 }
-            )).Result;
+            );
         }
     }
 }

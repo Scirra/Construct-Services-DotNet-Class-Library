@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using ConstructServices.Common;
 using JetBrains.Annotations;
 
@@ -24,14 +23,14 @@ public static partial class Teams
         public BaseResponse DeleteExistingTeam(Guid teamID)
         {
             const string path = "/deleteteam.json";
-            return Task.Run(() => Request.ExecuteRequest<BaseResponse>(
+            return Request.ExecuteSyncRequest<BaseResponse>(
                 path,
                 service,
                 new Dictionary<string, string>
                 {
                     { "teamID", teamID.ToString() }
                 }
-            )).Result;
+            );
         }
     }
 }

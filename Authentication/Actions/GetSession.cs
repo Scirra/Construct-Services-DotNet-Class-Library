@@ -14,13 +14,13 @@ public static partial class Players
     {
         const string path = "/getsession.json";
 
-        return Task.Run(() => Common.Request.ExecuteRequest<GetSessionResponse>(
+        return Common.Request.ExecuteSyncRequest<GetSessionResponse>(
             path,
             service,
             new Dictionary<string, string>
             {
                 { "sessionKey", sessionKey }
             }
-        )).Result;
+        );
     }
 }

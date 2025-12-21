@@ -1,7 +1,6 @@
 ﻿using ConstructServices.Common;
 using JetBrains.Annotations;
 using System;
-using System.Threading.Tasks;
 
 namespace ConstructServices.CloudSave.Actions;
 
@@ -12,20 +11,20 @@ public static partial class CloudSaves
         [UsedImplicitly] 
         public byte[] GetCloudSaveBytes(Objects.CloudSave forCloudSave)
         {
-            return Task.Run(() => Request.DownloadBytes(
+            return Request.DownloadBytes(
                 new Uri(forCloudSave.DownloadURL),
                 service
-            )).Result;
+            ).GetAwaiter().GetResult();
         }
         
         [UsedImplicitly] 
         public byte[] GetCloudSaveBytes(string sessionKey, Objects.CloudSave forCloudSave)
         {
-            return Task.Run(() => Request.DownloadBytes(
+            return Request.DownloadBytes(
                 new Uri(forCloudSave.DownloadURL),
                 service,
                 sessionKey
-            )).Result;
+            ).GetAwaiter().GetResult();
         }
     }
 }

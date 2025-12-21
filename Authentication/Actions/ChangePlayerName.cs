@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using ConstructServices.Common;
 using JetBrains.Annotations;
 
@@ -16,7 +15,7 @@ public static partial class Players
         {
             const string path = "/changeplayername.json";
 
-            return Task.Run(() => Request.ExecuteRequest<BaseResponse>(
+            return Request.ExecuteSyncRequest<BaseResponse>(
                 path,
                 service,
                 new Dictionary<string, string>
@@ -24,7 +23,7 @@ public static partial class Players
                     { "playerID", playerID.ToString() },
                     { "playerName", newPlayerName }
                 }
-            )).Result;
+            );
         }
 
         [UsedImplicitly]
@@ -33,7 +32,7 @@ public static partial class Players
         {
             const string path = "/changeplayername.json";
 
-            return Task.Run(() => Request.ExecuteRequest<BaseResponse>(
+            return Request.ExecuteSyncRequest<BaseResponse>(
                 path,
                 service,
                 new Dictionary<string, string>
@@ -41,7 +40,7 @@ public static partial class Players
                     { "sessionKey", sessionKey },
                     { "playerName", newPlayerName }
                 }
-            )).Result;
+            );
         }
     }
 }

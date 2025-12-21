@@ -1,7 +1,6 @@
 ﻿using ConstructServices.Common;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Threading.Tasks;
 using JetBrains.Annotations;
 
 namespace ConstructServices.Authentication.Actions;
@@ -22,12 +21,12 @@ public static partial class Players
 
         if (picture.Bytes != null)
         {
-            return Task.Run(() => Request.ExecuteMultiPartFormRequest<BaseResponse>(
+            return Request.ExecuteMultiPartFormSyncRequest<BaseResponse>(
                 path,
                 service,
                 formData,
                 new Dictionary<string, ByteArrayContent>{ {"picture", new ByteArrayContent(picture.Bytes) } }
-            )).Result;
+            );
         }
 
         if (picture.URL != null)
@@ -38,10 +37,10 @@ public static partial class Players
         {
             formData.Add("avatar", picture.Base64);
         }
-        return Task.Run(() => Request.ExecuteRequest<BaseResponse>(
+        return Request.ExecuteSyncRequest<BaseResponse>(
             path,
             service,
             formData
-        )).Result;
+        );
     }
 }

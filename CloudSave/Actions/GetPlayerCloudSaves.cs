@@ -127,12 +127,12 @@ public static partial class CloudSaves
             }
 
             const string path = "/getcloudsaves.json";
-            return Task.Run(() => Request.ExecuteRequest<CloudSavesResponse>(
+            return Request.ExecuteSyncRequest<CloudSavesResponse>(
                 path,
                 service,
                 formData,
                 paginationOptions
-            )).Result;
+            );
         }
     }
 }

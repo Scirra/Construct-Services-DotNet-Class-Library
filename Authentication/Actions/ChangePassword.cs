@@ -1,7 +1,6 @@
 ﻿using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using ConstructServices.Common;
 
 namespace ConstructServices.Authentication.Actions;
@@ -16,8 +15,7 @@ public static partial class Players
             string newPassword)
         {
             const string path = "/changepassword.json";
-
-            return Task.Run(() => Request.ExecuteRequest<BaseResponse>(
+            return Request.ExecuteSyncRequest<BaseResponse>(
                 path,
                 service,
                 new Dictionary<string, string>
@@ -25,7 +23,7 @@ public static partial class Players
                     { "playerID", playerID.ToString() },
                     { "newPassword", newPassword }
                 }
-            )).Result;
+            );
         }
 
         [UsedImplicitly]
@@ -35,7 +33,7 @@ public static partial class Players
         {
             const string path = "/changepassword.json";
 
-            return Task.Run(() => Request.ExecuteRequest<BaseResponse>(
+            return Request.ExecuteSyncRequest<BaseResponse>(
                 path,
                 service,
                 new Dictionary<string, string>
@@ -44,7 +42,7 @@ public static partial class Players
                     { "password", currentPassword },
                     { "newPassword", newPassword }
                 }
-            )).Result;
+            );
         }
     }
 }

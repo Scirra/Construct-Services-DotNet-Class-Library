@@ -80,11 +80,11 @@ public static partial class Scores
 
             LeaderboardService.AddRequestPerspectiveFormData(requestPerspective, formData);
 
-            return Task.Run(() => Request.ExecuteRequest<PostScoreResponse>(
+            return Request.ExecuteSyncRequest<PostScoreResponse>(
                 path,
                 service,
                 formData
-            )).Result;
+            );
         }
     }
 }

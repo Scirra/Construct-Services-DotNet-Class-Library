@@ -1,6 +1,5 @@
 ﻿using ConstructServices.Authentication.Responses;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using JetBrains.Annotations;
 
 namespace ConstructServices.Authentication.Actions;
@@ -14,13 +13,13 @@ public static partial class Players
     {
         const string path = "/getconnectedloginproviders.json";
 
-        return Task.Run(() => Common.Request.ExecuteRequest<GetConnectedLoginProvidersResponse>(
+        return Common.Request.ExecuteSyncRequest<GetConnectedLoginProvidersResponse>(
             path,
             service,
             new Dictionary<string, string>
             {
                 { "sessionKey", sessionKey }
             }
-        )).Result;
+        );
     }
 }

@@ -17,10 +17,10 @@ public static partial class Get
     {
         var formData = new Dictionary<string, string>();
         const string path = "/getchannels.json";
-        return Task.Run(() => Request.ExecuteRequest<ChannelsResponse>(
+        return Request.ExecuteSyncRequest<ChannelsResponse>(
             path,
             service,
             formData
-        )).Result;
+        );
     }
 }

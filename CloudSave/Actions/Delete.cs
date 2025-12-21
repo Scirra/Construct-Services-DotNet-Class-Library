@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using ConstructServices.Common;
 using JetBrains.Annotations;
 
@@ -22,11 +21,11 @@ public static partial class CloudSaves
             };
 
             const string path = "/delete.json";
-            return Task.Run(() => Request.ExecuteRequest<BaseResponse>(
+            return Request.ExecuteSyncRequest<BaseResponse>(
                 path,
                 service,
                 formData
-            )).Result;
+            );
         }
 
         /// <summary>
@@ -43,11 +42,11 @@ public static partial class CloudSaves
             };
 
             const string path = "/delete.json";
-            return Task.Run(() => Request.ExecuteRequest<BaseResponse>(
+            return Request.ExecuteSyncRequest<BaseResponse>(
                 path,
                 service,
                 formData
-            )).Result;
+            );
         }
     }
 }

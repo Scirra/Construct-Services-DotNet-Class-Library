@@ -3,7 +3,6 @@ using ConstructServices.Common;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Threading.Tasks;
 using JetBrains.Annotations;
 
 namespace ConstructServices.CloudSave.Actions;
@@ -34,34 +33,34 @@ public static partial class CloudSaves
         // Picture by data
         if (picture.Bytes != null)
         {
-            return Task.Run(() => Request.ExecuteMultiPartFormRequest<BaseResponse>(
+            return Request.ExecuteMultiPartFormSyncRequest<BaseResponse>(
                 path,
                 service,
                 formData,
                 new Dictionary<string, ByteArrayContent>{ {"picture", new ByteArrayContent(picture.Bytes) } }
-            )).Result;
+            );
         }
 
         // By URL
         if (picture.URL != null)
         {
             formData.Add("pictureURL", picture.URL.ToString());
-            return Task.Run(() => Request.ExecuteRequest<CloudSaveResponse>(
+            return Request.ExecuteSyncRequest<CloudSaveResponse>(
                 path,
                 service,
                 formData
-            )).Result;
+            );
         }
 
         // By base 64
         if (!string.IsNullOrWhiteSpace(picture.Base64))
         {
             formData.Add("picture", picture.Base64);
-            return Task.Run(() => Request.ExecuteRequest<CloudSaveResponse>(
+            return Request.ExecuteSyncRequest<CloudSaveResponse>(
                 path,
                 service,
                 formData
-            )).Result;
+            );
         }
 
         return new BaseResponse("No picture data provided.", false);

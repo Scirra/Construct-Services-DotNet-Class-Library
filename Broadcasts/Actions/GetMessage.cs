@@ -33,11 +33,11 @@ public static partial class Get
             };
 
             const string path = "/getmessage.json";
-            return Task.Run(() => Request.ExecuteRequest<MessageResponse>(
+            return Request.ExecuteSyncRequest<MessageResponse>(
                 path,
                 service,
                 formData
-            )).Result;
+            );
         }
     }
 }

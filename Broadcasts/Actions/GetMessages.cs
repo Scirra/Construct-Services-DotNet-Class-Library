@@ -34,12 +34,12 @@ public static partial class Get
             };
 
             const string path = "/getmessages.json";
-            return Task.Run(() => Request.ExecuteRequest<MessagesResponse>(
+            return Request.ExecuteSyncRequest<MessagesResponse>(
                 path,
                 service,
                 formData,
                 paginationOptions
-            )).Result;
+            );
         }
     }
 }

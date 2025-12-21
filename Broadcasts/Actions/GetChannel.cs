@@ -23,10 +23,10 @@ public static partial class Get
         };
         
         const string path = "/getchannel.json";
-        return Task.Run(() => Request.ExecuteRequest<ChannelResponse>(
+        return Request.ExecuteSyncRequest<ChannelResponse>(
             path,
             service,
             formData
-        )).Result;
+        );
     }
 }

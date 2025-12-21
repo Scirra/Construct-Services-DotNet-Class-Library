@@ -3,7 +3,6 @@ using ConstructServices.Common;
 using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using ConstructServices.CloudSave.Objects;
 
 namespace ConstructServices.CloudSave.Actions;
@@ -52,11 +51,11 @@ public static partial class GameBuckets
             formData.Add("maxBlobsPerPlayer", newMaxBlobsPerPlayer?.ToString() ?? string.Empty);
 
             const string path = "/editbucket.json";
-            return Task.Run(() => Request.ExecuteRequest<BaseResponse>(
+            return Request.ExecuteSyncRequest<BaseResponse>(
                 path,
                 service,
                 formData
-            )).Result;
+            );
         }
 
         /// <summary>

@@ -19,11 +19,11 @@ public static partial class Scores
         {
             { "playerID", playerID }
         };
-        return Task.Run(() => Request.ExecuteRequest<GetScoreResponse>(
+        return Request.ExecuteSyncRequest<GetScoreResponse>(
             path,
             service,
             formData,
             paginationOptions
-        )).Result;
+        );
     }
 }

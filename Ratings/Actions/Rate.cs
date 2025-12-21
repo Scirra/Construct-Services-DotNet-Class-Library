@@ -27,11 +27,11 @@ internal static partial class Rating
                 { "thingID", thingID.ToString()},
                 { "value", string.Join(",", dimensionRatings.Select(c=> c.Key + "=" + c.Value))}
             };
-            return Task.Run(() => Request.ExecuteRequest<RateResponse>(
+            return Request.ExecuteSyncRequest<RateResponse>(
                 apiEndPointPath,
                 service,
                 formData
-            )).Result;
+            );
         }
 
         /// <summary>

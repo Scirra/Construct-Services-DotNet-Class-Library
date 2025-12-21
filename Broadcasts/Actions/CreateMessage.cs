@@ -42,11 +42,11 @@ public static partial class Create
             };
 
             const string path = "/createmessage.json";
-            return Task.Run(() => Request.ExecuteRequest<MessageResponse>(
+            return Request.ExecuteSyncRequest<MessageResponse>(
                 path,
                 service,
                 formData
-            )).Result;
+            );
         }
     }
 }

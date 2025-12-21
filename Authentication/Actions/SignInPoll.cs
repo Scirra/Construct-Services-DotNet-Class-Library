@@ -14,13 +14,13 @@ public static partial class Players
     {
         const string path = "/signinpoll.json";
 
-        return Task.Run(() => Common.Request.ExecuteRequest<SignInPollResponse>(
+        return Common.Request.ExecuteSyncRequest<SignInPollResponse>(
             path,
             service,
             new Dictionary<string, string>
             {
                 { "pollToken", pollToken }
             }
-        )).Result;
+        );
     }
 }

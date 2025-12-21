@@ -4,7 +4,6 @@ using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Threading.Tasks;
 using ConstructServices.CloudSave.Objects;
 
 namespace ConstructServices.CloudSave.Actions;
@@ -105,11 +104,11 @@ public static partial class CloudSaves
         }
 
         const string path = "/create.json";
-        return Task.Run(() => Request.ExecuteMultiPartFormRequest<CloudSaveResponse>(
+        return Request.ExecuteMultiPartFormSyncRequest<CloudSaveResponse>(
             path,
             service,
             formData,
             postedBinaryData
-        )).Result;
+        );
     }
 }

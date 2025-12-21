@@ -64,11 +64,11 @@ public static partial class Scores
             {
                 formData.Add("opt3", optValue3.ToString());
             }
-            return Task.Run(() => Request.ExecuteRequest<PostScoreResponse>(
+            return Request.ExecuteSyncRequest<PostScoreResponse>(
                 path,
                 service,
                 formData
-            )).Result;
+            );
         }
     }
 }

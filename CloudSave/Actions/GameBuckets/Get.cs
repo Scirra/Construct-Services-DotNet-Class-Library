@@ -22,10 +22,10 @@ public static partial class GameBuckets
             { "bucketID", bucketID.ToString() }
         };
         const string path = "/getbucket.json";
-        return Task.Run(() => Request.ExecuteRequest<BucketResponse>(
+        return Request.ExecuteSyncRequest<BucketResponse>(
             path,
             service,
             formData
-        )).Result;
+        );
     }
 }

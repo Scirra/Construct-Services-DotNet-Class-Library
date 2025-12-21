@@ -33,11 +33,11 @@ public static class Delete
             };
 
             const string path = "/deletemessage.json";
-            return Task.Run(() => Request.ExecuteRequest<MessageResponse>(
+            return Request.ExecuteSyncRequest<MessageResponse>(
                 path,
                 service,
                 formData
-            )).Result;
+            );
         }
 
         /// <summary>
@@ -52,11 +52,11 @@ public static class Delete
             };
 
             const string path = "/deletechannel.json";
-            return Task.Run(() => Request.ExecuteRequest<BaseResponse>(
+            return Request.ExecuteSyncRequest<BaseResponse>(
                 path,
                 service,
                 formData
-            )).Result;
+            );
         }
     }
 }

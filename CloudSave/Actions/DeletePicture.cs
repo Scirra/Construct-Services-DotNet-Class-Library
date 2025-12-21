@@ -1,7 +1,6 @@
 ﻿using ConstructServices.Common;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using JetBrains.Annotations;
 
 namespace ConstructServices.CloudSave.Actions;
@@ -28,11 +27,11 @@ public static partial class CloudSaves
             }
 
             const string path = "/deletepicture.json";
-            return Task.Run(() => Request.ExecuteRequest<BaseResponse>(
+            return Request.ExecuteSyncRequest<BaseResponse>(
                 path,
                 service,
                 formData
-            )).Result;
+            );
         }
 
         /// <summary>

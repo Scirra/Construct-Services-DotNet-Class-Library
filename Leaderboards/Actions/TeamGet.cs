@@ -29,11 +29,11 @@ public static partial class Teams
             {
                 { "teamID", teamID.ToString() }
             };
-            return Task.Run(() => Request.ExecuteRequest<GetTeamResponse>(
+            return Request.ExecuteSyncRequest<GetTeamResponse>(
                 path,
                 service,
                 formData
-            )).Result;
+            );
         }
     }
 }

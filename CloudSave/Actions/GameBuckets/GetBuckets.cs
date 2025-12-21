@@ -24,11 +24,11 @@ public static partial class GameBuckets
         };
 
         const string path = "/getbuckets.json";
-        return Task.Run(() => Request.ExecuteRequest<BucketsResponse>(
+        return Request.ExecuteSyncRequest<BucketsResponse>(
             path,
             service,
             formData,
             paginationOptions
-        )).Result;
+        );
     }
 }

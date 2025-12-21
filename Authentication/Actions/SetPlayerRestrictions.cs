@@ -4,7 +4,6 @@ using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace ConstructServices.Authentication.Actions;
 
@@ -18,7 +17,7 @@ public static partial class Players
     {
         const string path = "/setplayerrestrictions.json";
 
-        return Task.Run(() => Request.ExecuteRequest<BaseResponse>(
+        return Request.ExecuteSyncRequest<BaseResponse>(
             path,
             service,
             new Dictionary<string, string>
@@ -26,6 +25,6 @@ public static partial class Players
                 { "playerID", playerID.ToString() },
                 { "restrictedActions", string.Join(",", actions.Select(c=> (int)c)) }
             }
-        )).Result;
+        );
     }
 }

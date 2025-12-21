@@ -28,10 +28,10 @@ public static partial class Create
         };
 
         const string path = "/createchannel.json";
-        return Task.Run(() => Request.ExecuteRequest<ChannelResponse>(
+        return Request.ExecuteSyncRequest<ChannelResponse>(
             path,
             service,
             formData
-        )).Result;
+        );
     }
 }

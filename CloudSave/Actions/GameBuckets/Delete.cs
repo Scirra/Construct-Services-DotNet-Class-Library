@@ -1,7 +1,6 @@
 ﻿using ConstructServices.Common;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using JetBrains.Annotations;
 
 namespace ConstructServices.CloudSave.Actions;
@@ -23,10 +22,10 @@ public static partial class GameBuckets
         };
 
         const string path = "/deletebucket.json";
-        return Task.Run(() => Request.ExecuteRequest<BaseResponse>(
+        return Request.ExecuteSyncRequest<BaseResponse>(
             path,
             service,
             formData
-        )).Result;
+        );
     }
 }
