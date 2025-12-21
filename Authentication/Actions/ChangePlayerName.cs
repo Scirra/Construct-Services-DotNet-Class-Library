@@ -1,7 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using ConstructServices.Common;
+﻿using ConstructServices.Common;
+using ConstructServices.Common.Validations;
 using JetBrains.Annotations;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Guid = System.Guid;
 
 namespace ConstructServices.Authentication.Actions;
 
@@ -10,9 +12,16 @@ public static partial class Players
     extension(AuthenticationService service)
     {
         [UsedImplicitly]
-        public BaseResponse ChangePlayerName(Guid playerID,
+        public BaseResponse ChangePlayerName(
+            Guid playerID,
             string newPlayerName)
         {
+            var playerNameValidator = newPlayerName.ValidatePlayerName();
+            if (!playerNameValidator.Successfull)
+            {
+                return new BaseResponse(playerNameValidator.ErrorMessage, false);
+            }
+
             const string path = "/changeplayername.json";
 
             return Request.ExecuteSyncRequest<BaseResponse>(
@@ -27,12 +36,77 @@ public static partial class Players
         }
 
         [UsedImplicitly]
-        public BaseResponse ChangePlayerName(string sessionKey,
+        public async Task<BaseResponse> ChangePlayerNameAsync(
+            Guid playerID,
             string newPlayerName)
         {
+            var playerNameValidator = newPlayerName.ValidatePlayerName();
+            if (!playerNameValidator.Successfull)
+            {
+                return new BaseResponse(playerNameValidator.ErrorMessage, false);
+            }
+
+            const string path = "/changeplayername.json";
+
+            return await Request.ExecuteAsyncRequest<BaseResponse>(
+                path,
+                service,
+                new Dictionary<string, string>
+                {
+                    { "playerID", playerID.ToString() },
+                    { "playerName", newPlayerName }
+                }
+            );
+        }
+
+        [UsedImplicitly]
+        public BaseResponse ChangePlayerName(
+            string sessionKey,
+            string newPlayerName)
+        {
+            var sessionKeyValidator = sessionKey.ValidatePlayerSessionKey();
+            if (!sessionKeyValidator.Successfull)
+            {
+                return new BaseResponse(sessionKeyValidator.ErrorMessage, false);
+            }
+            var playerNameValidator = newPlayerName.ValidatePlayerName();
+            if (!playerNameValidator.Successfull)
+            {
+                return new BaseResponse(playerNameValidator.ErrorMessage, false);
+            }
+
             const string path = "/changeplayername.json";
 
             return Request.ExecuteSyncRequest<BaseResponse>(
+                path,
+                service,
+                new Dictionary<string, string>
+                {
+                    { "sessionKey", sessionKey },
+                    { "playerName", newPlayerName }
+                }
+            );
+        }
+
+        [UsedImplicitly]
+        public async Task<BaseResponse> ChangePlayerNameAsync(
+            string sessionKey,
+            string newPlayerName)
+        {
+            var sessionKeyValidator = sessionKey.ValidatePlayerSessionKey();
+            if (!sessionKeyValidator.Successfull)
+            {
+                return new BaseResponse(sessionKeyValidator.ErrorMessage, false);
+            }
+            var playerNameValidator = newPlayerName.ValidatePlayerName();
+            if (!playerNameValidator.Successfull)
+            {
+                return new BaseResponse(playerNameValidator.ErrorMessage, false);
+            }
+
+            const string path = "/changeplayername.json";
+
+            return await Request.ExecuteAsyncRequest<BaseResponse>(
                 path,
                 service,
                 new Dictionary<string, string>

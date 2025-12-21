@@ -40,12 +40,12 @@ public static partial class Players
             string strPlayerID,
             string newPassword)
         {
-            var validator = strPlayerID.IsValidGuid();
-            if (!validator.Successfull)
+            var playerIDValidator = strPlayerID.IsValidGuid();
+            if (!playerIDValidator.Successfull)
             {
-                return new BaseResponse(string.Format(validator.ErrorMessage, "Player ID"), false);
+                return new BaseResponse(string.Format(playerIDValidator.ErrorMessage, "Player ID"), false);
             }
-            return service.ChangePassword(validator.ReturnedObject, newPassword);
+            return service.ChangePassword(playerIDValidator.ReturnedObject, newPassword);
         }
         
         [UsedImplicitly]
