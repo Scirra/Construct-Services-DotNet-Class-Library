@@ -16,7 +16,7 @@ public sealed class BucketsResponse : BaseResponse
     public BucketsResponse()
     {
     }
-    public BucketsResponse(string errorMessage, bool shouldRetry) : base(errorMessage, shouldRetry)
+    public BucketsResponse(string errorMessage, bool shouldRetry = false) : base(errorMessage, shouldRetry)
     {
 
     }

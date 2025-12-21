@@ -27,7 +27,7 @@ public static partial class GameBuckets
             var nameValidator = Common.Validations.BucketName.ValidateName(bucketName);
             if (!nameValidator.Successfull)
             {
-                return new BucketResponse(nameValidator.ErrorMessage, false);
+                return new BucketResponse(nameValidator.ErrorMessage);
             }
 
             var formData = new Dictionary<string, string>
@@ -70,7 +70,7 @@ public static partial class GameBuckets
             var nameValidator = Common.Validations.BucketName.ValidateName(bucketName);
             if (!nameValidator.Successfull)
             {
-                return new BucketResponse(nameValidator.ErrorMessage, false);
+                return new BucketResponse(nameValidator.ErrorMessage);
             }
 
             var formData = new Dictionary<string, string>

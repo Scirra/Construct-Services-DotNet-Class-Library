@@ -49,7 +49,7 @@ public static partial class Create
             var channelIDValidator = Common.Validations.Guid.IsValidGuid(strChannelID);
             if (!channelIDValidator.Successfull)
             {
-                return new MessageResponse(string.Format(channelIDValidator.ErrorMessage, "Channel ID"), false);
+                return new MessageResponse(string.Format(channelIDValidator.ErrorMessage, "Channel ID"));
             }
             return service.CreateMessage(channelIDValidator.ReturnedObject, title, text, languageISO);
         }
@@ -67,7 +67,7 @@ public static partial class Create
             var channelIDValidator = Common.Validations.Guid.IsValidGuid(strChannelID);
             if (!channelIDValidator.Successfull)
             {
-                return new MessageResponse(string.Format(channelIDValidator.ErrorMessage, "Channel ID"), false);
+                return new MessageResponse(string.Format(channelIDValidator.ErrorMessage, "Channel ID"));
             }
             return await service.CreateMessageAsync(channelIDValidator.ReturnedObject, title, text, languageISO);
         }
@@ -85,7 +85,7 @@ public static partial class Create
             var textValidator = Common.Validations.BroadcastMessageText.ValidateTest(text);
             if (!textValidator.Successfull)
             {
-                return new MessageResponse(textValidator.ErrorMessage, false);
+                return new MessageResponse(textValidator.ErrorMessage);
             }
 
             var formData = new Dictionary<string, string>
@@ -116,7 +116,7 @@ public static partial class Create
             var textValidator = Common.Validations.BroadcastMessageText.ValidateTest(text);
             if (!textValidator.Successfull)
             {
-                return new MessageResponse(textValidator.ErrorMessage, false);
+                return new MessageResponse(textValidator.ErrorMessage);
             }
 
             var formData = new Dictionary<string, string>

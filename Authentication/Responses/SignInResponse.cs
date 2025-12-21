@@ -15,7 +15,7 @@ public sealed class SignInResponse : BaseResponse
     public SignInResponse()
     {
     }
-    public SignInResponse(string errorMessage, bool shouldRetry) : base(errorMessage, shouldRetry)
+    public SignInResponse(string errorMessage, bool shouldRetry = false) : base(errorMessage, shouldRetry)
     {
     }
 }

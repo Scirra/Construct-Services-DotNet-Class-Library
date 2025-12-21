@@ -18,7 +18,7 @@ public static partial class Players
             var validator = Common.Validations.ForceLinkCode.ValidateForceLinkCode(forceLinkCode);
             if (!validator.Successfull)
             {
-                return new LinkLoginProviderResponse(validator.ErrorMessage, false);
+                return new LinkLoginProviderResponse(validator.ErrorMessage);
             }
 
             return Request.ExecuteSyncRequest<LinkLoginProviderResponse>(
@@ -37,7 +37,7 @@ public static partial class Players
             var validator = Common.Validations.ForceLinkCode.ValidateForceLinkCode(forceLinkCode);
             if (!validator.Successfull)
             {
-                return new LinkLoginProviderResponse(validator.ErrorMessage, false);
+                return new LinkLoginProviderResponse(validator.ErrorMessage);
             }
 
             return await Request.ExecuteAsyncRequest<LinkLoginProviderResponse>(

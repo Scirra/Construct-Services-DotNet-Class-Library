@@ -12,7 +12,7 @@ public sealed class CloudSaveResponse : BaseResponse
     {
     }
 
-    public CloudSaveResponse(string errorMessage, bool shouldRetry) : base(errorMessage, shouldRetry)
+    public CloudSaveResponse(string errorMessage, bool shouldRetry = false) : base(errorMessage, shouldRetry)
     {
 
     }

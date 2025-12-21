@@ -13,7 +13,7 @@ public sealed class MessagesResponse : BaseResponse
     public MessagesResponse()
     {
     }
-    public MessagesResponse(string errorMessage, bool shouldRetry) : base(errorMessage, shouldRetry)
+    public MessagesResponse(string errorMessage, bool shouldRetry = false) : base(errorMessage, shouldRetry)
     {
 
     }

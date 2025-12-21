@@ -13,7 +13,7 @@ public sealed class CreateTeamResponse : BaseResponse
     {
     }
 
-    public CreateTeamResponse(string errorMessage, bool shouldRetry) : base(errorMessage, shouldRetry)
+    public CreateTeamResponse(string errorMessage, bool shouldRetry = false) : base(errorMessage, shouldRetry)
     {
 
     }

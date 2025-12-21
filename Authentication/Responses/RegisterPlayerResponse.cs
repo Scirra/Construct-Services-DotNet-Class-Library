@@ -15,7 +15,7 @@ public sealed class RegisterPlayerResponse : BaseResponse
     public RegisterPlayerResponse()
     {
     }
-    public RegisterPlayerResponse(string errorMessage, bool shouldRetry) : base(errorMessage, shouldRetry)
+    public RegisterPlayerResponse(string errorMessage, bool shouldRetry = false) : base(errorMessage, shouldRetry)
     {
     }
 }

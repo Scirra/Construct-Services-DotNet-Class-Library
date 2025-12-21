@@ -20,7 +20,7 @@ public static partial class Players
             var playerNameValidator = Common.Validations.PlayerName.ValidatePlayerName(playerName);
             if (!playerNameValidator.Successfull)
             {
-                return new RegisterPlayerResponse(playerNameValidator.ErrorMessage, false);
+                return new RegisterPlayerResponse(playerNameValidator.ErrorMessage);
             }
 
             var formData = new Dictionary<string, string>
@@ -47,7 +47,7 @@ public static partial class Players
             var playerNameValidator = Common.Validations.PlayerName.ValidatePlayerName(playerName);
             if (!playerNameValidator.Successfull)
             {
-                return new RegisterPlayerResponse(playerNameValidator.ErrorMessage, false);
+                return new RegisterPlayerResponse(playerNameValidator.ErrorMessage);
             }
 
             var formData = new Dictionary<string, string>
@@ -76,17 +76,17 @@ public static partial class Players
             var playerNameValidator = Common.Validations.PlayerName.ValidatePlayerName(playerName);
             if (!playerNameValidator.Successfull)
             {
-                return new RegisterPlayerResponse(playerNameValidator.ErrorMessage, false);
+                return new RegisterPlayerResponse(playerNameValidator.ErrorMessage);
             }
             var playerUsernameValidator = Common.Validations.PlayerUsername.ValidatePlayerUsername(playerName);
             if (!playerUsernameValidator.Successfull)
             {
-                return new RegisterPlayerResponse(playerUsernameValidator.ErrorMessage, false);
+                return new RegisterPlayerResponse(playerUsernameValidator.ErrorMessage);
             }
             var playerPasswordValidator = Common.Validations.PlayerPassword.ValidatePlayerPassword(playerName);
             if (!playerPasswordValidator.Successfull)
             {
-                return new RegisterPlayerResponse(string.Format(playerPasswordValidator.ErrorMessage, "Password"), false);
+                return new RegisterPlayerResponse(string.Format(playerPasswordValidator.ErrorMessage, "Password"));
             }
 
             var formData = new Dictionary<string, string>
@@ -117,17 +117,17 @@ public static partial class Players
             var playerNameValidator = Common.Validations.PlayerName.ValidatePlayerName(playerName);
             if (!playerNameValidator.Successfull)
             {
-                return new RegisterPlayerResponse(playerNameValidator.ErrorMessage, false);
+                return new RegisterPlayerResponse(playerNameValidator.ErrorMessage);
             }
             var playerUsernameValidator = Common.Validations.PlayerUsername.ValidatePlayerUsername(playerName);
             if (!playerUsernameValidator.Successfull)
             {
-                return new RegisterPlayerResponse(playerUsernameValidator.ErrorMessage, false);
+                return new RegisterPlayerResponse(playerUsernameValidator.ErrorMessage);
             }
             var playerPasswordValidator = Common.Validations.PlayerPassword.ValidatePlayerPassword(playerName);
             if (!playerPasswordValidator.Successfull)
             {
-                return new RegisterPlayerResponse(string.Format(playerPasswordValidator.ErrorMessage, "Password"), false);
+                return new RegisterPlayerResponse(string.Format(playerPasswordValidator.ErrorMessage, "Password"));
             }
 
             var formData = new Dictionary<string, string>

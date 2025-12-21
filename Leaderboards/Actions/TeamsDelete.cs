@@ -1,30 +1,57 @@
-﻿using System;
-using System.Collections.Generic;
-using ConstructServices.Common;
+﻿using ConstructServices.Common;
 using JetBrains.Annotations;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ConstructServices.Leaderboards.Actions;
 
 public static partial class Teams
 {
+    private const string DeleteTeamAPIPath = "/deleteteam.json";
+
     extension(LeaderboardService service)
     {
         [UsedImplicitly]
         public BaseResponse DeleteExistingTeam(string strTeamID)
         {
-            if (string.IsNullOrWhiteSpace(strTeamID))
-                return new BaseResponse("No Team ID was provided.");
-            if (!Guid.TryParse(strTeamID, out var teamID))
-                return new BaseResponse("Team ID was not a valid GUID.");
-            return service.DeleteExistingTeam(teamID);
+            var teamIDValidator = Common.Validations.Guid.IsValidGuid(strTeamID);
+            if (!teamIDValidator.Successfull)
+            {
+                return new BaseResponse(string.Format(teamIDValidator.ErrorMessage, "Team ID"));
+            }
+            return service.DeleteExistingTeam(teamIDValidator.ReturnedObject);
+        }
+
+        [UsedImplicitly]
+        public async Task<BaseResponse> DeleteExistingTeamAsync(string strTeamID)
+        {
+            var teamIDValidator = Common.Validations.Guid.IsValidGuid(strTeamID);
+            if (!teamIDValidator.Successfull)
+            {
+                return new BaseResponse(string.Format(teamIDValidator.ErrorMessage, "Team ID"));
+            }
+            return await service.DeleteExistingTeamAsync(teamIDValidator.ReturnedObject);
         }
         
         [UsedImplicitly]
         public BaseResponse DeleteExistingTeam(Guid teamID)
         {
-            const string path = "/deleteteam.json";
             return Request.ExecuteSyncRequest<BaseResponse>(
-                path,
+                DeleteTeamAPIPath,
+                service,
+                new Dictionary<string, string>
+                {
+                    { "teamID", teamID.ToString() }
+                }
+            );
+        }
+        
+        [UsedImplicitly]
+        public async Task<BaseResponse> DeleteExistingTeamAsync(Guid teamID)
+        {
+            return await Request.ExecuteAsyncRequest<BaseResponse>(
+                DeleteTeamAPIPath,
                 service,
                 new Dictionary<string, string>
                 {

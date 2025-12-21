@@ -22,7 +22,7 @@ public static partial class GameBuckets
             var bucketIDValidator = Common.Validations.Guid.IsValidGuid(strBucketID);
             if (!bucketIDValidator.Successfull)
             {
-                return new BucketResponse(string.Format(bucketIDValidator.ErrorMessage, "Bucket ID"), false);
+                return new BucketResponse(string.Format(bucketIDValidator.ErrorMessage, "Bucket ID"));
             }
             return service.GetBucket(bucketIDValidator.ReturnedObject);
         }
@@ -36,7 +36,7 @@ public static partial class GameBuckets
             var bucketIDValidator = Common.Validations.Guid.IsValidGuid(strBucketID);
             if (!bucketIDValidator.Successfull)
             {
-                return new BucketResponse(string.Format(bucketIDValidator.ErrorMessage, "Bucket ID"), false);
+                return new BucketResponse(string.Format(bucketIDValidator.ErrorMessage, "Bucket ID"));
             }
             return await service.GetBucketAsync(bucketIDValidator.ReturnedObject);
         }

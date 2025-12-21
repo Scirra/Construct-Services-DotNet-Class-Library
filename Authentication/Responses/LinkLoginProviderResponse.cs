@@ -21,7 +21,7 @@ public sealed class LinkLoginProviderResponse : BaseResponse
     public LinkLoginProviderResponse()
     {
     }
-    public LinkLoginProviderResponse(string errorMessage, bool shouldRetry) : base(errorMessage, shouldRetry)
+    public LinkLoginProviderResponse(string errorMessage, bool shouldRetry = false) : base(errorMessage, shouldRetry)
     {
 
     }

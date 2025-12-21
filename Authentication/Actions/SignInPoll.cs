@@ -18,7 +18,7 @@ public static partial class Players
             var tokenValidator = pollToken.IsValidGuid();
             if (!tokenValidator.Successfull)
             {
-                return new SignInPollResponse(string.Format(tokenValidator.ErrorMessage, "Poll token"), false);
+                return new SignInPollResponse(string.Format(tokenValidator.ErrorMessage, "Poll token"));
             }
             return service.SignIn(tokenValidator.ReturnedObject);
         }
@@ -29,7 +29,7 @@ public static partial class Players
             var tokenValidator = pollToken.IsValidGuid();
             if (!tokenValidator.Successfull)
             {
-                return new SignInPollResponse(string.Format(tokenValidator.ErrorMessage, "Poll token"), false);
+                return new SignInPollResponse(string.Format(tokenValidator.ErrorMessage, "Poll token"));
             }
             return await service.SignInAsync(tokenValidator.ReturnedObject);
         }

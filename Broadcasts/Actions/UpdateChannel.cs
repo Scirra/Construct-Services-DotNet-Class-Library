@@ -28,7 +28,7 @@ public static partial class Update
             var channelIDValidator = Common.Validations.Guid.IsValidGuid(strChannelID);
             if (!channelIDValidator.Successfull)
             {
-                return new ChannelResponse(string.Format(channelIDValidator.ErrorMessage, "Channel ID"), false);
+                return new ChannelResponse(string.Format(channelIDValidator.ErrorMessage, "Channel ID"));
             }
             return service.UpdateChannel(channelIDValidator.ReturnedObject, channelName, channelDescription, languageISO, allowRatings);
         }
@@ -47,7 +47,7 @@ public static partial class Update
             var channelIDValidator = Common.Validations.Guid.IsValidGuid(strChannelID);
             if (!channelIDValidator.Successfull)
             {
-                return new ChannelResponse(string.Format(channelIDValidator.ErrorMessage, "Channel ID"), false);
+                return new ChannelResponse(string.Format(channelIDValidator.ErrorMessage, "Channel ID"));
             }
             return await service.UpdateChannelAsync(channelIDValidator.ReturnedObject, channelName, channelDescription, languageISO, allowRatings);
         }

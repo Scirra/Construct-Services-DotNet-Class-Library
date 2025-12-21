@@ -18,7 +18,7 @@ public static partial class Players
             var validator = Common.Validations.PlayerName.ValidatePlayerName(playerName);
             if (!validator.Successfull)
             {
-                return new GetPlayerResponse(validator.ErrorMessage, false);
+                return new GetPlayerResponse(validator.ErrorMessage);
             }
             return Common.Request.ExecuteSyncRequest<GetPlayerResponse>(
                 GetPlayerAPIPath,
@@ -36,7 +36,7 @@ public static partial class Players
             var validator = Common.Validations.PlayerName.ValidatePlayerName(playerName);
             if (!validator.Successfull)
             {
-                return new GetPlayerResponse(validator.ErrorMessage, false);
+                return new GetPlayerResponse(validator.ErrorMessage);
             }
             return await Common.Request.ExecuteAsyncRequest<GetPlayerResponse>(
                 GetPlayerAPIPath,

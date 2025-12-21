@@ -13,7 +13,7 @@ public sealed class GetConnectedLoginProvidersResponse : BaseResponse
     public GetConnectedLoginProvidersResponse()
     {
     }
-    public GetConnectedLoginProvidersResponse(string errorMessage, bool shouldRetry) : base(errorMessage, shouldRetry)
+    public GetConnectedLoginProvidersResponse(string errorMessage, bool shouldRetry = false) : base(errorMessage, shouldRetry)
     {
     }
 }

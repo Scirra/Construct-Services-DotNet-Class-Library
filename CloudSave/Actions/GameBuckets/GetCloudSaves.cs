@@ -38,7 +38,7 @@ public static partial class GameBuckets
             var bucketIDValidator = Common.Validations.Guid.IsValidGuid(strBucketID);
             if (!bucketIDValidator.Successfull)
             {
-                return new CloudSavesResponse(string.Format(bucketIDValidator.ErrorMessage, "Bucket ID"), false);
+                return new CloudSavesResponse(string.Format(bucketIDValidator.ErrorMessage, "Bucket ID"));
             }
             return service.GetCloudSaves(bucketIDValidator.ReturnedObject, paginationOptions, orderBy, filters);
         }
@@ -56,7 +56,7 @@ public static partial class GameBuckets
             var bucketIDValidator = Common.Validations.Guid.IsValidGuid(strBucketID);
             if (!bucketIDValidator.Successfull)
             {
-                return new CloudSavesResponse(string.Format(bucketIDValidator.ErrorMessage, "Bucket ID"), false);
+                return new CloudSavesResponse(string.Format(bucketIDValidator.ErrorMessage, "Bucket ID"));
             }
             return await service.GetCloudSavesAsync(bucketIDValidator.ReturnedObject, paginationOptions, orderBy, filters);
         }

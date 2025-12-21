@@ -18,7 +18,7 @@ public static partial class Players
             var sessionKeyValidator = Common.Validations.PlayerSessionKey.ValidatePlayerSessionKey(sessionKey);
             if (!sessionKeyValidator.Successfull)
             {
-                return new SignInResponse(sessionKeyValidator.ErrorMessage, false);
+                return new SignInResponse(sessionKeyValidator.ErrorMessage);
             }
 
             return Common.Request.ExecuteSyncRequest<SignInResponse>(
@@ -39,7 +39,7 @@ public static partial class Players
             var sessionKeyValidator = Common.Validations.PlayerSessionKey.ValidatePlayerSessionKey(sessionKey);
             if (!sessionKeyValidator.Successfull)
             {
-                return new SignInResponse(sessionKeyValidator.ErrorMessage, false);
+                return new SignInResponse(sessionKeyValidator.ErrorMessage);
             }
 
             return await Common.Request.ExecuteAsyncRequest<SignInResponse>(

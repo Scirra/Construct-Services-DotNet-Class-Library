@@ -23,7 +23,7 @@ public static partial class Scores
             var idValidator = Common.Validations.Guid.IsValidGuid(playerID);
             if (!idValidator.Successfull)
             {
-                return new GetScoreNeighboursResponse(string.Format(idValidator.ErrorMessage, "Player ID"), false);
+                return new GetScoreNeighboursResponse(string.Format(idValidator.ErrorMessage, "Player ID"));
             }
             return service.GetPlayersScoreNeighbours(idValidator.ReturnedObject, range, compareRanks, requestPerspective);
         }
@@ -38,7 +38,7 @@ public static partial class Scores
             var idValidator = Common.Validations.Guid.IsValidGuid(playerID);
             if (!idValidator.Successfull)
             {
-                return new GetScoreNeighboursResponse(string.Format(idValidator.ErrorMessage, "Player ID"), false);
+                return new GetScoreNeighboursResponse(string.Format(idValidator.ErrorMessage, "Player ID"));
             }
             return await service.GetPlayersScoreNeighboursAsync(idValidator.ReturnedObject, range, compareRanks, requestPerspective);
         }
@@ -69,7 +69,7 @@ public static partial class Scores
             var idValidator = Common.Validations.Guid.IsValidGuid(strScoreID);
             if (!idValidator.Successfull)
             {
-                return new GetScoreNeighboursResponse(string.Format(idValidator.ErrorMessage, "Score ID"), false);
+                return new GetScoreNeighboursResponse(string.Format(idValidator.ErrorMessage, "Score ID"));
             }
             return service.GetScoreNeighbours(idValidator.ReturnedObject, range, compareRanks, requestPerspective);
         }
@@ -84,7 +84,7 @@ public static partial class Scores
             var idValidator = Common.Validations.Guid.IsValidGuid(strScoreID);
             if (!idValidator.Successfull)
             {
-                return new GetScoreNeighboursResponse(string.Format(idValidator.ErrorMessage, "Score ID"), false);
+                return new GetScoreNeighboursResponse(string.Format(idValidator.ErrorMessage, "Score ID"));
             }
             return await service.GetScoreNeighboursAsync(idValidator.ReturnedObject, range, compareRanks, requestPerspective);
         }

@@ -1,6 +1,8 @@
 ﻿using System;
 using ConstructServices.Leaderboards.Responses;
 using System.Collections.Generic;
+using System.Net;
+using System.Threading.Tasks;
 using ConstructServices.Common;
 using JetBrains.Annotations;
 
@@ -8,14 +10,40 @@ namespace ConstructServices.Leaderboards.Actions;
 
 public static partial class ShadowBans
 {
+    private const string UnShadowBanAPIPath = "/unshadowban.json";
+
     extension(LeaderboardService service)
     {
         [UsedImplicitly]
         public ShadowBanResponse UnbanPlayerID(string playerID)
         {
-            const string path = "/unshadowban.json";
+            var idValidator = Common.Validations.Guid.IsValidGuid(playerID);
+            if (!idValidator.Successfull)
+            {
+                return new ShadowBanResponse(string.Format(idValidator.ErrorMessage, "Player ID"));
+            }
+
             return Request.ExecuteSyncRequest<ShadowBanResponse>(
-                path,
+                UnShadowBanAPIPath,
+                service,
+                new Dictionary<string, string>
+                {
+                    { "playerID", playerID }
+                }
+            );
+        }
+
+        [UsedImplicitly]
+        public async Task<ShadowBanResponse> UnbanPlayerIDAsync(string playerID)
+        {
+            var idValidator = Common.Validations.Guid.IsValidGuid(playerID);
+            if (!idValidator.Successfull)
+            {
+                return new ShadowBanResponse(string.Format(idValidator.ErrorMessage, "Player ID"));
+            }
+
+            return await Request.ExecuteAsyncRequest<ShadowBanResponse>(
+                UnShadowBanAPIPath,
                 service,
                 new Dictionary<string, string>
                 {
@@ -27,9 +55,31 @@ public static partial class ShadowBans
         [UsedImplicitly]
         public ShadowBanResponse UnbanIPAddress(string ipAddress)
         {
-            const string path = "/unshadowban.json";
+            if (!IPAddress.TryParse(ipAddress, out _))
+            {
+                return new ShadowBanResponse("Invalid IP address format.");
+            }
+
             return Request.ExecuteSyncRequest<ShadowBanResponse>(
-                path,
+                UnShadowBanAPIPath,
+                service,
+                new Dictionary<string, string>
+                {
+                    { "ipAddress", ipAddress }
+                }
+            );
+        }
+
+        [UsedImplicitly]
+        public async Task<ShadowBanResponse> UnbanIPAddressAsync(string ipAddress)
+        {
+            if (!IPAddress.TryParse(ipAddress, out _))
+            {
+                return new ShadowBanResponse("Invalid IP address format.");
+            }
+
+            return await Request.ExecuteAsyncRequest<ShadowBanResponse>(
+                UnShadowBanAPIPath,
                 service,
                 new Dictionary<string, string>
                 {
@@ -41,19 +91,43 @@ public static partial class ShadowBans
         [UsedImplicitly]
         public ShadowBanResponse UnbanScoreID(string strScoreID)
         {
-            if (string.IsNullOrWhiteSpace(strScoreID))
-                return new ShadowBanResponse("No Score ID was provided.", false);
-            if (!Guid.TryParse(strScoreID, out var scoreID))
-                return new ShadowBanResponse("Score ID was not a valid GUID.", false);
-            return service.UnbanScoreID(scoreID);
+            var idValidator = Common.Validations.Guid.IsValidGuid(strScoreID);
+            if (!idValidator.Successfull)
+            {
+                return new ShadowBanResponse(string.Format(idValidator.ErrorMessage, "Score ID"));
+            }
+            return service.UnbanScoreID(idValidator.ReturnedObject);
+        }
+
+        [UsedImplicitly]
+        public async Task<ShadowBanResponse> UnbanScoreIDAsync(string strScoreID)
+        {
+            var idValidator = Common.Validations.Guid.IsValidGuid(strScoreID);
+            if (!idValidator.Successfull)
+            {
+                return new ShadowBanResponse(string.Format(idValidator.ErrorMessage, "Score ID"));
+            }
+            return await service.UnbanScoreIDAsync(idValidator.ReturnedObject);
         }
         
         [UsedImplicitly]
         public ShadowBanResponse UnbanScoreID(Guid scoreID)
         {
-            const string path = "/unshadowban.json";
             return Request.ExecuteSyncRequest<ShadowBanResponse>(
-                path,
+                UnShadowBanAPIPath,
+                service,
+                new Dictionary<string, string>
+                {
+                    { "scoreID", scoreID.ToString() }
+                }
+            );
+        }
+        
+        [UsedImplicitly]
+        public async Task<ShadowBanResponse> UnbanScoreIDAsync(Guid scoreID)
+        {
+            return await Request.ExecuteAsyncRequest<ShadowBanResponse>(
+                UnShadowBanAPIPath,
                 service,
                 new Dictionary<string, string>
                 {
@@ -65,19 +139,43 @@ public static partial class ShadowBans
         [UsedImplicitly]
         public ShadowBanResponse UnbanIPHash(string strIPHash)
         {
-            if (string.IsNullOrWhiteSpace(strIPHash))
-                return new ShadowBanResponse("No IP Hash was provided.", false);
-            if (!int.TryParse(strIPHash, out var ipHash))
-                return new ShadowBanResponse("IP Hash was not a valid int.", false);
-            return service.UnbanIPHash(ipHash);
+            var validation = Common.Validations.IPHash.ValidateIPHash(strIPHash);
+            if (!validation.Successfull)
+            {
+                return new ShadowBanResponse(validation.ErrorMessage);
+            }
+            return service.UnbanIPHash(validation.ReturnedObject);
+        }
+
+        [UsedImplicitly]
+        public async Task<ShadowBanResponse> UnbanIPHashAsync(string strIPHash)
+        {
+            var validation = Common.Validations.IPHash.ValidateIPHash(strIPHash);
+            if (!validation.Successfull)
+            {
+                return new ShadowBanResponse(validation.ErrorMessage);
+            }
+            return await service.UnbanIPHashAsync(validation.ReturnedObject);
         }
         
         [UsedImplicitly]
         public ShadowBanResponse UnbanIPHash(int ipHash)
         {
-            const string path = "/unshadowban.json";
             return Request.ExecuteSyncRequest<ShadowBanResponse>(
-                path,
+                UnShadowBanAPIPath,
+                service,
+                new Dictionary<string, string>
+                {
+                    { "ipHash", ipHash.ToString() }
+                }
+            );
+        }
+        
+        [UsedImplicitly]
+        public async Task<ShadowBanResponse> UnbanIPHashAsync(int ipHash)
+        {
+            return await Request.ExecuteAsyncRequest<ShadowBanResponse>(
+                UnShadowBanAPIPath,
                 service,
                 new Dictionary<string, string>
                 {

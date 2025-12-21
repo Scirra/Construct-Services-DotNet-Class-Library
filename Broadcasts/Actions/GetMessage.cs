@@ -42,7 +42,7 @@ public static partial class Get
             var messageIDValidator = Common.Validations.Guid.IsValidGuid(strMessageID);
             if (!messageIDValidator.Successfull)
             {
-                return new MessageResponse(string.Format(messageIDValidator.ErrorMessage, "Message ID"), false);
+                return new MessageResponse(string.Format(messageIDValidator.ErrorMessage, "Message ID"));
             }
             return service.GetMessage(messageIDValidator.ReturnedObject);
         }
@@ -57,7 +57,7 @@ public static partial class Get
             var messageIDValidator = Common.Validations.Guid.IsValidGuid(strMessageID);
             if (!messageIDValidator.Successfull)
             {
-                return new MessageResponse(string.Format(messageIDValidator.ErrorMessage, "Message ID"), false);
+                return new MessageResponse(string.Format(messageIDValidator.ErrorMessage, "Message ID"));
             }
             return await service.GetMessageAsync(messageIDValidator.ReturnedObject);
         }

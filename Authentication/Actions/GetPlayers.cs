@@ -64,7 +64,7 @@ public static partial class Players
         {
             if (!playerIDs.Any())
             {
-                return new GetPlayersResponse("No player ID's provided.", false);
+                return new GetPlayersResponse("No player ID's provided.");
             }
 
             var formData = new Dictionary<string, string>
@@ -83,7 +83,7 @@ public static partial class Players
         {
             if (!playerIDs.Any())
             {
-                return new GetPlayersResponse("No player ID's provided.", false);
+                return new GetPlayersResponse("No player ID's provided.");
             }
 
             var formData = new Dictionary<string, string>

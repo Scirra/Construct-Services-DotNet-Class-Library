@@ -25,7 +25,7 @@ public static partial class Create
             var nameValidator = Common.Validations.ChannelName.ValidateChannelName(channelName);
             if (!nameValidator.Successfull)
             {
-                return new ChannelResponse(nameValidator.ErrorMessage, false);
+                return new ChannelResponse(nameValidator.ErrorMessage);
             }
 
             var formData = new Dictionary<string, string>
@@ -56,7 +56,7 @@ public static partial class Create
             var nameValidator = Common.Validations.ChannelName.ValidateChannelName(channelName);
             if (!nameValidator.Successfull)
             {
-                return new ChannelResponse(nameValidator.ErrorMessage, false);
+                return new ChannelResponse(nameValidator.ErrorMessage);
             }
 
             var formData = new Dictionary<string, string>

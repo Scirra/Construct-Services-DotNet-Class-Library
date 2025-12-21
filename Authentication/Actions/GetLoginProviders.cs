@@ -17,7 +17,7 @@ public static partial class Players
             var sessionKeyValidator = Common.Validations.PlayerSessionKey.ValidatePlayerSessionKey(sessionKey);
             if (!sessionKeyValidator.Successfull)
             {
-                return new GetConnectedLoginProvidersResponse(sessionKeyValidator.ErrorMessage, false);
+                return new GetConnectedLoginProvidersResponse(sessionKeyValidator.ErrorMessage);
             }
 
             return Common.Request.ExecuteSyncRequest<GetConnectedLoginProvidersResponse>(
@@ -36,7 +36,7 @@ public static partial class Players
             var sessionKeyValidator = Common.Validations.PlayerSessionKey.ValidatePlayerSessionKey(sessionKey);
             if (!sessionKeyValidator.Successfull)
             {
-                return new GetConnectedLoginProvidersResponse(sessionKeyValidator.ErrorMessage, false);
+                return new GetConnectedLoginProvidersResponse(sessionKeyValidator.ErrorMessage);
             }
 
             return await Common.Request.ExecuteAsyncRequest<GetConnectedLoginProvidersResponse>(

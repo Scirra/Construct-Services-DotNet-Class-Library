@@ -27,7 +27,7 @@ public sealed class GetTeamPlayersResponse : BaseResponse
     public GetTeamPlayersResponse()
     {
     }
-    public GetTeamPlayersResponse(string errorMessage, bool shouldRetry) : base(errorMessage, shouldRetry)
+    public GetTeamPlayersResponse(string errorMessage, bool shouldRetry = false) : base(errorMessage, shouldRetry)
     {
 
     }

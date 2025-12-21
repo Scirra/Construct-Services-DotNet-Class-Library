@@ -12,7 +12,7 @@ public sealed class ChannelResponse : BaseResponse
     public ChannelResponse()
     {
     }
-    public ChannelResponse(string errorMessage, bool shouldRetry) : base(errorMessage, shouldRetry)
+    public ChannelResponse(string errorMessage, bool shouldRetry = false) : base(errorMessage, shouldRetry)
     {
 
     }

@@ -12,7 +12,7 @@ public sealed class GetPlayerResponse : BaseResponse
     public GetPlayerResponse()
     {
     }
-    public GetPlayerResponse(string errorMessage, bool shouldRetry) : base(errorMessage, shouldRetry)
+    public GetPlayerResponse(string errorMessage, bool shouldRetry = false) : base(errorMessage, shouldRetry)
     {
 
     }

@@ -1,5 +1,6 @@
 ﻿using ConstructServices.Leaderboards.Responses;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using ConstructServices.Common;
 using JetBrains.Annotations;
 
@@ -7,18 +8,32 @@ namespace ConstructServices.Leaderboards.Actions;
 
 public static partial class ShadowBans
 {
-    [UsedImplicitly]
-    public static GetShadowBansResponse GetIPShadowBans(
-        this LeaderboardService service,
-        PaginationOptions paginationOptions)
+    private const string GetIPShadowBansAPIPath = "/getipshadowbans.json";
+    
+    extension(LeaderboardService service)
     {
-        const string path = "/getipshadowbans.json";
-        var formData = new Dictionary<string, string>();
-        return Request.ExecuteSyncRequest<GetShadowBansResponse>(
-            path,
-            service,
-            formData,
-            paginationOptions
-        );
+        [UsedImplicitly]
+        public GetShadowBansResponse GetIPShadowBans(PaginationOptions paginationOptions)
+        {
+            var formData = new Dictionary<string, string>();
+            return Request.ExecuteSyncRequest<GetShadowBansResponse>(
+                GetIPShadowBansAPIPath,
+                service,
+                formData,
+                paginationOptions
+            );
+        }
+
+        [UsedImplicitly]
+        public async Task<GetShadowBansResponse> GetIPShadowBansAsync(PaginationOptions paginationOptions)
+        {
+            var formData = new Dictionary<string, string>();
+            return await Request.ExecuteAsyncRequest<GetShadowBansResponse>(
+                GetIPShadowBansAPIPath,
+                service,
+                formData,
+                paginationOptions
+            );
+        }
     }
 }

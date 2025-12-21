@@ -22,7 +22,7 @@ public static partial class CloudSaves
             var keyValidator = Common.Validations.CloudSaveKey.ValidateKey(cloudSaveKey);
             if (!keyValidator.Successfull)
             {
-                return new CloudSaveResponse(keyValidator.ErrorMessage, false);
+                return new CloudSaveResponse(keyValidator.ErrorMessage);
             }
             var formData = new Dictionary<string, string>
             {
@@ -44,7 +44,7 @@ public static partial class CloudSaves
             var keyValidator = Common.Validations.CloudSaveKey.ValidateKey(cloudSaveKey);
             if (!keyValidator.Successfull)
             {
-                return new CloudSaveResponse(keyValidator.ErrorMessage, false);
+                return new CloudSaveResponse(keyValidator.ErrorMessage);
             }
             var formData = new Dictionary<string, string>
             {
@@ -68,7 +68,7 @@ public static partial class CloudSaves
             var keyValidator = Common.Validations.CloudSaveKey.ValidateKey(cloudSaveKey);
             if (!keyValidator.Successfull)
             {
-                return new CloudSaveResponse(keyValidator.ErrorMessage, false);
+                return new CloudSaveResponse(keyValidator.ErrorMessage);
             }
 
             var formData = new Dictionary<string, string>
@@ -94,7 +94,7 @@ public static partial class CloudSaves
             var keyValidator = Common.Validations.CloudSaveKey.ValidateKey(cloudSaveKey);
             if (!keyValidator.Successfull)
             {
-                return new CloudSaveResponse(keyValidator.ErrorMessage, false);
+                return new CloudSaveResponse(keyValidator.ErrorMessage);
             }
 
             var formData = new Dictionary<string, string>
@@ -121,12 +121,12 @@ public static partial class CloudSaves
             var sessionKeyValidator = Common.Validations.PlayerSessionKey.ValidatePlayerSessionKey(sessionKey);
             if (!sessionKeyValidator.Successfull)
             {
-                return new CloudSaveResponse(sessionKeyValidator.ErrorMessage, false);
+                return new CloudSaveResponse(sessionKeyValidator.ErrorMessage);
             }
             var keyValidator = Common.Validations.CloudSaveKey.ValidateKey(cloudSaveKey);
             if (!keyValidator.Successfull)
             {
-                return new CloudSaveResponse(keyValidator.ErrorMessage, false);
+                return new CloudSaveResponse(keyValidator.ErrorMessage);
             }
 
             var formData = new Dictionary<string, string>
@@ -154,12 +154,12 @@ public static partial class CloudSaves
             var sessionKeyValidator = Common.Validations.PlayerSessionKey.ValidatePlayerSessionKey(sessionKey);
             if (!sessionKeyValidator.Successfull)
             {
-                return new CloudSaveResponse(sessionKeyValidator.ErrorMessage, false);
+                return new CloudSaveResponse(sessionKeyValidator.ErrorMessage);
             }
             var keyValidator = Common.Validations.CloudSaveKey.ValidateKey(cloudSaveKey);
             if (!keyValidator.Successfull)
             {
-                return new CloudSaveResponse(keyValidator.ErrorMessage, false);
+                return new CloudSaveResponse(keyValidator.ErrorMessage);
             }
 
             var formData = new Dictionary<string, string>
@@ -186,12 +186,12 @@ public static partial class CloudSaves
             var sessionKeyValidator = Common.Validations.PlayerSessionKey.ValidatePlayerSessionKey(sessionKey);
             if (!sessionKeyValidator.Successfull)
             {
-                return new CloudSaveResponse(sessionKeyValidator.ErrorMessage, false);
+                return new CloudSaveResponse(sessionKeyValidator.ErrorMessage);
             }
             var keyValidator = Common.Validations.CloudSaveKey.ValidateKey(cloudSaveKey);
             if (!keyValidator.Successfull)
             {
-                return new CloudSaveResponse(keyValidator.ErrorMessage, false);
+                return new CloudSaveResponse(keyValidator.ErrorMessage);
             }
 
             var formData = new Dictionary<string, string>
@@ -217,12 +217,12 @@ public static partial class CloudSaves
             var sessionKeyValidator = Common.Validations.PlayerSessionKey.ValidatePlayerSessionKey(sessionKey);
             if (!sessionKeyValidator.Successfull)
             {
-                return new CloudSaveResponse(sessionKeyValidator.ErrorMessage, false);
+                return new CloudSaveResponse(sessionKeyValidator.ErrorMessage);
             }
             var keyValidator = Common.Validations.CloudSaveKey.ValidateKey(cloudSaveKey);
             if (!keyValidator.Successfull)
             {
-                return new CloudSaveResponse(keyValidator.ErrorMessage, false);
+                return new CloudSaveResponse(keyValidator.ErrorMessage);
             }
 
             var formData = new Dictionary<string, string>
@@ -323,7 +323,7 @@ public static partial class CloudSaves
             var sessionKeyValidator = Common.Validations.PlayerSessionKey.ValidatePlayerSessionKey(sessionKey);
             if (!sessionKeyValidator.Successfull)
             {
-                return new CloudSaveResponse(sessionKeyValidator.ErrorMessage, false);
+                return new CloudSaveResponse(sessionKeyValidator.ErrorMessage);
             }
 
             var formData = new Dictionary<string, string>
@@ -351,7 +351,7 @@ public static partial class CloudSaves
             var sessionKeyValidator = Common.Validations.PlayerSessionKey.ValidatePlayerSessionKey(sessionKey);
             if (!sessionKeyValidator.Successfull)
             {
-                return new CloudSaveResponse(sessionKeyValidator.ErrorMessage, false);
+                return new CloudSaveResponse(sessionKeyValidator.ErrorMessage);
             }
 
             var formData = new Dictionary<string, string>
@@ -378,7 +378,7 @@ public static partial class CloudSaves
             var sessionKeyValidator = Common.Validations.PlayerSessionKey.ValidatePlayerSessionKey(sessionKey);
             if (!sessionKeyValidator.Successfull)
             {
-                return new CloudSaveResponse(sessionKeyValidator.ErrorMessage, false);
+                return new CloudSaveResponse(sessionKeyValidator.ErrorMessage);
             }
 
             var formData = new Dictionary<string, string>
@@ -404,7 +404,7 @@ public static partial class CloudSaves
             var sessionKeyValidator = Common.Validations.PlayerSessionKey.ValidatePlayerSessionKey(sessionKey);
             if (!sessionKeyValidator.Successfull)
             {
-                return new CloudSaveResponse(sessionKeyValidator.ErrorMessage, false);
+                return new CloudSaveResponse(sessionKeyValidator.ErrorMessage);
             }
 
             var formData = new Dictionary<string, string>

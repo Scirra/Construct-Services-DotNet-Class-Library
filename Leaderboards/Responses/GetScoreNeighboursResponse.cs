@@ -20,7 +20,7 @@ public sealed class GetScoreNeighboursResponse : BaseResponse
     public GetScoreNeighboursResponse()
     {
     }
-    public GetScoreNeighboursResponse(string errorMessage, bool shouldRetry) : base(errorMessage, shouldRetry)
+    public GetScoreNeighboursResponse(string errorMessage, bool shouldRetry = false) : base(errorMessage, shouldRetry)
     {
 
     }

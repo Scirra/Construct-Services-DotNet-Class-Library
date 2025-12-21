@@ -12,7 +12,7 @@ public sealed class BucketResponse : BaseResponse
     public BucketResponse()
     {
     }
-    public BucketResponse(string errorMessage, bool shouldRetry) : base(errorMessage, shouldRetry)
+    public BucketResponse(string errorMessage, bool shouldRetry = false) : base(errorMessage, shouldRetry)
     {
 
     }

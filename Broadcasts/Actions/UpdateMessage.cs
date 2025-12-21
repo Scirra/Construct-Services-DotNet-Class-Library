@@ -51,7 +51,7 @@ public static partial class Update
             var messageIDValidator = Common.Validations.Guid.IsValidGuid(strMessageID);
             if (!messageIDValidator.Successfull)
             {
-                return new ChannelResponse(string.Format(messageIDValidator.ErrorMessage, "Message ID"), false);
+                return new ChannelResponse(string.Format(messageIDValidator.ErrorMessage, "Message ID"));
             }
             return service.UpdateMessage(messageIDValidator.ReturnedObject, title, text, languageISO);
         }
@@ -69,7 +69,7 @@ public static partial class Update
             var messageIDValidator = Common.Validations.Guid.IsValidGuid(strMessageID);
             if (!messageIDValidator.Successfull)
             {
-                return new ChannelResponse(string.Format(messageIDValidator.ErrorMessage, "Message ID"), false);
+                return new ChannelResponse(string.Format(messageIDValidator.ErrorMessage, "Message ID"));
             }
             return await service.UpdateMessageAsync(messageIDValidator.ReturnedObject, title, text, languageISO);
         }

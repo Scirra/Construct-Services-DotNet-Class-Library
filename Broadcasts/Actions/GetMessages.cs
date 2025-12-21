@@ -45,7 +45,7 @@ public static partial class Get
             var channelIDValidator = Common.Validations.Guid.IsValidGuid(strChannelID);
             if (!channelIDValidator.Successfull)
             {
-                return new MessagesResponse(string.Format(channelIDValidator.ErrorMessage, "Channel ID"), false);
+                return new MessagesResponse(string.Format(channelIDValidator.ErrorMessage, "Channel ID"));
             }
             return service.GetMessages(channelIDValidator.ReturnedObject, paginationOptions);
         }
@@ -61,7 +61,7 @@ public static partial class Get
             var channelIDValidator = Common.Validations.Guid.IsValidGuid(strChannelID);
             if (!channelIDValidator.Successfull)
             {
-                return new MessagesResponse(string.Format(channelIDValidator.ErrorMessage, "Channel ID"), false);
+                return new MessagesResponse(string.Format(channelIDValidator.ErrorMessage, "Channel ID"));
             }
             return await service.GetMessagesAsync(channelIDValidator.ReturnedObject, paginationOptions);
         }

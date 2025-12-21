@@ -19,7 +19,7 @@ public sealed class SignInPollResponse : BaseResponse
     {
     }
 
-    public SignInPollResponse(string errorMessage, bool shouldRetry) : base(errorMessage, shouldRetry)
+    public SignInPollResponse(string errorMessage, bool shouldRetry = false) : base(errorMessage, shouldRetry)
     {
     }
 }

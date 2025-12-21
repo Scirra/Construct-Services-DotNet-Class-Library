@@ -12,7 +12,7 @@ public sealed class GetSessionResponse : BaseResponse
     public GetSessionResponse()
     {
     }
-    public GetSessionResponse(string errorMessage, bool shouldRetry) : base(errorMessage, shouldRetry)
+    public GetSessionResponse(string errorMessage, bool shouldRetry = false) : base(errorMessage, shouldRetry)
     {
     }
 }
