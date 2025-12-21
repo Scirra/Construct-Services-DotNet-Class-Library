@@ -2,35 +2,76 @@
 using ConstructServices.Common;
 using JetBrains.Annotations;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ConstructServices.Broadcasts.Actions;
 
 public static partial class Create
 {
-    /// <summary>
-    /// Create a new channel
-    /// </summary>
-    [UsedImplicitly]
-    public static ChannelResponse CreateChannel(
-        this BroadcastService service,
-        string channelName,
-        string channelDescription,
-        string languageISO,
-        bool allowRatings)
+    private const string CreateChannelAPIPath = "/createchannel.json";
+    
+    extension(BroadcastService service)
     {
-        var formData = new Dictionary<string, string>
+        /// <summary>
+        /// Create a new channel
+        /// </summary>
+        [UsedImplicitly]
+        public ChannelResponse CreateChannel(
+            string channelName,
+            string channelDescription,
+            string languageISO,
+            bool allowRatings)
         {
-            { "name", channelName },
-            { "description", channelDescription },
-            { "language", languageISO },
-            { "allowRatings", allowRatings.ToInt().ToString() }
-        };
+            var nameValidator = Common.Validations.ChannelName.ValidateChannelName(channelName);
+            if (!nameValidator.Successfull)
+            {
+                return new ChannelResponse(nameValidator.ErrorMessage, false);
+            }
 
-        const string path = "/createchannel.json";
-        return Request.ExecuteSyncRequest<ChannelResponse>(
-            path,
-            service,
-            formData
-        );
+            var formData = new Dictionary<string, string>
+            {
+                { "name", channelName },
+                { "description", channelDescription },
+                { "language", languageISO },
+                { "allowRatings", allowRatings.ToInt().ToString() }
+            };
+
+            return Request.ExecuteSyncRequest<ChannelResponse>(
+                CreateChannelAPIPath,
+                service,
+                formData
+            );
+        }
+
+        /// <summary>
+        /// Create a new channel
+        /// </summary>
+        [UsedImplicitly]
+        public async Task<ChannelResponse> CreateChannelAsync(
+            string channelName,
+            string channelDescription,
+            string languageISO,
+            bool allowRatings)
+        {
+            var nameValidator = Common.Validations.ChannelName.ValidateChannelName(channelName);
+            if (!nameValidator.Successfull)
+            {
+                return new ChannelResponse(nameValidator.ErrorMessage, false);
+            }
+
+            var formData = new Dictionary<string, string>
+            {
+                { "name", channelName },
+                { "description", channelDescription },
+                { "language", languageISO },
+                { "allowRatings", allowRatings.ToInt().ToString() }
+            };
+
+            return await Request.ExecuteAsyncRequest<ChannelResponse>(
+                CreateChannelAPIPath,
+                service,
+                formData
+            );
+        }
     }
 }
