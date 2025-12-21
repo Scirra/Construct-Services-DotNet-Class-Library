@@ -24,7 +24,7 @@ public sealed class GetScoreResponse : BaseResponse
     public GetScoreResponse()
     {
     }
-    public GetScoreResponse(string errorMessage, bool shouldRetry) : base(errorMessage, shouldRetry)
+    public GetScoreResponse(string errorMessage, bool shouldRetry = false) : base(errorMessage, shouldRetry)
     {
 
     }

@@ -1,5 +1,6 @@
 ﻿using ConstructServices.Leaderboards.Responses;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using ConstructServices.Common;
 using JetBrains.Annotations;
 
@@ -7,27 +8,50 @@ namespace ConstructServices.Leaderboards.Actions;
 
 public static partial class Scores
 {
-    [UsedImplicitly]
-    public static GetScoreResponse GetNewestScores(
-        this LeaderboardService service,
-        PaginationOptions paginationOptions,
-        string countryISOAlpha2 = null,
-        RequestPerspective requestPerspective = null)
+    private const string GetNewestScoresAPIPath = "/getnewestscores.json";
+    
+    extension(LeaderboardService service)
     {
-        const string path = "/getnewestscores.json";
-        var formData = new Dictionary<string, string>();
-        if (!string.IsNullOrWhiteSpace(countryISOAlpha2))
+        [UsedImplicitly]
+        public GetScoreResponse GetNewestScores(PaginationOptions paginationOptions,
+            string countryISOAlpha2 = null,
+            RequestPerspective requestPerspective = null)
         {
-            formData.Add("country", countryISOAlpha2);
-        }
+            var formData = new Dictionary<string, string>();
+            if (!string.IsNullOrWhiteSpace(countryISOAlpha2))
+            {
+                formData.Add("country", countryISOAlpha2);
+            }
         
-        LeaderboardService.AddRequestPerspectiveFormData(requestPerspective, formData);
+            LeaderboardService.AddRequestPerspectiveFormData(requestPerspective, formData);
 
-        return Request.ExecuteSyncRequest<GetScoreResponse>(
-            path,
-            service,
-            formData,
-            paginationOptions
-        );
+            return Request.ExecuteSyncRequest<GetScoreResponse>(
+                GetNewestScoresAPIPath,
+                service,
+                formData,
+                paginationOptions
+            );
+        }
+
+        [UsedImplicitly]
+        public async Task<GetScoreResponse> GetNewestScoresAsync(PaginationOptions paginationOptions,
+            string countryISOAlpha2 = null,
+            RequestPerspective requestPerspective = null)
+        {
+            var formData = new Dictionary<string, string>();
+            if (!string.IsNullOrWhiteSpace(countryISOAlpha2))
+            {
+                formData.Add("country", countryISOAlpha2);
+            }
+        
+            LeaderboardService.AddRequestPerspectiveFormData(requestPerspective, formData);
+
+            return await Request.ExecuteAsyncRequest<GetScoreResponse>(
+                GetNewestScoresAPIPath,
+                service,
+                formData,
+                paginationOptions
+            );
+        }
     }
 }
