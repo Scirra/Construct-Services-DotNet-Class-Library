@@ -35,6 +35,7 @@ public static partial class GameBuckets
             string newDescription = null,
             byte? newMaxRating = null,
             string newLanguageISO = null)
-            => EditRatingDimension(service, bucket.ID, dimensionID, newTitle, newDescription, newMaxRating, newLanguageISO);
+            =>
+                service.EditRatingDimension(bucket.ID, dimensionID, newTitle, newDescription, newMaxRating, newLanguageISO);
     }
 }

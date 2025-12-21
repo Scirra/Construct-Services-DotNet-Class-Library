@@ -39,6 +39,7 @@ public static partial class CloudSaves
         /// </summary>
         [UsedImplicitly]
         public BaseResponse DeletePicture(Guid cloudSaveID)
-            => DeletePicture(service, null, cloudSaveID);
+            =>
+                service.DeletePicture(null, cloudSaveID);
     }
 }

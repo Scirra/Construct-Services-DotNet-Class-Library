@@ -35,6 +35,7 @@ public static partial class RatingDimensions
             string newDescription = null,
             byte? newMaxRating = null,
             string newLanguageISO = null)
-            => EditRatingDimension(service, channel.ID, dimensionID, newTitle, newDescription, newMaxRating, newLanguageISO);
+            =>
+                service.EditRatingDimension(channel.ID, dimensionID, newTitle, newDescription, newMaxRating, newLanguageISO);
     }
 }

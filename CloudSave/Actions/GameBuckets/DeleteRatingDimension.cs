@@ -26,6 +26,7 @@ public static partial class RatingDimensions
         [UsedImplicitly]
         public BaseResponse DeleteRatingDimension(GameBucket bucket,
             string dimensionID) 
-            => DeleteRatingDimension(service, bucket.ID, dimensionID);
+            =>
+                service.DeleteRatingDimension(bucket.ID, dimensionID);
     }
 }

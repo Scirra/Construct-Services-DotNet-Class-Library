@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using ConstructServices.Broadcasts.Objects;
 using ConstructServices.Broadcasts.Responses;
 using ConstructServices.Common;
@@ -50,6 +49,7 @@ public static partial class Update
             string channelDescription,
             string languageISO,
             bool allowRatings)
-            => UpdateChannel(service, channel.ID, channelName, channelDescription, languageISO, allowRatings);
+            =>
+                service.UpdateChannel(channel.ID, channelName, channelDescription, languageISO, allowRatings);
     }
 }

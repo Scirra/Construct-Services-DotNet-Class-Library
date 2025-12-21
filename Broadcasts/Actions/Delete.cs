@@ -4,7 +4,6 @@ using ConstructServices.Common;
 using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace ConstructServices.Broadcasts.Actions;
 
@@ -18,7 +17,8 @@ public static class Delete
         [UsedImplicitly]
         public BaseResponse DeleteMessage(
             Message message)
-            => DeleteMessage(service, message.ID);
+            =>
+                service.DeleteMessage(message.ID);
 
         /// <summary>
         /// Delete a message

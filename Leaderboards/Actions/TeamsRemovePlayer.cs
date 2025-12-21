@@ -17,7 +17,7 @@ public static partial class Teams
                 return new BaseResponse("No Team ID was provided.", false);
             if (!Guid.TryParse(strTeamID, out var teamID))
                 return new BaseResponse("Score Team was not a valid GUID.", false);
-            return RemovePlayerFromTeam(service, teamID, playerID);
+            return service.RemovePlayerFromTeam(teamID, playerID);
         }
         
         [UsedImplicitly]

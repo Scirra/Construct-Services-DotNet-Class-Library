@@ -3,7 +3,6 @@ using ConstructServices.Ratings.Responses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace ConstructServices.Ratings.Actions;
 
@@ -42,7 +41,8 @@ internal static partial class Rating
             Thing ratableThing,
             Guid thingID,
             byte rating)
-            => Rate(service, sessionKey, apiEndPointPath, ratableThing, thingID,
+            =>
+                service.Rate(sessionKey, apiEndPointPath, ratableThing, thingID,
                 new Dictionary<string, byte> { { string.Empty, rating } });
     }
 }

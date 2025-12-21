@@ -1,7 +1,6 @@
 ﻿using ConstructServices.Leaderboards.Responses;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using ConstructServices.Common;
 using JetBrains.Annotations;
 
@@ -18,7 +17,7 @@ public static partial class Scores
             short optValue2 = 0,
             short optValue3 = 0)
         {
-            return DoAdjustExistingScore(service, null, scoreID, adjustment, optValue1, optValue2, optValue3);
+            return service.DoAdjustExistingScore(null, scoreID, adjustment, optValue1, optValue2, optValue3);
         }
 
         [UsedImplicitly]
@@ -29,7 +28,7 @@ public static partial class Scores
             short optValue2 = 0,
             short optValue3 = 0)
         {
-            return DoAdjustExistingScore(service, sessionKey, scoreID, adjustment, optValue1, optValue2, optValue3);
+            return service.DoAdjustExistingScore(sessionKey, scoreID, adjustment, optValue1, optValue2, optValue3);
         }
 
         private PostScoreResponse DoAdjustExistingScore(string sessionKey,

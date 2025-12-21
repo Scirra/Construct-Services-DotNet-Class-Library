@@ -9,7 +9,7 @@ public static class Functions
     public static string GetProviderLogoURL(this PlayerLoginProvider playerLoginProvider)
     {
         var provider = (LoginProvider)playerLoginProvider.ProviderID;
-        return GetProviderLogoURL(provider);
+        return provider.GetProviderLogoURL();
     }
 
     [UsedImplicitly]

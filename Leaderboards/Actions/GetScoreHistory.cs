@@ -1,7 +1,6 @@
 ﻿using System;
 using ConstructServices.Leaderboards.Responses;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using ConstructServices.Common;
 using JetBrains.Annotations;
 
@@ -33,7 +32,7 @@ public static partial class Scores
                 return new GetScoreHistoryResponse("No Score ID was provided.", false);
             if (!Guid.TryParse(strScoreID, out var scoreID))
                 return new GetScoreHistoryResponse("Score ID was not a valid GUID.", false);
-            return GetScoreHistoryOnScoreID(service, scoreID);
+            return service.GetScoreHistoryOnScoreID(scoreID);
         }
         
         [UsedImplicitly]

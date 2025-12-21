@@ -1,7 +1,6 @@
 ﻿using System;
 using ConstructServices.Leaderboards.Responses;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using ConstructServices.Common;
 using JetBrains.Annotations;
 

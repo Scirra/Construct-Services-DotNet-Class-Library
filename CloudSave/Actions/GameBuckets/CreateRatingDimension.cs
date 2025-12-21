@@ -35,6 +35,7 @@ public static partial class RatingDimensions
             string description,
             byte maxRating,
             string languageISO = null)
-            => CreateRatingDimension(service, bucket.ID, dimensionID, title, description, maxRating, languageISO);
+            =>
+                service.CreateRatingDimension(bucket.ID, dimensionID, title, description, maxRating, languageISO);
     }
 }

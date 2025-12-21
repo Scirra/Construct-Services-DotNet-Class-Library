@@ -4,7 +4,6 @@ using ConstructServices.Common;
 using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace ConstructServices.Broadcasts.Actions;
 
@@ -18,7 +17,8 @@ public static partial class Get
         [UsedImplicitly]
         public MessagesResponse GetMessages(
             Channel channel, PaginationOptions paginationOptions)
-            => GetMessages(service, channel.ID, paginationOptions);
+            =>
+                service.GetMessages(channel.ID, paginationOptions);
 
         /// <summary>
         /// Get multiple messages in a channel

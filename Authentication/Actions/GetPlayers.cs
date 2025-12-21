@@ -2,7 +2,6 @@
 using ConstructServices.Authentication.Enums;
 using ConstructServices.Authentication.Responses;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using ConstructServices.Common;
 using JetBrains.Annotations;
 
@@ -33,7 +32,8 @@ public static partial class Players
 
         [UsedImplicitly]
         public GetPlayersResponse GetPlayers(Guid playerID)
-            => GetPlayers(service, [playerID]);
+            =>
+                service.GetPlayers([playerID]);
 
         [UsedImplicitly]
         public GetPlayersResponse GetPlayers(List<Guid> playerIDs)

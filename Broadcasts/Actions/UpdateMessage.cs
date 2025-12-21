@@ -3,7 +3,6 @@ using ConstructServices.Broadcasts.Responses;
 using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using ConstructServices.Common;
 
 namespace ConstructServices.Broadcasts.Actions;
@@ -21,7 +20,8 @@ public static partial class Update
             string title,
             string text,
             string languageISO)
-            => UpdateMessage(service, message.ID, title, text, languageISO);
+            =>
+                service.UpdateMessage(message.ID, title, text, languageISO);
 
         /// <summary>
         /// Update a channel message
@@ -38,7 +38,7 @@ public static partial class Update
                 { "messageID", messageID.ToString() },
                 { "title", title },
                 { "text", text },
-                { "language", languageISO },
+                { "language", languageISO }
             };
 
             const string path = "/updatemessage.json";

@@ -4,7 +4,7 @@ using System.Globalization;
 
 namespace ConstructServices.Common;
 
-public class SecretAPIKey(string key)
+public sealed class SecretAPIKey(string key)
 {
     internal string Key { get; private set; } = key;
 }

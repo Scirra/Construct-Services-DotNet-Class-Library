@@ -69,7 +69,8 @@ public static partial class GameBuckets
             uint? newMaxBlobs = null,
             uint? newMaxBlobSizeBytes = null,
             uint? newMaxBlobsPerPlayer = null)
-            => EditBucket(service, bucket.ID, newAccessMode, newBucketName, newAllowRatings, newMaxBlobs, newMaxBlobSizeBytes,
+            =>
+                service.EditBucket(bucket.ID, newAccessMode, newBucketName, newAllowRatings, newMaxBlobs, newMaxBlobSizeBytes,
                 newMaxBlobsPerPlayer);
     }
 }

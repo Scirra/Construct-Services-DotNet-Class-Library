@@ -25,6 +25,7 @@ public static partial class RatingDimensions
         /// </summary>
         [UsedImplicitly]
         public DimensionsResponse GetRatingDimensions(GameBucket bucket)
-            => GetRatingDimensions(service, bucket.ID);
+            =>
+                service.GetRatingDimensions(bucket.ID);
     }
 }

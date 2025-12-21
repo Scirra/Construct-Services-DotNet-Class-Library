@@ -35,6 +35,7 @@ public static partial class RatingDimensions
             string description,
             byte maxRating,
             string languageISO = null)
-            => CreateRatingDimension(service, channel.ID, dimensionID, title, description, maxRating, languageISO);
+            =>
+                service.CreateRatingDimension(channel.ID, dimensionID, title, description, maxRating, languageISO);
     }
 }

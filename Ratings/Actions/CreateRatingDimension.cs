@@ -1,7 +1,6 @@
 ﻿using ConstructServices.Common;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using ConstructServices.Ratings.Responses;
 
 namespace ConstructServices.Ratings.Actions;

@@ -1,6 +1,5 @@
 ﻿using ConstructServices.Authentication.Responses;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using JetBrains.Annotations;
 
 namespace ConstructServices.Authentication.Actions;

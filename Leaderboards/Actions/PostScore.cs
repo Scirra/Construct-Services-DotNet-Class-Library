@@ -1,7 +1,6 @@
 ﻿using ConstructServices.Leaderboards.Responses;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using ConstructServices.Common;
 using JetBrains.Annotations;
 
@@ -19,7 +18,7 @@ public static partial class Scores
             short? optValue3,
             RequestPerspective requestPerspective = null)
         {
-            return DoPostNewScore(service, null, score, strPlayerID, optValue1, optValue2, optValue3,
+            return service.DoPostNewScore(null, score, strPlayerID, optValue1, optValue2, optValue3,
                 requestPerspective);
         }
 
@@ -32,7 +31,7 @@ public static partial class Scores
             short? optValue3,
             RequestPerspective requestPerspective = null)
         {
-            return DoPostNewScore(service, sessionKey, score, strPlayerID, optValue1, optValue2, optValue3,
+            return service.DoPostNewScore(sessionKey, score, strPlayerID, optValue1, optValue2, optValue3,
                 requestPerspective);
         }
 

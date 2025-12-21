@@ -2,9 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using JetBrains.Annotations;
 
 namespace ConstructServices.Leaderboards;
 
+[UsedImplicitly]
 public sealed class LeaderboardService : BaseService
 {
     internal Guid LeaderboardID { get; }

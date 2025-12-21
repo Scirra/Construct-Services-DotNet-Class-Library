@@ -26,6 +26,7 @@ public static partial class RatingDimensions
         [UsedImplicitly]
         public BaseResponse DeleteRatingDimension(Channel channel,
             string dimensionID) 
-            => DeleteRatingDimension(service, channel.ID, dimensionID);
+            =>
+                service.DeleteRatingDimension(channel.ID, dimensionID);
     }
 }

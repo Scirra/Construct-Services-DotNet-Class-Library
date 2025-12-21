@@ -1,7 +1,6 @@
 ﻿using System;
 using ConstructServices.Leaderboards.Responses;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using ConstructServices.Common;
 using JetBrains.Annotations;
 
@@ -46,7 +45,7 @@ public static partial class ShadowBans
                 return new ShadowBanResponse("No Score ID was provided.", false);
             if (!Guid.TryParse(strScoreID, out var scoreID))
                 return new ShadowBanResponse("Score ID was not a valid GUID.", false);
-            return UnbanScoreID(service, scoreID);
+            return service.UnbanScoreID(scoreID);
         }
         
         [UsedImplicitly]
@@ -70,7 +69,7 @@ public static partial class ShadowBans
                 return new ShadowBanResponse("No IP Hash was provided.", false);
             if (!int.TryParse(strIPHash, out var ipHash))
                 return new ShadowBanResponse("IP Hash was not a valid int.", false);
-            return UnbanIPHash(service, ipHash);
+            return service.UnbanIPHash(ipHash);
         }
         
         [UsedImplicitly]

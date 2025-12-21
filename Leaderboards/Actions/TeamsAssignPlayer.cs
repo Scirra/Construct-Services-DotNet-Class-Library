@@ -17,13 +17,13 @@ public static partial class Teams
                 return new BaseResponse("No Team ID was provided.", false);
             if (!Guid.TryParse(strTeamID, out var teamID))
                 return new BaseResponse("Team ID was not a valid GUID.", false);
-            return AssignPlayerToTeam(service, teamID, playerID);
+            return service.AssignPlayerToTeam(teamID, playerID);
         }
 
         [UsedImplicitly]
         public BaseResponse AssignPlayerToTeam(Guid teamID, Guid playerID)
         {
-            return AssignPlayerToTeam(service, teamID, playerID.ToString());
+            return service.AssignPlayerToTeam(teamID, playerID.ToString());
         }
 
         [UsedImplicitly]

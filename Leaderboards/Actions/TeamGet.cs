@@ -1,7 +1,6 @@
 ﻿using System;
 using ConstructServices.Leaderboards.Responses;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using ConstructServices.Common;
 using JetBrains.Annotations;
 
@@ -18,7 +17,7 @@ public static partial class Teams
                 return new GetTeamResponse("No Team ID was provided.", false);
             if (!Guid.TryParse(strTeamID, out var teamID))
                 return new GetTeamResponse("Team ID was not a valid GUID.", false);
-            return GetTeam(service, teamID);
+            return service.GetTeam(teamID);
         }
         
         [UsedImplicitly]

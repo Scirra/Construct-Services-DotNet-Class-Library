@@ -1,8 +1,9 @@
-﻿using JetBrains.Annotations;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using ConstructServices.Common;
+using ConstructServices.Common.Validations;
+using JetBrains.Annotations;
+using Guid = System.Guid;
 
 namespace ConstructServices.Authentication.Actions;
 
@@ -16,6 +17,12 @@ public static partial class Players
             Guid playerID,
             string newPassword)
         {
+            var passwordValidator = newPassword.ValidatePlayerPassword();
+            if (!passwordValidator.Successfull)
+            {
+                return new BaseResponse(string.Format(passwordValidator.ErrorMessage, "New password"), false);
+            }
+
             const string path = "/changepassword.json";
             return Request.ExecuteSyncRequest<BaseResponse>(
                 path,
@@ -46,6 +53,12 @@ public static partial class Players
             Guid playerID,
             string newPassword)
         {
+            var passwordValidator = newPassword.ValidatePlayerPassword();
+            if (!passwordValidator.Successfull)
+            {
+                return new BaseResponse(string.Format(passwordValidator.ErrorMessage, "New password"), false);
+            }
+
             const string path = "/changepassword.json";
             return await Request.ExecuteAsyncRequest<BaseResponse>(
                 path,
@@ -76,7 +89,7 @@ public static partial class Players
             string currentPassword,
             string newPassword)
         {
-            var validations = AuthenticationService.ValidateChangePassword(currentPassword, newPassword);
+            var validations = PlayerPassword.ValidateChangePassword(currentPassword, newPassword);
             if (!validations.Successfull)
             {
                 return new BaseResponse(validations.ErrorMessage, false);
@@ -100,7 +113,7 @@ public static partial class Players
             string currentPassword,
             string newPassword)
         {
-            var validations = AuthenticationService.ValidateChangePassword(currentPassword, newPassword);
+            var validations = PlayerPassword.ValidateChangePassword(currentPassword, newPassword);
             if (!validations.Successfull)
             {
                 return new BaseResponse(validations.ErrorMessage, false);
@@ -117,23 +130,6 @@ public static partial class Players
                     { "newPassword", newPassword }
                 }
             );
-        }
-
-        private static ValidationResponse ValidateChangePassword(string currentPassword, string newPassword)
-        {
-            if (string.IsNullOrWhiteSpace(currentPassword))
-            {
-                return new InvalidResponse("Current password cannot be empty string.");
-            }
-            if (string.IsNullOrWhiteSpace(newPassword))
-            {
-                return new InvalidResponse("New password cannot be empty string.");
-            }
-            if (currentPassword.Equals(newPassword, StringComparison.CurrentCulture))
-            {
-                return new InvalidResponse("New password must be different from current password.");
-            }
-            return new ValidResponse();
         }
     }
 }

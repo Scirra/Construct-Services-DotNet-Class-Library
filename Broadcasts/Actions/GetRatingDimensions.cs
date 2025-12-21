@@ -25,6 +25,7 @@ public static partial class RatingDimensions
         /// </summary>
         [UsedImplicitly]
         public DimensionsResponse GetRatingDimensions(Channel channel)
-            => GetRatingDimensions(service, channel.ID);
+            =>
+                service.GetRatingDimensions(channel.ID);
     }
 }

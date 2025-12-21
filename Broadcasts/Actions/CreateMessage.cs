@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using ConstructServices.Broadcasts.Objects;
 using ConstructServices.Broadcasts.Responses;
 using ConstructServices.Common;
@@ -21,7 +20,8 @@ public static partial class Create
             string title,
             string text,
             string languageISO)
-            => CreateMessage(service, channel.ID, title, text, languageISO);
+            =>
+                service.CreateMessage(channel.ID, title, text, languageISO);
 
         /// <summary>
         /// Create a new message in a channel
@@ -38,7 +38,7 @@ public static partial class Create
                 { "channelID", channelID.ToString() },
                 { "title", title },
                 { "text", text },
-                { "language", languageISO },
+                { "language", languageISO }
             };
 
             const string path = "/createmessage.json";

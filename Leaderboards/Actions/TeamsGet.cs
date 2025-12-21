@@ -3,7 +3,6 @@ using ConstructServices.Leaderboards.Enums;
 using ConstructServices.Leaderboards.Responses;
 using JetBrains.Annotations;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace ConstructServices.Leaderboards.Actions;
 

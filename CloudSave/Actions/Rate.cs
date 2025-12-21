@@ -29,6 +29,7 @@ public static partial class CloudSaves
         public RateResponse Rate(string sessionID,
             Guid cloudSaveID,
             byte rating)
-            => Rate(service, sessionID, cloudSaveID, new Dictionary<string, byte>{ { string.Empty, rating } });
+            =>
+                service.Rate(sessionID, cloudSaveID, new Dictionary<string, byte>{ { string.Empty, rating } });
     }
 }

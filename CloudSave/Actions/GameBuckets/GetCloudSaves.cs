@@ -4,7 +4,6 @@ using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using ConstructServices.CloudSave.Objects;
 
 namespace ConstructServices.CloudSave.Actions;
@@ -97,6 +96,7 @@ public static partial class GameBuckets
             PaginationOptions paginationOptions,
             Enums.GetBucketCloudSaveSortMethod? orderBy = null,
             GetBucketCloudSaveFilters filters = null)
-            => GetCloudSaves(service, bucket.ID, paginationOptions, orderBy, filters);
+            =>
+                service.GetCloudSaves(bucket.ID, paginationOptions, orderBy, filters);
     }
 }
