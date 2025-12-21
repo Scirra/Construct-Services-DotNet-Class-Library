@@ -10,10 +10,10 @@
     <license type="expression">MIT</license>
     <icon>icon.png</icon>
     <projectUrl>https://github.com/Scirra/Construct-Services-DotNet-Class-Library</projectUrl>
-    <description>A helpful library for interacting with cloud services offered on Construct.net including leaderboard services.</description>
-    <releaseNotes>Initial beta release.</releaseNotes>
+    <description>A helpful library for interacting with cloud services offered on Construct.net including authentication, broadcast, cloud save and leaderboard services.</description>
+    <releaseNotes>Target .NET standard 2.0, async methods + minor fixes.</releaseNotes>
     <copyright>Scirra Ltd</copyright>
-    <tags>leaderboard leaderboards games gaming</tags>
+    <tags>cloudsave cloudsaves leaderboard leaderboards games gaming auth authentication construct construct3</tags>
   </metadata>
 	<files>
 		<file src="README.md" target="\" />
