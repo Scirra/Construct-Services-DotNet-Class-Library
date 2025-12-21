@@ -1,30 +1,51 @@
 ﻿using ConstructServices.Common;
+using ConstructServices.Ratings.Responses;
 using System;
 using System.Collections.Generic;
-using ConstructServices.Ratings.Responses;
+using System.Threading.Tasks;
 
 namespace ConstructServices.Ratings.Actions;
 
 internal static partial class Rating
 {
-    /// <summary>
-    /// Get all rating dimensions
-    /// </summary>
-    internal static DimensionsResponse GetDimensions(
-        this BaseService service,
-        string apiEndPointPath,
-        Thing ratableThing,
-        Guid thingID)
+    extension(BaseService service)
     {
-        var formData = new Dictionary<string, string>
+        /// <summary>
+        /// Get all rating dimensions
+        /// </summary>
+        internal DimensionsResponse GetDimensions(string apiEndPointPath,
+            Thing ratableThing,
+            Guid thingID)
         {
-            { "thingTypeID", ((byte)ratableThing).ToString()},
-            { "thingID", thingID.ToString()}
-        };
-        return Request.ExecuteSyncRequest<DimensionsResponse>(
-            apiEndPointPath,
-            service,
-            formData
-        );
+            var formData = new Dictionary<string, string>
+            {
+                { "thingTypeID", ((byte)ratableThing).ToString()},
+                { "thingID", thingID.ToString()}
+            };
+            return Request.ExecuteSyncRequest<DimensionsResponse>(
+                apiEndPointPath,
+                service,
+                formData
+            );
+        }
+
+        /// <summary>
+        /// Get all rating dimensions
+        /// </summary>
+        internal async Task<DimensionsResponse> GetDimensionsAsync(string apiEndPointPath,
+            Thing ratableThing,
+            Guid thingID)
+        {
+            var formData = new Dictionary<string, string>
+            {
+                { "thingTypeID", ((byte)ratableThing).ToString()},
+                { "thingID", thingID.ToString()}
+            };
+            return await Request.ExecuteAsyncRequest<DimensionsResponse>(
+                apiEndPointPath,
+                service,
+                formData
+            );
+        }
     }
 }

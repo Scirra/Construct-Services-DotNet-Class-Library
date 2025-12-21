@@ -1,31 +1,82 @@
 ﻿using ConstructServices.Broadcasts.Responses;
+using ConstructServices.Common;
 using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
-using ConstructServices.Common;
+using System.Threading.Tasks;
 
 namespace ConstructServices.Broadcasts.Actions;
 
 public static partial class Get
 {    
-    /// <summary>
-    /// Get all channels in this game
-    /// </summary>
-    [UsedImplicitly]
-    public static ChannelResponse GetChannel(
-        this BroadcastService service,
-        Guid channelID)
+    private const string GetChannelAPIPath = "/getchannel.json";
+    
+    extension(BroadcastService service)
     {
-        var formData = new Dictionary<string, string>
+        /// <summary>
+        /// Get all channels in this game
+        /// </summary>
+        [UsedImplicitly]
+        public ChannelResponse GetChannel(string strChannelID)
         {
-            {"channelID", channelID.ToString() }
-        };
+            var channelIDValidator = Common.Validations.Guid.IsValidGuid(strChannelID);
+            if (!channelIDValidator.Successfull)
+            {
+                return new ChannelResponse(string.Format(channelIDValidator.ErrorMessage, "Channel ID"), false);
+            }
+
+            return service.GetChannel(channelIDValidator.ReturnedObject);
+        }
+
+        /// <summary>
+        /// Get all channels in this game
+        /// </summary>
+        [UsedImplicitly]
+        public async Task<ChannelResponse> GetChannelAsync(string strChannelID)
+        {
+            var channelIDValidator = Common.Validations.Guid.IsValidGuid(strChannelID);
+            if (!channelIDValidator.Successfull)
+            {
+                return new ChannelResponse(string.Format(channelIDValidator.ErrorMessage, "Channel ID"), false);
+            }
+
+            return await service.GetChannelAsync(channelIDValidator.ReturnedObject);
+        }
+
+        /// <summary>
+        /// Get all channels in this game
+        /// </summary>
+        [UsedImplicitly]
+        public ChannelResponse GetChannel(Guid channelID)
+        {
+            var formData = new Dictionary<string, string>
+            {
+                {"channelID", channelID.ToString() }
+            };
         
-        const string path = "/getchannel.json";
-        return Request.ExecuteSyncRequest<ChannelResponse>(
-            path,
-            service,
-            formData
-        );
+            return Request.ExecuteSyncRequest<ChannelResponse>(
+                GetChannelAPIPath,
+                service,
+                formData
+            );
+        }
+
+        /// <summary>
+        /// Get all channels in this game
+        /// </summary>
+        [UsedImplicitly]
+        public async Task<ChannelResponse> GetChannelAsync(Guid channelID)
+        {
+            var formData = new Dictionary<string, string>
+            {
+                {"channelID", channelID.ToString() }
+            };
+        
+            return await Request.ExecuteAsyncRequest<ChannelResponse>(
+                GetChannelAPIPath,
+                service,
+                formData
+            );
+        }
     }
 }
