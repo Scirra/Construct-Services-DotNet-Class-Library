@@ -1,46 +1,106 @@
-﻿using System;
+﻿using ConstructServices.Common;
 using ConstructServices.Leaderboards.Responses;
-using System.Collections.Generic;
-using ConstructServices.Common;
 using JetBrains.Annotations;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ConstructServices.Leaderboards.Actions;
 
 public static partial class Scores
 {
+    private const string DeleteScoresAPIPath = "/deletescores.json";
+
     extension(LeaderboardService service)
     {
         [UsedImplicitly]
-        public ShadowBanResponse DeleteAllPlayerIDScores(string playerID)
+        public DeleteScoresResponse DeleteAllPlayerIDScores(string playerID)
         {
-            const string path = "/deletescores.json";
-            return Request.ExecuteSyncRequest<ShadowBanResponse>(
-                path,
+            var playerIDValidator = Common.Validations.Guid.IsValidGuid(playerID);
+            if (!playerIDValidator.Successfull)
+            {
+                return new DeleteScoresResponse(string.Format(playerIDValidator.ErrorMessage, "Player ID"));
+            }
+            return service.DeleteAllPlayerIDScores(playerIDValidator.ReturnedObject);
+        }
+
+        [UsedImplicitly]
+        public async Task<DeleteScoresResponse> DeleteAllPlayerIDScoresAsync(string playerID)
+        {
+            var playerIDValidator = Common.Validations.Guid.IsValidGuid(playerID);
+            if (!playerIDValidator.Successfull)
+            {
+                return new DeleteScoresResponse(string.Format(playerIDValidator.ErrorMessage, "Player ID"));
+            }
+            return await service.DeleteAllPlayerIDScoresAsync(playerIDValidator.ReturnedObject);
+        }
+
+        [UsedImplicitly]
+        public DeleteScoresResponse DeleteAllPlayerIDScores(Guid playerID)
+        {
+            return Request.ExecuteSyncRequest<DeleteScoresResponse>(
+                DeleteScoresAPIPath,
                 service,
                 new Dictionary<string, string>
                 {
-                    { "playerID", playerID }
+                    { "playerID", playerID.ToString() }
                 }
             );
         }
 
         [UsedImplicitly]
-        public ShadowBanResponse DeleteScoreByID(string strScoreID)
+        public async Task<DeleteScoresResponse> DeleteAllPlayerIDScoresAsync(Guid playerID)
         {
-            if (string.IsNullOrWhiteSpace(strScoreID))
-                return new ShadowBanResponse("No Score ID was provided.", false);
-            if (!Guid.TryParse(strScoreID, out var scoreID))
-                return new ShadowBanResponse("Score ID was not a valid GUID.", false);
-            return service.DeleteScoreByID(scoreID);
+            return await Request.ExecuteAsyncRequest<DeleteScoresResponse>(
+                DeleteScoresAPIPath,
+                service,
+                new Dictionary<string, string>
+                {
+                    { "playerID", playerID.ToString() }
+                }
+            );
+        }
+
+        [UsedImplicitly]
+        public DeleteScoresResponse DeleteScoreByID(string strScoreID)
+        {
+            var idValidator = Common.Validations.Guid.IsValidGuid(strScoreID);
+            if (!idValidator.Successfull)
+            {
+                return new DeleteScoresResponse(string.Format(idValidator.ErrorMessage, "Score ID"));
+            }
+            return service.DeleteScoreByID(idValidator.ReturnedObject);
+        }
+
+        [UsedImplicitly]
+        public async Task<DeleteScoresResponse> DeleteScoreByIDAsync(string strScoreID)
+        {
+            var idValidator = Common.Validations.Guid.IsValidGuid(strScoreID);
+            if (!idValidator.Successfull)
+            {
+                return new DeleteScoresResponse(string.Format(idValidator.ErrorMessage, "Score ID"));
+            }
+            return await service.DeleteScoreByIDAsync(idValidator.ReturnedObject);
         }
         
         [UsedImplicitly]
-        public ShadowBanResponse DeleteScoreByID(Guid scoreID)
+        public DeleteScoresResponse DeleteScoreByID(Guid scoreID)
         {
-            const string path = "/deletescores.json";
-
-            return Request.ExecuteSyncRequest<ShadowBanResponse>(
-                path,
+            return Request.ExecuteSyncRequest<DeleteScoresResponse>(
+                DeleteScoresAPIPath,
+                service,
+                new Dictionary<string, string>
+                {
+                    { "scoreID", scoreID.ToString() }
+                }
+            );
+        }
+        
+        [UsedImplicitly]
+        public async Task<DeleteScoresResponse> DeleteScoreByIDAsync(Guid scoreID)
+        {
+            return await Request.ExecuteAsyncRequest<DeleteScoresResponse>(
+                DeleteScoresAPIPath,
                 service,
                 new Dictionary<string, string>
                 {

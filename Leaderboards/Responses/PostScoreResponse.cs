@@ -25,7 +25,7 @@ public sealed class PostScoreResponse : BaseResponse
     public PostScoreResponse()
     {
     }
-    public PostScoreResponse(string errorMessage, bool shouldRetry) : base(errorMessage, shouldRetry)
+    public PostScoreResponse(string errorMessage, bool shouldRetry = false) : base(errorMessage, shouldRetry)
     {
 
     }
