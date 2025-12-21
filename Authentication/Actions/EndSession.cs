@@ -1,25 +1,52 @@
-﻿using System.Collections.Generic;
-using ConstructServices.Common;
+﻿using ConstructServices.Common;
 using JetBrains.Annotations;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ConstructServices.Authentication.Actions;
 
 public static partial class Players
 {
-    [UsedImplicitly]
-    public static BaseResponse EndSession(
-        this AuthenticationService service,
-        string sessionKey)
+    private const string EndSessionAPIPath = "/endsession.json";
+    
+    extension(AuthenticationService service)
     {
-        const string path = "/endsession.json";
-
-        return Request.ExecuteSyncRequest<BaseResponse>(
-            path,
-            service,
-            new Dictionary<string, string>
+        [UsedImplicitly]
+        public BaseResponse EndSession(string sessionKey)
+        {
+            var sessionKeyValidator = Common.Validations.PlayerSessionKey.ValidatePlayerSessionKey(sessionKey);
+            if (!sessionKeyValidator.Successfull)
             {
-                { "sessionKey", sessionKey }
+                return new BaseResponse(sessionKeyValidator.ErrorMessage, false);
             }
-        );
+
+            return Request.ExecuteSyncRequest<BaseResponse>(
+                EndSessionAPIPath,
+                service,
+                new Dictionary<string, string>
+                {
+                    { "sessionKey", sessionKey }
+                }
+            );
+        }
+
+        [UsedImplicitly]
+        public async Task<BaseResponse> EndSessionAsync(string sessionKey)
+        {
+            var sessionKeyValidator = Common.Validations.PlayerSessionKey.ValidatePlayerSessionKey(sessionKey);
+            if (!sessionKeyValidator.Successfull)
+            {
+                return new BaseResponse(sessionKeyValidator.ErrorMessage, false);
+            }
+
+            return await Request.ExecuteAsyncRequest<BaseResponse>(
+                EndSessionAPIPath,
+                service,
+                new Dictionary<string, string>
+                {
+                    { "sessionKey", sessionKey }
+                }
+            );
+        }
     }
 }
