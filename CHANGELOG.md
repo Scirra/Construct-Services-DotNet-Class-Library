@@ -1,5 +1,13 @@
 ﻿# Changelog
 
+## 1.1.0.0 - 21st December 2025
+
+<ul>
+	<li>Change target framework to Net Standard 2.0.</li>
+	<li>Add async methods for all actions.</li>
+	<li>Fix various minor bugs.</li>
+</ul>
+
 ## 1.0.9.0 - 11th July 2025
 
 <ul>
