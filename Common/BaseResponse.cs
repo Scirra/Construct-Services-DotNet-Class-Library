@@ -15,7 +15,7 @@ public class BaseResponse
     public bool ShouldRetry { get; private set; }
     public bool ShouldSerializeShouldRetry() => !Success;
 
-    protected BaseResponse()
+    public BaseResponse()
     {
         Success = true;
     }
