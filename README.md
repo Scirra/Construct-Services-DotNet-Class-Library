@@ -1,6 +1,6 @@
 # Construct-Services-DotNet-Class-Library
 
-The official Construct Services .NET library, supporting .NET Framework 4.8.1+.
+The official Construct Services .NET library, supporting .NET Standard 2.0+.
 
 ## Installation
 
