@@ -8,7 +8,7 @@ namespace ConstructServices.CloudSave.Actions;
 
 public static partial class RatingDimensions
 {
-    private const string DeleteDimensionAPIEndPoint = "/bucketdeleteratingsdimension";
+    private const string DeleteDimensionAPIEndPoint = "/bucketdeleteratingsdimension.json";
 
     extension(CloudSaveService service)
     {

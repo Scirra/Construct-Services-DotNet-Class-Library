@@ -10,7 +10,7 @@ namespace ConstructServices.CloudSave.Actions;
 
 public static partial class GameBuckets
 {
-    private const string EditBucketAPIEndPoint = "/editbucket";
+    private const string EditBucketAPIEndPoint = "/editbucket.json";
 
     extension(CloudSaveService service)
     {

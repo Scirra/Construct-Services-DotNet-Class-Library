@@ -10,7 +10,7 @@ namespace ConstructServices.CloudSave.Actions;
 
 public static partial class RatingDimensions
 {
-    private const string GetDimensionsAPIEndPoint = "/bucketgetratingdimensions";
+    private const string GetDimensionsAPIEndPoint = "/bucketgetratingdimensions.json";
 
     extension(CloudSaveService service)
     {

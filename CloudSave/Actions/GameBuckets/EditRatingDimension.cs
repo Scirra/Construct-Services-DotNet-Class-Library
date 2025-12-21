@@ -9,7 +9,7 @@ namespace ConstructServices.CloudSave.Actions;
 
 public static partial class GameBuckets
 {
-    private const string EditDimensionAPIEndPoint = "/bucketeditratingdimension";
+    private const string EditDimensionAPIEndPoint = "/bucketeditratingdimension.json";
 
     extension(CloudSaveService service)
     {

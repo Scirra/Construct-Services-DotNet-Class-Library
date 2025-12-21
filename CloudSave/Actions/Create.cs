@@ -10,6 +10,8 @@ namespace ConstructServices.CloudSave.Actions;
 
 public static partial class CloudSaves
 {
+    private const string CreateAPIEndPoint = "/create.json";
+
     extension(CloudSaveService service)
     {
         /// <summary>
@@ -103,9 +105,8 @@ public static partial class CloudSaves
             }
         }
 
-        const string path = "/create.json";
         return Request.ExecuteMultiPartFormSyncRequest<CloudSaveResponse>(
-            path,
+            CreateAPIEndPoint,
             service,
             formData,
             postedBinaryData

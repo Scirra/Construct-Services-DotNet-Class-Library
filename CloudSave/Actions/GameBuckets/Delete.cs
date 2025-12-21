@@ -9,7 +9,7 @@ namespace ConstructServices.CloudSave.Actions;
 [UsedImplicitly]
 public static partial class GameBuckets
 {
-    private const string DeleteBucketAPIEndPoint = "/deletebucket";
+    private const string DeleteBucketAPIEndPoint = "/deletebucket.json";
     
     extension(CloudSaveService service)
     {

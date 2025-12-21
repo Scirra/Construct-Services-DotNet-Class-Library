@@ -9,7 +9,7 @@ namespace ConstructServices.CloudSave.Actions;
 
 public static partial class GameBuckets
 {
-    private const string GetBucketAPIEndPoint = "/getbucket";
+    private const string GetBucketAPIEndPoint = "/getbucket.json";
     
     extension(CloudSaveService service)
     {

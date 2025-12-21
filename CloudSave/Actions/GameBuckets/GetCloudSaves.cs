@@ -21,7 +21,7 @@ public static partial class GameBuckets
         public HashSet<Guid> BlobIDs { get; [UsedImplicitly] set; }
     }
     
-    private const string GetSavesAPIEndPoint = "/getbucketsaves";
+    private const string GetSavesAPIEndPoint = "/getbucketsaves.json";
 
     extension(CloudSaveService service)
     {        
