@@ -1,33 +1,56 @@
-﻿using ConstructServices.CloudSave.Responses;
+﻿using ConstructServices.CloudSave.Enums;
+using ConstructServices.CloudSave.Responses;
+using ConstructServices.Common;
 using JetBrains.Annotations;
 using System.Collections.Generic;
-using ConstructServices.CloudSave.Enums;
-using ConstructServices.Common;
+using System.Threading.Tasks;
 
 namespace ConstructServices.CloudSave.Actions;
 
 public static partial class GameBuckets
 {
-    /// <summary>
-    /// Get paginated buckets for a game
-    /// </summary>
-    [UsedImplicitly]
-    public static BucketsResponse GetBuckets(
-        this CloudSaveService service,
-        GetBucketsSortMethod sortBy,
-        PaginationOptions paginationOptions)
+    private const string GetBucketsAPIEndPoint = "/getbuckets";
+    
+    extension(CloudSaveService service)
     {
-        var formData = new Dictionary<string, string>
+        /// <summary>
+        /// Get paginated buckets for a game
+        /// </summary>
+        [UsedImplicitly]
+        public BucketsResponse GetBuckets(GetBucketsSortMethod sortBy,
+            PaginationOptions paginationOptions)
         {
-            { "orderBy", sortBy.ToString() }
-        };
+            var formData = new Dictionary<string, string>
+            {
+                { "orderBy", sortBy.ToString() }
+            };
 
-        const string path = "/getbuckets.json";
-        return Request.ExecuteSyncRequest<BucketsResponse>(
-            path,
-            service,
-            formData,
-            paginationOptions
-        );
+            return Request.ExecuteSyncRequest<BucketsResponse>(
+                GetBucketsAPIEndPoint,
+                service,
+                formData,
+                paginationOptions
+            );
+        }
+
+        /// <summary>
+        /// Get paginated buckets for a game
+        /// </summary>
+        [UsedImplicitly]
+        public async Task<BucketsResponse> GetBucketsAsync(GetBucketsSortMethod sortBy,
+            PaginationOptions paginationOptions)
+        {
+            var formData = new Dictionary<string, string>
+            {
+                { "orderBy", sortBy.ToString() }
+            };
+
+            return await Request.ExecuteAsyncRequest<BucketsResponse>(
+                GetBucketsAPIEndPoint,
+                service,
+                formData,
+                paginationOptions
+            );
+        }
     }
 }
