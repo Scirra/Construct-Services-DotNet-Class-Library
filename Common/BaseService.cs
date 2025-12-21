@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using JetBrains.Annotations;
 
 namespace ConstructServices.Common;
 
+[UsedImplicitly]
 public sealed class SecretAPIKey(string key)
 {
     internal string Key { get; private set; } = key;

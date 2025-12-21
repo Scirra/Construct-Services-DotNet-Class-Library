@@ -9,6 +9,8 @@ namespace ConstructServices.Authentication.Actions;
 
 public static partial class Players
 {
+    private const string changePlayerNameAPIPath = "/changeplayername.json";
+
     extension(AuthenticationService service)
     {
         [UsedImplicitly]
@@ -21,11 +23,9 @@ public static partial class Players
             {
                 return new BaseResponse(playerNameValidator.ErrorMessage, false);
             }
-
-            const string path = "/changeplayername.json";
-
+            
             return Request.ExecuteSyncRequest<BaseResponse>(
-                path,
+                changePlayerNameAPIPath,
                 service,
                 new Dictionary<string, string>
                 {
@@ -46,10 +46,8 @@ public static partial class Players
                 return new BaseResponse(playerNameValidator.ErrorMessage, false);
             }
 
-            const string path = "/changeplayername.json";
-
             return await Request.ExecuteAsyncRequest<BaseResponse>(
-                path,
+                changePlayerNameAPIPath,
                 service,
                 new Dictionary<string, string>
                 {
@@ -75,10 +73,8 @@ public static partial class Players
                 return new BaseResponse(playerNameValidator.ErrorMessage, false);
             }
 
-            const string path = "/changeplayername.json";
-
             return Request.ExecuteSyncRequest<BaseResponse>(
-                path,
+                changePlayerNameAPIPath,
                 service,
                 new Dictionary<string, string>
                 {
@@ -104,10 +100,8 @@ public static partial class Players
                 return new BaseResponse(playerNameValidator.ErrorMessage, false);
             }
 
-            const string path = "/changeplayername.json";
-
             return await Request.ExecuteAsyncRequest<BaseResponse>(
-                path,
+                changePlayerNameAPIPath,
                 service,
                 new Dictionary<string, string>
                 {

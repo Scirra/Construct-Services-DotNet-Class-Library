@@ -10,6 +10,8 @@ namespace ConstructServices.Authentication.Actions;
 [UsedImplicitly]
 public static partial class Players
 {
+    private const string changePasswordAPIPath = "/changepassword.json";
+
     extension(AuthenticationService service)
     {
         [UsedImplicitly]
@@ -23,9 +25,8 @@ public static partial class Players
                 return new BaseResponse(string.Format(passwordValidator.ErrorMessage, "New password"), false);
             }
 
-            const string path = "/changepassword.json";
             return Request.ExecuteSyncRequest<BaseResponse>(
-                path,
+                changePasswordAPIPath,
                 service,
                 new Dictionary<string, string>
                 {
@@ -59,9 +60,8 @@ public static partial class Players
                 return new BaseResponse(string.Format(passwordValidator.ErrorMessage, "New password"), false);
             }
 
-            const string path = "/changepassword.json";
             return await Request.ExecuteAsyncRequest<BaseResponse>(
-                path,
+                changePasswordAPIPath,
                 service,
                 new Dictionary<string, string>
                 {
@@ -101,10 +101,9 @@ public static partial class Players
             {
                 return new BaseResponse(passwordValidations.ErrorMessage, false);
             }
-            const string path = "/changepassword.json";
 
             return Request.ExecuteSyncRequest<BaseResponse>(
-                path,
+                changePasswordAPIPath,
                 service,
                 new Dictionary<string, string>
                 {
@@ -125,10 +124,9 @@ public static partial class Players
             {
                 return new BaseResponse(validations.ErrorMessage, false);
             }
-            const string path = "/changepassword.json";
 
             return await Request.ExecuteAsyncRequest<BaseResponse>(
-                path,
+                changePasswordAPIPath,
                 service,
                 new Dictionary<string, string>
                 {
