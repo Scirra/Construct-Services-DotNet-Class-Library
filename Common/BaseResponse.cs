@@ -19,7 +19,7 @@ public class BaseResponse
     {
         Success = true;
     }
-    public BaseResponse(string errorMessage, bool shouldRetry)
+    public BaseResponse(string errorMessage, bool shouldRetry = false)
     {
         Success = false;
         ErrorMessage = errorMessage;

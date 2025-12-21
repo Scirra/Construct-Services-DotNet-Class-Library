@@ -24,7 +24,7 @@ public static partial class CloudSaves
             var idValidator = Common.Validations.Guid.IsValidGuid(strCloudSaveID);
             if (!idValidator.Successfull)
             {
-                return new BaseResponse(string.Format(idValidator.ErrorMessage, "Cloud save ID"), false);
+                return new BaseResponse(string.Format(idValidator.ErrorMessage, "Cloud save ID"));
             }
             return service.DeletePicture(sessionKey, idValidator.ReturnedObject);
         }
@@ -40,7 +40,7 @@ public static partial class CloudSaves
             var idValidator = Common.Validations.Guid.IsValidGuid(strCloudSaveID);
             if (!idValidator.Successfull)
             {
-                return new BaseResponse(string.Format(idValidator.ErrorMessage, "Cloud save ID"), false);
+                return new BaseResponse(string.Format(idValidator.ErrorMessage, "Cloud save ID"));
             }
             return await service.DeletePictureAsync(sessionKey, idValidator.ReturnedObject);
         }
@@ -70,7 +70,7 @@ public static partial class CloudSaves
             var sessionKeyValidator = Common.Validations.PlayerSessionKey.ValidatePlayerSessionKey(sessionKey);
             if (!sessionKeyValidator.Successfull)
             {
-                return new BaseResponse(sessionKeyValidator.ErrorMessage, false);
+                return new BaseResponse(sessionKeyValidator.ErrorMessage);
             }
 
             var formData = new Dictionary<string, string>
@@ -99,7 +99,7 @@ public static partial class CloudSaves
             var sessionKeyValidator = Common.Validations.PlayerSessionKey.ValidatePlayerSessionKey(sessionKey);
             if (!sessionKeyValidator.Successfull)
             {
-                return new BaseResponse(sessionKeyValidator.ErrorMessage, false);
+                return new BaseResponse(sessionKeyValidator.ErrorMessage);
             }
 
             var formData = new Dictionary<string, string>

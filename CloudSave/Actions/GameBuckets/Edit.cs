@@ -30,7 +30,7 @@ public static partial class GameBuckets
             var bucketIDValidator = Common.Validations.Guid.IsValidGuid(strBucketID);
             if (!bucketIDValidator.Successfull)
             {
-                return new BaseResponse(string.Format(bucketIDValidator.ErrorMessage, "Bucket ID"), false);
+                return new BaseResponse(string.Format(bucketIDValidator.ErrorMessage, "Bucket ID"));
             }
             return service.EditBucket(bucketIDValidator.ReturnedObject, newAccessMode, newBucketName, newAllowRatings,
                 newMaxBlobs, newMaxBlobSizeBytes, newMaxBlobsPerPlayer);
@@ -52,7 +52,7 @@ public static partial class GameBuckets
             var bucketIDValidator = Common.Validations.Guid.IsValidGuid(strBucketID);
             if (!bucketIDValidator.Successfull)
             {
-                return new BaseResponse(string.Format(bucketIDValidator.ErrorMessage, "Bucket ID"), false);
+                return new BaseResponse(string.Format(bucketIDValidator.ErrorMessage, "Bucket ID"));
             }
             return await service.EditBucketAsync(bucketIDValidator.ReturnedObject, newAccessMode, newBucketName, newAllowRatings,
                 newMaxBlobs, newMaxBlobSizeBytes, newMaxBlobsPerPlayer);

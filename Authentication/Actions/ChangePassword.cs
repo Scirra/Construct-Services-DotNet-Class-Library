@@ -22,7 +22,7 @@ public static partial class Players
             var passwordValidator = newPassword.ValidatePlayerPassword();
             if (!passwordValidator.Successfull)
             {
-                return new BaseResponse(string.Format(passwordValidator.ErrorMessage, "New password"), false);
+                return new BaseResponse(string.Format(passwordValidator.ErrorMessage, "New password"));
             }
 
             return Request.ExecuteSyncRequest<BaseResponse>(
@@ -44,7 +44,7 @@ public static partial class Players
             var playerIDValidator = strPlayerID.IsValidGuid();
             if (!playerIDValidator.Successfull)
             {
-                return new BaseResponse(string.Format(playerIDValidator.ErrorMessage, "Player ID"), false);
+                return new BaseResponse(string.Format(playerIDValidator.ErrorMessage, "Player ID"));
             }
             return service.ChangePassword(playerIDValidator.ReturnedObject, newPassword);
         }
@@ -57,7 +57,7 @@ public static partial class Players
             var passwordValidator = newPassword.ValidatePlayerPassword();
             if (!passwordValidator.Successfull)
             {
-                return new BaseResponse(string.Format(passwordValidator.ErrorMessage, "New password"), false);
+                return new BaseResponse(string.Format(passwordValidator.ErrorMessage, "New password"));
             }
 
             return await Request.ExecuteAsyncRequest<BaseResponse>(
@@ -79,7 +79,7 @@ public static partial class Players
             var validator = strPlayerID.IsValidGuid();
             if (!validator.Successfull)
             {
-                return new BaseResponse(string.Format(validator.ErrorMessage, "Player ID"), false);
+                return new BaseResponse(string.Format(validator.ErrorMessage, "Player ID"));
             }
             return await service.ChangePasswordAsync(validator.ReturnedObject, newPassword);
         }
@@ -93,13 +93,13 @@ public static partial class Players
             var sessionKeyValidator = sessionKey.ValidatePlayerSessionKey();
             if (!sessionKeyValidator.Successfull)
             {
-                return new BaseResponse(sessionKeyValidator.ErrorMessage, false);
+                return new BaseResponse(sessionKeyValidator.ErrorMessage);
             }
 
             var passwordValidations = PlayerPassword.ValidateChangePassword(currentPassword, newPassword);
             if (!passwordValidations.Successfull)
             {
-                return new BaseResponse(passwordValidations.ErrorMessage, false);
+                return new BaseResponse(passwordValidations.ErrorMessage);
             }
 
             return Request.ExecuteSyncRequest<BaseResponse>(
@@ -122,7 +122,7 @@ public static partial class Players
             var validations = PlayerPassword.ValidateChangePassword(currentPassword, newPassword);
             if (!validations.Successfull)
             {
-                return new BaseResponse(validations.ErrorMessage, false);
+                return new BaseResponse(validations.ErrorMessage);
             }
 
             return await Request.ExecuteAsyncRequest<BaseResponse>(

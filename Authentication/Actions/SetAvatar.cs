@@ -20,7 +20,7 @@ public static partial class Players
             var sessionKeyValidator = Common.Validations.PlayerSessionKey.ValidatePlayerSessionKey(sessionKey);
             if (!sessionKeyValidator.Successfull)
             {
-                return new BaseResponse(sessionKeyValidator.ErrorMessage, false);
+                return new BaseResponse(sessionKeyValidator.ErrorMessage);
             }
 
             var formData = new Dictionary<string, string>
@@ -47,7 +47,7 @@ public static partial class Players
             }
             else
             {
-                return new BaseResponse("No picture data in request.", false);
+                return new BaseResponse("No picture data in request.");
             }
             return Request.ExecuteSyncRequest<BaseResponse>(
                 SetAvatarAPIPath,
@@ -64,7 +64,7 @@ public static partial class Players
             var sessionKeyValidator = Common.Validations.PlayerSessionKey.ValidatePlayerSessionKey(sessionKey);
             if (!sessionKeyValidator.Successfull)
             {
-                return new BaseResponse(sessionKeyValidator.ErrorMessage, false);
+                return new BaseResponse(sessionKeyValidator.ErrorMessage);
             }
 
             var formData = new Dictionary<string, string>
@@ -91,7 +91,7 @@ public static partial class Players
             }
             else
             {
-                return new BaseResponse("No picture data in request.", false);
+                return new BaseResponse("No picture data in request.");
             }
             return await Request.ExecuteAsyncRequest<BaseResponse>(
                 SetAvatarAPIPath,

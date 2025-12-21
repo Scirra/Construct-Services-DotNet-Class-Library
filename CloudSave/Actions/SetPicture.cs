@@ -26,7 +26,7 @@ public static partial class CloudSaves
             var idValidator = Common.Validations.Guid.IsValidGuid(strCloudSaveID);
             if (!idValidator.Successfull)
             {
-                return new BaseResponse(string.Format(idValidator.ErrorMessage, "Cloud save ID"), false);
+                return new BaseResponse(string.Format(idValidator.ErrorMessage, "Cloud save ID"));
             }
             return service.SetPicture(sessionKey, idValidator.ReturnedObject, picture);
         }
@@ -43,7 +43,7 @@ public static partial class CloudSaves
             var idValidator = Common.Validations.Guid.IsValidGuid(strCloudSaveID);
             if (!idValidator.Successfull)
             {
-                return new BaseResponse(string.Format(idValidator.ErrorMessage, "Cloud save ID"), false);
+                return new BaseResponse(string.Format(idValidator.ErrorMessage, "Cloud save ID"));
             }
             return await service.SetPictureAsync(sessionKey, idValidator.ReturnedObject, picture);
         }
@@ -60,7 +60,7 @@ public static partial class CloudSaves
             var sessionKeyValidator = Common.Validations.PlayerSessionKey.ValidatePlayerSessionKey(sessionKey);
             if (!sessionKeyValidator.Successfull)
             {
-                return new BaseResponse(sessionKeyValidator.ErrorMessage, false);
+                return new BaseResponse(sessionKeyValidator.ErrorMessage);
             }
 
             var formData = new Dictionary<string, string>
@@ -105,7 +105,7 @@ public static partial class CloudSaves
                 );
             }
 
-            return new BaseResponse("No picture data provided.", false);
+            return new BaseResponse("No picture data provided.");
         }
 
         /// <summary>
@@ -120,7 +120,7 @@ public static partial class CloudSaves
             var sessionKeyValidator = Common.Validations.PlayerSessionKey.ValidatePlayerSessionKey(sessionKey);
             if (!sessionKeyValidator.Successfull)
             {
-                return new BaseResponse(sessionKeyValidator.ErrorMessage, false);
+                return new BaseResponse(sessionKeyValidator.ErrorMessage);
             }
 
             var formData = new Dictionary<string, string>
@@ -165,7 +165,7 @@ public static partial class CloudSaves
                 );
             }
 
-            return new BaseResponse("No picture data provided.", false);
+            return new BaseResponse("No picture data provided.");
         }
     }
 }

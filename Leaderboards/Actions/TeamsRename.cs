@@ -14,9 +14,9 @@ public static partial class Teams
             string teamName)
         {
             if (string.IsNullOrWhiteSpace(strTeamID))
-                return new BaseResponse("No Team ID was provided.", false);
+                return new BaseResponse("No Team ID was provided.");
             if (!Guid.TryParse(strTeamID, out var teamID))
-                return new BaseResponse("Team ID was not a valid GUID.", false);
+                return new BaseResponse("Team ID was not a valid GUID.");
             return service.RenameTeam(teamID, teamName);
         }
         

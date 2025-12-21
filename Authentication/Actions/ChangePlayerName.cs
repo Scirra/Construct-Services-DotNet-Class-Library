@@ -21,7 +21,7 @@ public static partial class Players
             var playerNameValidator = newPlayerName.ValidatePlayerName();
             if (!playerNameValidator.Successfull)
             {
-                return new BaseResponse(playerNameValidator.ErrorMessage, false);
+                return new BaseResponse(playerNameValidator.ErrorMessage);
             }
             
             return Request.ExecuteSyncRequest<BaseResponse>(
@@ -43,7 +43,7 @@ public static partial class Players
             var playerNameValidator = newPlayerName.ValidatePlayerName();
             if (!playerNameValidator.Successfull)
             {
-                return new BaseResponse(playerNameValidator.ErrorMessage, false);
+                return new BaseResponse(playerNameValidator.ErrorMessage);
             }
 
             return await Request.ExecuteAsyncRequest<BaseResponse>(
@@ -65,12 +65,12 @@ public static partial class Players
             var sessionKeyValidator = sessionKey.ValidatePlayerSessionKey();
             if (!sessionKeyValidator.Successfull)
             {
-                return new BaseResponse(sessionKeyValidator.ErrorMessage, false);
+                return new BaseResponse(sessionKeyValidator.ErrorMessage);
             }
             var playerNameValidator = newPlayerName.ValidatePlayerName();
             if (!playerNameValidator.Successfull)
             {
-                return new BaseResponse(playerNameValidator.ErrorMessage, false);
+                return new BaseResponse(playerNameValidator.ErrorMessage);
             }
 
             return Request.ExecuteSyncRequest<BaseResponse>(
@@ -92,12 +92,12 @@ public static partial class Players
             var sessionKeyValidator = sessionKey.ValidatePlayerSessionKey();
             if (!sessionKeyValidator.Successfull)
             {
-                return new BaseResponse(sessionKeyValidator.ErrorMessage, false);
+                return new BaseResponse(sessionKeyValidator.ErrorMessage);
             }
             var playerNameValidator = newPlayerName.ValidatePlayerName();
             if (!playerNameValidator.Successfull)
             {
-                return new BaseResponse(playerNameValidator.ErrorMessage, false);
+                return new BaseResponse(playerNameValidator.ErrorMessage);
             }
 
             return await Request.ExecuteAsyncRequest<BaseResponse>(

@@ -92,7 +92,7 @@ internal static class Request
             }
             catch (Exception ex)
             {
-                return new BaseResponse(ex.Message, false) as T;
+                return new BaseResponse(ex.Message) as T;
             }
         }
 
@@ -187,7 +187,7 @@ internal static class Request
             }
             catch (Exception ex)
             {
-                return new BaseResponse(ex.Message, false) as T;
+                return new BaseResponse(ex.Message) as T;
             }
         }
         if (!json.IsValidJson())

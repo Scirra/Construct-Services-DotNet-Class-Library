@@ -14,9 +14,9 @@ public static partial class Teams
             string playerID)
         {
             if (string.IsNullOrWhiteSpace(strTeamID))
-                return new BaseResponse("No Team ID was provided.", false);
+                return new BaseResponse("No Team ID was provided.");
             if (!Guid.TryParse(strTeamID, out var teamID))
-                return new BaseResponse("Score Team was not a valid GUID.", false);
+                return new BaseResponse("Score Team was not a valid GUID.");
             return service.RemovePlayerFromTeam(teamID, playerID);
         }
         

@@ -21,7 +21,7 @@ public static partial class Players
             var playerIDValidator = Common.Validations.Guid.IsValidGuid(strPlayerID);
             if (!playerIDValidator.Successfull)
             {
-                return new BaseResponse(string.Format(playerIDValidator.ErrorMessage, "Player ID"), false);
+                return new BaseResponse(string.Format(playerIDValidator.ErrorMessage, "Player ID"));
             }
             return service.SetUsernameAndPassword(playerIDValidator.ReturnedObject, username, password);
         }
@@ -35,7 +35,7 @@ public static partial class Players
             var playerIDValidator = Common.Validations.Guid.IsValidGuid(strPlayerID);
             if (!playerIDValidator.Successfull)
             {
-                return new BaseResponse(string.Format(playerIDValidator.ErrorMessage, "Player ID"), false);
+                return new BaseResponse(string.Format(playerIDValidator.ErrorMessage, "Player ID"));
             }
             return await service.SetUsernameAndPasswordAsync(playerIDValidator.ReturnedObject, username, password);
         }
