@@ -85,14 +85,21 @@ public static partial class Players
         }
 
         [UsedImplicitly]
-        public BaseResponse ChangePassword(string sessionKey,
+        public BaseResponse ChangePassword(
+            string sessionKey,
             string currentPassword,
             string newPassword)
         {
-            var validations = PlayerPassword.ValidateChangePassword(currentPassword, newPassword);
-            if (!validations.Successfull)
+            var sessionKeyValidator = sessionKey.ValidatePlayerSessionKey();
+            if (!sessionKeyValidator.Successfull)
             {
-                return new BaseResponse(validations.ErrorMessage, false);
+                return new BaseResponse(sessionKeyValidator.ErrorMessage, false);
+            }
+
+            var passwordValidations = PlayerPassword.ValidateChangePassword(currentPassword, newPassword);
+            if (!passwordValidations.Successfull)
+            {
+                return new BaseResponse(passwordValidations.ErrorMessage, false);
             }
             const string path = "/changepassword.json";
 
