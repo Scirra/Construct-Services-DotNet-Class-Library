@@ -8,7 +8,7 @@
     <authors>Thomas Gullen, Scirra Ltd</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="expression">MIT</license>
-    <!-- <icon>icon.png</icon> -->
+    <icon>icon.png</icon>
     <projectUrl>https://github.com/Scirra/Construct-Services-DotNet-Class-Library</projectUrl>
     <description>A helpful library for interacting with cloud services offered on Construct.net including leaderboard services.</description>
     <releaseNotes>Initial beta release.</releaseNotes>
