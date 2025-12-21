@@ -39,8 +39,13 @@ public sealed class ExpandedPlayer
         get
         {
             if (!RestrictedActionIDs.Any()) return [];
-            return RestrictedActionIDs.Where(c => Enum.IsDefined(typeof(PlayerRestriction), c))
-                .Select(c => (PlayerRestriction)c).ToHashSet();
+            var r = new HashSet<PlayerRestriction>();
+            foreach (var restriction in RestrictedActionIDs.Where(c => Enum.IsDefined(typeof(PlayerRestriction), c))
+                         .Select(c => (PlayerRestriction)c))
+            {
+                r.Add(restriction);
+            }
+            return r;
         }
         // ReSharper disable once ValueParameterNotUsed
         set{}
