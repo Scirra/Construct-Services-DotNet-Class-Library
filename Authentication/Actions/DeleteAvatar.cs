@@ -1,21 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using ConstructServices.Common;
+﻿using ConstructServices.Common;
+using ConstructServices.Common.Validations;
 using JetBrains.Annotations;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Guid = System.Guid;
 
 namespace ConstructServices.Authentication.Actions;
 
 public static partial class Players
 {
+    private const string DeleteAvatarAPIPath = "/deleteavatar.json";
+
     extension(AuthenticationService service)
     {
         [UsedImplicitly]
         public BaseResponse DeleteAvatar(Guid playerID)
         {
-            const string path = "/deleteavatar.json";
-
             return Request.ExecuteSyncRequest<BaseResponse>(
-                path,
+                DeleteAvatarAPIPath,
+                service,
+                new Dictionary<string, string>
+                {
+                    { "playerID", playerID.ToString() }
+                }
+            );
+        }
+
+        [UsedImplicitly]
+        public async Task<BaseResponse> DeleteAvatarAsync(Guid playerID)
+        {
+            return await Request.ExecuteAsyncRequest<BaseResponse>(
+                DeleteAvatarAPIPath,
                 service,
                 new Dictionary<string, string>
                 {
@@ -27,10 +42,33 @@ public static partial class Players
         [UsedImplicitly]
         public BaseResponse DeleteAvatar(string sessionKey)
         {
-            const string path = "/deleteavatar.json";
+            var sessionKeyValidator = sessionKey.ValidatePlayerSessionKey();
+            if (!sessionKeyValidator.Successfull)
+            {
+                return new BaseResponse(sessionKeyValidator.ErrorMessage, false);
+            }
 
             return Request.ExecuteSyncRequest<BaseResponse>(
-                path,
+                DeleteAvatarAPIPath,
+                service,
+                new Dictionary<string, string>
+                {
+                    { "sessionKey", sessionKey }
+                }
+            );
+        }
+
+        [UsedImplicitly]
+        public async Task<BaseResponse> DeleteAvatarAsync(string sessionKey)
+        {
+            var sessionKeyValidator = sessionKey.ValidatePlayerSessionKey();
+            if (!sessionKeyValidator.Successfull)
+            {
+                return new BaseResponse(sessionKeyValidator.ErrorMessage, false);
+            }
+
+            return await Request.ExecuteAsyncRequest<BaseResponse>(
+                DeleteAvatarAPIPath,
                 service,
                 new Dictionary<string, string>
                 {
