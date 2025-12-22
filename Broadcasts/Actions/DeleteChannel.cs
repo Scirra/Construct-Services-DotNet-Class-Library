@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ConstructServices.Broadcasts.Actions;
 
-internal static partial class Delete
+public static partial class Delete
 {
     private const string DeleteChannelAPIPath = "/deletechannel.json";
 
