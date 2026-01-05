@@ -14,13 +14,13 @@ internal static class Request
         BaseService service,
         Dictionary<string, string> formData,
         Dictionary<string, ByteArrayContent> files) where T : BaseResponse
-    {           
-        return ExecuteMultiPartFormAsyncRequest<T>(
+    {
+        return Task.Run(() => ExecuteMultiPartFormAsyncRequest<T>(
             relativeEndPointPath,
             service,
             formData,
             files
-        ).GetAwaiter().GetResult();
+        )).GetAwaiter().GetResult();
     }  
     internal static async Task<T> ExecuteMultiPartFormAsyncRequest<T>(
         string relativeEndPointPath,
@@ -109,13 +109,13 @@ internal static class Request
         BaseService service,
         Dictionary<string, string> formData,
         PaginationOptions paginationOptions = null) where T : BaseResponse
-    {           
-        return ExecuteAsyncRequest<T>(
+    {
+        return Task.Run(() => ExecuteAsyncRequest<T>(
             relativeEndPointPath,
             service,
             formData,
             paginationOptions
-        ).GetAwaiter().GetResult();
+        )).GetAwaiter().GetResult();
     }  
 
     internal static async Task<T> ExecuteAsyncRequest<T>(
