@@ -17,5 +17,6 @@ public enum LoginProvider : byte
     ItchIO = 12,
     Github = 13,
     TikTok = 14,
-    Twitch = 15
+    Twitch = 16,
+    Patreon = 18
 }
