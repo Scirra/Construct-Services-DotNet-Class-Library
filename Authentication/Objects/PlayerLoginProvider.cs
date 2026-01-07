@@ -30,7 +30,10 @@ public sealed class PlayerLoginProvider
     public DateTime LastSignIn { get; private set; }
 
     [JsonProperty(PropertyName = "metaData1")]
-    public string MetaData1 { get; private set; }
+    public string MetaData1 { get; private set; }    
+    
+    [JsonProperty(PropertyName = "patreonMetaData")]
+    public PatreonMetaData PatreonMetaData { get; private set; }  
 
     public PlayerLoginProvider()
     {
