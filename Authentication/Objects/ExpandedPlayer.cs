@@ -82,7 +82,7 @@ public sealed class ExpandedPlayer
     public decimal AverageRatingPercent { get; set; }    
     
     [JsonProperty(PropertyName = "lastActive")]
-    internal DateTime? LastActive { get; set; }
+    public DateTime? LastActive { get; set; }
 
     public ExpandedPlayer()
     {

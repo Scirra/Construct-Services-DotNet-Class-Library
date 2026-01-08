@@ -20,7 +20,7 @@ public sealed class Player
     public List<AvailablePicture> Avatars { get; private set; }
     
     [JsonProperty(PropertyName = "lastActive")]
-    internal DateTime? LastActive { get; set; }
+    public DateTime? LastActive { get; set; }
 
     public Player()
     {
