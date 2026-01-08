@@ -30,7 +30,7 @@ public sealed class GameBucket
     public int MaxBlobSizeBytes { get; private set; }
 
     [JsonProperty(PropertyName = "maxBlobs")]
-    public int MaxBlobs { get; private set; }
+    public int? MaxBlobs { get; private set; }
 
     [JsonProperty(PropertyName = "maxBlobsPerPlayer")]
     public short? MaxBlobsPerPlayer { get; private set; }

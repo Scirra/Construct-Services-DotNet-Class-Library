@@ -1,5 +1,12 @@
 ﻿# Changelog
 
+## 1.1.0.0 - xxx 2026
+
+<ul>
+	<li>Add Patreon login provider</li>
+	<li>Add Patreon meta data object to login provider object</li>
+</ul>
+
 ## 1.1.0.0 - 21st December 2025
 
 <ul>
