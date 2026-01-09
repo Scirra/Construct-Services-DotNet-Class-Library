@@ -94,6 +94,11 @@ public static class Functions
                 logoFilename = "twitch-logo.svg";
                 break;
             }
+            case LoginProvider.Patreon:
+            {
+                logoFilename = "patreon-logo.svg";
+                break;
+            }
             default: return string.Empty;
         }
         return "https://auth.construct.net/images/1/" + logoFilename;
