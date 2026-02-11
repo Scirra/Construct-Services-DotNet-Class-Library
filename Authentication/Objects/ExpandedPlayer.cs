@@ -87,6 +87,8 @@ public sealed class ExpandedPlayer
     [JsonProperty(PropertyName = "emailVerified")]
     public bool EmailVerified { get; set; }
 
+    [JsonProperty(PropertyName = "preventAllEmails")]
+    internal bool PreventAllEmails { get; set; }
     public ExpandedPlayer()
     {
 
