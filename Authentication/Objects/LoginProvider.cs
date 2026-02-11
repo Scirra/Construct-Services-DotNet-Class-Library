@@ -18,5 +18,6 @@ public enum LoginProvider : byte
     Github = 13,
     TikTok = 14,
     Twitch = 16,
-    Patreon = 18
+    Patreon = 18,
+    Email = 100
 }

@@ -99,6 +99,11 @@ public static class Functions
                 logoFilename = "patreon-logo.svg";
                 break;
             }
+            case LoginProvider.Email:
+            {
+                logoFilename = "email-logo.svg";
+                break;
+            }
             default: return string.Empty;
         }
         return "https://auth.construct.net/images/1/" + logoFilename;
