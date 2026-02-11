@@ -89,6 +89,10 @@ public sealed class ExpandedPlayer
 
     [JsonProperty(PropertyName = "preventAllEmails")]
     public bool PreventAllEmails { get; set; }
+
+    [JsonProperty(PropertyName = "emailSendCounts")]
+    public Dictionary<EmailType, int> EmailSendCounts { get; set; }
+
     public ExpandedPlayer()
     {
 
