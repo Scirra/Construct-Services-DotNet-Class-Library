@@ -84,6 +84,9 @@ public sealed class ExpandedPlayer
     [JsonProperty(PropertyName = "lastActive")]
     public DateTime? LastActive { get; set; }
 
+    [JsonProperty(PropertyName = "emailVerified")]
+    internal bool EmailVerified { get; set; }
+
     public ExpandedPlayer()
     {
 
