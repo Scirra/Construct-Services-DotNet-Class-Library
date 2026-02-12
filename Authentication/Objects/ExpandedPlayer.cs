@@ -91,7 +91,21 @@ public sealed class ExpandedPlayer
     public bool PreventAllEmails { get; set; }
 
     [JsonProperty(PropertyName = "emailSendCounts")]
-    public Dictionary<EmailType, int> EmailSendCounts { get; set; }
+    private Dictionary<string, int> EmailSendCounts_ { get; set; }
+    public bool ShouldSerializeEmailSendCounts_() => false;
+    public Dictionary<EmailType, int> EmailSendCounts
+    {
+        get
+        {
+            var r = new Dictionary<EmailType, int>();
+            foreach (var kvp in EmailSendCounts_)
+            {
+                Enum.TryParse<EmailType>(kvp.Key, true, out var t);
+                r.Add(t, kvp.Value);
+            }
+            return r;
+        }
+    }
 
     public ExpandedPlayer()
     {

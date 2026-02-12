@@ -2,6 +2,6 @@
 
 public enum EmailType : byte
 {
-    AdditionalResourceNearLimit = 0,
-    AdditionalResourceAtOrPastLimit = 1
+    VerificationEmail = 0,
+    SignInEmail = 1
 }
