@@ -8,7 +8,10 @@ public enum EmailType : byte
     VerificationEmail = 0,
 
     [EmailType("Sign In", "Contains a magic link to sign into your game")]
-    SignInEmail = 1
+    SignInEmail = 1,
+    
+    [EmailType("Forgotten Password", "Contains a link for the user to create a new password")]
+    ForgottenPassword = 2
 }
 
 [UsedImplicitly]
