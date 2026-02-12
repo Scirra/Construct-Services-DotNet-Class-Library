@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ConstructServices.Authentication.Enums;
 using ConstructServices.Common;
+using JetBrains.Annotations;
 
 namespace ConstructServices.Authentication.Objects;
 
@@ -93,17 +94,31 @@ public sealed class ExpandedPlayer
     [JsonProperty(PropertyName = "emailSendCounts")]
     private Dictionary<string, int> EmailSendCounts_ { get; set; }
     public bool ShouldSerializeEmailSendCounts_() => false;
+
+    [UsedImplicitly]
     public Dictionary<EmailType, int> EmailSendCounts
     {
         get
         {
-            var r = new Dictionary<EmailType, int>();
-            foreach (var kvp in EmailSendCounts_)
+            if (field == null)
             {
-                Enum.TryParse<EmailType>(kvp.Key, true, out var t);
-                r.Add(t, kvp.Value);
+                field = new Dictionary<EmailType, int>();
+                foreach (var kvp in EmailSendCounts_)
+                {
+                    Enum.TryParse<EmailType>(kvp.Key, true, out var t);
+                    field.Add(t, kvp.Value);
+                }
             }
-            return r;
+            return field;
+        }
+    }
+
+    [UsedImplicitly]
+    public int TotalSentEmails
+    {
+        get
+        {
+            return EmailSendCounts.Sum(c => c.Value);
         }
     }
 
