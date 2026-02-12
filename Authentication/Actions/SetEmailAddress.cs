@@ -21,6 +21,15 @@ public static partial class Players
             string sessionKey,
             string emailAddress)
         {
+            if (!string.IsNullOrWhiteSpace(emailAddress))
+            {
+                var validator = Common.Validations.EmailAddress.ValidateEmailAddress(emailAddress);
+                if (!validator.Successfull)
+                {
+                    return new BaseResponse(validator.ErrorMessage);
+                }
+            }
+
             return Request.ExecuteSyncRequest<BaseResponse>(
                 SetEmailAddressAPIPath,
                 service,
@@ -41,6 +50,15 @@ public static partial class Players
             string sessionKey,
             string emailAddress)
         {
+            if (!string.IsNullOrWhiteSpace(emailAddress))
+            {
+                var validator = Common.Validations.EmailAddress.ValidateEmailAddress(emailAddress);
+                if (!validator.Successfull)
+                {
+                    return new BaseResponse(validator.ErrorMessage);
+                }
+            }
+
             return await Request.ExecuteAsyncRequest<BaseResponse>(
                 SetEmailAddressAPIPath,
                 service,
@@ -61,6 +79,15 @@ public static partial class Players
             Guid playerID,
             string emailAddress)
         {
+            if (!string.IsNullOrWhiteSpace(emailAddress))
+            {
+                var validator = Common.Validations.EmailAddress.ValidateEmailAddress(emailAddress);
+                if (!validator.Successfull)
+                {
+                    return new BaseResponse(validator.ErrorMessage);
+                }
+            }
+
             return Request.ExecuteSyncRequest<BaseResponse>(
                 SetEmailAddressAPIPath,
                 service,
@@ -81,6 +108,15 @@ public static partial class Players
             Guid playerID,
             string emailAddress)
         {
+            if (!string.IsNullOrWhiteSpace(emailAddress))
+            {
+                var validator = Common.Validations.EmailAddress.ValidateEmailAddress(emailAddress);
+                if (!validator.Successfull)
+                {
+                    return new BaseResponse(validator.ErrorMessage);
+                }
+            }
+
             return await Request.ExecuteAsyncRequest<BaseResponse>(
                 SetEmailAddressAPIPath,
                 service,
