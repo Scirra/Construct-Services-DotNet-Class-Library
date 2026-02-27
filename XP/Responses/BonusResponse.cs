@@ -7,7 +7,7 @@ namespace ConstructServices.XP.Responses;
 public sealed class BonusResponse : BaseResponse
 {
     [JsonProperty(PropertyName = "bonus")]
-    public XPBonus Rank { get; set; }
+    public XPBonus Bonus { get; set; }
 
     public BonusResponse()
     {
