@@ -35,6 +35,9 @@ public sealed class XPBonus
     
     [JsonProperty(PropertyName = "responseLanguage")]
     public Language ResponseLanguage { get; set; }
+    
+    [JsonProperty(PropertyName = "isLive")]
+    public bool IsLive { get; set; }
 
     public XPBonus()
     {
