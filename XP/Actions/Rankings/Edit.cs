@@ -26,9 +26,12 @@ public static partial class Rankings
         public string NewDescription { get; set; }
     }
 
-    private static Dictionary<string, string> BuildFormData(this RankUpdateOptions updateOptions)
+    private static Dictionary<string, string> BuildFormData(this RankUpdateOptions updateOptions, Guid rankID)
     {            
-        var formData = new Dictionary<string, string>();
+        var formData = new Dictionary<string, string>
+        {
+            { "rankID", rankID.ToString() }
+        };
 
         if (updateOptions.NewXP.HasValue)
             formData.Add("xp", updateOptions.NewXP.Value.ToString());
@@ -58,7 +61,7 @@ public static partial class Rankings
             return Request.ExecuteSyncRequest<BaseResponse>(
                 EditRankAPIPath,
                 xpService,
-                updateOptions.BuildFormData()
+                updateOptions.BuildFormData(rankID)
             );
         }
 
@@ -73,7 +76,7 @@ public static partial class Rankings
             return await Request.ExecuteAsyncRequest<BaseResponse>(
                 EditRankAPIPath,
                 xpService,
-                updateOptions.BuildFormData()
+                updateOptions.BuildFormData(rankID)
             );
         }
     }
