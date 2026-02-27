@@ -16,7 +16,7 @@ public static partial class Bonuses
         /// Delete an existing bonus by ID
         /// </summary>
         [UsedImplicitly]
-        public BaseResponse Delete(
+        public BaseResponse DeleteBonus(
             Guid id)
         {            
             var formData = new Dictionary<string, string>
@@ -35,7 +35,7 @@ public static partial class Bonuses
         /// Delete an existing bonus by ID
         /// </summary>
         [UsedImplicitly]
-        public async Task<BaseResponse> DeleteAsync(
+        public async Task<BaseResponse> DeleteBonusAsync(
             Guid id)
         {            
             var formData = new Dictionary<string, string>

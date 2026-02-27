@@ -24,7 +24,7 @@ public static partial class Bonuses
         /// <param name="description">A description for the bonus.</param>
         /// <param name="language">The language that the title and description are written in.  Defaults to your games default language if not specified.</param>
         [UsedImplicitly]
-        public BonusResponse Create(
+        public BonusResponse CreateBonus(
             DateTime start,
             DateTime end,
             decimal modifier,
@@ -59,7 +59,7 @@ public static partial class Bonuses
         /// <param name="description">A description for the bonus.</param>
         /// <param name="language">The language that the title and description are written in.  Defaults to your games default language if not specified.</param>
         [UsedImplicitly]
-        public async Task<BonusResponse> CreateAsync(
+        public async Task<BonusResponse> CreateBonusAsync(
             DateTime start,
             DateTime end,
             decimal modifier,

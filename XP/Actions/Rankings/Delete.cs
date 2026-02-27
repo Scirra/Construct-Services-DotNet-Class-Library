@@ -17,14 +17,14 @@ public static partial class Rankings
         /// </summary>
         /// <param name="strRankID">The ID of the rank you want to delete.</param>
         [UsedImplicitly]
-        public RankResponse Delete(string strRankID)
+        public RankResponse DeleteRank(string strRankID)
         {
             var idValidator = Common.Validations.Guid.IsValidGuid(strRankID);
             if (!idValidator.Successfull)
             {
                 return new RankResponse(string.Format(idValidator.ErrorMessage, "Rank ID"));
             }
-            return Delete(xpService, idValidator.ReturnedObject);
+            return DeleteRank(xpService, idValidator.ReturnedObject);
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ public static partial class Rankings
         /// </summary>
         /// <param name="rankID">The ID of the rank you want to delete.</param>
         [UsedImplicitly]
-        public RankResponse Delete(Guid rankID)
+        public RankResponse DeleteRank(Guid rankID)
         {
             var formData = new Dictionary<string, string>
             {
@@ -51,14 +51,14 @@ public static partial class Rankings
         /// </summary>
         /// <param name="strRankID">The ID of the rank you want to delete.</param>
         [UsedImplicitly]
-        public async Task<RankResponse> DeleteAsync(string strRankID)
+        public async Task<RankResponse> DeleteRankAsync(string strRankID)
         {
             var idValidator = Common.Validations.Guid.IsValidGuid(strRankID);
             if (!idValidator.Successfull)
             {
                 return new RankResponse(string.Format(idValidator.ErrorMessage, "Rank ID"));
             }
-            return await DeleteAsync(xpService, idValidator.ReturnedObject);
+            return await DeleteRankAsync(xpService, idValidator.ReturnedObject);
         }
 
         /// <summary>
@@ -66,7 +66,7 @@ public static partial class Rankings
         /// </summary>
         /// <param name="rankID">The ID of the rank you want to delete.</param>
         [UsedImplicitly]
-        public async Task<RankResponse> DeleteAsync(Guid rankID)
+        public async Task<RankResponse> DeleteRankAsync(Guid rankID)
         {
             var formData = new Dictionary<string, string>
             {

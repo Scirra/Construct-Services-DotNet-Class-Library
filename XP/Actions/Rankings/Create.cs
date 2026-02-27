@@ -21,7 +21,7 @@ public static partial class Rankings
         /// <param name="language">The language that the title and description are written in.  Defaults to your games default language if not specified.</param>
         /// <returns></returns>
         [UsedImplicitly]
-        public RankResponse Create(
+        public RankResponse CreateRank(
             long atXP,
             string title, 
             string description = null, 
@@ -51,7 +51,7 @@ public static partial class Rankings
         /// <param name="language">The language that the title and description are written in.  Defaults to your games default language if not specified.</param>
         /// <returns></returns>
         [UsedImplicitly]
-        public async Task<RankResponse> CreateAsync(
+        public async Task<RankResponse> CreateRankAsync(
             long atXP,
             string title, 
             string description = null, 

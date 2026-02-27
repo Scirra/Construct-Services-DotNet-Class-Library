@@ -64,7 +64,7 @@ public static partial class Bonuses
         /// Update an existing bonus
         /// </summary>
         [UsedImplicitly]
-        public BaseResponse Update(
+        public BaseResponse UpdateBonus(
             Guid bonusID,
             BonusUpdateOptions updateOptions)
         {
@@ -78,7 +78,7 @@ public static partial class Bonuses
         /// Update an existing bonus
         /// </summary>
         [UsedImplicitly]
-        public async Task<BaseResponse> UpdateAsync(
+        public async Task<BaseResponse> UpdateBonusAsync(
             Guid bonusID,
             BonusUpdateOptions updateOptions)
         {

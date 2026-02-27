@@ -17,7 +17,7 @@ public static partial class Bonuses
         /// Get currently active bonuses
         /// </summary>
         [UsedImplicitly]
-        public BonusesResponse GetActive()
+        public BonusesResponse GetActiveBonuses()
         {            
             return Request.ExecuteSyncRequest<BonusesResponse>(
                 GetActiveBonusesAPIPath,
@@ -30,7 +30,7 @@ public static partial class Bonuses
         /// Get currently active bonuses
         /// </summary>
         [UsedImplicitly]
-        public async Task<BonusesResponse> GetActiveAsync()
+        public async Task<BonusesResponse> GetActiveBonusesAsync()
         {            
             return await Request.ExecuteAsyncRequest<BonusesResponse>(
                 GetActiveBonusesAPIPath,
@@ -44,7 +44,7 @@ public static partial class Bonuses
         /// </summary>
         /// <param name="days">Days to look ahead</param>
         [UsedImplicitly]
-        public BonusesResponse GetUpcoming(int? days = null)
+        public BonusesResponse GetUpcomingBonuses(int? days = null)
         {                    
             var formData = new Dictionary<string, string>();
             if (days.HasValue)
@@ -64,7 +64,7 @@ public static partial class Bonuses
         /// </summary>
         /// <param name="days">Days to look ahead</param>
         [UsedImplicitly]
-        public async Task<BonusesResponse> GetUpcomingAsync(int? days = null)
+        public async Task<BonusesResponse> GetUpcomingBonusesAsync(int? days = null)
         {                    
             var formData = new Dictionary<string, string>();
             if (days.HasValue)

@@ -51,7 +51,7 @@ public static partial class Rankings
         /// Update an existing rank
         /// </summary>
         [UsedImplicitly]
-        public BaseResponse Update(
+        public BaseResponse UpdateRank(
             Guid rankID,
             RankUpdateOptions updateOptions)
         {
@@ -66,7 +66,7 @@ public static partial class Rankings
         /// Update an existing rank
         /// </summary>
         [UsedImplicitly]
-        public async Task<BaseResponse> UpdateAsync(
+        public async Task<BaseResponse> UpdateRankAsync(
             Guid rankID,
             RankUpdateOptions updateOptions)
         {
