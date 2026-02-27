@@ -11,17 +11,32 @@ public static partial class Rankings
     private const string DeleteRankAPIPath = "/deleterank.json";
     
     extension(XPService xpService)
-    {
+    {        
         /// <summary>
         /// Delete an existing rank by its ID
         /// </summary>
-        /// <param name="id">The ID of the rank you want to delete.</param>
+        /// <param name="strRankID">The ID of the rank you want to delete.</param>
         [UsedImplicitly]
-        public RankResponse Delete(Guid id)
+        public RankResponse Delete(string strRankID)
+        {
+            var idValidator = Common.Validations.Guid.IsValidGuid(strRankID);
+            if (!idValidator.Successfull)
+            {
+                return new RankResponse(string.Format(idValidator.ErrorMessage, "Rank ID"));
+            }
+            return Delete(xpService, idValidator.ReturnedObject);
+        }
+
+        /// <summary>
+        /// Delete an existing rank by its ID
+        /// </summary>
+        /// <param name="rankID">The ID of the rank you want to delete.</param>
+        [UsedImplicitly]
+        public RankResponse Delete(Guid rankID)
         {
             var formData = new Dictionary<string, string>
             {
-                { "rankID", id.ToString() }
+                { "rankID", rankID.ToString() }
             };
 
             return Request.ExecuteSyncRequest<RankResponse>(
@@ -34,13 +49,28 @@ public static partial class Rankings
         /// <summary>
         /// Delete an existing rank by its ID
         /// </summary>
-        /// <param name="id">The ID of the rank you want to delete.</param>
+        /// <param name="strRankID">The ID of the rank you want to delete.</param>
         [UsedImplicitly]
-        public async Task<RankResponse> DeleteAsync(Guid id)
+        public async Task<RankResponse> DeleteAsync(string strRankID)
+        {
+            var idValidator = Common.Validations.Guid.IsValidGuid(strRankID);
+            if (!idValidator.Successfull)
+            {
+                return new RankResponse(string.Format(idValidator.ErrorMessage, "Rank ID"));
+            }
+            return await DeleteAsync(xpService, idValidator.ReturnedObject);
+        }
+
+        /// <summary>
+        /// Delete an existing rank by its ID
+        /// </summary>
+        /// <param name="rankID">The ID of the rank you want to delete.</param>
+        [UsedImplicitly]
+        public async Task<RankResponse> DeleteAsync(Guid rankID)
         {
             var formData = new Dictionary<string, string>
             {
-                { "rankID", id.ToString() }
+                { "rankID", rankID.ToString() }
             };
 
             return await Request.ExecuteAsyncRequest<RankResponse>(
