@@ -17,7 +17,7 @@ public static partial class Rankings
         public long? NewXP { get; set; }
 
         [UsedImplicitly]
-        public Language NewLanguage { get; set; }
+        public string NewLanguageISO { get; set; }
 
         [UsedImplicitly]
         public string NewTitle { get; set; }
@@ -39,8 +39,8 @@ public static partial class Rankings
         if (updateOptions.NewDescription != null)
             formData.Add("description", updateOptions.NewDescription);
 
-        if (updateOptions.NewLanguage != null)
-            formData.Add("language", updateOptions.NewLanguage.ISO);
+        if (updateOptions.NewLanguageISO != null)
+            formData.Add("language", updateOptions.NewLanguageISO);
 
         return formData;
     }
