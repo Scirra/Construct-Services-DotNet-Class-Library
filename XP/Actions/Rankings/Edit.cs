@@ -37,7 +37,7 @@ public static partial class Rankings
             formData.Add("xp", updateOptions.NewXP.Value.ToString());
 
         if (updateOptions.NewTitle != null)
-            formData.Add("title ", updateOptions.NewTitle);
+            formData.Add("title", updateOptions.NewTitle);
 
         if (updateOptions.NewDescription != null)
             formData.Add("description", updateOptions.NewDescription);
