@@ -18,20 +18,20 @@ public static partial class Rankings
         /// <param name="strAtXP">The XP level required to achieve this rank.</param>
         /// <param name="title">A title for the rank, for example 'General'.</param>
         /// <param name="description">A description for the rank.</param>
-        /// <param name="language">The language that the title and description are written in.  Defaults to your games default language if not specified.</param>
+        /// <param name="languageISO">The language that the title and description are written in.  Defaults to your games default language if not specified.</param>
         /// <returns></returns>
         [UsedImplicitly]
         public RankResponse CreateRank(
             string strAtXP,
             string title, 
             string description = null, 
-            Language language = null)
+            string languageISO = null)
         {
             if (!long.TryParse(strAtXP, out var atXP))
             {
                 return new RankResponse("At XP is not a valid long value.");
             }
-            return xpService.CreateRank(atXP, title, description, language);
+            return xpService.CreateRank(atXP, title, description, languageISO);
         }
 
         /// <summary>
@@ -40,21 +40,21 @@ public static partial class Rankings
         /// <param name="atXP">The XP level required to achieve this rank.</param>
         /// <param name="title">A title for the rank, for example 'General'.</param>
         /// <param name="description">A description for the rank.</param>
-        /// <param name="language">The language that the title and description are written in.  Defaults to your games default language if not specified.</param>
+        /// <param name="languageISO">The language that the title and description are written in.  Defaults to your games default language if not specified.</param>
         /// <returns></returns>
         [UsedImplicitly]
         public RankResponse CreateRank(
             long atXP,
             string title, 
             string description = null, 
-            Language language = null)
+            string languageISO = null)
         {
             var formData = new Dictionary<string, string>
             {
                 {"xp", atXP.ToString() },
                 {"title", title },
                 {"description", description ?? string.Empty },
-                {"language", language?.ISO ?? string.Empty }
+                {"language", languageISO ?? string.Empty }
             };
         
             return Request.ExecuteSyncRequest<RankResponse>(
@@ -70,20 +70,20 @@ public static partial class Rankings
         /// <param name="strAtXP">The XP level required to achieve this rank.</param>
         /// <param name="title">A title for the rank, for example 'General'.</param>
         /// <param name="description">A description for the rank.</param>
-        /// <param name="language">The language that the title and description are written in.  Defaults to your games default language if not specified.</param>
+        /// <param name="languageISO">The language that the title and description are written in.  Defaults to your games default language if not specified.</param>
         /// <returns></returns>
         [UsedImplicitly]
         public async Task<RankResponse> CreateRankAsync(
             string strAtXP,
             string title, 
             string description = null, 
-            Language language = null)
+            string languageISO = null)
         {
             if (!long.TryParse(strAtXP, out var atXP))
             {
                 return new RankResponse("At XP is not a valid long value.");
             }
-            return await xpService.CreateRankAsync(atXP, title, description, language);
+            return await xpService.CreateRankAsync(atXP, title, description, languageISO);
         }
 
         /// <summary>
@@ -92,21 +92,21 @@ public static partial class Rankings
         /// <param name="atXP">The XP level required to achieve this rank.</param>
         /// <param name="title">A title for the rank, for example 'General'.</param>
         /// <param name="description">A description for the rank.</param>
-        /// <param name="language">The language that the title and description are written in.  Defaults to your games default language if not specified.</param>
+        /// <param name="languageISO">The language that the title and description are written in.  Defaults to your games default language if not specified.</param>
         /// <returns></returns>
         [UsedImplicitly]
         public async Task<RankResponse> CreateRankAsync(
             long atXP,
             string title, 
             string description = null, 
-            Language language = null)
+            string languageISO = null)
         {
             var formData = new Dictionary<string, string>
             {
                 {"xp", atXP.ToString() },
                 {"title", title },
                 {"description", description ?? string.Empty },
-                {"language", language?.ISO ?? string.Empty }
+                {"language", languageISO ?? string.Empty }
             };
         
             return await Request.ExecuteAsyncRequest<RankResponse>(

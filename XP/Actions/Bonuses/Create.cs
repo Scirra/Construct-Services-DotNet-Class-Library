@@ -22,7 +22,7 @@ public static partial class Bonuses
         /// <param name="modifier">The bonus amount (eg 2.5x)</param>
         /// <param name="title">A title for the bonus.</param>
         /// <param name="description">A description for the bonus.</param>
-        /// <param name="language">The language that the title and description are written in.  Defaults to your games default language if not specified.</param>
+        /// <param name="languageISO">The language that the title and description are written in.  Defaults to your games default language if not specified.</param>
         [UsedImplicitly]
         public BonusResponse CreateBonus(
             DateTime start,
@@ -30,7 +30,7 @@ public static partial class Bonuses
             decimal modifier,
             string title = null, 
             string description = null, 
-            Language language = null)
+            string languageISO = null)
         {
             var formData = new Dictionary<string, string>
             {
@@ -39,7 +39,7 @@ public static partial class Bonuses
                 {"modifier", modifier.ToString(CultureInfo.InvariantCulture) },
                 {"title", title ?? string.Empty },
                 {"description", description ?? string.Empty },
-                {"language", language?.ISO ?? string.Empty }
+                {"language", languageISO ?? string.Empty }
             };
         
             return Request.ExecuteSyncRequest<BonusResponse>(
@@ -57,7 +57,7 @@ public static partial class Bonuses
         /// <param name="modifier">The bonus amount (eg 2.5x)</param>
         /// <param name="title">A title for the bonus.</param>
         /// <param name="description">A description for the bonus.</param>
-        /// <param name="language">The language that the title and description are written in.  Defaults to your games default language if not specified.</param>
+        /// <param name="languageISO">The language that the title and description are written in.  Defaults to your games default language if not specified.</param>
         [UsedImplicitly]
         public async Task<BonusResponse> CreateBonusAsync(
             DateTime start,
@@ -65,7 +65,7 @@ public static partial class Bonuses
             decimal modifier,
             string title = null, 
             string description = null, 
-            Language language = null)
+            string languageISO = null)
         {
             var formData = new Dictionary<string, string>
             {
@@ -74,7 +74,7 @@ public static partial class Bonuses
                 {"modifier", modifier.ToString(CultureInfo.InvariantCulture) },
                 {"title", title ?? string.Empty },
                 {"description", description ?? string.Empty },
-                {"language", language?.ISO ?? string.Empty }
+                {"language", languageISO ?? string.Empty }
             };
         
             return await Request.ExecuteAsyncRequest<BonusResponse>(
