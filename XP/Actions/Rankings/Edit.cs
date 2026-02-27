@@ -1,4 +1,5 @@
 ﻿using ConstructServices.Common;
+using ConstructServices.XP.Responses;
 using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
@@ -53,6 +54,21 @@ public static partial class Rankings
         /// <summary>
         /// Update an existing rank
         /// </summary>
+        public BaseResponse UpdateRank(
+            string strRankID,
+            RankUpdateOptions updateOptions)
+        {
+            var idValidator = Common.Validations.Guid.IsValidGuid(strRankID);
+            if (!idValidator.Successfull)
+            {
+                return new RankResponse(string.Format(idValidator.ErrorMessage, "Rank ID"));
+            }
+            return xpService.UpdateRank(idValidator.ReturnedObject, updateOptions);
+        }
+
+        /// <summary>
+        /// Update an existing rank
+        /// </summary>
         [UsedImplicitly]
         public BaseResponse UpdateRank(
             Guid rankID,
@@ -63,6 +79,21 @@ public static partial class Rankings
                 xpService,
                 updateOptions.BuildFormData(rankID)
             );
+        }
+
+        /// <summary>
+        /// Update an existing rank
+        /// </summary>
+        public async Task<BaseResponse> UpdateRankAsync(
+            string strRankID,
+            RankUpdateOptions updateOptions)
+        {
+            var idValidator = Common.Validations.Guid.IsValidGuid(strRankID);
+            if (!idValidator.Successfull)
+            {
+                return new RankResponse(string.Format(idValidator.ErrorMessage, "Rank ID"));
+            }
+            return await xpService.UpdateRankAsync(idValidator.ReturnedObject, updateOptions);
         }
 
         /// <summary>

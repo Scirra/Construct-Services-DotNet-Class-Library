@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using ConstructServices.Common;
 using ConstructServices.XP.Responses;
 using JetBrains.Annotations;
@@ -15,7 +14,7 @@ public static partial class Rankings
         /// Retrieve all existing ranks
         /// </summary>
         [UsedImplicitly]
-        public RanksResponse ListAllRanks(Guid id)
+        public RanksResponse ListAllRanks()
         {
             return Request.ExecuteSyncRequest<RanksResponse>(
                 GetRanksAPIPath,
@@ -28,7 +27,7 @@ public static partial class Rankings
         /// Retrieve all existing ranks
         /// </summary>
         [UsedImplicitly]
-        public async Task<RanksResponse> ListAllRanksAsync(Guid id)
+        public async Task<RanksResponse> ListAllRanksAsync()
         {
             return await Request.ExecuteAsyncRequest<RanksResponse>(
                 GetRanksAPIPath,
