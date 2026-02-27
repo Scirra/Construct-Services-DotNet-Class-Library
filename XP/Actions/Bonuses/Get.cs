@@ -1,15 +1,16 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using ConstructServices.Common;
+﻿using ConstructServices.Common;
 using ConstructServices.XP.Responses;
 using JetBrains.Annotations;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ConstructServices.XP.Actions;
 
 public static partial class Bonuses
 {
     private const string GetActiveBonusesAPIPath = "/activebonuses.json";
-    private const string GetUpcomingBonusesAPIPath = "/upcomingbonuses.json";
+    private const string ListBonusesAPIPath = "/listbonuses.json";
 
     extension(XPService xpService)
     {
@@ -40,40 +41,52 @@ public static partial class Bonuses
         }
 
         /// <summary>
-        /// Get upcoming bonuses that have not yet started
+        /// List bonuses from now until end date
         /// </summary>
-        /// <param name="days">Days to look ahead</param>
         [UsedImplicitly]
-        public BonusesResponse GetUpcomingBonuses(int? days = null)
+        public BonusesResponse GetBonuses(DateTime end)
+            => xpService.GetBonuses(DateTime.UtcNow, end);
+
+        /// <summary>
+        /// List bonuses between two dates
+        /// </summary>
+        [UsedImplicitly]
+        public BonusesResponse GetBonuses(DateTime start, DateTime end)
         {                    
-            var formData = new Dictionary<string, string>();
-            if (days.HasValue)
+            var formData = new Dictionary<string, string>
             {
-                formData.Add("days", days.Value.ToString());
-            }
+                { "start", new DateTimeOffset(start).ToUnixTimeSeconds().ToString() },
+                { "end", new DateTimeOffset(end).ToUnixTimeSeconds().ToString() }
+            };
 
             return Request.ExecuteSyncRequest<BonusesResponse>(
-                GetUpcomingBonusesAPIPath,
+                ListBonusesAPIPath,
                 xpService,
                 formData
             );
-        }
+        }        
+        
+        /// <summary>
+        /// List bonuses from now until end date
+        /// </summary>
+        [UsedImplicitly]
+        public async Task<BonusesResponse> GetBonusesAsync(DateTime end)
+            => await xpService.GetBonusesAsync(DateTime.UtcNow, end);
 
         /// <summary>
         /// Get upcoming bonuses that have not yet started
         /// </summary>
-        /// <param name="days">Days to look ahead</param>
         [UsedImplicitly]
-        public async Task<BonusesResponse> GetUpcomingBonusesAsync(int? days = null)
+        public async Task<BonusesResponse> GetBonusesAsync(DateTime start, DateTime end)
         {                    
-            var formData = new Dictionary<string, string>();
-            if (days.HasValue)
+            var formData = new Dictionary<string, string>
             {
-                formData.Add("days", days.Value.ToString());
-            }
+                { "start", new DateTimeOffset(start).ToUnixTimeSeconds().ToString() },
+                { "end", new DateTimeOffset(end).ToUnixTimeSeconds().ToString() }
+            };
 
             return await Request.ExecuteAsyncRequest<BonusesResponse>(
-                GetUpcomingBonusesAPIPath,
+                ListBonusesAPIPath,
                 xpService,
                 formData
             );
