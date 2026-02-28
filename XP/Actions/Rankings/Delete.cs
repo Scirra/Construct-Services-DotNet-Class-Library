@@ -9,6 +9,10 @@ public static partial class Rankings
 {        
     extension(XPService xpService)
     {        
+        /// <summary>
+        /// Delete an existing XP Rank object
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/ranks/delete-rank" />
         [UsedImplicitly]
         public RankResponse DeleteRank(DeleteXPRankOptions deleteXPRankOptions)
         {
@@ -19,6 +23,10 @@ public static partial class Rankings
             );
         }
 
+        /// <summary>
+        /// Delete an existing XP Rank object
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/ranks/delete-rank" />
         [UsedImplicitly]
         public async Task<RankResponse> DeleteRankAsync(DeleteXPRankOptions deleteXPRankOptions)
         {

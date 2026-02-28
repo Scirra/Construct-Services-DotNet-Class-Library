@@ -8,6 +8,10 @@ public static partial class XP
 {        
     extension(XPService xpService)
     {
+        /// <summary>
+        /// Remove XP from a player
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/xp/remove-xp" />
         [UsedImplicitly]
         public BaseResponse RemoveXP(ModifyXPOptions modifyXPOptions)
         {
@@ -18,6 +22,10 @@ public static partial class XP
             );
         }
 
+        /// <summary>
+        /// Remove XP from a player
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/xp/remove-xp" />
         [UsedImplicitly]
         public async Task<BaseResponse> RemoveXPAsync(ModifyXPOptions modifyXPOptions)
         {

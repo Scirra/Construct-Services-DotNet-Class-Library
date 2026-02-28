@@ -10,6 +10,10 @@ public static partial class Rankings
 {        
     extension(XPService xpService)
     {
+        /// <summary>
+        /// Edit an existing XP Rank object
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/ranks/edit-rank" />
         [UsedImplicitly]
         public RankResponse UpdateRank(UpdateXPRankOptions updateOptions)
         {
@@ -20,6 +24,10 @@ public static partial class Rankings
             );
         }
 
+        /// <summary>
+        /// Edit an existing XP Rank object
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/ranks/edit-rank" />
         [UsedImplicitly]
         public async Task<RankResponse> UpdateRankAsync(UpdateXPRankOptions updateOptions)
         {

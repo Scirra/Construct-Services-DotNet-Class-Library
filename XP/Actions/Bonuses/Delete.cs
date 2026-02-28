@@ -7,8 +7,11 @@ namespace ConstructServices.XP.Actions;
 
 public static partial class Bonuses
 {
+
     extension(XPService xpService)
     {        
+        /// <summary>Deletes an existing XP Bonus object</summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/bonuses/delete-bonus" />
         [UsedImplicitly]
         public BaseResponse DeleteBonus(DeleteXPBonusOptions deleteXPBonusOptions)
         {            
@@ -19,6 +22,8 @@ public static partial class Bonuses
             );
         }
 
+        /// <summary>Deletes an existing XP Bonus object</summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/bonuses/delete-bonus" />
         [UsedImplicitly]
         public async Task<BaseResponse> DeleteBonusAsync(DeleteXPBonusOptions deleteXPBonusOptions)
         {       

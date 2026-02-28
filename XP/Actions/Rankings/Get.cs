@@ -9,8 +9,9 @@ public static partial class Rankings
     extension(XPService xpService)
     {
         /// <summary>
-        /// Retrieve all existing ranks
+        /// List all existing XP Rank objects
         /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/ranks/list-ranks" />
         [UsedImplicitly]
         public RanksResponse ListAllRanks()
         {
@@ -22,8 +23,9 @@ public static partial class Rankings
         }
 
         /// <summary>
-        /// Retrieve all existing ranks
+        /// List all existing XP Rank objects
         /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/ranks/list-ranks" />
         [UsedImplicitly]
         public async Task<RanksResponse> ListAllRanksAsync()
         {

@@ -10,6 +10,8 @@ public static partial class Bonuses
 {
     extension(XPService xpService)
     {
+        /// <summary>Get a XP Bonus object</summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/bonuses/get-bonus" />
         [UsedImplicitly]
         public BonusResponse GetBonus(GetBonusOptions getBonusOptions)
         {              
@@ -20,6 +22,8 @@ public static partial class Bonuses
             );
         }        
         
+        /// <summary>Get a XP Bonus object</summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/bonuses/get-bonus" />
         [UsedImplicitly]
         public async Task<BonusResponse> GetBonusAsync(GetBonusOptions getBonusOptions)
         {                    
@@ -30,6 +34,8 @@ public static partial class Bonuses
             );
         }
 
+        /// <summary>Retrieve all XP Bonus objects between date ranges</summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/bonuses/list-bonuses" />
         [UsedImplicitly]
         public BonusesResponse GetBonuses(GetBonusesOptions getBonusesOptions)
         {              
@@ -40,6 +46,8 @@ public static partial class Bonuses
             );
         }        
         
+        /// <summary>Retrieve all XP Bonus objects between date ranges</summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/bonuses/list-bonuses" />
         [UsedImplicitly]
         public async Task<BonusesResponse> GetBonusesAsync(GetBonusesOptions getBonusesOptions)
         {                    
