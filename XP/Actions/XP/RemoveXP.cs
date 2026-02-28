@@ -4,10 +4,8 @@ using JetBrains.Annotations;
 using System.Threading.Tasks;
 
 namespace ConstructServices.XP.Actions;
-
 public static partial class XP
 {        
-    
     extension(XPService xpService)
     {
         [UsedImplicitly]

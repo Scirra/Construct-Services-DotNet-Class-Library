@@ -8,7 +8,6 @@ namespace ConstructServices.XP.Actions;
 
 public static partial class Bonuses
 {
-
     extension(XPService xpService)
     {
         [UsedImplicitly]

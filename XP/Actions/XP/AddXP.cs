@@ -4,10 +4,8 @@ using System.Threading.Tasks;
 using ConstructServices.XP.Objects;
 
 namespace ConstructServices.XP.Actions;
-
 public static partial class XP
 {        
-    
     extension(XPService xpService)
     {
         [UsedImplicitly]
@@ -20,9 +18,6 @@ public static partial class XP
             );
         }
 
-        /// <summary>
-        /// Add XP to a specified player ID
-        /// </summary>
         [UsedImplicitly]
         public async Task<BaseResponse> AddXPAsync(ModifyXPOptions modifyXPOptions)
         {

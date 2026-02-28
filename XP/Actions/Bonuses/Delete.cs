@@ -7,12 +7,8 @@ namespace ConstructServices.XP.Actions;
 
 public static partial class Bonuses
 {
-
     extension(XPService xpService)
     {        
-        /// <summary>
-        /// Delete an existing bonus by ID
-        /// </summary>
         [UsedImplicitly]
         public BaseResponse DeleteBonus(DeleteXPBonusOptions deleteXPBonusOptions)
         {            

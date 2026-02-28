@@ -8,7 +8,6 @@ namespace ConstructServices.XP.Actions;
 
 public static partial class XP
 {        
-    
     extension(XPService xpService)
     {
         [UsedImplicitly]

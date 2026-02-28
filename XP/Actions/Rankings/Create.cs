@@ -5,7 +5,6 @@ using JetBrains.Annotations;
 using System.Threading.Tasks;
 
 namespace ConstructServices.XP.Actions;
-
 public static partial class Rankings
 {        
     extension(XPService xpService)
