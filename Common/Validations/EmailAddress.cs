@@ -6,7 +6,7 @@ internal static class EmailAddress
     {
         try
         {
-            var addr = new System.Net.Mail.MailAddress(emailAddress);
+            _ = new System.Net.Mail.MailAddress(emailAddress);
         }
         catch
         {

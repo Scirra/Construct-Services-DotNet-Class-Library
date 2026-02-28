@@ -129,23 +129,16 @@ public sealed class GetBonusOptions
         return formData;
     }
 }
-public sealed class GetBonusesOptions
+public sealed class GetBonusesOptions(DateTime from, DateTime to)
 {
     [UsedImplicitly]
-    private DateTime Start { get; set; }
+    private DateTime Start { get; set; } = from;
 
     [UsedImplicitly]
-    private DateTime End { get; set; }
-    
-    public GetBonusesOptions(DateTime from, DateTime to)
+    private DateTime End { get; set; } = to;
+
+    public GetBonusesOptions(DateTime to) : this(DateTime.UtcNow, to)
     {
-        Start = from;
-        End = to;
-    }
-    public GetBonusesOptions(DateTime to)
-    {
-        Start = DateTime.UtcNow;
-        End = to;
     }
 
     [UsedImplicitly]
