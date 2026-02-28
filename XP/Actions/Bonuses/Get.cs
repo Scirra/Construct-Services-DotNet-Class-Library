@@ -2,6 +2,7 @@
 using ConstructServices.XP.Responses;
 using JetBrains.Annotations;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -28,11 +29,16 @@ public static partial class Bonuses
 
         [UsedImplicitly]
         public BonusResponse GetBonus(Guid bonusID)
-        {            
+        {                   
+            var formData = new Dictionary<string, string>
+            {
+                { "bonusID", bonusID.ToString() }
+            };
+
             return Request.ExecuteSyncRequest<BonusResponse>(
                 GetBonusAPIPath,
                 xpService,
-                []
+                formData
             );
         }
 
@@ -49,11 +55,16 @@ public static partial class Bonuses
 
         [UsedImplicitly]
         public async Task<BonusResponse> GetBonusAsync(Guid bonusID)
-        {            
+        {             
+            var formData = new Dictionary<string, string>
+            {
+                { "bonusID", bonusID.ToString() }
+            };
+
             return await Request.ExecuteAsyncRequest<BonusResponse>(
                 GetBonusAPIPath,
                 xpService,
-                []
+                formData
             );
         }
 
