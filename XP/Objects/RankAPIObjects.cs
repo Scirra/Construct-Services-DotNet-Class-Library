@@ -55,14 +55,27 @@ public sealed class CreateXPRankOptions : ModifyXPRankBase
 public sealed class UpdateXPRankOptions : ModifyXPRankBase
 {
     [UsedImplicitly]
-    public long? AtXP { get; set; }
-    
+    public Guid ID { get; private set; }
+
     [UsedImplicitly]
-    public Dictionary<string, string> BuildFormData(Guid rankID)
+    public long? AtXP { get; set; }
+
+    public UpdateXPRankOptions(Guid rankID)
+    {
+        ID = rankID;
+    }
+    public UpdateXPRankOptions(string strRankID)
+    {
+        if (!Guid.TryParse(strRankID, out var id)) throw new InvalidCastException();
+        ID = id;
+    }
+
+    [UsedImplicitly]
+    public Dictionary<string, string> BuildFormData()
     {
         var formData = BuildBaseFormData();
-        formData.Add("rankID", rankID.ToString());
-        if(AtXP.HasValue) formData.Add("xp", AtXP.ToString());
+        formData.Add("rankID", ID.ToString());
+        if(AtXP.HasValue) formData.Add("xp", AtXP.Value.ToString());
         return formData;
     }
 }
