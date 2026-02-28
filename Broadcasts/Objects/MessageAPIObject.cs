@@ -114,3 +114,27 @@ public sealed class DeleteMessageOptions
         return formData;
     }
 }
+public sealed class GetMessageOptions
+{
+    [UsedImplicitly]
+    public Guid MessageID { get; private set; }
+    
+    public GetMessageOptions(string strMessageID)
+    {
+        MessageID = Guid.Parse(strMessageID);
+    }
+    public GetMessageOptions(Guid messageID)
+    {
+        MessageID = messageID;
+    }
+
+    [UsedImplicitly]
+    public Dictionary<string, string> BuildFormData()
+    {
+        var formData = new Dictionary<string, string>
+        {
+            { "messageID", MessageID.ToString() }
+        };
+        return formData;
+    }
+}
