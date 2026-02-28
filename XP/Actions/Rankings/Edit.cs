@@ -54,7 +54,7 @@ public static partial class Rankings
         /// <summary>
         /// Update an existing rank
         /// </summary>
-        public BaseResponse UpdateRank(
+        public RankResponse UpdateRank(
             string strRankID,
             RankUpdateOptions updateOptions)
         {
@@ -70,11 +70,11 @@ public static partial class Rankings
         /// Update an existing rank
         /// </summary>
         [UsedImplicitly]
-        public BaseResponse UpdateRank(
+        public RankResponse UpdateRank(
             Guid rankID,
             RankUpdateOptions updateOptions)
         {
-            return Request.ExecuteSyncRequest<BaseResponse>(
+            return Request.ExecuteSyncRequest<RankResponse>(
                 EditRankAPIPath,
                 xpService,
                 updateOptions.BuildFormData(rankID)
@@ -84,7 +84,7 @@ public static partial class Rankings
         /// <summary>
         /// Update an existing rank
         /// </summary>
-        public async Task<BaseResponse> UpdateRankAsync(
+        public async Task<RankResponse> UpdateRankAsync(
             string strRankID,
             RankUpdateOptions updateOptions)
         {
@@ -100,11 +100,11 @@ public static partial class Rankings
         /// Update an existing rank
         /// </summary>
         [UsedImplicitly]
-        public async Task<BaseResponse> UpdateRankAsync(
+        public async Task<RankResponse> UpdateRankAsync(
             Guid rankID,
             RankUpdateOptions updateOptions)
         {
-            return await Request.ExecuteAsyncRequest<BaseResponse>(
+            return await Request.ExecuteAsyncRequest<RankResponse>(
                 EditRankAPIPath,
                 xpService,
                 updateOptions.BuildFormData(rankID)

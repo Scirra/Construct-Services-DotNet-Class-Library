@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Threading.Tasks;
+using ConstructServices.XP.Responses;
 
 namespace ConstructServices.XP.Actions;
 
@@ -67,11 +68,11 @@ public static partial class Bonuses
         /// Update an existing bonus
         /// </summary>
         [UsedImplicitly]
-        public BaseResponse UpdateBonus(
+        public BonusResponse UpdateBonus(
             Guid bonusID,
             BonusUpdateOptions updateOptions)
         {
-            return Request.ExecuteSyncRequest<BaseResponse>(
+            return Request.ExecuteSyncRequest<BonusResponse>(
                 EditBonusAPIPath,
                 xpService,
                 updateOptions.BuildFormData(bonusID)
@@ -81,11 +82,11 @@ public static partial class Bonuses
         /// Update an existing bonus
         /// </summary>
         [UsedImplicitly]
-        public async Task<BaseResponse> UpdateBonusAsync(
+        public async Task<BonusResponse> UpdateBonusAsync(
             Guid bonusID,
             BonusUpdateOptions updateOptions)
         {
-            return await Request.ExecuteAsyncRequest<BaseResponse>(
+            return await Request.ExecuteAsyncRequest<BonusResponse>(
                 EditBonusAPIPath,
                 xpService,
                 updateOptions.BuildFormData(bonusID)
