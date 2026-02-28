@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ConstructServices.Broadcasts.Actions;
 
-public static partial class Delete
+public static class Delete
 {
     extension(BroadcastService service)
     {

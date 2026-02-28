@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ConstructServices.Broadcasts.Actions;
 
-public static partial class Create
+public static class Create
 {
     extension(BroadcastService service)
     {

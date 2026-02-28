@@ -8,7 +8,7 @@ using ConstructServices.Common;
 
 namespace ConstructServices.Broadcasts.Actions;
 
-public static partial class Update
+public static class Update
 {    
 
     extension(BroadcastService service)
