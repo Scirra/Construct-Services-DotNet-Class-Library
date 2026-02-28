@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConstructServices.Broadcasts.Actions;
 
-public static partial class Get
+public static partial class Messages
 {
     extension(BroadcastService service)
     {

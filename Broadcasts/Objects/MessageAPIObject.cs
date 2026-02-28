@@ -1,5 +1,6 @@
-﻿using System;
+﻿using ConstructServices.Common;
 using JetBrains.Annotations;
+using System;
 using System.Collections.Generic;
 
 namespace ConstructServices.Broadcasts.Objects;
@@ -134,6 +135,35 @@ public sealed class GetMessageOptions
         var formData = new Dictionary<string, string>
         {
             { "messageID", MessageID.ToString() }
+        };
+        return formData;
+    }
+}
+public sealed class ListMessagesOptions
+{
+    [UsedImplicitly]
+    public Guid ChannelID { get; private set; }
+
+    [UsedImplicitly]
+    public PaginationOptions PaginationOptions { get; private set; }
+    
+    public ListMessagesOptions(string strChannelID, PaginationOptions paginationOptions = null)
+    {
+        ChannelID = Guid.Parse(strChannelID);
+        PaginationOptions = paginationOptions;
+    }
+    public ListMessagesOptions(Guid channelID, PaginationOptions paginationOptions = null)
+    {
+        ChannelID = channelID;
+        PaginationOptions = paginationOptions;
+    }
+
+    [UsedImplicitly]
+    public Dictionary<string, string> BuildFormData()
+    {
+        var formData = new Dictionary<string, string>
+        {
+            { "channelID", ChannelID.ToString() }
         };
         return formData;
     }
