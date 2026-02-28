@@ -1,8 +1,7 @@
-﻿using System;
-using ConstructServices.Common;
+﻿using ConstructServices.Common;
+using ConstructServices.XP.Objects;
 using ConstructServices.XP.Responses;
 using JetBrains.Annotations;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ConstructServices.XP.Actions;
@@ -12,71 +11,23 @@ public static partial class Rankings
     
     extension(XPService xpService)
     {        
-        /// <summary>
-        /// Delete an existing rank by its ID
-        /// </summary>
-        /// <param name="strRankID">The ID of the rank you want to delete.</param>
         [UsedImplicitly]
-        public RankResponse DeleteRank(string strRankID)
+        public RankResponse DeleteRank(DeleteXPRankOptions deleteXPRankOptions)
         {
-            var idValidator = Common.Validations.Guid.IsValidGuid(strRankID);
-            if (!idValidator.Successfull)
-            {
-                return new RankResponse(string.Format(idValidator.ErrorMessage, "Rank ID"));
-            }
-            return DeleteRank(xpService, idValidator.ReturnedObject);
-        }
-
-        /// <summary>
-        /// Delete an existing rank by its ID
-        /// </summary>
-        /// <param name="rankID">The ID of the rank you want to delete.</param>
-        [UsedImplicitly]
-        public RankResponse DeleteRank(Guid rankID)
-        {
-            var formData = new Dictionary<string, string>
-            {
-                { "rankID", rankID.ToString() }
-            };
-
             return Request.ExecuteSyncRequest<RankResponse>(
                 DeleteRankAPIPath,
                 xpService,
-                formData
+                deleteXPRankOptions.BuildFormData()
             );
         }
 
-        /// <summary>
-        /// Delete an existing rank by its ID
-        /// </summary>
-        /// <param name="strRankID">The ID of the rank you want to delete.</param>
         [UsedImplicitly]
-        public async Task<RankResponse> DeleteRankAsync(string strRankID)
+        public async Task<RankResponse> DeleteRankAsync(DeleteXPRankOptions deleteXPRankOptions)
         {
-            var idValidator = Common.Validations.Guid.IsValidGuid(strRankID);
-            if (!idValidator.Successfull)
-            {
-                return new RankResponse(string.Format(idValidator.ErrorMessage, "Rank ID"));
-            }
-            return await DeleteRankAsync(xpService, idValidator.ReturnedObject);
-        }
-
-        /// <summary>
-        /// Delete an existing rank by its ID
-        /// </summary>
-        /// <param name="rankID">The ID of the rank you want to delete.</param>
-        [UsedImplicitly]
-        public async Task<RankResponse> DeleteRankAsync(Guid rankID)
-        {
-            var formData = new Dictionary<string, string>
-            {
-                { "rankID", rankID.ToString() }
-            };
-
             return await Request.ExecuteAsyncRequest<RankResponse>(
                 DeleteRankAPIPath,
                 xpService,
-                formData
+                deleteXPRankOptions.BuildFormData()
             );
         }
     }

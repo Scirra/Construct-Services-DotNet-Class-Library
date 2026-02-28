@@ -1,7 +1,7 @@
 ﻿using ConstructServices.Common;
+using ConstructServices.XP.Objects;
 using ConstructServices.XP.Responses;
 using JetBrains.Annotations;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ConstructServices.XP.Actions;
@@ -12,107 +12,23 @@ public static partial class Rankings
     
     extension(XPService xpService)
     {
-        /// <summary>
-        /// Create a new XP ranking
-        /// </summary>
-        /// <param name="strAtXP">The XP level required to achieve this rank.</param>
-        /// <param name="title">A title for the rank, for example 'General'.</param>
-        /// <param name="description">A description for the rank.</param>
-        /// <param name="languageISO">The language that the title and description are written in.  Defaults to your games default language if not specified.</param>
-        /// <returns></returns>
         [UsedImplicitly]
-        public RankResponse CreateRank(
-            string strAtXP,
-            string title, 
-            string description = null, 
-            string languageISO = null)
+        public RankResponse CreateRank(CreateXPRankOptions createXPRankOptions)
         {
-            if (!long.TryParse(strAtXP, out var atXP))
-            {
-                return new RankResponse("At XP is not a valid long value.");
-            }
-            return xpService.CreateRank(atXP, title, description, languageISO);
-        }
-
-        /// <summary>
-        /// Create a new XP ranking
-        /// </summary>
-        /// <param name="atXP">The XP level required to achieve this rank.</param>
-        /// <param name="title">A title for the rank, for example 'General'.</param>
-        /// <param name="description">A description for the rank.</param>
-        /// <param name="languageISO">The language that the title and description are written in.  Defaults to your games default language if not specified.</param>
-        /// <returns></returns>
-        [UsedImplicitly]
-        public RankResponse CreateRank(
-            long atXP,
-            string title, 
-            string description = null, 
-            string languageISO = null)
-        {
-            var formData = new Dictionary<string, string>
-            {
-                {"xp", atXP.ToString() },
-                {"title", title },
-                {"description", description ?? string.Empty },
-                {"language", languageISO ?? string.Empty }
-            };
-        
             return Request.ExecuteSyncRequest<RankResponse>(
                 CreateRankAPIPath,
                 xpService,
-                formData
+                createXPRankOptions.BuildFormData()
             );
         }
 
-        /// <summary>
-        /// Create a new XP ranking
-        /// </summary>
-        /// <param name="strAtXP">The XP level required to achieve this rank.</param>
-        /// <param name="title">A title for the rank, for example 'General'.</param>
-        /// <param name="description">A description for the rank.</param>
-        /// <param name="languageISO">The language that the title and description are written in.  Defaults to your games default language if not specified.</param>
-        /// <returns></returns>
         [UsedImplicitly]
-        public async Task<RankResponse> CreateRankAsync(
-            string strAtXP,
-            string title, 
-            string description = null, 
-            string languageISO = null)
+        public async Task<RankResponse> CreateRankAsync(CreateXPRankOptions createXPRankOptions)
         {
-            if (!long.TryParse(strAtXP, out var atXP))
-            {
-                return new RankResponse("At XP is not a valid long value.");
-            }
-            return await xpService.CreateRankAsync(atXP, title, description, languageISO);
-        }
-
-        /// <summary>
-        /// Create a new XP ranking
-        /// </summary>
-        /// <param name="atXP">The XP level required to achieve this rank.</param>
-        /// <param name="title">A title for the rank, for example 'General'.</param>
-        /// <param name="description">A description for the rank.</param>
-        /// <param name="languageISO">The language that the title and description are written in.  Defaults to your games default language if not specified.</param>
-        /// <returns></returns>
-        [UsedImplicitly]
-        public async Task<RankResponse> CreateRankAsync(
-            long atXP,
-            string title, 
-            string description = null, 
-            string languageISO = null)
-        {
-            var formData = new Dictionary<string, string>
-            {
-                {"xp", atXP.ToString() },
-                {"title", title },
-                {"description", description ?? string.Empty },
-                {"language", languageISO ?? string.Empty }
-            };
-        
             return await Request.ExecuteAsyncRequest<RankResponse>(
                 CreateRankAPIPath,
                 xpService,
-                formData
+                createXPRankOptions.BuildFormData()
             );
         }
     }
