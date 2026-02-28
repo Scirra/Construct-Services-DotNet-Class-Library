@@ -11,9 +11,52 @@ public static partial class Bonuses
 {
     private const string GetActiveBonusesAPIPath = "/activebonuses.json";
     private const string ListBonusesAPIPath = "/listbonuses.json";
+    private const string GetBonusAPIPath = "/getbonus.json";
 
     extension(XPService xpService)
     {
+        [UsedImplicitly]
+        public BonusResponse GetBonus(string strBonusID)
+        {            
+            var idValidator = Common.Validations.Guid.IsValidGuid(strBonusID);
+            if (!idValidator.Successfull)
+            {
+                return new BonusResponse(string.Format(idValidator.ErrorMessage, "Bonus ID"));
+            }
+            return xpService.GetBonus(idValidator.ReturnedObject);
+        }
+
+        [UsedImplicitly]
+        public BonusResponse GetBonus(Guid bonusID)
+        {            
+            return Request.ExecuteSyncRequest<BonusResponse>(
+                GetBonusAPIPath,
+                xpService,
+                []
+            );
+        }
+
+        [UsedImplicitly]
+        public async Task<BonusResponse> GetBonusAsync(string strBonusID)
+        {            
+            var idValidator = Common.Validations.Guid.IsValidGuid(strBonusID);
+            if (!idValidator.Successfull)
+            {
+                return new BonusResponse(string.Format(idValidator.ErrorMessage, "Bonus ID"));
+            }
+            return await xpService.GetBonusAsync(idValidator.ReturnedObject);
+        }
+
+        [UsedImplicitly]
+        public async Task<BonusResponse> GetBonusAsync(Guid bonusID)
+        {            
+            return await Request.ExecuteAsyncRequest<BonusResponse>(
+                GetBonusAPIPath,
+                xpService,
+                []
+            );
+        }
+
         /// <summary>
         /// Get currently active bonuses
         /// </summary>
