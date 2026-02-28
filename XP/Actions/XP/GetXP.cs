@@ -8,7 +8,6 @@ namespace ConstructServices.XP.Actions;
 
 public static partial class XP
 {        
-    private const string GetXPAPIPath = "/get.json";
     
     extension(XPService xpService)
     {
@@ -16,7 +15,7 @@ public static partial class XP
         public XPResponse GetXP(GetXPOptions getXPOptions)
         {
             return Request.ExecuteSyncRequest<XPResponse>(
-                GetXPAPIPath,
+                Config.GetXPAPIPath,
                 xpService,
                 getXPOptions.BuildFormData()
             );
@@ -26,7 +25,7 @@ public static partial class XP
         public async Task<XPResponse> GetXPAsync(GetXPOptions getXPOptions)
         {
             return await Request.ExecuteAsyncRequest<XPResponse>(
-                GetXPAPIPath,
+                Config.GetXPAPIPath,
                 xpService,
                 getXPOptions.BuildFormData()
             );

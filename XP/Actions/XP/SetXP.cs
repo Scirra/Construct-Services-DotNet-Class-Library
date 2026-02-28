@@ -7,7 +7,6 @@ namespace ConstructServices.XP.Actions;
 
 public static partial class XP
 {        
-    private const string SetXPAPIPath = "/setxp.json";
     
     extension(XPService xpService)
     {
@@ -15,7 +14,7 @@ public static partial class XP
         public BaseResponse SetXP(ModifyXPOptions modifyXPOptions)
         {
             return Request.ExecuteSyncRequest<BaseResponse>(
-                SetXPAPIPath,
+                Config.SetXPAPIPath,
                 xpService,
                 modifyXPOptions.BuildFormData()
             );
@@ -25,7 +24,7 @@ public static partial class XP
         public async Task<BaseResponse> SetXPAsync(ModifyXPOptions modifyXPOptions)
         {
             return await Request.ExecuteAsyncRequest<BaseResponse>(
-                SetXPAPIPath,
+                Config.SetXPAPIPath,
                 xpService,
                 modifyXPOptions.BuildFormData()
             );

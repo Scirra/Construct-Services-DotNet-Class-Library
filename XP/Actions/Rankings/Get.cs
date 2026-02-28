@@ -6,8 +6,6 @@ using JetBrains.Annotations;
 namespace ConstructServices.XP.Actions;
 public static partial class Rankings
 {        
-    private const string GetRanksAPIPath = "/listranks.json";
-    
     extension(XPService xpService)
     {
         /// <summary>
@@ -17,7 +15,7 @@ public static partial class Rankings
         public RanksResponse ListAllRanks()
         {
             return Request.ExecuteSyncRequest<RanksResponse>(
-                GetRanksAPIPath,
+                Config.GetRanksAPIPath,
                 xpService,
                 []
             );
@@ -30,7 +28,7 @@ public static partial class Rankings
         public async Task<RanksResponse> ListAllRanksAsync()
         {
             return await Request.ExecuteAsyncRequest<RanksResponse>(
-                GetRanksAPIPath,
+                Config.GetRanksAPIPath,
                 xpService,
                 []
             );

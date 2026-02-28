@@ -8,8 +8,6 @@ namespace ConstructServices.XP.Actions;
 
 public static partial class Bonuses
 {
-    private const string EditBonusAPIPath = "/editbonus.json";
-
     extension(XPService xpService)
     {
         [UsedImplicitly]
@@ -17,7 +15,7 @@ public static partial class Bonuses
             UpdateXPBonusOptions updateXPBonusOptions)
         {
             return Request.ExecuteSyncRequest<BonusResponse>(
-                EditBonusAPIPath,
+                Config.EditBonusAPIPath,
                 xpService,
                 updateXPBonusOptions.BuildFormData()
             );
@@ -28,7 +26,7 @@ public static partial class Bonuses
             UpdateXPBonusOptions updateXPBonusOptions)
         {
             return await Request.ExecuteAsyncRequest<BonusResponse>(
-                EditBonusAPIPath,
+                Config.EditBonusAPIPath,
                 xpService,
                 updateXPBonusOptions.BuildFormData()
             );

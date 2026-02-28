@@ -8,8 +8,6 @@ namespace ConstructServices.XP.Actions;
 
 public static partial class Bonuses
 {
-    private const string ListBonusesAPIPath = "/listbonuses.json";
-    private const string GetBonusAPIPath = "/getbonus.json";
 
     extension(XPService xpService)
     {
@@ -17,7 +15,7 @@ public static partial class Bonuses
         public BonusResponse GetBonus(GetBonusOptions getBonusOptions)
         {              
             return Request.ExecuteSyncRequest<BonusResponse>(
-                GetBonusAPIPath,
+                Config.GetBonusAPIPath,
                 xpService,
                 getBonusOptions.BuildFormData()
             );
@@ -27,7 +25,7 @@ public static partial class Bonuses
         public async Task<BonusResponse> GetBonusAsync(GetBonusOptions getBonusOptions)
         {                    
             return await Request.ExecuteAsyncRequest<BonusResponse>(
-                GetBonusAPIPath,
+                Config.GetBonusAPIPath,
                 xpService,
                 getBonusOptions.BuildFormData()
             );
@@ -37,7 +35,7 @@ public static partial class Bonuses
         public BonusesResponse GetBonuses(GetBonusesOptions getBonusesOptions)
         {              
             return Request.ExecuteSyncRequest<BonusesResponse>(
-                ListBonusesAPIPath,
+                Config.ListBonusesAPIPath,
                 xpService,
                 getBonusesOptions.BuildFormData()
             );
@@ -47,7 +45,7 @@ public static partial class Bonuses
         public async Task<BonusesResponse> GetBonusesAsync(GetBonusesOptions getBonusesOptions)
         {                    
             return await Request.ExecuteAsyncRequest<BonusesResponse>(
-                ListBonusesAPIPath,
+                Config.ListBonusesAPIPath,
                 xpService,
                 getBonusesOptions.BuildFormData()
             );

@@ -8,15 +8,13 @@ namespace ConstructServices.XP.Actions;
 
 public static partial class Rankings
 {        
-    private const string CreateRankAPIPath = "/createrank.json";
-    
     extension(XPService xpService)
     {
         [UsedImplicitly]
         public RankResponse CreateRank(CreateXPRankOptions createXPRankOptions)
         {
             return Request.ExecuteSyncRequest<RankResponse>(
-                CreateRankAPIPath,
+                Config.CreateRankAPIPath,
                 xpService,
                 createXPRankOptions.BuildFormData()
             );
@@ -26,7 +24,7 @@ public static partial class Rankings
         public async Task<RankResponse> CreateRankAsync(CreateXPRankOptions createXPRankOptions)
         {
             return await Request.ExecuteAsyncRequest<RankResponse>(
-                CreateRankAPIPath,
+                Config.CreateRankAPIPath,
                 xpService,
                 createXPRankOptions.BuildFormData()
             );

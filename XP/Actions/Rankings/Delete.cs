@@ -7,15 +7,13 @@ using System.Threading.Tasks;
 namespace ConstructServices.XP.Actions;
 public static partial class Rankings
 {        
-    private const string DeleteRankAPIPath = "/deleterank.json";
-    
     extension(XPService xpService)
     {        
         [UsedImplicitly]
         public RankResponse DeleteRank(DeleteXPRankOptions deleteXPRankOptions)
         {
             return Request.ExecuteSyncRequest<RankResponse>(
-                DeleteRankAPIPath,
+                Config.DeleteRankAPIPath,
                 xpService,
                 deleteXPRankOptions.BuildFormData()
             );
@@ -25,7 +23,7 @@ public static partial class Rankings
         public async Task<RankResponse> DeleteRankAsync(DeleteXPRankOptions deleteXPRankOptions)
         {
             return await Request.ExecuteAsyncRequest<RankResponse>(
-                DeleteRankAPIPath,
+                Config.DeleteRankAPIPath,
                 xpService,
                 deleteXPRankOptions.BuildFormData()
             );

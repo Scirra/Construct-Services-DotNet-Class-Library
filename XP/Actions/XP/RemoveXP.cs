@@ -7,7 +7,6 @@ namespace ConstructServices.XP.Actions;
 
 public static partial class XP
 {        
-    private const string RemoveXPAPIPath = "/removexp.json";
     
     extension(XPService xpService)
     {
@@ -15,7 +14,7 @@ public static partial class XP
         public BaseResponse RemoveXP(ModifyXPOptions modifyXPOptions)
         {
             return Request.ExecuteSyncRequest<BaseResponse>(
-                RemoveXPAPIPath,
+                Config.RemoveXPAPIPath,
                 xpService,
                 modifyXPOptions.BuildFormData()
             );
@@ -25,7 +24,7 @@ public static partial class XP
         public async Task<BaseResponse> RemoveXPAsync(ModifyXPOptions modifyXPOptions)
         {
             return await Request.ExecuteAsyncRequest<BaseResponse>(
-                RemoveXPAPIPath,
+                Config.RemoveXPAPIPath,
                 xpService,
                 modifyXPOptions.BuildFormData()
             );

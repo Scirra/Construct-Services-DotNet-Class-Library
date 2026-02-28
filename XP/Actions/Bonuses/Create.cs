@@ -5,18 +5,15 @@ using System.Threading.Tasks;
 using ConstructServices.XP.Objects;
 
 namespace ConstructServices.XP.Actions;
-
 public static partial class Bonuses
 {
-    private const string CreateBonusAPIPath = "/createbonus.json";
-    
     extension(XPService xpService)
     {
         [UsedImplicitly]
         public BonusResponse CreateBonus(CreateXPBonusOptions createXPBonusOptions)
         {
             return Request.ExecuteSyncRequest<BonusResponse>(
-                CreateBonusAPIPath,
+                Config.CreateBonusAPIPath,
                 xpService,
                 createXPBonusOptions.BuildFormData()
             );
@@ -26,7 +23,7 @@ public static partial class Bonuses
         public async Task<BonusResponse> CreateBonusAsync(CreateXPBonusOptions createXPBonusOptions)
         {
             return await Request.ExecuteAsyncRequest<BonusResponse>(
-                CreateBonusAPIPath,
+                Config.CreateBonusAPIPath,
                 xpService,
                 createXPBonusOptions.BuildFormData()
             );
