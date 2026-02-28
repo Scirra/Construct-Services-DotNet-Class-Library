@@ -24,7 +24,7 @@ public static partial class Bonuses
         public decimal? NewModifier { get; set; }
 
         [UsedImplicitly]
-        public Language NewLanguage { get; set; }
+        public string NewLanguageISO { get; set; }
 
         [UsedImplicitly]
         public string NewTitle { get; set; }
@@ -33,9 +33,12 @@ public static partial class Bonuses
         public string NewDescription { get; set; }
     }
 
-    private static Dictionary<string, string> BuildFormData(this BonusUpdateOptions updateOptions)
+    private static Dictionary<string, string> BuildFormData(this BonusUpdateOptions updateOptions, Guid bonusID)
     {
         var formData = new Dictionary<string, string>();
+        
+        if (updateOptions.NewLanguageISO != null)
+            formData.Add("bonusID", bonusID.ToString());
 
         if (updateOptions.NewStartDate.HasValue)
             formData.Add("start", new DateTimeOffset(updateOptions.NewStartDate.Value).ToUnixTimeSeconds().ToString());
@@ -52,8 +55,8 @@ public static partial class Bonuses
         if (updateOptions.NewDescription != null)
             formData.Add("description", updateOptions.NewDescription);
 
-        if (updateOptions.NewLanguage != null)
-            formData.Add("language", updateOptions.NewLanguage.ISO);
+        if (updateOptions.NewLanguageISO != null)
+            formData.Add("language", updateOptions.NewLanguageISO);
 
         return formData;
     }
@@ -71,7 +74,7 @@ public static partial class Bonuses
             return Request.ExecuteSyncRequest<BaseResponse>(
                 EditBonusAPIPath,
                 xpService,
-                updateOptions.BuildFormData()
+                updateOptions.BuildFormData(bonusID)
             );
         }
         /// <summary>
@@ -85,7 +88,7 @@ public static partial class Bonuses
             return await Request.ExecuteAsyncRequest<BaseResponse>(
                 EditBonusAPIPath,
                 xpService,
-                updateOptions.BuildFormData()
+                updateOptions.BuildFormData(bonusID)
             );
         }
     }
