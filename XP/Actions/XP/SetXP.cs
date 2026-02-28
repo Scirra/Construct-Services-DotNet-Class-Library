@@ -1,7 +1,6 @@
-﻿using System;
-using ConstructServices.Common;
+﻿using ConstructServices.Common;
+using ConstructServices.XP.Objects;
 using JetBrains.Annotations;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ConstructServices.XP.Actions;
@@ -12,41 +11,23 @@ public static partial class XP
     
     extension(XPService xpService)
     {
-        /// <summary>
-        /// Set XP for a specified player ID
-        /// </summary>
         [UsedImplicitly]
-        public BaseResponse SetXP(Guid playerID, long xp)
+        public BaseResponse SetXP(ModifyXPOptions modifyXPOptions)
         {
-            var formData = new Dictionary<string, string>
-            {
-                {"playerID", playerID.ToString() },
-                {"xp", xp.ToString() }
-            };
-        
             return Request.ExecuteSyncRequest<BaseResponse>(
                 SetXPAPIPath,
                 xpService,
-                formData
+                modifyXPOptions.BuildFormData()
             );
         }
 
-        /// <summary>
-        /// Set XP for a specified player ID
-        /// </summary>
         [UsedImplicitly]
-        public async Task<BaseResponse> SetXPAsync(Guid playerID, long xp)
+        public async Task<BaseResponse> SetXPAsync(ModifyXPOptions modifyXPOptions)
         {
-            var formData = new Dictionary<string, string>
-            {
-                {"playerID", playerID.ToString() },
-                {"xp", xp.ToString() }
-            };
-        
             return await Request.ExecuteAsyncRequest<BaseResponse>(
                 SetXPAPIPath,
                 xpService,
-                formData
+                modifyXPOptions.BuildFormData()
             );
         }
     }

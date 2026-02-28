@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using ConstructServices.Common;
+﻿using ConstructServices.Common;
+using ConstructServices.XP.Objects;
 using ConstructServices.XP.Responses;
 using JetBrains.Annotations;
-using Guid = System.Guid;
+using System.Threading.Tasks;
 
 namespace ConstructServices.XP.Actions;
 
@@ -13,65 +12,23 @@ public static partial class XP
     
     extension(XPService xpService)
     {
-        /// <summary>
-        /// Get XP for a specified player ID
-        /// </summary>
         [UsedImplicitly]
-        public XPResponse GetXP(Guid playerID)
-        {
-            var formData = new Dictionary<string, string>
-            {
-                {"playerID", playerID.ToString() }
-            };
-        
-            return Request.ExecuteSyncRequest<XPResponse>(
-                GetXPAPIPath,
-                xpService,
-                formData
-            );
-        }
-
-        /// <summary>
-        /// Get all channels in this game
-        /// </summary>
-        [UsedImplicitly]
-        public async Task<XPResponse> GetXPAsync(Guid playerID)
-        {
-            var formData = new Dictionary<string, string>
-            {
-                {"playerID", playerID.ToString() }
-            };
-        
-            return await Request.ExecuteAsyncRequest<XPResponse>(
-                GetXPAPIPath,
-                xpService,
-                formData
-            );
-        }
-
-        /// <summary>
-        /// Get XP for currently authenticated player
-        /// </summary>
-        [UsedImplicitly]
-        public XPResponse GetXP()
+        public XPResponse GetXP(GetXPOptions getXPOptions)
         {
             return Request.ExecuteSyncRequest<XPResponse>(
                 GetXPAPIPath,
                 xpService,
-                []
+                getXPOptions.BuildFormData()
             );
         }
 
-        /// <summary>
-        /// Get all channels in this game
-        /// </summary>
         [UsedImplicitly]
-        public async Task<XPResponse> GetXPAsync()
+        public async Task<XPResponse> GetXPAsync(GetXPOptions getXPOptions)
         {
             return await Request.ExecuteAsyncRequest<XPResponse>(
                 GetXPAPIPath,
                 xpService,
-                []
+                getXPOptions.BuildFormData()
             );
         }
     }
