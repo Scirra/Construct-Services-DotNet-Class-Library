@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using ConstructServices.Common;
+﻿using ConstructServices.Common;
 using ConstructServices.XP.Objects;
 using ConstructServices.XP.Responses;
 using JetBrains.Annotations;
@@ -16,9 +14,9 @@ public static partial class Bonuses
     extension(XPService xpService)
     {
         [UsedImplicitly]
-        public BonusesResponse GetBonus(GetBonusOptions getBonusOptions)
+        public BonusResponse GetBonus(GetBonusOptions getBonusOptions)
         {              
-            return Request.ExecuteSyncRequest<BonusesResponse>(
+            return Request.ExecuteSyncRequest<BonusResponse>(
                 GetBonusAPIPath,
                 xpService,
                 getBonusOptions.BuildFormData()
@@ -26,9 +24,9 @@ public static partial class Bonuses
         }        
         
         [UsedImplicitly]
-        public async Task<BonusesResponse> GetBonusAsync(GetBonusOptions getBonusOptions)
+        public async Task<BonusResponse> GetBonusAsync(GetBonusOptions getBonusOptions)
         {                    
-            return await Request.ExecuteAsyncRequest<BonusesResponse>(
+            return await Request.ExecuteAsyncRequest<BonusResponse>(
                 GetBonusAPIPath,
                 xpService,
                 getBonusOptions.BuildFormData()
