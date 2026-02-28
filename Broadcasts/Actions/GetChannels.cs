@@ -8,33 +8,26 @@ namespace ConstructServices.Broadcasts.Actions;
 
 public static partial class Get
 {
-    private const string GetChannelsAPIPath = "/getchannels.json";
-    
+
     extension(BroadcastService service)
     {
-        /// <summary>
-        /// Get all channels in this game
-        /// </summary>
         [UsedImplicitly]
         public ChannelsResponse GetChannels()
         {
             var formData = new Dictionary<string, string>();
             return Request.ExecuteSyncRequest<ChannelsResponse>(
-                GetChannelsAPIPath,
+                Config.GetChannelsAPIPath,
                 service,
                 formData
             );
         }
 
-        /// <summary>
-        /// Get all channels in this game
-        /// </summary>
         [UsedImplicitly]
         public async Task<ChannelsResponse> GetChannelsAsync()
         {
             var formData = new Dictionary<string, string>();
             return await Request.ExecuteAsyncRequest<ChannelsResponse>(
-                GetChannelsAPIPath,
+                Config.GetChannelsAPIPath,
                 service,
                 formData
             );

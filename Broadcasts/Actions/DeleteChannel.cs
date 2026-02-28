@@ -10,27 +10,16 @@ namespace ConstructServices.Broadcasts.Actions;
 
 public static partial class Delete
 {
-    private const string DeleteChannelAPIPath = "/deletechannel.json";
-
     extension(BroadcastService service)
     {
-        /// <summary>
-        /// Delete existing channel
-        /// </summary>
         [UsedImplicitly]
         public BaseResponse DeleteChannel(Channel channel)
             => service.DeleteChannel(channel.ID);
 
-        /// <summary>
-        /// Delete existing channel
-        /// </summary>
         [UsedImplicitly]
         public async Task<BaseResponse> DeleteChannelAsync(Channel channel)
             => await service.DeleteChannelAsync(channel.ID);
         
-        /// <summary>
-        /// Delete existing channel
-        /// </summary>
         [UsedImplicitly]
         public BaseResponse DeleteChannel(string strChannelID)
         {
@@ -43,9 +32,6 @@ public static partial class Delete
             return service.DeleteChannel(channelIDValidator.ReturnedObject);
         }
 
-        /// <summary>
-        /// Delete existing channel
-        /// </summary>
         [UsedImplicitly]
         public async Task<BaseResponse> DeleteChannelAsync(string strChannelID)
         {
@@ -58,9 +44,6 @@ public static partial class Delete
             return await service.DeleteChannelAsync(channelIDValidator.ReturnedObject);
         }
 
-        /// <summary>
-        /// Delete existing channel
-        /// </summary>
         [UsedImplicitly]
         public BaseResponse DeleteChannel(Guid channelID)
         {
@@ -70,15 +53,12 @@ public static partial class Delete
             };
 
             return Request.ExecuteSyncRequest<BaseResponse>(
-                DeleteChannelAPIPath,
+                Config.DeleteChannelAPIPath,
                 service,
                 formData
             );
         }
 
-        /// <summary>
-        /// Delete existing channel
-        /// </summary>
         [UsedImplicitly]
         public async Task<BaseResponse> DeleteChannelAsync(Guid channelID)
         {
@@ -88,7 +68,7 @@ public static partial class Delete
             };
 
             return await Request.ExecuteAsyncRequest<BaseResponse>(
-                DeleteChannelAPIPath,
+                Config.DeleteChannelAPIPath,
                 service,
                 formData
             );

@@ -10,13 +10,9 @@ namespace ConstructServices.Broadcasts.Actions;
 
 public static partial class Update
 {
-    private const string UpdateChannelAPIPath = "/updatechannel.json";
 
     extension(BroadcastService service)
     {
-        /// <summary>
-        /// Update a channels settings
-        /// </summary>
         [UsedImplicitly]
         public ChannelResponse UpdateChannel(
             string strChannelID,
@@ -33,9 +29,6 @@ public static partial class Update
             return service.UpdateChannel(channelIDValidator.ReturnedObject, channelName, channelDescription, languageISO, allowRatings);
         }
 
-        /// <summary>
-        /// Update a channels settings
-        /// </summary>
         [UsedImplicitly]
         public async Task<ChannelResponse> UpdateChannelAsync(
             string strChannelID,
@@ -52,9 +45,6 @@ public static partial class Update
             return await service.UpdateChannelAsync(channelIDValidator.ReturnedObject, channelName, channelDescription, languageISO, allowRatings);
         }
         
-        /// <summary>
-        /// Update a channels settings
-        /// </summary>
         [UsedImplicitly]
         public ChannelResponse UpdateChannel(
             Channel channel,
@@ -65,9 +55,6 @@ public static partial class Update
             =>
                 service.UpdateChannel(channel.ID, channelName, channelDescription, languageISO, allowRatings);
 
-        /// <summary>
-        /// Update a channels settings
-        /// </summary>
         [UsedImplicitly]
         public async Task<ChannelResponse> UpdateChannelAsync(
             Channel channel,
@@ -78,9 +65,6 @@ public static partial class Update
             =>
                 await service.UpdateChannelAsync(channel.ID, channelName, channelDescription, languageISO, allowRatings);
 
-        /// <summary>
-        /// Update a channels settings
-        /// </summary>
         [UsedImplicitly]
         public ChannelResponse UpdateChannel(
             Guid channelID,
@@ -99,15 +83,12 @@ public static partial class Update
             };
 
             return Request.ExecuteSyncRequest<ChannelResponse>(
-                UpdateChannelAPIPath,
+                Config.UpdateChannelAPIPath,
                 service,
                 formData
             );
         }
 
-        /// <summary>
-        /// Update a channels settings
-        /// </summary>
         [UsedImplicitly]
         public async Task<ChannelResponse> UpdateChannelAsync(
             Guid channelID,
@@ -126,7 +107,7 @@ public static partial class Update
             };
 
             return await Request.ExecuteAsyncRequest<ChannelResponse>(
-                UpdateChannelAPIPath,
+                Config.UpdateChannelAPIPath,
                 service,
                 formData
             );

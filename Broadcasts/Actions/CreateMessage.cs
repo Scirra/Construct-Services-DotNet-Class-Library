@@ -10,13 +10,8 @@ namespace ConstructServices.Broadcasts.Actions;
 
 public static partial class Create
 {
-    private const string CreateMessageAPIPath = "/createmessage.json";
-
     extension(BroadcastService service)
     {
-        /// <summary>
-        /// Create a new message in a channel
-        /// </summary>
         [UsedImplicitly]
         public MessageResponse CreateMessage(
             Channel channel,
@@ -25,9 +20,6 @@ public static partial class Create
             string languageISO) =>
             service.CreateMessage(channel.ID, title, text, languageISO);
 
-        /// <summary>
-        /// Create a new message in a channel
-        /// </summary>
         [UsedImplicitly]
         public async Task<MessageResponse> CreateMessageAsync(
             Channel channel,
@@ -36,9 +28,6 @@ public static partial class Create
             string languageISO) =>
             await service.CreateMessageAsync(channel.ID, title, text, languageISO);
         
-        /// <summary>
-        /// Create a new message in a channel
-        /// </summary>
         [UsedImplicitly]
         public MessageResponse CreateMessage(
             string strChannelID,
@@ -54,9 +43,6 @@ public static partial class Create
             return service.CreateMessage(channelIDValidator.ReturnedObject, title, text, languageISO);
         }
 
-        /// <summary>
-        /// Create a new message in a channel
-        /// </summary>
         [UsedImplicitly]
         public async Task<MessageResponse> CreateMessageAsync(
             string strChannelID,
@@ -72,9 +58,6 @@ public static partial class Create
             return await service.CreateMessageAsync(channelIDValidator.ReturnedObject, title, text, languageISO);
         }
 
-        /// <summary>
-        /// Create a new message in a channel
-        /// </summary>
         [UsedImplicitly]
         public MessageResponse CreateMessage(
             Guid channelID,
@@ -97,15 +80,12 @@ public static partial class Create
             };
 
             return Request.ExecuteSyncRequest<MessageResponse>(
-                CreateMessageAPIPath,
+                Config.CreateMessageAPIPath,
                 service,
                 formData
             );
         }
 
-        /// <summary>
-        /// Create a new message in a channel
-        /// </summary>
         [UsedImplicitly]
         public async Task<MessageResponse> CreateMessageAsync(
             Guid channelID,
@@ -128,7 +108,7 @@ public static partial class Create
             };
 
             return await Request.ExecuteAsyncRequest<MessageResponse>(
-                CreateMessageAPIPath,
+                Config.CreateMessageAPIPath,
                 service,
                 formData
             );

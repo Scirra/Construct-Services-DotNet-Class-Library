@@ -11,31 +11,20 @@ namespace ConstructServices.Broadcasts.Actions;
 
 public static partial class Delete
 {
-    private const string DeleteMessageAPIPath = "/deletemessage.json";
-
     extension(BroadcastService service)
     {
-        /// <summary>
-        /// Delete a message
-        /// </summary>
         [UsedImplicitly]
         public BaseResponse DeleteMessage(
             Message message)
             =>
                 service.DeleteMessage(message.ID);
 
-        /// <summary>
-        /// Delete a message
-        /// </summary>
         [UsedImplicitly]
         public async Task<BaseResponse> DeleteMessageAsync(
             Message message)
             =>
                 await service.DeleteMessageAsync(message.ID);
 
-        /// <summary>
-        /// Delete a message
-        /// </summary>
         [UsedImplicitly]
         public BaseResponse DeleteMessage(
             string strMessageID)
@@ -48,9 +37,6 @@ public static partial class Delete
             return service.DeleteMessage(messageIDValidator.ReturnedObject);
         }
 
-        /// <summary>
-        /// Delete a message
-        /// </summary>
         [UsedImplicitly]
         public async Task<BaseResponse> DeleteMessageAsync(
             string strMessageID)
@@ -63,9 +49,6 @@ public static partial class Delete
             return await service.DeleteMessageAsync(messageIDValidator.ReturnedObject);
         }
 
-        /// <summary>
-        /// Delete a message
-        /// </summary>
         [UsedImplicitly]
         public BaseResponse DeleteMessage(
             Guid messageID)
@@ -76,15 +59,12 @@ public static partial class Delete
             };
 
             return Request.ExecuteSyncRequest<MessageResponse>(
-                DeleteMessageAPIPath,
+                Config.DeleteMessageAPIPath,
                 service,
                 formData
             );
         }
 
-        /// <summary>
-        /// Delete a message
-        /// </summary>
         [UsedImplicitly]
         public async Task<BaseResponse> DeleteMessageAsync(
             Guid messageID)
@@ -95,7 +75,7 @@ public static partial class Delete
             };
 
             return await Request.ExecuteAsyncRequest<MessageResponse>(
-                DeleteMessageAPIPath,
+                Config.DeleteMessageAPIPath,
                 service,
                 formData
             );

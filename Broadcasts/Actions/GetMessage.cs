@@ -10,31 +10,21 @@ namespace ConstructServices.Broadcasts.Actions;
 
 public static partial class Get
 {
-    private const string GetMessageAPIPath = "/getmessage.json";
 
     extension(BroadcastService service)
     {
-        /// <summary>
-        /// Delete a message
-        /// </summary>
         [UsedImplicitly]
         public MessageResponse GetMessage(
             Message message)
             =>
                 service.GetMessage(message.ID);
 
-        /// <summary>
-        /// Delete a message
-        /// </summary>
         [UsedImplicitly]
         public async Task<MessageResponse> GetMessageAsync(
             Message message)
             =>
                await service.GetMessageAsync(message.ID);
 
-        /// <summary>
-        /// Delete a message
-        /// </summary>
         [UsedImplicitly]
         public MessageResponse GetMessage(
             string strMessageID)
@@ -47,9 +37,6 @@ public static partial class Get
             return service.GetMessage(messageIDValidator.ReturnedObject);
         }
 
-        /// <summary>
-        /// Delete a message
-        /// </summary>
         [UsedImplicitly]
         public async Task<MessageResponse> GetMessageAsync(
             string strMessageID)
@@ -62,9 +49,6 @@ public static partial class Get
             return await service.GetMessageAsync(messageIDValidator.ReturnedObject);
         }
 
-        /// <summary>
-        /// Delete a message
-        /// </summary>
         [UsedImplicitly]
         public MessageResponse GetMessage(
             Guid messageID)
@@ -75,15 +59,12 @@ public static partial class Get
             };
 
             return Request.ExecuteSyncRequest<MessageResponse>(
-                GetMessageAPIPath,
+                Config.GetMessageAPIPath,
                 service,
                 formData
             );
         }
 
-        /// <summary>
-        /// Delete a message
-        /// </summary>
         [UsedImplicitly]
         public async Task<MessageResponse> GetMessageAsync(
             Guid messageID)
@@ -94,7 +75,7 @@ public static partial class Get
             };
 
             return await Request.ExecuteAsyncRequest<MessageResponse>(
-                GetMessageAPIPath,
+                Config.GetMessageAPIPath,
                 service,
                 formData
             );

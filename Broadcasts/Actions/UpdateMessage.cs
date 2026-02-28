@@ -10,13 +10,9 @@ namespace ConstructServices.Broadcasts.Actions;
 
 public static partial class Update
 {    
-    private const string UpdateMessageAPIPath = "/updatemessage.json";
 
     extension(BroadcastService service)
     {
-        /// <summary>
-        /// Update a channel message
-        /// </summary>
         [UsedImplicitly]
         public BaseResponse UpdateMessage(
             Message message,
@@ -26,9 +22,6 @@ public static partial class Update
             =>
                 service.UpdateMessage(message.ID, title, text, languageISO);
 
-        /// <summary>
-        /// Update a channel message
-        /// </summary>
         [UsedImplicitly]
         public async Task<BaseResponse> UpdateMessageAsync(
             Message message,
@@ -38,9 +31,6 @@ public static partial class Update
             =>
                 await service.UpdateMessageAsync(message.ID, title, text, languageISO);
         
-        /// <summary>
-        /// Update a channel message
-        /// </summary>
         [UsedImplicitly]
         public BaseResponse UpdateMessage(
             string strMessageID,
@@ -56,9 +46,6 @@ public static partial class Update
             return service.UpdateMessage(messageIDValidator.ReturnedObject, title, text, languageISO);
         }
 
-        /// <summary>
-        /// Update a channel message
-        /// </summary>
         [UsedImplicitly]
         public async Task<BaseResponse> UpdateMessageAsync(
             string strMessageID,
@@ -74,9 +61,6 @@ public static partial class Update
             return await service.UpdateMessageAsync(messageIDValidator.ReturnedObject, title, text, languageISO);
         }
 
-        /// <summary>
-        /// Update a channel message
-        /// </summary>
         [UsedImplicitly]
         public BaseResponse UpdateMessage(
             Guid messageID,
@@ -93,15 +77,12 @@ public static partial class Update
             };
 
             return Request.ExecuteSyncRequest<MessageResponse>(
-                UpdateMessageAPIPath,
+                Config.UpdateMessageAPIPath,
                 service,
                 formData
             );
         }
 
-        /// <summary>
-        /// Update a channel message
-        /// </summary>
         [UsedImplicitly]
         public async Task<BaseResponse> UpdateMessageAsync(
             Guid messageID,
@@ -118,7 +99,7 @@ public static partial class Update
             };
 
             return await Request.ExecuteAsyncRequest<MessageResponse>(
-                UpdateMessageAPIPath,
+                Config.UpdateMessageAPIPath,
                 service,
                 formData
             );

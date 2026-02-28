@@ -9,13 +9,8 @@ namespace ConstructServices.Broadcasts.Actions;
 
 public static partial class Get
 {    
-    private const string GetChannelAPIPath = "/getchannel.json";
-    
     extension(BroadcastService service)
     {
-        /// <summary>
-        /// Get all channels in this game
-        /// </summary>
         [UsedImplicitly]
         public ChannelResponse GetChannel(string strChannelID)
         {
@@ -28,9 +23,6 @@ public static partial class Get
             return service.GetChannel(channelIDValidator.ReturnedObject);
         }
 
-        /// <summary>
-        /// Get all channels in this game
-        /// </summary>
         [UsedImplicitly]
         public async Task<ChannelResponse> GetChannelAsync(string strChannelID)
         {
@@ -43,9 +35,6 @@ public static partial class Get
             return await service.GetChannelAsync(channelIDValidator.ReturnedObject);
         }
 
-        /// <summary>
-        /// Get all channels in this game
-        /// </summary>
         [UsedImplicitly]
         public ChannelResponse GetChannel(Guid channelID)
         {
@@ -55,15 +44,12 @@ public static partial class Get
             };
         
             return Request.ExecuteSyncRequest<ChannelResponse>(
-                GetChannelAPIPath,
+                Config.GetChannelAPIPath,
                 service,
                 formData
             );
         }
 
-        /// <summary>
-        /// Get all channels in this game
-        /// </summary>
         [UsedImplicitly]
         public async Task<ChannelResponse> GetChannelAsync(Guid channelID)
         {
@@ -73,7 +59,7 @@ public static partial class Get
             };
         
             return await Request.ExecuteAsyncRequest<ChannelResponse>(
-                GetChannelAPIPath,
+                Config.GetChannelAPIPath,
                 service,
                 formData
             );

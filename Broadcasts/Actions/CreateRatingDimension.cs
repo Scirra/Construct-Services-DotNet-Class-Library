@@ -9,13 +9,8 @@ namespace ConstructServices.Broadcasts.Actions;
 
 public static partial class RatingDimensions
 {
-    private const string CreateRatingDimensionAPIPath = "/channelcreateratingdimension.json";
-
     extension(BroadcastService service)
     {        
-        /// <summary>
-        /// Create a rating dimension for a channel
-        /// </summary>
         [UsedImplicitly]
         public DimensionResponse CreateRatingDimension(
             string strChannelID,
@@ -30,12 +25,9 @@ public static partial class RatingDimensions
             {
                 return new DimensionResponse(string.Format(channelIDValidator.ErrorMessage, "Channel ID"));
             }
-            return Ratings.Actions.Rating.CreateDimension(service, CreateRatingDimensionAPIPath, Thing.BroadcastChannel, channelIDValidator.ReturnedObject, dimensionID, title, description, maxRating, languageISO);
+            return Ratings.Actions.Rating.CreateDimension(service, Config.CreateRatingDimensionAPIPath, Thing.BroadcastChannel, channelIDValidator.ReturnedObject, dimensionID, title, description, maxRating, languageISO);
         }
 
-        /// <summary>
-        /// Create a rating dimension for a channel
-        /// </summary>
         [UsedImplicitly]
         public DimensionResponse CreateRatingDimension(
             Guid channelID,
@@ -45,12 +37,9 @@ public static partial class RatingDimensions
             byte maxRating,
             string languageISO = null)
         {
-            return Ratings.Actions.Rating.CreateDimension(service, CreateRatingDimensionAPIPath, Thing.BroadcastChannel, channelID, dimensionID, title, description, maxRating, languageISO);
+            return Ratings.Actions.Rating.CreateDimension(service, Config.CreateRatingDimensionAPIPath, Thing.BroadcastChannel, channelID, dimensionID, title, description, maxRating, languageISO);
         }
 
-        /// <summary>
-        /// Create a rating dimension for a channel
-        /// </summary>
         [UsedImplicitly]
         public async Task<DimensionResponse> CreateRatingDimensionAsync(
             Guid channelID,
@@ -60,12 +49,9 @@ public static partial class RatingDimensions
             byte maxRating,
             string languageISO = null)
         {
-            return await Ratings.Actions.Rating.CreateDimensionAsync(service, CreateRatingDimensionAPIPath, Thing.BroadcastChannel, channelID, dimensionID, title, description, maxRating, languageISO);
+            return await Ratings.Actions.Rating.CreateDimensionAsync(service, Config.CreateRatingDimensionAPIPath, Thing.BroadcastChannel, channelID, dimensionID, title, description, maxRating, languageISO);
         }
 
-        /// <summary>
-        /// Create a rating dimension for a channel
-        /// </summary>
         [UsedImplicitly]
         public async Task<DimensionResponse> CreateRatingDimensionAsync(
             string strChannelID,
@@ -80,12 +66,9 @@ public static partial class RatingDimensions
             {
                 return new DimensionResponse(string.Format(channelIDValidator.ErrorMessage, "Channel ID"));
             }
-            return await Ratings.Actions.Rating.CreateDimensionAsync(service, CreateRatingDimensionAPIPath, Thing.BroadcastChannel, channelIDValidator.ReturnedObject, dimensionID, title, description, maxRating, languageISO);
+            return await Ratings.Actions.Rating.CreateDimensionAsync(service, Config.CreateRatingDimensionAPIPath, Thing.BroadcastChannel, channelIDValidator.ReturnedObject, dimensionID, title, description, maxRating, languageISO);
         }
 
-        /// <summary>
-        /// Create a rating dimension for a channel
-        /// </summary>
         [UsedImplicitly]
         public DimensionResponse CreateRatingDimension(
             Channel channel,
@@ -97,9 +80,6 @@ public static partial class RatingDimensions
             =>
                 service.CreateRatingDimension(channel.ID, dimensionID, title, description, maxRating, languageISO);
 
-        /// <summary>
-        /// Create a rating dimension for a channel
-        /// </summary>
         [UsedImplicitly]
         public async Task<DimensionResponse> CreateRatingDimensionAsync(
             Channel channel,

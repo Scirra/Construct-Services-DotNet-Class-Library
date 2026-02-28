@@ -67,8 +67,7 @@ public sealed class UpdateXPBonusOptions : ModifyXPBonusBase
     }
     public UpdateXPBonusOptions(string strBonusID)
     {
-        if (!Guid.TryParse(strBonusID, out var id)) throw new InvalidCastException();
-        ID = id;
+        ID = Guid.Parse(strBonusID);
     }
 
     [UsedImplicitly]
@@ -87,8 +86,7 @@ public sealed class DeleteXPBonusOptions
     
     public DeleteXPBonusOptions(string strBonusID)
     {
-        if (!Guid.TryParse(strBonusID, out var bonusID)) throw new InvalidCastException();
-        BonusID = bonusID;
+        BonusID = Guid.Parse(strBonusID);
     }
     public DeleteXPBonusOptions(Guid bonusID)
     {
@@ -111,8 +109,7 @@ public sealed class GetBonusOptions
     private Guid BonusID { get; set; }
     public GetBonusOptions(string strBonusID)
     {
-        if (!Guid.TryParse(strBonusID, out var bonusID)) throw new InvalidCastException();
-        BonusID = bonusID;
+        BonusID = Guid.Parse(strBonusID);
     }
     public GetBonusOptions(Guid bonusID)
     {

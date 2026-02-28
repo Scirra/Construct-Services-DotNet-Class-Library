@@ -8,13 +8,8 @@ namespace ConstructServices.Broadcasts.Actions;
 
 public static partial class Create
 {
-    private const string CreateChannelAPIPath = "/createchannel.json";
-    
     extension(BroadcastService service)
     {
-        /// <summary>
-        /// Create a new channel
-        /// </summary>
         [UsedImplicitly]
         public ChannelResponse CreateChannel(
             string channelName,
@@ -37,15 +32,12 @@ public static partial class Create
             };
 
             return Request.ExecuteSyncRequest<ChannelResponse>(
-                CreateChannelAPIPath,
+                Config.CreateChannelAPIPath,
                 service,
                 formData
             );
         }
 
-        /// <summary>
-        /// Create a new channel
-        /// </summary>
         [UsedImplicitly]
         public async Task<ChannelResponse> CreateChannelAsync(
             string channelName,
@@ -68,7 +60,7 @@ public static partial class Create
             };
 
             return await Request.ExecuteAsyncRequest<ChannelResponse>(
-                CreateChannelAPIPath,
+                Config.CreateChannelAPIPath,
                 service,
                 formData
             );

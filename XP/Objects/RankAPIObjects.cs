@@ -37,8 +37,7 @@ public sealed class CreateXPRankOptions : ModifyXPRankBase
     }
     public CreateXPRankOptions(string strAtXP, string title, string description, string languageISO = null)
     {
-        if (!long.TryParse(strAtXP, out var atXP)) throw new InvalidCastException();
-        AtXP = atXP;
+        AtXP = long.Parse(strAtXP);
         Title = title;
         Description = description;
         LanguageISO = languageISO;
@@ -66,8 +65,7 @@ public sealed class UpdateXPRankOptions : ModifyXPRankBase
     }
     public UpdateXPRankOptions(string strRankID)
     {
-        if (!Guid.TryParse(strRankID, out var id)) throw new InvalidCastException();
-        ID = id;
+        ID = Guid.Parse(strRankID);
     }
 
     [UsedImplicitly]
@@ -86,8 +84,7 @@ public sealed class DeleteXPRankOptions
     
     public DeleteXPRankOptions(string strRankID)
     {
-        if (!Guid.TryParse(strRankID, out var rankID)) throw new InvalidCastException();
-        RankID = rankID;
+        RankID = Guid.Parse(strRankID);
     }
     public DeleteXPRankOptions(Guid rankID)
     {

@@ -9,13 +9,8 @@ namespace ConstructServices.Broadcasts.Actions;
 
 public static partial class RatingDimensions
 {
-    private const string EditDimensionAPIPath = "/channeleditratingdimension.json";
-
     extension(BroadcastService service)
     {
-        /// <summary>
-        /// Edit a rating dimension for a channel
-        /// </summary>
         [UsedImplicitly]
         public DimensionResponse EditRatingDimension(
             Guid channelID,
@@ -25,12 +20,9 @@ public static partial class RatingDimensions
             byte? newMaxRating = null,
             string newLanguageISO = null)
         {
-            return Ratings.Actions.Rating.EditDimension(service, EditDimensionAPIPath, Thing.CloudSaveBlob, channelID, dimensionID, newTitle, newDescription, newMaxRating, newLanguageISO);
+            return Ratings.Actions.Rating.EditDimension(service, Config.EditDimensionAPIPath, Thing.CloudSaveBlob, channelID, dimensionID, newTitle, newDescription, newMaxRating, newLanguageISO);
         }        
         
-        /// <summary>
-        /// Edit a rating dimension for a channel
-        /// </summary>
         [UsedImplicitly]
         public DimensionResponse EditRatingDimension(
             string strChannelID,
@@ -45,12 +37,9 @@ public static partial class RatingDimensions
             {
                 return new DimensionResponse(string.Format(channelIDValidator.ErrorMessage, "Channel ID"));
             }
-            return Ratings.Actions.Rating.EditDimension(service, EditDimensionAPIPath, Thing.CloudSaveBlob, channelIDValidator.ReturnedObject, dimensionID, newTitle, newDescription, newMaxRating, newLanguageISO);
+            return Ratings.Actions.Rating.EditDimension(service, Config.EditDimensionAPIPath, Thing.CloudSaveBlob, channelIDValidator.ReturnedObject, dimensionID, newTitle, newDescription, newMaxRating, newLanguageISO);
         }
 
-        /// <summary>
-        /// Edit a rating dimension for a channel
-        /// </summary>
         [UsedImplicitly]
         public async Task<DimensionResponse> EditRatingDimensionAsync(
             Guid channelID,
@@ -60,12 +49,9 @@ public static partial class RatingDimensions
             byte? newMaxRating = null,
             string newLanguageISO = null)
         {
-            return await Ratings.Actions.Rating.EditDimensionAsync(service, EditDimensionAPIPath, Thing.CloudSaveBlob, channelID, dimensionID, newTitle, newDescription, newMaxRating, newLanguageISO);
+            return await Ratings.Actions.Rating.EditDimensionAsync(service, Config.EditDimensionAPIPath, Thing.CloudSaveBlob, channelID, dimensionID, newTitle, newDescription, newMaxRating, newLanguageISO);
         }
 
-        /// <summary>
-        /// Edit a rating dimension for a channel
-        /// </summary>
         [UsedImplicitly]
         public async Task<DimensionResponse> EditRatingDimensionAsync(
             string strChannelID,
@@ -80,12 +66,9 @@ public static partial class RatingDimensions
             {
                 return new DimensionResponse(string.Format(channelIDValidator.ErrorMessage, "Channel ID"));
             }
-            return await Ratings.Actions.Rating.EditDimensionAsync(service, EditDimensionAPIPath, Thing.CloudSaveBlob, channelIDValidator.ReturnedObject, dimensionID, newTitle, newDescription, newMaxRating, newLanguageISO);
+            return await Ratings.Actions.Rating.EditDimensionAsync(service, Config.EditDimensionAPIPath, Thing.CloudSaveBlob, channelIDValidator.ReturnedObject, dimensionID, newTitle, newDescription, newMaxRating, newLanguageISO);
         }
 
-        /// <summary>
-        /// Edit a rating dimension for a channel
-        /// </summary>
         [UsedImplicitly]
         public DimensionResponse EditRatingDimension(Channel channel,
             string dimensionID,
@@ -96,9 +79,6 @@ public static partial class RatingDimensions
             =>
                 service.EditRatingDimension(channel.ID, dimensionID, newTitle, newDescription, newMaxRating, newLanguageISO);
 
-        /// <summary>
-        /// Edit a rating dimension for a channel
-        /// </summary>
         [UsedImplicitly]
         public async Task<DimensionResponse> EditRatingDimensionAsync(Channel channel,
             string dimensionID,

@@ -18,8 +18,7 @@ public sealed class GetXPOptions
 
     public GetXPOptions(string strPlayerID)
     {
-        if (!Guid.TryParse(strPlayerID, out var playerID)) throw new InvalidCastException();
-        PlayerID = playerID;
+        PlayerID = Guid.Parse(strPlayerID);
     }
     public GetXPOptions(Guid playerID)
     {
@@ -47,8 +46,7 @@ public sealed class ModifyXPOptions
 
     public ModifyXPOptions(string strPlayerID, long amount)
     {
-        if (!Guid.TryParse(strPlayerID, out var playerID)) throw new InvalidCastException();
-        PlayerID = playerID;
+        PlayerID = Guid.Parse(strPlayerID);
         Amount = amount;
     }
     public ModifyXPOptions(Guid playerID, long amount)

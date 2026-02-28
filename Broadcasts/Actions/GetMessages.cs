@@ -10,13 +10,9 @@ namespace ConstructServices.Broadcasts.Actions;
 
 public static partial class Get
 {
-    private const string GetMessagesAPIPath = "/getmessages.json";
 
     extension(BroadcastService service)
     {
-        /// <summary>
-        /// Get multiple messages in a channel
-        /// </summary>
         [UsedImplicitly]
         public MessagesResponse GetMessages(
             Channel channel, 
@@ -24,9 +20,6 @@ public static partial class Get
             =>
                 service.GetMessages(channel.ID, paginationOptions);
 
-        /// <summary>
-        /// Get multiple messages in a channel
-        /// </summary>
         [UsedImplicitly]
         public async Task<MessagesResponse> GetMessagesAsync(
             Channel channel, 
@@ -34,9 +27,6 @@ public static partial class Get
             =>
                 await service.GetMessagesAsync(channel.ID, paginationOptions);
 
-        /// <summary>
-        /// Get multiple messages in a channel
-        /// </summary>
         [UsedImplicitly]
         public MessagesResponse GetMessages(
             string strChannelID,
@@ -50,9 +40,6 @@ public static partial class Get
             return service.GetMessages(channelIDValidator.ReturnedObject, paginationOptions);
         }
 
-        /// <summary>
-        /// Get multiple messages in a channel
-        /// </summary>
         [UsedImplicitly]
         public async Task<MessagesResponse> GetMessagesAsync(
             string strChannelID,
@@ -66,9 +53,6 @@ public static partial class Get
             return await service.GetMessagesAsync(channelIDValidator.ReturnedObject, paginationOptions);
         }
 
-        /// <summary>
-        /// Get multiple messages in a channel
-        /// </summary>
         [UsedImplicitly]
         public MessagesResponse GetMessages(
             Guid channelID,
@@ -80,16 +64,13 @@ public static partial class Get
             };
 
             return Request.ExecuteSyncRequest<MessagesResponse>(
-                GetMessagesAPIPath,
+                Config.GetMessagesAPIPath,
                 service,
                 formData,
                 paginationOptions
             );
         }
 
-        /// <summary>
-        /// Get multiple messages in a channel
-        /// </summary>
         [UsedImplicitly]
         public async Task<MessagesResponse> GetMessagesAsync(
             Guid channelID,
@@ -101,7 +82,7 @@ public static partial class Get
             };
 
             return await Request.ExecuteAsyncRequest<MessagesResponse>(
-                GetMessagesAPIPath,
+                Config.GetMessagesAPIPath,
                 service,
                 formData,
                 paginationOptions
