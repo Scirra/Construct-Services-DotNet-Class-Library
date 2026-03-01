@@ -1,8 +1,7 @@
 ﻿using ConstructServices.Common;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using ConstructServices.Ratings.Objects;
 using ConstructServices.Ratings.Responses;
+using System.Threading.Tasks;
 
 namespace ConstructServices.Ratings.Actions;
 
@@ -15,38 +14,12 @@ internal static partial class Rating
         /// </summary>
         internal DimensionResponse CreateDimension(
             string apiEndPointPath,
-            Thing ratableThing,
-            Guid thingID,
-            string dimensionID,
-            string title,
-            string description,
-            byte maxRating,
-            string languageISO = null)
+            CreateRatingDimensionOptions createRatingDimensionOptions)
         {
-            var dimensionIDValidator = Common.Validations.RatingDimensionID.ValidateDimensionID(dimensionID);
-            if (!dimensionIDValidator.Successfull)
-            {
-                return new DimensionResponse(dimensionIDValidator.ErrorMessage);
-            }
-
-            var formData = new Dictionary<string, string>
-            {
-                { "thingTypeID", ((byte)ratableThing).ToString()},
-                { "thingID", thingID.ToString()},
-                { "dimensionID", dimensionID },
-                { "title", title },
-                { "description", description },
-                { "maxRating", maxRating.ToString() }
-            };
-            if (!string.IsNullOrWhiteSpace(languageISO))
-            {
-                formData.Add("language", languageISO);
-            }
-
             return Request.ExecuteSyncRequest<DimensionResponse>(
                 apiEndPointPath,
                 service,
-                formData
+                createRatingDimensionOptions.BuildFormData()
             );
         }
 
@@ -55,38 +28,12 @@ internal static partial class Rating
         /// </summary>
         internal async Task<DimensionResponse> CreateDimensionAsync(
             string apiEndPointPath,
-            Thing ratableThing,
-            Guid thingID,
-            string dimensionID,
-            string title,
-            string description,
-            byte maxRating,
-            string languageISO = null)
+            CreateRatingDimensionOptions createRatingDimensionOptions)
         {
-            var dimensionIDValidator = Common.Validations.RatingDimensionID.ValidateDimensionID(dimensionID);
-            if (!dimensionIDValidator.Successfull)
-            {
-                return new DimensionResponse(dimensionIDValidator.ErrorMessage);
-            }
-
-            var formData = new Dictionary<string, string>
-            {
-                { "thingTypeID", ((byte)ratableThing).ToString()},
-                { "thingID", thingID.ToString()},
-                { "dimensionID", dimensionID },
-                { "title", title },
-                { "description", description },
-                { "maxRating", maxRating.ToString() }
-            };
-            if (!string.IsNullOrWhiteSpace(languageISO))
-            {
-                formData.Add("language", languageISO);
-            }
-
             return await Request.ExecuteAsyncRequest<DimensionResponse>(
                 apiEndPointPath,
                 service,
-                formData
+                createRatingDimensionOptions.BuildFormData()
             );
         }
     }

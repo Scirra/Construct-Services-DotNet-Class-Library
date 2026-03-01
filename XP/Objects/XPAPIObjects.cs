@@ -26,7 +26,7 @@ public sealed class GetXPOptions
     }
 
     [UsedImplicitly]
-    public Dictionary<string, string> BuildFormData()
+    internal Dictionary<string, string> BuildFormData()
     {
         var formData = new Dictionary<string, string>();
         if (PlayerID != Guid.Empty)
@@ -56,7 +56,7 @@ public sealed class ModifyXPOptions
     }
 
     [UsedImplicitly]
-    public Dictionary<string, string> BuildFormData()
+    internal Dictionary<string, string> BuildFormData()
     {
         var formData = new Dictionary<string, string>
         {

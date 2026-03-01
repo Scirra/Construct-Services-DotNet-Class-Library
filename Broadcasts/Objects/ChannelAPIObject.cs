@@ -41,7 +41,7 @@ public sealed class CreateChannelOptions : ModifyChannelBase
     }
 
     [UsedImplicitly]
-    public Dictionary<string, string> BuildFormData()
+    internal Dictionary<string, string> BuildFormData()
     {
         var formData = BuildBaseFormData();
         formData.Add("allowRatings", AllowRatings.ToInt().ToString());
@@ -65,8 +65,7 @@ public sealed class UpdateChannelOptions : ModifyChannelBase
         ID = Guid.Parse(strChannelID);
     }
 
-    [UsedImplicitly]
-    public Dictionary<string, string> BuildFormData()
+    internal Dictionary<string, string> BuildFormData()
     {
         var formData = BuildBaseFormData();
         formData.Add("channelID", ID.ToString());
@@ -89,7 +88,7 @@ public sealed class DeleteChannelOptions
     }
 
     [UsedImplicitly]
-    public Dictionary<string, string> BuildFormData()
+    internal Dictionary<string, string> BuildFormData()
     {
         var formData = new Dictionary<string, string>
         {
@@ -113,7 +112,7 @@ public sealed class GetChannelOptions
     }
 
     [UsedImplicitly]
-    public Dictionary<string, string> BuildFormData()
+    internal Dictionary<string, string> BuildFormData()
     {
         var formData = new Dictionary<string, string>
         {

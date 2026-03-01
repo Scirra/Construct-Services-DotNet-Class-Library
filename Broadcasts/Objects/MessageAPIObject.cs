@@ -62,7 +62,7 @@ public sealed class CreateMessageOptions : ModifyMessageBase
     }
 
     [UsedImplicitly]
-    public Dictionary<string, string> BuildFormData()
+    internal Dictionary<string, string> BuildFormData()
     {
         var formData = BuildBaseFormData();
         formData.Add("channelID", ChannelID.ToString());
@@ -84,7 +84,7 @@ public sealed class UpdateMessageOptions : ModifyMessageBase
     }
 
     [UsedImplicitly]
-    public Dictionary<string, string> BuildFormData()
+    internal Dictionary<string, string> BuildFormData()
     {
         var formData = BuildBaseFormData();
         formData.Add("messageID", MessageID.ToString());
@@ -106,7 +106,7 @@ public sealed class DeleteMessageOptions
     }
 
     [UsedImplicitly]
-    public Dictionary<string, string> BuildFormData()
+    internal Dictionary<string, string> BuildFormData()
     {
         var formData = new Dictionary<string, string>
         {
@@ -130,7 +130,7 @@ public sealed class GetMessageOptions
     }
 
     [UsedImplicitly]
-    public Dictionary<string, string> BuildFormData()
+    internal Dictionary<string, string> BuildFormData()
     {
         var formData = new Dictionary<string, string>
         {
@@ -157,9 +157,14 @@ public sealed class ListMessagesOptions
         ChannelID = channelID;
         PaginationOptions = paginationOptions;
     }
+    public ListMessagesOptions(Channel channel, PaginationOptions paginationOptions = null)
+    {
+        ChannelID = channel.ID;
+        PaginationOptions = paginationOptions;
+    }
 
     [UsedImplicitly]
-    public Dictionary<string, string> BuildFormData()
+    internal Dictionary<string, string> BuildFormData()
     {
         var formData = new Dictionary<string, string>
         {

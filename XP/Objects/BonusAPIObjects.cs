@@ -46,7 +46,7 @@ public sealed class CreateXPBonusOptions : ModifyXPBonusBase
     }
 
     [UsedImplicitly]
-    public Dictionary<string, string> BuildFormData()
+    internal Dictionary<string, string> BuildFormData()
     {
         var formData = BuildBaseFormData();
         formData.Add("modifier", Modifier.ToString(CultureInfo.InvariantCulture));
@@ -71,7 +71,7 @@ public sealed class UpdateXPBonusOptions : ModifyXPBonusBase
     }
 
     [UsedImplicitly]
-    public Dictionary<string, string> BuildFormData()
+    internal Dictionary<string, string> BuildFormData()
     {
         var formData = BuildBaseFormData();
         formData.Add("bonusID", ID.ToString());
@@ -94,7 +94,7 @@ public sealed class DeleteXPBonusOptions
     }
 
     [UsedImplicitly]
-    public Dictionary<string, string> BuildFormData()
+    internal Dictionary<string, string> BuildFormData()
     {
         var formData = new Dictionary<string, string>
         {
@@ -117,7 +117,7 @@ public sealed class GetBonusOptions
     }
 
     [UsedImplicitly]
-    public Dictionary<string, string> BuildFormData()
+    internal Dictionary<string, string> BuildFormData()
     {
         var formData = new Dictionary<string, string>
         {
@@ -139,7 +139,7 @@ public sealed class GetBonusesOptions(DateTime from, DateTime to)
     }
 
     [UsedImplicitly]
-    public Dictionary<string, string> BuildFormData()
+    internal Dictionary<string, string> BuildFormData()
     {
         var formData = new Dictionary<string, string>
         {

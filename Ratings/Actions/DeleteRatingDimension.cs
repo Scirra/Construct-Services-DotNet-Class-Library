@@ -1,8 +1,6 @@
 ﻿using ConstructServices.Common;
-using ConstructServices.Ratings.Responses;
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
+using ConstructServices.Ratings.Objects;
 
 namespace ConstructServices.Ratings.Actions;
 internal static partial class Rating
@@ -12,54 +10,28 @@ internal static partial class Rating
         /// <summary>
         /// Delete a rating dimension
         /// </summary>
-        internal BaseResponse DeleteDimension(string apiEndPointPath,
-            Thing ratableThing,
-            Guid thingID,
-            string dimensionID)
+        internal BaseResponse DeleteDimension(
+            string apiEndPointPath,
+            DeleteRatingDimensionOptions deleteRatingDimensionOptions)
         {
-            var dimensionIDValidator = Common.Validations.RatingDimensionID.ValidateDimensionID(dimensionID);
-            if (!dimensionIDValidator.Successfull)
-            {
-                return new DimensionResponse(dimensionIDValidator.ErrorMessage);
-            }
-
-            var formData = new Dictionary<string, string>
-            {
-                { "thingTypeID", ((byte)ratableThing).ToString()},
-                { "thingID", thingID.ToString()},
-                { "dimensionID", dimensionID }
-            };
             return Request.ExecuteSyncRequest<BaseResponse>(
                 apiEndPointPath,
                 service,
-                formData
+                deleteRatingDimensionOptions.BuildFormData()
             );
         }
 
         /// <summary>
         /// Delete a rating dimension
         /// </summary>
-        internal async Task<BaseResponse> DeleteDimensionAsync(string apiEndPointPath,
-            Thing ratableThing,
-            Guid thingID,
-            string dimensionID)
+        internal async Task<BaseResponse> DeleteDimensionAsync(
+            string apiEndPointPath,
+            DeleteRatingDimensionOptions deleteRatingDimensionOptions)
         {
-            var dimensionIDValidator = Common.Validations.RatingDimensionID.ValidateDimensionID(dimensionID);
-            if (!dimensionIDValidator.Successfull)
-            {
-                return new DimensionResponse(dimensionIDValidator.ErrorMessage);
-            }
-
-            var formData = new Dictionary<string, string>
-            {
-                { "thingTypeID", ((byte)ratableThing).ToString()},
-                { "thingID", thingID.ToString()},
-                { "dimensionID", dimensionID }
-            };
             return await Request.ExecuteAsyncRequest<BaseResponse>(
                 apiEndPointPath,
                 service,
-                formData
+                deleteRatingDimensionOptions.BuildFormData()
             );
         }
     }

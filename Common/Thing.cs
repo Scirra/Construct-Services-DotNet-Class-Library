@@ -1,6 +1,6 @@
 ﻿namespace ConstructServices.Common;
 
-internal enum Thing : byte
+public enum Thing : byte
 {
     CloudSaveBlob = 0,
     BroadcastChannel = 1,

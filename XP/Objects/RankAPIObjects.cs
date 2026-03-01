@@ -44,7 +44,7 @@ public sealed class CreateXPRankOptions : ModifyXPRankBase
     }
 
     [UsedImplicitly]
-    public Dictionary<string, string> BuildFormData()
+    internal Dictionary<string, string> BuildFormData()
     {
         var formData = BuildBaseFormData();
         formData.Add("xp", AtXP.ToString());
@@ -69,7 +69,7 @@ public sealed class UpdateXPRankOptions : ModifyXPRankBase
     }
 
     [UsedImplicitly]
-    public Dictionary<string, string> BuildFormData()
+    internal Dictionary<string, string> BuildFormData()
     {
         var formData = BuildBaseFormData();
         formData.Add("rankID", ID.ToString());
@@ -92,7 +92,7 @@ public sealed class DeleteXPRankOptions
     }
 
     [UsedImplicitly]
-    public Dictionary<string, string> BuildFormData()
+    internal Dictionary<string, string> BuildFormData()
     {
         var formData = new Dictionary<string, string>
         {
