@@ -17,7 +17,7 @@ public static partial class RatingDimensions
         [UsedImplicitly]
         public DimensionsResponse GetRatingDimensions(ListCloudSaveBucketDimensionOptions listCloudSaveBucketDimensionOptions)
         {
-            return Ratings.Actions.Rating.GetDimensions(service, GetDimensionsAPIEndPoint, listCloudSaveBucketDimensionOptions);
+            return Ratings.Actions.Dimensions.ListDimensions(service, GetDimensionsAPIEndPoint, listCloudSaveBucketDimensionOptions);
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ public static partial class RatingDimensions
         [UsedImplicitly]
         public async Task<DimensionsResponse> GetRatingDimensionsAsync(ListCloudSaveBucketDimensionOptions listCloudSaveBucketDimensionOptions)
         {
-            return await Ratings.Actions.Rating.GetDimensionsAsync(service, GetDimensionsAPIEndPoint, listCloudSaveBucketDimensionOptions);
+            return await Ratings.Actions.Dimensions.ListDimensionsAsync(service, GetDimensionsAPIEndPoint, listCloudSaveBucketDimensionOptions);
         }
     }
 }

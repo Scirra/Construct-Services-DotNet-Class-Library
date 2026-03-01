@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ConstructServices.Broadcasts.Actions;
 
-public static partial class RatingDimensions
+public static partial class Ratings
 {
     extension(BroadcastService service)
     {
@@ -16,7 +16,7 @@ public static partial class RatingDimensions
         [UsedImplicitly]
         public BaseResponse DeleteRatingDimension(
             DeleteBroadcastChannelRatingDimensionOptions deleteBroadcastChannelRatingDimensionOptions)
-            => Ratings.Actions.Rating.DeleteDimension(
+            => global::ConstructServices.Ratings.Actions.Dimensions.DeleteDimension(
                 service, 
                 Config.DeleteDimensionAPIPath, 
                 deleteBroadcastChannelRatingDimensionOptions);
@@ -28,7 +28,7 @@ public static partial class RatingDimensions
         [UsedImplicitly]
         public async Task<BaseResponse> DeleteRatingDimensionAsync(
             DeleteBroadcastChannelRatingDimensionOptions deleteBroadcastChannelRatingDimensionOptions)
-            => await Ratings.Actions.Rating.DeleteDimensionAsync(
+            => await global::ConstructServices.Ratings.Actions.Dimensions.DeleteDimensionAsync(
                 service, 
                 Config.DeleteDimensionAPIPath,
                 deleteBroadcastChannelRatingDimensionOptions);

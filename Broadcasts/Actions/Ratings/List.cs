@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ConstructServices.Broadcasts.Actions;
 
-public static partial class RatingDimensions
+public static partial class Ratings
 {
     extension(BroadcastService service)
     {        
@@ -16,7 +16,7 @@ public static partial class RatingDimensions
         [UsedImplicitly]
         public DimensionsResponse ListRatingDimensions(
             ListBroadcastChannelDimensionOptions listBroadcastChannelDimensionOptions)
-            => Ratings.Actions.Rating.GetDimensions(service, Config.GetDimensionsAPIPath, listBroadcastChannelDimensionOptions);
+            => global::ConstructServices.Ratings.Actions.Dimensions.ListDimensions(service, Config.GetDimensionsAPIPath, listBroadcastChannelDimensionOptions);
 
         /// <summary>
         /// List all Rating Dimension on a Broadcast Channel
@@ -25,6 +25,6 @@ public static partial class RatingDimensions
         [UsedImplicitly]
         public async Task<DimensionsResponse> ListRatingDimensionsAsync(
             ListBroadcastChannelDimensionOptions listBroadcastChannelDimensionOptions)
-            => await Ratings.Actions.Rating.GetDimensionsAsync(service, Config.GetDimensionsAPIPath, listBroadcastChannelDimensionOptions);
+            => await global::ConstructServices.Ratings.Actions.Dimensions.ListDimensionsAsync(service, Config.GetDimensionsAPIPath, listBroadcastChannelDimensionOptions);
     }
 }

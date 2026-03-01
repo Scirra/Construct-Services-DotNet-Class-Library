@@ -19,4 +19,5 @@ internal static class Config
     internal const string GetDimensionsAPIPath = "/channelgetratingdimensions.json";
     internal const string UpdateChannelAPIPath = "/updatechannel.json";
     internal const string UpdateMessageAPIPath = "/updatemessage.json";
+    internal const string RateMessageAPIEndPoint = "/rate.json";
 }

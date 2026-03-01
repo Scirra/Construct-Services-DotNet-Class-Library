@@ -17,7 +17,7 @@ public static partial class RatingDimensions
         [UsedImplicitly]
         public BaseResponse DeleteRatingDimension(
             DeleteCloudSaveBucketRatingDimensionOptions deleteCloudSaveBucketRatingDimensionOptions)
-            => Ratings.Actions.Rating.DeleteDimension(service, DeleteDimensionAPIEndPoint, deleteCloudSaveBucketRatingDimensionOptions);
+            => Ratings.Actions.Dimensions.DeleteDimension(service, DeleteDimensionAPIEndPoint, deleteCloudSaveBucketRatingDimensionOptions);
 
         /// <summary>
         /// Delete a rating dimension for a bucket
@@ -25,6 +25,6 @@ public static partial class RatingDimensions
         [UsedImplicitly]
         public async Task<BaseResponse> DeleteRatingDimensionAsync(
             DeleteCloudSaveBucketRatingDimensionOptions deleteCloudSaveBucketRatingDimensionOptions)
-            => await Ratings.Actions.Rating.DeleteDimensionAsync(service, DeleteDimensionAPIEndPoint, deleteCloudSaveBucketRatingDimensionOptions);
+            => await Ratings.Actions.Dimensions.DeleteDimensionAsync(service, DeleteDimensionAPIEndPoint, deleteCloudSaveBucketRatingDimensionOptions);
     }
 }

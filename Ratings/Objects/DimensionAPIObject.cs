@@ -368,7 +368,7 @@ public sealed class ListBroadcastChannelDimensionOptions : ListRatingDimensionOp
 }
 public sealed class ListCloudSaveBucketDimensionOptions : ListRatingDimensionOptions
 {
-    private const Thing ThisThing = Thing.BroadcastChannel;
+    private const Thing ThisThing = Thing.CloudSaveBucket;
 
     [UsedImplicitly]
     public ListCloudSaveBucketDimensionOptions(GameBucket bucket) : base(ThisThing, bucket.ID)

@@ -18,7 +18,7 @@ public static partial class RatingDimensions
         public DimensionResponse CreateRatingDimension(
             CreateCloudSaveBucketRatingDimensionOptions createCloudSaveBucketRatingDimensionOptions)
         {
-            return Ratings.Actions.Rating.CreateDimension(
+            return Ratings.Actions.Dimensions.CreateDimension(
                 service, 
                 CreateDimensionAPIEndPoint,
                 createCloudSaveBucketRatingDimensionOptions);
@@ -31,7 +31,7 @@ public static partial class RatingDimensions
         public async Task<DimensionResponse> CreateRatingDimensionAsync(
             CreateCloudSaveBucketRatingDimensionOptions createCloudSaveBucketRatingDimensionOptions)
         {
-            return await Ratings.Actions.Rating.CreateDimensionAsync(
+            return await Ratings.Actions.Dimensions.CreateDimensionAsync(
                 service, 
                 CreateDimensionAPIEndPoint,
                 createCloudSaveBucketRatingDimensionOptions);

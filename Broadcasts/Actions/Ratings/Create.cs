@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ConstructServices.Broadcasts.Actions;
 
-public static partial class RatingDimensions
+public static partial class Ratings
 {
     extension(BroadcastService service)
     {
@@ -17,7 +17,7 @@ public static partial class RatingDimensions
         public DimensionResponse CreateRatingDimension(
             CreateBroadcastChannelRatingDimensionOptions createBroadcastChannelRatingDimensionOptions)
         {
-            return Ratings.Actions.Rating.CreateDimension(
+            return global::ConstructServices.Ratings.Actions.Dimensions.CreateDimension(
                 service,
                 Config.CreateRatingDimensionAPIPath,
                 createBroadcastChannelRatingDimensionOptions
@@ -31,7 +31,7 @@ public static partial class RatingDimensions
         public async Task<DimensionResponse> CreateRatingDimensionAsync(
             CreateBroadcastChannelRatingDimensionOptions createBroadcastChannelRatingDimensionOptions)
         {
-            return await Ratings.Actions.Rating.CreateDimensionAsync(
+            return await global::ConstructServices.Ratings.Actions.Dimensions.CreateDimensionAsync(
                 service, 
                 Config.CreateRatingDimensionAPIPath,
                 createBroadcastChannelRatingDimensionOptions);
