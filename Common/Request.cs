@@ -96,6 +96,10 @@ internal static class Request
         {
             return (T)Activator.CreateInstance(typeof(T), "Response was not valid JSON.", false);
         }
+        
+        // Set service vars
+        service.RawJson = json;
+        service.RawObject = JsonConvert.DeserializeObject(json);
 
         return JsonConvert.DeserializeObject<T>(json);
     }
@@ -186,6 +190,11 @@ internal static class Request
         {
             return (T)Activator.CreateInstance(typeof(T), "Response was not valid JSON.", false);
         }
+
+        // Set service vars
+        service.RawJson = json;
+        service.RawObject = JsonConvert.DeserializeObject(json);
+
         return JsonConvert.DeserializeObject<T>(json);
     }
     internal static async Task<byte[]> DownloadBytes(
