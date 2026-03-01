@@ -17,7 +17,7 @@ public static partial class RatingDimensions
         public DimensionResponse UpdateRatingDimension(
             UpdateBroadcastChannelRatingDimensionOptions updateBroadcastChannelRatingDimensionOptions)
         {
-            return Ratings.Actions.Rating.EditDimension(service, Config.EditDimensionAPIPath, updateBroadcastChannelRatingDimensionOptions);
+            return Ratings.Actions.Rating.UpdateDimension(service, Config.EditDimensionAPIPath, updateBroadcastChannelRatingDimensionOptions);
         }        
         
         /// <summary>
@@ -27,7 +27,7 @@ public static partial class RatingDimensions
         public async Task<DimensionResponse> UpdateRatingDimensionAsync(
             UpdateBroadcastChannelRatingDimensionOptions updateBroadcastChannelRatingDimensionOptions)
         {
-            return await Ratings.Actions.Rating.EditDimensionAsync(service, Config.EditDimensionAPIPath, updateBroadcastChannelRatingDimensionOptions);
+            return await Ratings.Actions.Rating.UpdateDimensionAsync(service, Config.EditDimensionAPIPath, updateBroadcastChannelRatingDimensionOptions);
         }
     }
 }

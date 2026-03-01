@@ -12,7 +12,7 @@ internal static partial class Rating
         /// <summary>
         /// Update a rating dimension
         /// </summary>
-        internal DimensionResponse EditDimension(
+        internal DimensionResponse UpdateDimension(
             string apiEndPointPath,
             UpdateRatingDimensionBase updateRatingDimensionBase)
         {
@@ -26,7 +26,7 @@ internal static partial class Rating
         /// <summary>
         /// Update a rating dimension
         /// </summary>
-        internal async Task<DimensionResponse> EditDimensionAsync(
+        internal async Task<DimensionResponse> UpdateDimensionAsync(
             string apiEndPointPath,
             UpdateRatingDimensionBase updateRatingDimensionBase)
         {

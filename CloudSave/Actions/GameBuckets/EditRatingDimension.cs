@@ -18,7 +18,7 @@ public static partial class GameBuckets
         public DimensionResponse EditRatingDimension(
             UpdateCloudSaveBucketRatingDimensionOptions updateCloudSaveBucketRatingDimensionOptions)
         {
-            return Ratings.Actions.Rating.EditDimension(service, EditDimensionAPIEndPoint, updateCloudSaveBucketRatingDimensionOptions);
+            return Ratings.Actions.Rating.UpdateDimension(service, EditDimensionAPIEndPoint, updateCloudSaveBucketRatingDimensionOptions);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ public static partial class GameBuckets
         public async Task<DimensionResponse> EditRatingDimensionAsync(
             UpdateCloudSaveBucketRatingDimensionOptions updateCloudSaveBucketRatingDimensionOptions)
         {
-            return await Ratings.Actions.Rating.EditDimensionAsync(service, EditDimensionAPIEndPoint, updateCloudSaveBucketRatingDimensionOptions);
+            return await Ratings.Actions.Rating.UpdateDimensionAsync(service, EditDimensionAPIEndPoint, updateCloudSaveBucketRatingDimensionOptions);
         }
     }
 }

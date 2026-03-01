@@ -164,30 +164,32 @@ public sealed class CreateCloudSaveBucketRatingDimensionOptions : CreateRatingDi
     }
 }
 
-public abstract class UpdateRatingDimensionBase(
-    Thing forThing, 
-    Guid forThingID, 
-    string dimensionID)
-    : RatingDimensionBase
+public abstract class UpdateRatingDimensionBase : RatingDimensionBase
 {
     [UsedImplicitly]
     public byte? MaxRating { get; set; }
 
     [UsedImplicitly]
-    internal Thing ForThing { get; private set; } = forThing;
+    internal Thing ForThing { get; private set; }
 
     [UsedImplicitly]
-    internal Guid ForThingID { get; private set; } = forThingID;
+    internal Guid ForThingID { get; private set; }
 
-    [UsedImplicitly]
-    public string DimensionID { get; private set; } = dimensionID;
+    protected UpdateRatingDimensionBase(
+        Thing forThing, 
+        Guid forThingID, 
+        string dimensionID)
+    {
+        ForThing = forThing;
+        ForThingID = forThingID;
+        ID = dimensionID;
+    }
 
     internal Dictionary<string, string> BuildFormData()
     {
         var formData = BuildBaseFormData();
         formData.Add("thingTypeID", ((byte)ForThing).ToString());
         formData.Add("thingID", ForThingID.ToString());
-        formData.Add("dimensionID", DimensionID);
         if(MaxRating.HasValue) formData.Add("maxRating", MaxRating.ToString());
         return formData;
     }
