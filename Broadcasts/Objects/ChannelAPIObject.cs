@@ -20,7 +20,7 @@ public abstract class ModifyChannelBase
     {
         { "name", Name },
         { "description", Description },
-        { "language", LanguageISO },
+        { "language", LanguageISO }
     };
 }
 public sealed class CreateChannelOptions : ModifyChannelBase

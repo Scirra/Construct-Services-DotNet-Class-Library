@@ -76,18 +76,14 @@ internal static class Request
                         ServerCertificateCustomValidationCallback = (_, _, _, _) => true
                     };
                     using var httpClient = new HttpClient(handler);
-                    using (var response = await httpClient.PostAsync(apiURL, formContent))
-                    {
-                        json = await response.Content.ReadAsStringAsync();
-                    }
+                    using var response = await httpClient.PostAsync(apiURL, formContent);
+                    json = await response.Content.ReadAsStringAsync();
                 }
                 else
                 {
                     using var httpClient = new HttpClient();
-                    using (var response = await httpClient.PostAsync(apiURL, formContent))
-                    {
-                        json = await response.Content.ReadAsStringAsync();
-                    }
+                    using var response = await httpClient.PostAsync(apiURL, formContent);
+                    json = await response.Content.ReadAsStringAsync();
                 }
             }
             catch (Exception ex)
@@ -171,18 +167,14 @@ internal static class Request
                         ServerCertificateCustomValidationCallback = (_, _, _, _) => true
                     };
                     using var httpClient = new HttpClient(handler);
-                    using (var response = await httpClient.PostAsync(apiURL, formContent))
-                    {
-                        json = await response.Content.ReadAsStringAsync();
-                    }
+                    using var response = await httpClient.PostAsync(apiURL, formContent);
+                    json = await response.Content.ReadAsStringAsync();
                 }
                 else
                 {
                     using var httpClient = new HttpClient();
-                    using (var response = await httpClient.PostAsync(apiURL, formContent))
-                    {
-                        json = await response.Content.ReadAsStringAsync();
-                    }
+                    using var response = await httpClient.PostAsync(apiURL, formContent);
+                    json = await response.Content.ReadAsStringAsync();
                 }
             }
             catch (Exception ex)
@@ -211,38 +203,33 @@ internal static class Request
         service.AddServiceSpecificFormData(formData);
 
         byte[] r;
-        using (var formContent = new FormUrlEncodedContent(formData))
+        using var formContent = new FormUrlEncodedContent(formData);
+        try
         {
-            try
+            // Accept self-signed
+            if (GlobalConfig.DevMode)
             {
-                // Accept self-signed
-                if (GlobalConfig.DevMode)
+                var handler = new HttpClientHandler
                 {
-                    var handler = new HttpClientHandler
-                    {
-                        ClientCertificateOptions = ClientCertificateOption.Manual,
-                        ServerCertificateCustomValidationCallback = (_, _, _, _) => true
-                    };
-                    using var httpClient = new HttpClient(handler);
-                    using (var response = await httpClient.PostAsync(absolutePath, formContent))
-                    {
-                        r = await response.Content.ReadAsByteArrayAsync();
-                    }
-                }
-                else
-                {
-                    using var httpClient = new HttpClient();
-                    using (var response = await httpClient.PostAsync(absolutePath, formContent))
-                    {
-                        r = await response.Content.ReadAsByteArrayAsync();
-                    }
-                }
+                    ClientCertificateOptions = ClientCertificateOption.Manual,
+                    ServerCertificateCustomValidationCallback = (_, _, _, _) => true
+                };
+                using var httpClient = new HttpClient(handler);
+                using var response = await httpClient.PostAsync(absolutePath, formContent);
+                r = await response.Content.ReadAsByteArrayAsync();
             }
-            catch (Exception)
+            else
             {
-                return null;
+                using var httpClient = new HttpClient();
+                using var response = await httpClient.PostAsync(absolutePath, formContent);
+                r = await response.Content.ReadAsByteArrayAsync();
             }
         }
+        catch (Exception)
+        {
+            return null;
+        }
+
         return r;
     }
 }

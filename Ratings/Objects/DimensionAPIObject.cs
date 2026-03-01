@@ -26,7 +26,7 @@ public abstract class RatingDimensionBase
         { "dimensionID", ID },
         { "title", Title },
         { "description", Description },
-        { "language", LanguageISO },
+        { "language", LanguageISO }
     };
 }
 
@@ -239,28 +239,16 @@ public sealed class UpdateCloudSaveBucketRatingDimensionOptions : UpdateRatingDi
     {
     }
 }
-
-
-
-
-
-public abstract class DeleteRatingDimensionOptions
+public abstract class DeleteRatingDimensionOptions(Thing forThing, Guid forThingID, string dimensionID)
 {
     [UsedImplicitly]
-    internal Thing ForThing { get; private set; }
+    internal Thing ForThing { get; private set; } = forThing;
 
     [UsedImplicitly]
-    internal Guid ForThingID { get; private set; }
+    internal Guid ForThingID { get; private set; } = forThingID;
 
     [UsedImplicitly]
-    public string DimensionID { get; private set; }
-
-    protected DeleteRatingDimensionOptions(Thing forThing, Guid forThingID, string dimensionID)
-    {
-        ForThing = forThing;
-        ForThingID = forThingID;
-        DimensionID = dimensionID;
-    }
+    public string DimensionID { get; private set; } = dimensionID;
 
     [UsedImplicitly]
     internal Dictionary<string, string> BuildFormData()
@@ -274,7 +262,6 @@ public abstract class DeleteRatingDimensionOptions
         return formData;
     }
 }
-
 public sealed class DeleteBroadcastChannelRatingDimensionOptions : DeleteRatingDimensionOptions
 {
     private const Thing ThisThing = Thing.BroadcastChannel;
@@ -320,21 +307,15 @@ public sealed class DeleteCloudSaveBucketRatingDimensionOptions : DeleteRatingDi
     {
     }
 }
-public abstract class ListRatingDimensionOptions
+public abstract class ListRatingDimensionOptions(
+    Thing forThing,
+    Guid forThingID)
 {
     [UsedImplicitly]
-    internal Thing ForThing { get; private set; }
+    internal Thing ForThing { get; private set; } = forThing;
 
     [UsedImplicitly]
-    internal Guid ForThingID { get; private set; }
-
-    protected ListRatingDimensionOptions(
-        Thing forThing,
-        Guid forThingID)
-    {
-        ForThing = forThing;
-        ForThingID = forThingID;
-    }
+    internal Guid ForThingID { get; private set; } = forThingID;
 
     [UsedImplicitly]
     protected internal Dictionary<string, string> BuildFormData()

@@ -19,7 +19,7 @@ public abstract class ModifyMessageBase
     {
         { "title", Title },
         { "text", Text },
-        { "language", LanguageISO },
+        { "language", LanguageISO }
     };
 }
 public sealed class CreateMessageOptions : ModifyMessageBase
