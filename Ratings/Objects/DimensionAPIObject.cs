@@ -171,6 +171,9 @@ public abstract class UpdateRatingDimensionBase(
     : RatingDimensionBase
 {
     [UsedImplicitly]
+    public byte? MaxRating { get; set; }
+
+    [UsedImplicitly]
     internal Thing ForThing { get; private set; } = forThing;
 
     [UsedImplicitly]
@@ -185,6 +188,7 @@ public abstract class UpdateRatingDimensionBase(
         formData.Add("thingTypeID", ((byte)ForThing).ToString());
         formData.Add("thingID", ForThingID.ToString());
         formData.Add("dimensionID", DimensionID);
+        if(MaxRating.HasValue) formData.Add("maxRating", MaxRating.ToString());
         return formData;
     }
 }
