@@ -33,7 +33,7 @@ From within Visual Studio:
 
 ## Documentation
 
-For a comprehensive list of examples, check out the [API documentation][api-docs].  The first thing you'll need to do is [create a game][create-game] in your Construct Services account..
+For a comprehensive list of examples, check out the [API documentation][api-docs].  The first thing you'll need to do is [create a game][create-game] in your Construct Services account.
 
 # Usage
 
@@ -45,50 +45,27 @@ Create a new authentication service object, and pass in the game ID you're makin
 var service = new AuthenticationService("c59fca77-46f0-4069-9af2-8b40008906c0");
 ```
 
-### Register a Player
+### Create a Player
 
-Register a player in your game with the authentication service object.  This will return a `Player` object with a unique ID which can be used to make further requests in other services.
+Create a player in your game with the authentication service object.  This will return a `Player` object with a unique ID which can be used to make further requests in other services.
 
 ```C#
-var result = service.RegisterPlayer("Tom");
+var result = service.CreatePlayer(new CreatePlayerOptions("Tom"));
 if (result.Success){
-	var playerID = result.Player.ID;
+	var player = result.Player;
 }
 ```
 
-## Leaderboard Requests
+### Delete a Player
 
-Create a leaderboard service object, and pass in the leaderboard ID you're making requests against.
-
-```C#
-var service = new LeaderboardService("a1cd2297-a9d7-407f-b33a-881580df8228");
-```
-
-The leaderboard service object also has constructors for passing in an API key and a culture code for rendering various responses to a certain culture.
-
-The leaderboard service object is a cheap object and can be created once and reused, or on demand.
-
-### Querying a Leaderboard
-
-Once you have a leaderboard service object, all methods available in the leaderboard API will be exposed.  Most requests only have one or two parameters such as BanIPAddress():
 
 ```C#
-var result = service.BanIPAddress("1.2.3.4");
+var playerID = Guid.Parse("1130517d-6241-4238-8a71-b20dccc514c8");
+var result = service.DeletePlayer(new DeletePlayerOptions(playerID));
+if (result.Success){
+	var player = result.Player;
+}
 ```
-
-However other requests such as GetScores() may have more parameters: 
-
-```C#
-var result = service.GetScores(
-	new PaginationOptions(page),
-	"US",
-	ScoreRange.All,
-	0,
-	7,
-	new RequestPerspective(Code.Helpers.Common.Functions.GetUserIPAddress())
-);
-```
-Queries always return `Success` indicating if the response was succesfull.  If not successful, `ErrorMessage` and `ShouldRetry` properties are returned.  If `ShouldRetry` is true, likely the request is rate limited and you can retry the request in a few seconds.
 
 ## Support
 
