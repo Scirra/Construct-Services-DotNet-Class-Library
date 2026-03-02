@@ -1,73 +1,39 @@
-﻿using ConstructServices.Authentication.Enums;
-using ConstructServices.Common;
+﻿using ConstructServices.Common;
 using JetBrains.Annotations;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using ConstructServices.Authentication.Objects;
 
 namespace ConstructServices.Authentication.Actions;
 
 public static partial class Players
 {
-    
     extension(AuthenticationService service)
     {
+        /// <summary>
+        /// Set restrictions for a Player
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/set-player-restrictions" />
         [UsedImplicitly]
-        public BaseResponse SetPlayerRestrictions(
-            string strPlayerID,
-            List<PlayerRestriction> actions)
-        {
-            var playerIDValidator = Common.Validations.Guid.IsValidGuid(strPlayerID);
-            if (!playerIDValidator.Successfull)
-            {
-                return new BaseResponse(string.Format(playerIDValidator.ErrorMessage, "Player ID"));
-            }
-            return service.SetPlayerRestrictions(playerIDValidator.ReturnedObject, actions);
-        }
-
-        [UsedImplicitly]
-        public async Task<BaseResponse> SetPlayerRestrictionsAsync(
-            string strPlayerID,
-            List<PlayerRestriction> actions)
-        {
-            var playerIDValidator = Common.Validations.Guid.IsValidGuid(strPlayerID);
-            if (!playerIDValidator.Successfull)
-            {
-                return new BaseResponse(string.Format(playerIDValidator.ErrorMessage, "Player ID"));
-            }
-            return await service.SetPlayerRestrictionsAsync(playerIDValidator.ReturnedObject, actions);
-        }
-
-        [UsedImplicitly]
-        public BaseResponse SetPlayerRestrictions(
-            Guid playerID,
-            List<PlayerRestriction> actions)
+        public BaseResponse SetPlayerRestrictions(SetPlayerRestrictionsOptions setPlayerRestrictionsOptions)
         {
             return Request.ExecuteSyncRequest<BaseResponse>(
                 Config.EndPointPaths.Players.SetRestrictions,
                 service,
-                new Dictionary<string, string>
-                {
-                    { "playerID", playerID.ToString() },
-                    { "restrictedActions", string.Join(",", actions.Select(c=> (int)c)) }
-                }
+                setPlayerRestrictionsOptions.BuildFormData()
             );
         }
 
+        /// <summary>
+        /// Set restrictions for a Player
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/set-player-restrictions" />
         [UsedImplicitly]
-        public async Task<BaseResponse> SetPlayerRestrictionsAsync(
-            Guid playerID,
-            List<PlayerRestriction> actions)
+        public async Task<BaseResponse> SetPlayerRestrictionsAsync(SetPlayerRestrictionsOptions setPlayerRestrictionsOptions)
         {
             return await Request.ExecuteAsyncRequest<BaseResponse>(
                 Config.EndPointPaths.Players.SetRestrictions,
                 service,
-                new Dictionary<string, string>
-                {
-                    { "playerID", playerID.ToString() },
-                    { "restrictedActions", string.Join(",", actions.Select(c=> (int)c)) }
-                }
+                setPlayerRestrictionsOptions.BuildFormData()
             );
         }
     }

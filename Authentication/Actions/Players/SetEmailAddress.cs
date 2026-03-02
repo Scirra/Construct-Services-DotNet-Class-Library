@@ -1,129 +1,39 @@
 ﻿using ConstructServices.Common;
 using JetBrains.Annotations;
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
+using ConstructServices.Authentication.Objects;
 
 namespace ConstructServices.Authentication.Actions;
 
 public static partial class Players
 {
-
     extension(AuthenticationService service)
     {
+        /// <summary>
+        /// Set a Players email address
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/set-email-address" />
         [UsedImplicitly]
-        public BaseResponse RemoveEmailAddress(string sessionKey)
-            => service.SetEmailAddress(sessionKey, string.Empty);
-
-        [UsedImplicitly]
-        public BaseResponse SetEmailAddress(
-            string sessionKey,
-            string emailAddress)
+        public BaseResponse SetEmailAddress(SetEmailAddressOptions setEmailAddressOptions)
         {
-            if (!string.IsNullOrWhiteSpace(emailAddress))
-            {
-                var validator = Common.Validations.EmailAddress.ValidateEmailAddress(emailAddress);
-                if (!validator.Successfull)
-                {
-                    return new BaseResponse(validator.ErrorMessage);
-                }
-            }
-
             return Request.ExecuteSyncRequest<BaseResponse>(
                 Config.EndPointPaths.Players.SetEmailAddress,
                 service,
-                new Dictionary<string, string>
-                {
-                    { "sessionKey", sessionKey },
-                    { "emailAddress", emailAddress }
-                }
+                setEmailAddressOptions.BuildFormData()
             );
         }
 
+        /// <summary>
+        /// Set a Players email address
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/set-email-address" />
         [UsedImplicitly]
-        public async Task<BaseResponse> RemoveEmailAddressAsync(string sessionKey)
-            => await service.SetEmailAddressAsync(sessionKey, string.Empty);
-
-        [UsedImplicitly]
-        public async Task<BaseResponse> SetEmailAddressAsync(
-            string sessionKey,
-            string emailAddress)
+        public async Task<BaseResponse> SetEmailAddressAsync(SetEmailAddressOptions setEmailAddressOptions)
         {
-            if (!string.IsNullOrWhiteSpace(emailAddress))
-            {
-                var validator = Common.Validations.EmailAddress.ValidateEmailAddress(emailAddress);
-                if (!validator.Successfull)
-                {
-                    return new BaseResponse(validator.ErrorMessage);
-                }
-            }
-
             return await Request.ExecuteAsyncRequest<BaseResponse>(
                 Config.EndPointPaths.Players.SetEmailAddress,
                 service,
-                new Dictionary<string, string>
-                {
-                    { "sessionKey", sessionKey },
-                    { "emailAddress", emailAddress }
-                }
-            );
-        }
-
-        [UsedImplicitly]
-        public BaseResponse RemoveEmailAddress(Guid playerID)
-            => service.SetEmailAddress(playerID, string.Empty);
-
-        [UsedImplicitly]
-        public BaseResponse SetEmailAddress(
-            Guid playerID,
-            string emailAddress)
-        {
-            if (!string.IsNullOrWhiteSpace(emailAddress))
-            {
-                var validator = Common.Validations.EmailAddress.ValidateEmailAddress(emailAddress);
-                if (!validator.Successfull)
-                {
-                    return new BaseResponse(validator.ErrorMessage);
-                }
-            }
-
-            return Request.ExecuteSyncRequest<BaseResponse>(
-                Config.EndPointPaths.Players.SetEmailAddress,
-                service,
-                new Dictionary<string, string>
-                {
-                    { "playerID", playerID.ToString() },
-                    { "emailAddress", emailAddress }
-                }
-            );
-        }
-
-        [UsedImplicitly]
-        public async Task<BaseResponse> RemoveEmailAddressAsync(Guid playerID)
-            => await service.SetEmailAddressAsync(playerID, string.Empty);
-
-        [UsedImplicitly]
-        public async Task<BaseResponse> SetEmailAddressAsync(
-            Guid playerID,
-            string emailAddress)
-        {
-            if (!string.IsNullOrWhiteSpace(emailAddress))
-            {
-                var validator = Common.Validations.EmailAddress.ValidateEmailAddress(emailAddress);
-                if (!validator.Successfull)
-                {
-                    return new BaseResponse(validator.ErrorMessage);
-                }
-            }
-
-            return await Request.ExecuteAsyncRequest<BaseResponse>(
-                Config.EndPointPaths.Players.SetEmailAddress,
-                service,
-                new Dictionary<string, string>
-                {
-                    { "playerID", playerID.ToString() },
-                    { "emailAddress", emailAddress }
-                }
+                setEmailAddressOptions.BuildFormData()
             );
         }        
     }

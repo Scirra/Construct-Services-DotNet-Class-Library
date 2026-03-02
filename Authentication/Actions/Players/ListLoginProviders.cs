@@ -1,6 +1,6 @@
 ﻿using ConstructServices.Authentication.Responses;
-using System.Collections.Generic;
 using System.Threading.Tasks;
+using ConstructServices.Authentication.Objects;
 using JetBrains.Annotations;
 
 namespace ConstructServices.Authentication.Actions;
@@ -10,41 +10,31 @@ public static partial class Players
 
     extension(AuthenticationService service)
     {
+        /// <summary>
+        /// List connected sign in providers
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/login-providers/get-login-providers" />
         [UsedImplicitly]
-        public GetConnectedLoginProvidersResponse GetLoginProviders(string sessionKey)
+        public GetConnectedLoginProvidersResponse ListLoginProviders(ListLoginProviderOptions listLoginProviderOptions)
         {
-            var sessionKeyValidator = Common.Validations.PlayerSessionKey.ValidatePlayerSessionKey(sessionKey);
-            if (!sessionKeyValidator.Successfull)
-            {
-                return new GetConnectedLoginProvidersResponse(sessionKeyValidator.ErrorMessage);
-            }
-
             return Common.Request.ExecuteSyncRequest<GetConnectedLoginProvidersResponse>(
                 Config.EndPointPaths.Players.ListProviders,
                 service,
-                new Dictionary<string, string>
-                {
-                    { "sessionKey", sessionKey }
-                }
+                listLoginProviderOptions.BuildFormData()
             );
         }
 
+        /// <summary>
+        /// List connected sign in providers
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/login-providers/get-login-providers" />
         [UsedImplicitly]
-        public async Task<GetConnectedLoginProvidersResponse> GetLoginProvidersAsync(string sessionKey)
+        public async Task<GetConnectedLoginProvidersResponse> GetLoginProvidersAsync(ListLoginProviderOptions listLoginProviderOptions)
         {
-            var sessionKeyValidator = Common.Validations.PlayerSessionKey.ValidatePlayerSessionKey(sessionKey);
-            if (!sessionKeyValidator.Successfull)
-            {
-                return new GetConnectedLoginProvidersResponse(sessionKeyValidator.ErrorMessage);
-            }
-
             return await Common.Request.ExecuteAsyncRequest<GetConnectedLoginProvidersResponse>(
                 Config.EndPointPaths.Players.ListProviders,
                 service,
-                new Dictionary<string, string>
-                {
-                    { "sessionKey", sessionKey }
-                }
+                listLoginProviderOptions.BuildFormData()
             );
         }
     }

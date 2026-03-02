@@ -8,7 +8,6 @@ internal static class Config
     {
         internal static class Players
         {
-            internal const string ChangePassword = "/changepassword.json";
             internal const string ChangePlayerName = "/changeplayername.json";
             internal const string DeletePlayer = "/deleteplayer.json";
             internal const string ForgottenPassword = "/forgottenpassword.json";

@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using ConstructServices.Authentication.Objects;
 using ConstructServices.Authentication.Responses;
 using ConstructServices.Common;
 using JetBrains.Annotations;
@@ -10,42 +10,32 @@ public static partial class Players
 {
     
     extension(AuthenticationService service)
-    {
+    {        
+        /// <summary>
+        /// Request a forgotten password email
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/forgotten-password" />
         [UsedImplicitly]
-        public BaseResponse RequestForgottenPasswordEmail(string emailAddress)
+        public BaseResponse RequestForgottenPasswordEmail(ForgottenPasswordOptions forgottenPasswordOptions)
         {
-            var validator = Common.Validations.EmailAddress.ValidateEmailAddress(emailAddress);
-            if (!validator.Successfull)
-            {
-                return new BaseResponse(validator.ErrorMessage);
-            }
-
             return Request.ExecuteSyncRequest<LinkLoginProviderResponse>(
                 Config.EndPointPaths.Players.ForgottenPassword,
                 service,
-                new Dictionary<string, string>
-                {
-                    { "emailAddress", emailAddress }
-                }
+                forgottenPasswordOptions.BuildFormData()
             );
         }
 
+        /// <summary>
+        /// Request a forgotten password email
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/forgotten-password" />
         [UsedImplicitly]
-        public async Task<BaseResponse> RequestForgottenPasswordEmailAsync(string emailAddress)
+        public async Task<BaseResponse> RequestForgottenPasswordEmailAsync(ForgottenPasswordOptions forgottenPasswordOptions)
         {
-            var validator = Common.Validations.EmailAddress.ValidateEmailAddress(emailAddress);
-            if (!validator.Successfull)
-            {
-                return new BaseResponse(validator.ErrorMessage);
-            }
-
             return await Request.ExecuteAsyncRequest<LinkLoginProviderResponse>(
                 Config.EndPointPaths.Players.ForgottenPassword,
                 service,
-                new Dictionary<string, string>
-                {
-                    { "emailAddress", emailAddress }
-                }
+                forgottenPasswordOptions.BuildFormData()
             );
         }
     }

@@ -1,87 +1,41 @@
-﻿using ConstructServices.Common;
+﻿using ConstructServices.Authentication.Objects;
+using ConstructServices.Common;
+using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using JetBrains.Annotations;
 
 namespace ConstructServices.Authentication.Actions;
 
 public static partial class Players
 {
-    
     extension(AuthenticationService service)
     {
+        /// <summary>
+        /// Sets a Players username and password
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/set-username-password" />
         [UsedImplicitly]
-        public BaseResponse SetUsernameAndPassword(
-            string strPlayerID,
-            string username,
-            string password)
+        public BaseResponse SetUsernameAndPassword(SetUsernameAndPasswordOptions setUsernameAndPasswordOptions)
         {
-            var playerIDValidator = Common.Validations.Guid.IsValidGuid(strPlayerID);
-            if (!playerIDValidator.Successfull)
-            {
-                return new BaseResponse(string.Format(playerIDValidator.ErrorMessage, "Player ID"));
-            }
-            return service.SetUsernameAndPassword(playerIDValidator.ReturnedObject, username, password);
-        }
-
-        [UsedImplicitly]
-        public async Task<BaseResponse> SetUsernameAndPasswordAsync(
-            string strPlayerID,
-            string username,
-            string password)
-        {
-            var playerIDValidator = Common.Validations.Guid.IsValidGuid(strPlayerID);
-            if (!playerIDValidator.Successfull)
-            {
-                return new BaseResponse(string.Format(playerIDValidator.ErrorMessage, "Player ID"));
-            }
-            return await service.SetUsernameAndPasswordAsync(playerIDValidator.ReturnedObject, username, password);
-        }
-
-        [UsedImplicitly]
-        public BaseResponse SetUsernameAndPassword(
-            Guid playerID,
-            string username,
-            string password)
-        {
-            if (string.IsNullOrWhiteSpace(username) && string.IsNullOrWhiteSpace(password))
-            {
-                return new BaseResponse();
-            }
-
             return Request.ExecuteSyncRequest<BaseResponse>(
                 Config.EndPointPaths.Players.SetUsernamePassword,
                 service,
-                new Dictionary<string, string>
-                {
-                    { "playerID", playerID.ToString() },
-                    { "username", username },
-                    { "password", password }
-                }
+                setUsernameAndPasswordOptions.BuildFormData()
             );
         }
 
+        /// <summary>
+        /// Sets a Players username and password
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/set-username-password" />
         [UsedImplicitly]
-        public async Task<BaseResponse> SetUsernameAndPasswordAsync(
-            Guid playerID,
-            string username,
-            string password)
+        public async Task<BaseResponse> SetUsernameAndPasswordAsync(SetUsernameAndPasswordOptions setUsernameAndPasswordOptions)
         {
-            if (string.IsNullOrWhiteSpace(username) && string.IsNullOrWhiteSpace(password))
-            {
-                return new BaseResponse();
-            }
-
             return await Request.ExecuteAsyncRequest<BaseResponse>(
                 Config.EndPointPaths.Players.SetUsernamePassword,
                 service,
-                new Dictionary<string, string>
-                {
-                    { "playerID", playerID.ToString() },
-                    { "username", username },
-                    { "password", password }
-                }
+                setUsernameAndPasswordOptions.BuildFormData()
             );
         }
     }

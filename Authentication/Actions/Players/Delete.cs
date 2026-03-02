@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using ConstructServices.Authentication.Objects;
 using ConstructServices.Common;
 using JetBrains.Annotations;
 
@@ -11,67 +10,31 @@ public static partial class Players
 
     extension(AuthenticationService service)
     {
+        /// <summary>
+        /// Delete a Player
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/delete-player" />
         [UsedImplicitly]
-        public BaseResponse DeletePlayer(Guid playerID)
+        public BaseResponse DeletePlayer(DeletePlayerOptions deletePlayerOptions)
         {
             return Request.ExecuteSyncRequest<BaseResponse>(
                 Config.EndPointPaths.Players.DeletePlayer,
                 service,
-                new Dictionary<string, string>
-                {
-                    { "playerID", playerID.ToString() }
-                }
+                deletePlayerOptions.BuildFormData()
             );
         }
 
+        /// <summary>
+        /// Delete a Player
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/delete-player" />
         [UsedImplicitly]
-        public async Task<BaseResponse> DeletePlayerAsync(Guid playerID)
+        public async Task<BaseResponse> DeletePlayerAsync(DeletePlayerOptions deletePlayerOptions)
         {
             return await Request.ExecuteAsyncRequest<BaseResponse>(
                 Config.EndPointPaths.Players.DeletePlayer,
                 service,
-                new Dictionary<string, string>
-                {
-                    { "playerID", playerID.ToString() }
-                }
-            );
-        }
-
-        [UsedImplicitly]
-        public BaseResponse DeletePlayer(string sessionKey)
-        {
-            var sessionKeyValidator = Common.Validations.PlayerSessionKey.ValidatePlayerSessionKey(sessionKey);
-            if (!sessionKeyValidator.Successfull)
-            {
-                return new BaseResponse(sessionKeyValidator.ErrorMessage);
-            }
-
-            return Request.ExecuteSyncRequest<BaseResponse>(
-                Config.EndPointPaths.Players.DeletePlayer,
-                service,
-                new Dictionary<string, string>
-                {
-                    { "sessionKey", sessionKey }
-                }
-            );
-        }
-
-        [UsedImplicitly]
-        public async Task<BaseResponse> DeletePlayerAsync(string sessionKey)
-        {
-            var sessionKeyValidator = Common.Validations.PlayerSessionKey.ValidatePlayerSessionKey(sessionKey);
-            if (!sessionKeyValidator.Successfull)
-            {
-                return new BaseResponse(sessionKeyValidator.ErrorMessage);
-            }
-
-            return await Request.ExecuteAsyncRequest<BaseResponse>(
-                Config.EndPointPaths.Players.DeletePlayer,
-                service,
-                new Dictionary<string, string>
-                {
-                    { "sessionKey", sessionKey }
-                }
+                deletePlayerOptions.BuildFormData()
             );
         }
     }

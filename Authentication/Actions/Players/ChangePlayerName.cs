@@ -1,9 +1,7 @@
-﻿using ConstructServices.Common;
-using ConstructServices.Common.Validations;
+﻿using ConstructServices.Authentication.Objects;
+using ConstructServices.Common;
 using JetBrains.Annotations;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using Guid = System.Guid;
 
 namespace ConstructServices.Authentication.Actions;
 
@@ -11,101 +9,31 @@ public static partial class Players
 {
     extension(AuthenticationService service)
     {
+        /// <summary>
+        /// Change a Players player name
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/change-player-name" />
         [UsedImplicitly]
-        public BaseResponse ChangePlayerName(
-            Guid playerID,
-            string newPlayerName)
+        public BaseResponse ChangePlayerName(ChangePlayerNameOptions changePlayerNameOptions)
         {
-            var playerNameValidator = newPlayerName.ValidatePlayerName();
-            if (!playerNameValidator.Successfull)
-            {
-                return new BaseResponse(playerNameValidator.ErrorMessage);
-            }
-            
             return Request.ExecuteSyncRequest<BaseResponse>(
                 Config.EndPointPaths.Players.ChangePlayerName,
                 service,
-                new Dictionary<string, string>
-                {
-                    { "playerID", playerID.ToString() },
-                    { "playerName", newPlayerName }
-                }
+                changePlayerNameOptions.BuildFormData()
             );
         }
 
+        /// <summary>
+        /// Change a Players player name
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/change-player-name" />
         [UsedImplicitly]
-        public async Task<BaseResponse> ChangePlayerNameAsync(
-            Guid playerID,
-            string newPlayerName)
+        public async Task<BaseResponse> ChangePlayerNameAsync(ChangePlayerNameOptions changePlayerNameOptions)
         {
-            var playerNameValidator = newPlayerName.ValidatePlayerName();
-            if (!playerNameValidator.Successfull)
-            {
-                return new BaseResponse(playerNameValidator.ErrorMessage);
-            }
-
             return await Request.ExecuteAsyncRequest<BaseResponse>(
                 Config.EndPointPaths.Players.ChangePlayerName,
                 service,
-                new Dictionary<string, string>
-                {
-                    { "playerID", playerID.ToString() },
-                    { "playerName", newPlayerName }
-                }
-            );
-        }
-
-        [UsedImplicitly]
-        public BaseResponse ChangePlayerName(
-            string sessionKey,
-            string newPlayerName)
-        {
-            var sessionKeyValidator = sessionKey.ValidatePlayerSessionKey();
-            if (!sessionKeyValidator.Successfull)
-            {
-                return new BaseResponse(sessionKeyValidator.ErrorMessage);
-            }
-            var playerNameValidator = newPlayerName.ValidatePlayerName();
-            if (!playerNameValidator.Successfull)
-            {
-                return new BaseResponse(playerNameValidator.ErrorMessage);
-            }
-
-            return Request.ExecuteSyncRequest<BaseResponse>(
-                Config.EndPointPaths.Players.ChangePlayerName,
-                service,
-                new Dictionary<string, string>
-                {
-                    { "sessionKey", sessionKey },
-                    { "playerName", newPlayerName }
-                }
-            );
-        }
-
-        [UsedImplicitly]
-        public async Task<BaseResponse> ChangePlayerNameAsync(
-            string sessionKey,
-            string newPlayerName)
-        {
-            var sessionKeyValidator = sessionKey.ValidatePlayerSessionKey();
-            if (!sessionKeyValidator.Successfull)
-            {
-                return new BaseResponse(sessionKeyValidator.ErrorMessage);
-            }
-            var playerNameValidator = newPlayerName.ValidatePlayerName();
-            if (!playerNameValidator.Successfull)
-            {
-                return new BaseResponse(playerNameValidator.ErrorMessage);
-            }
-
-            return await Request.ExecuteAsyncRequest<BaseResponse>(
-                Config.EndPointPaths.Players.ChangePlayerName,
-                service,
-                new Dictionary<string, string>
-                {
-                    { "sessionKey", sessionKey },
-                    { "playerName", newPlayerName }
-                }
+                changePlayerNameOptions.BuildFormData()
             );
         }
     }
