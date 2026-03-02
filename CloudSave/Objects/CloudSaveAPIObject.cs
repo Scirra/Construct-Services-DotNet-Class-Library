@@ -244,6 +244,7 @@ public sealed class SetCloudSavePictureOptions
 {
     private Guid CloudSaveID { get; }
     internal PictureData Picture { get; }
+    private string SessionKey { get; }
     
     public SetCloudSavePictureOptions(Guid cloudSaveID, PictureData picture)
     {
@@ -252,11 +253,13 @@ public sealed class SetCloudSavePictureOptions
     }
     public SetCloudSavePictureOptions(string sessionKey, Guid cloudSaveID, PictureData picture)
     {
+        SessionKey = sessionKey;
         CloudSaveID = cloudSaveID;
         Picture = picture;
     }
     public SetCloudSavePictureOptions(string sessionKey, string strCloudSaveID, PictureData picture)
     {
+        SessionKey = sessionKey;
         CloudSaveID = Guid.Parse(strCloudSaveID);
         Picture = picture;
     }
@@ -266,7 +269,11 @@ public sealed class SetCloudSavePictureOptions
         var formData = new Dictionary<string, string>
         {
             { "blobID", CloudSaveID.ToString() }
-        };            
+        };  
+        if (!string.IsNullOrWhiteSpace(SessionKey))
+        {
+            formData.Add("sessionKey", SessionKey);
+        }          
         if (!string.IsNullOrWhiteSpace(Picture.Base64))
         {
             formData.Add("picture", Picture.Base64);
@@ -286,30 +293,42 @@ public sealed class SetCloudSavePictureOptions
         return postedBinaryData;
     }
 }
-public sealed class GetCloudSaveByIDOptions(Guid cloudSaveID)
+public sealed class GetCloudSaveByIDOptions(string sessionKey, Guid cloudSaveID)
 {
-    [UsedImplicitly]
-    private Guid CloudSaveID { get; set; } = cloudSaveID;
+    private string SessionKey { get; } = sessionKey;
+    private Guid CloudSaveID { get; } = cloudSaveID;
+    
+    public GetCloudSaveByIDOptions(Guid cloudSaveID) : this(null, cloudSaveID) { }
+    public GetCloudSaveByIDOptions(string strCloudSaveID) : this(null, Guid.Parse(strCloudSaveID)) { }
+    public GetCloudSaveByIDOptions(string sessionKey, string strCloudSaveID) : this(sessionKey, Guid.Parse(strCloudSaveID)) { }
+    public GetCloudSaveByIDOptions(CloudSave cloudSave) : this(null, cloudSave.ID) { }
+    public GetCloudSaveByIDOptions(string sessionKey, CloudSave cloudSave) : this(sessionKey, cloudSave.ID) { }
 
-    [UsedImplicitly]
     internal Dictionary<string, string> BuildFormData()
     {
         var formData = new Dictionary<string, string>
         {
             { "blobID", CloudSaveID.ToString() }
         };
+        if (!string.IsNullOrWhiteSpace(SessionKey))
+        {
+            formData.Add("sessionKey", SessionKey);
+        }        
         return formData;
     }
 }
-public sealed class GetCloudSaveByKeyOptions(string key, Guid bucketID)
+public sealed class GetCloudSaveByKeyOptions(string sessionKey, string key, Guid bucketID)
 {
-    [UsedImplicitly]
-    private string Key { get; set; } = key;
+    private string SessionKey { get; } = sessionKey;
+    private string Key { get; } = key;
+    private Guid BucketID { get; } = bucketID;
+    
+    public GetCloudSaveByKeyOptions(string key, Guid bucketID) : this(null, key, bucketID) { }
+    public GetCloudSaveByKeyOptions(string key, string strBucketID) : this(null, key, Guid.Parse(strBucketID)) { }
+    public GetCloudSaveByKeyOptions(string key, Bucket bucket) : this(null, key, bucket.ID) { }
+    public GetCloudSaveByKeyOptions(string sessionKey, string key, string strBucketID) : this(sessionKey, key, Guid.Parse(strBucketID)) { }
+    public GetCloudSaveByKeyOptions(string sessionKey, string key, Bucket bucket) : this(sessionKey, key, bucket.ID) { }
 
-    [UsedImplicitly]
-    private Guid BucketID { get; set; } = bucketID;
-
-    [UsedImplicitly]
     internal Dictionary<string, string> BuildFormData()
     {
         var formData = new Dictionary<string, string>
@@ -317,6 +336,10 @@ public sealed class GetCloudSaveByKeyOptions(string key, Guid bucketID)
             { "key", Key },
             { "bucketID", BucketID.ToString() }
         };
+        if (!string.IsNullOrWhiteSpace(SessionKey))
+        {
+            formData.Add("sessionKey", SessionKey);
+        }        
         return formData;
     }
 }    
@@ -328,10 +351,12 @@ public sealed class ListPlayerCloudSaveFilters
 }
 public abstract class ListPlayerSaveOptions(
     bool returnPrivateSaves,
+    string sessionKey,
     Guid playerID,
     Enums.GetPlayerCloudSaveSortMethod? sortBy = null,
     ListPlayerCloudSaveFilters filters = null)
 {
+    private string SessionKey { get; } = sessionKey;
     private bool ReturnPrivateSaves { get; } = returnPrivateSaves;
     private Guid PlayerID { get; } = playerID;
     private Enums.GetPlayerCloudSaveSortMethod? SortBy { get; } = sortBy;
@@ -346,6 +371,10 @@ public abstract class ListPlayerSaveOptions(
             { "playerID", PlayerID.ToString() },
             { "bucketSaves", (!ReturnPrivateSaves).ToInt().ToString() }
         };
+        if (!string.IsNullOrWhiteSpace(SessionKey))
+        {
+            formData.Add("sessionKey", SessionKey);
+        }        
         if (SortBy.HasValue)
         {
             formData.Add("orderBy", SortBy.ToString());
@@ -366,13 +395,21 @@ public abstract class ListPlayerSaveOptions(
     }
 }
 
-[method: UsedImplicitly]
-public sealed class ListPlayersPrivateSavesOptions(
-    Guid playerID,
-    Enums.GetPlayerCloudSaveSortMethod? sortBy = null,
-    ListPlayerCloudSaveFilters filters = null)
-    : ListPlayerSaveOptions(true, playerID, sortBy, filters)
+[UsedImplicitly]
+public sealed class ListPlayersPrivateSavesOptions : ListPlayerSaveOptions
 {
+    public ListPlayersPrivateSavesOptions(
+        string sessionKey,
+        Guid playerID,
+        Enums.GetPlayerCloudSaveSortMethod? sortBy = null,
+        ListPlayerCloudSaveFilters filters = null) 
+        : base(true, sessionKey, playerID, sortBy, filters) { }
+    public ListPlayersPrivateSavesOptions(
+        Guid playerID,
+        Enums.GetPlayerCloudSaveSortMethod? sortBy = null,
+        ListPlayerCloudSaveFilters filters = null) 
+        : base(true, null, playerID, sortBy, filters) { }
+
     [UsedImplicitly]
     public Dictionary<string, string> BuildFormData()
     {
@@ -381,13 +418,20 @@ public sealed class ListPlayersPrivateSavesOptions(
     }
 }
 
-[method: UsedImplicitly]
-public sealed class ListPlayersSavesOptions(
-    Guid playerID,
-    Enums.GetPlayerCloudSaveSortMethod? sortBy = null,
-    ListPlayerCloudSaveFilters filters = null)
-    : ListPlayerSaveOptions(false, playerID, sortBy, filters)
-{
+[UsedImplicitly]
+public sealed class ListPlayersSavesOptions : ListPlayerSaveOptions
+{    public ListPlayersSavesOptions(
+        string sessionKey,
+        Guid playerID,
+        Enums.GetPlayerCloudSaveSortMethod? sortBy = null,
+        ListPlayerCloudSaveFilters filters = null) 
+        : base(false, sessionKey, playerID, sortBy, filters) { }
+    public ListPlayersSavesOptions(
+        Guid playerID,
+        Enums.GetPlayerCloudSaveSortMethod? sortBy = null,
+        ListPlayerCloudSaveFilters filters = null) 
+        : base(false, null, playerID, sortBy, filters) { }
+
     [UsedImplicitly]
     public Dictionary<string, string> BuildFormData()
     {
