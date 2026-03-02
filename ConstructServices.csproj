@@ -7,12 +7,13 @@
 	<Title>ConstructServices</Title>
 	<Version>1.1.0</Version>
 	<Company>Scirra</Company>
-	<PackageReadmeFile>$(MSBuildThisFileDirectory)README.md</PackageReadmeFile>
+	<PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" Version="2025.2.4" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+	<None Include="$(MSBuildThisFileDirectory)README.md" Pack="true" PackagePath="" />
   </ItemGroup>
 
 </Project>
