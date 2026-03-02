@@ -19,22 +19,22 @@ public abstract class ModifyBucketBase
     public bool AllowRatings { get; set; }
 
     [UsedImplicitly]
-    public uint? MaxBlobs { get; set; }
+    public uint? MaxSaves { get; set; }
 
     [UsedImplicitly]
-    public uint? MaxBlobSizeBytes { get; set; }
+    public uint? MaxSaveSizeBytes { get; set; }
 
     [UsedImplicitly]
-    public uint? MaxBlobsPerPlayer { get; set; }
+    public uint? MaxSavesPerPlayer { get; set; }
 
     protected Dictionary<string, string> BuildBaseFormData() => new()
     {
         { "bucketName", Name },
         { "accessMode", AccessMode.ToString() },
         { "allowRatings", AllowRatings.ToInt().ToString() },
-        { "maxBlobs", MaxBlobs.ToString() },
-        { "maxBlobSize", MaxBlobSizeBytes.ToString() },
-        { "maxBlobsPerPlayer", MaxBlobsPerPlayer.ToString() }
+        { "maxBlobs", MaxSaves.ToString() },
+        { "maxBlobSize", MaxSaveSizeBytes.ToString() },
+        { "maxBlobsPerPlayer", MaxSavesPerPlayer.ToString() }
     };
 }
 public sealed class CreateBucketOptions : ModifyBucketBase
@@ -43,16 +43,16 @@ public sealed class CreateBucketOptions : ModifyBucketBase
         string name,
         CloudSaveBucketAccessMode accessMode,
         bool allowRatings = true,
-        uint? maxBlobs = null,
-        uint? maxBlobSizeBytes = null,
-        uint? maxBlobsPerPlayer = null)
+        uint? maxSaves = null,
+        uint? maxSaveSizeBytes = null,
+        uint? maxSavesPerPlayer = null)
     {
         Name = name;
         AccessMode = accessMode;
         AllowRatings = allowRatings;
-        MaxBlobs = maxBlobs;
-        MaxBlobSizeBytes = maxBlobSizeBytes;
-        MaxBlobsPerPlayer = maxBlobsPerPlayer;
+        MaxSaves = maxSaves;
+        MaxSaveSizeBytes = maxSaveSizeBytes;
+        MaxSavesPerPlayer = maxSavesPerPlayer;
     }
 
     [UsedImplicitly]
