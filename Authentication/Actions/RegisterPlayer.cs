@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 namespace ConstructServices.Authentication.Actions;
 public static partial class Players
 {
-    private const string RegisterAPIPath = "/registerplayer.json";
 
     extension(AuthenticationService service)
     {
@@ -33,7 +32,7 @@ public static partial class Players
             }
 
             return Request.ExecuteSyncRequest<RegisterPlayerResponse>(
-                RegisterAPIPath,
+                Config.EndPointPaths.Register,
                 service,
                 formData
             );
@@ -60,7 +59,7 @@ public static partial class Players
             }
 
             return await Request.ExecuteAsyncRequest<RegisterPlayerResponse>(
-                RegisterAPIPath,
+                Config.EndPointPaths.Register,
                 service,
                 formData
             );
@@ -101,7 +100,7 @@ public static partial class Players
             }
 
             return Request.ExecuteSyncRequest<RegisterPlayerResponse>(
-                RegisterAPIPath,
+                Config.EndPointPaths.Register,
                 service,
                 formData
             );
@@ -142,7 +141,7 @@ public static partial class Players
             }
 
             return await Request.ExecuteAsyncRequest<RegisterPlayerResponse>(
-                RegisterAPIPath,
+                Config.EndPointPaths.Register,
                 service,
                 formData
             );

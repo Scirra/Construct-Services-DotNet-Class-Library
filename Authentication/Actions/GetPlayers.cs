@@ -11,7 +11,6 @@ namespace ConstructServices.Authentication.Actions;
 
 public static partial class Players
 {
-    private const string GetPlayersAPIPath = "/getplayers.json";
 
     extension(AuthenticationService service)
     {
@@ -26,7 +25,7 @@ public static partial class Players
             };
 
             return Request.ExecuteSyncRequest<GetPlayersResponse>(
-                GetPlayersAPIPath,
+                Config.EndPointPaths.ListPlayers,
                 service,
                 formData,
                 paginationOptions
@@ -44,7 +43,7 @@ public static partial class Players
             };
 
             return await Request.ExecuteAsyncRequest<GetPlayersResponse>(
-                GetPlayersAPIPath,
+                Config.EndPointPaths.ListPlayers,
                 service,
                 formData,
                 paginationOptions
@@ -72,7 +71,7 @@ public static partial class Players
                 { "playerIDs", string.Join(",", playerIDs) }
             };
             return Request.ExecuteSyncRequest<GetPlayersResponse>(
-                GetPlayersAPIPath,
+                Config.EndPointPaths.ListPlayers,
                 service,
                 formData
             );
@@ -91,7 +90,7 @@ public static partial class Players
                 { "playerIDs", string.Join(",", playerIDs) }
             };
             return await Request.ExecuteAsyncRequest<GetPlayersResponse>(
-                GetPlayersAPIPath,
+                Config.EndPointPaths.ListPlayers,
                 service,
                 formData
             );

@@ -8,7 +8,6 @@ namespace ConstructServices.Authentication.Actions;
 
 public static partial class Players
 {
-    private const string SignInPollAPIPath = "/signinpoll.json";
     
     extension(AuthenticationService service)
     {
@@ -38,7 +37,7 @@ public static partial class Players
         public SignInPollResponse SignIn(System.Guid pollToken)
         {
             return Common.Request.ExecuteSyncRequest<SignInPollResponse>(
-                SignInPollAPIPath,
+                Config.EndPointPaths.SignInPoll,
                 service,
                 new Dictionary<string, string>
                 {
@@ -51,7 +50,7 @@ public static partial class Players
         public async Task<SignInPollResponse> SignInAsync(System.Guid pollToken)
         {
             return await Common.Request.ExecuteAsyncRequest<SignInPollResponse>(
-                SignInPollAPIPath,
+                Config.EndPointPaths.SignInPoll,
                 service,
                 new Dictionary<string, string>
                 {

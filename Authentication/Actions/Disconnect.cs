@@ -8,7 +8,6 @@ namespace ConstructServices.Authentication.Actions;
 
 public static partial class Players
 {
-    private const string DisconnectAPIPath = "/disconnect.json";
     
     extension(AuthenticationService service)
     {
@@ -24,7 +23,7 @@ public static partial class Players
             }
 
             return Request.ExecuteSyncRequest<BaseResponse>(
-                DisconnectAPIPath,
+                Config.EndPointPaths.Disconnect,
                 service,
                 new Dictionary<string, string>
                 {
@@ -46,7 +45,7 @@ public static partial class Players
             }
 
             return await Request.ExecuteAsyncRequest<BaseResponse>(
-                DisconnectAPIPath,
+                Config.EndPointPaths.Disconnect,
                 service,
                 new Dictionary<string, string>
                 {

@@ -8,7 +8,6 @@ namespace ConstructServices.Authentication.Actions;
 
 public static partial class Players
 {
-    private const string DeletePlayerAPIPath = "/deleteplayer.json";
 
     extension(AuthenticationService service)
     {
@@ -16,7 +15,7 @@ public static partial class Players
         public BaseResponse DeletePlayer(Guid playerID)
         {
             return Request.ExecuteSyncRequest<BaseResponse>(
-                DeletePlayerAPIPath,
+                Config.EndPointPaths.DeletePlayer,
                 service,
                 new Dictionary<string, string>
                 {
@@ -29,7 +28,7 @@ public static partial class Players
         public async Task<BaseResponse> DeletePlayerAsync(Guid playerID)
         {
             return await Request.ExecuteAsyncRequest<BaseResponse>(
-                DeletePlayerAPIPath,
+                Config.EndPointPaths.DeletePlayer,
                 service,
                 new Dictionary<string, string>
                 {
@@ -48,7 +47,7 @@ public static partial class Players
             }
 
             return Request.ExecuteSyncRequest<BaseResponse>(
-                DeletePlayerAPIPath,
+                Config.EndPointPaths.DeletePlayer,
                 service,
                 new Dictionary<string, string>
                 {
@@ -67,7 +66,7 @@ public static partial class Players
             }
 
             return await Request.ExecuteAsyncRequest<BaseResponse>(
-                DeletePlayerAPIPath,
+                Config.EndPointPaths.DeletePlayer,
                 service,
                 new Dictionary<string, string>
                 {

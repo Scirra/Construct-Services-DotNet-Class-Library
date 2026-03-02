@@ -7,7 +7,6 @@ namespace ConstructServices.Authentication.Actions;
 
 public static partial class Players
 {
-    private const string GetProvidersAPIPath = "/getconnectedloginproviders.json";
 
     extension(AuthenticationService service)
     {
@@ -21,7 +20,7 @@ public static partial class Players
             }
 
             return Common.Request.ExecuteSyncRequest<GetConnectedLoginProvidersResponse>(
-                GetProvidersAPIPath,
+                Config.EndPointPaths.ListProviders,
                 service,
                 new Dictionary<string, string>
                 {
@@ -40,7 +39,7 @@ public static partial class Players
             }
 
             return await Common.Request.ExecuteAsyncRequest<GetConnectedLoginProvidersResponse>(
-                GetProvidersAPIPath,
+                Config.EndPointPaths.ListProviders,
                 service,
                 new Dictionary<string, string>
                 {

@@ -8,7 +8,6 @@ namespace ConstructServices.Authentication.Actions;
 
 public static partial class Players
 {
-    private const string SetAvatarAPIPath = "/setavatar.json";
     
     extension(AuthenticationService service)
     {
@@ -31,7 +30,7 @@ public static partial class Players
             if (picture.Bytes != null)
             {
                 return Request.ExecuteMultiPartFormSyncRequest<BaseResponse>(
-                    SetAvatarAPIPath,
+                    Config.EndPointPaths.SetAvatar,
                     service,
                     formData,
                     new Dictionary<string, ByteArrayContent>{ {"picture", new ByteArrayContent(picture.Bytes) } }
@@ -50,7 +49,7 @@ public static partial class Players
                 return new BaseResponse("No picture data in request.");
             }
             return Request.ExecuteSyncRequest<BaseResponse>(
-                SetAvatarAPIPath,
+                Config.EndPointPaths.SetAvatar,
                 service,
                 formData
             );
@@ -75,7 +74,7 @@ public static partial class Players
             if (picture.Bytes != null)
             {
                 return await Request.ExecuteMultiPartFormAsyncRequest<BaseResponse>(
-                    SetAvatarAPIPath,
+                    Config.EndPointPaths.SetAvatar,
                     service,
                     formData,
                     new Dictionary<string, ByteArrayContent>{ {"picture", new ByteArrayContent(picture.Bytes) } }
@@ -94,7 +93,7 @@ public static partial class Players
                 return new BaseResponse("No picture data in request.");
             }
             return await Request.ExecuteAsyncRequest<BaseResponse>(
-                SetAvatarAPIPath,
+                Config.EndPointPaths.SetAvatar,
                 service,
                 formData
             );

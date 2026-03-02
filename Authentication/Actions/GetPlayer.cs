@@ -8,7 +8,6 @@ namespace ConstructServices.Authentication.Actions;
 
 public static partial class Players
 {
-    private const string GetPlayerAPIPath = "/getplayer.json";
 
     extension(AuthenticationService service)
     {
@@ -21,7 +20,7 @@ public static partial class Players
                 return new GetPlayerResponse(validator.ErrorMessage);
             }
             return Common.Request.ExecuteSyncRequest<GetPlayerResponse>(
-                GetPlayerAPIPath,
+                Config.EndPointPaths.GetPlayer,
                 service,
                 new Dictionary<string, string>
                 {
@@ -39,7 +38,7 @@ public static partial class Players
                 return new GetPlayerResponse(validator.ErrorMessage);
             }
             return await Common.Request.ExecuteAsyncRequest<GetPlayerResponse>(
-                GetPlayerAPIPath,
+                Config.EndPointPaths.GetPlayer,
                 service,
                 new Dictionary<string, string>
                 {
@@ -52,7 +51,7 @@ public static partial class Players
         public GetPlayerResponse GetPlayer(Guid playerID)
         {
             return Common.Request.ExecuteSyncRequest<GetPlayerResponse>(
-                GetPlayerAPIPath,
+                Config.EndPointPaths.GetPlayer,
                 service,
                 new Dictionary<string, string>
                 {
@@ -65,7 +64,7 @@ public static partial class Players
         public async Task<GetPlayerResponse> GetPlayerAsync(Guid playerID)
         {
             return await Common.Request.ExecuteAsyncRequest<GetPlayerResponse>(
-                GetPlayerAPIPath,
+                Config.EndPointPaths.GetPlayer,
                 service,
                 new Dictionary<string, string>
                 {

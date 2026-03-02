@@ -7,7 +7,6 @@ namespace ConstructServices.Authentication.Actions;
 
 public static partial class Players
 {
-    private const string GetSessionAPIPath = "/getsession.json";
     
     extension(AuthenticationService service)
     {
@@ -21,7 +20,7 @@ public static partial class Players
             }
 
             return Common.Request.ExecuteSyncRequest<GetSessionResponse>(
-                GetSessionAPIPath,
+                Config.EndPointPaths.GetSession,
                 service,
                 new Dictionary<string, string>
                 {
@@ -40,7 +39,7 @@ public static partial class Players
             }
 
             return await Common.Request.ExecuteAsyncRequest<GetSessionResponse>(
-                GetSessionAPIPath,
+                Config.EndPointPaths.GetSession,
                 service,
                 new Dictionary<string, string>
                 {

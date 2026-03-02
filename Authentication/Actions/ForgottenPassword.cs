@@ -8,7 +8,6 @@ namespace ConstructServices.Authentication.Actions;
 
 public static partial class Players
 {
-    private const string ForgottenPasswordAPIPath = "/forgottenpassword.json";
     
     extension(AuthenticationService service)
     {
@@ -22,7 +21,7 @@ public static partial class Players
             }
 
             return Request.ExecuteSyncRequest<LinkLoginProviderResponse>(
-                ForgottenPasswordAPIPath,
+                Config.EndPointPaths.ForgottenPassword,
                 service,
                 new Dictionary<string, string>
                 {
@@ -41,7 +40,7 @@ public static partial class Players
             }
 
             return await Request.ExecuteAsyncRequest<LinkLoginProviderResponse>(
-                ForgottenPasswordAPIPath,
+                Config.EndPointPaths.ForgottenPassword,
                 service,
                 new Dictionary<string, string>
                 {

@@ -7,7 +7,6 @@ using JetBrains.Annotations;
 namespace ConstructServices.Authentication.Actions;
 public static partial class Players
 {
-    private const string LinkProviderAPIPath = "/link.json";
     
     extension(AuthenticationService service)
     {
@@ -22,7 +21,7 @@ public static partial class Players
             }
 
             return Common.Request.ExecuteSyncRequest<SignInResponse>(
-                LinkProviderAPIPath,
+                Config.EndPointPaths.Link,
                 service,
                 new Dictionary<string, string>
                 {
@@ -43,7 +42,7 @@ public static partial class Players
             }
 
             return await Common.Request.ExecuteAsyncRequest<SignInResponse>(
-                LinkProviderAPIPath,
+                Config.EndPointPaths.Link,
                 service,
                 new Dictionary<string, string>
                 {

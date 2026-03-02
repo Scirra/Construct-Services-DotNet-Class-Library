@@ -10,7 +10,6 @@ namespace ConstructServices.Authentication.Actions;
 
 public static partial class Players
 {
-    private const string SetRestrictionsAPIPath = "/setplayerrestrictions.json";
     
     extension(AuthenticationService service)
     {
@@ -46,7 +45,7 @@ public static partial class Players
             List<PlayerRestriction> actions)
         {
             return Request.ExecuteSyncRequest<BaseResponse>(
-                SetRestrictionsAPIPath,
+                Config.EndPointPaths.SetRestrictions,
                 service,
                 new Dictionary<string, string>
                 {
@@ -62,7 +61,7 @@ public static partial class Players
             List<PlayerRestriction> actions)
         {
             return await Request.ExecuteAsyncRequest<BaseResponse>(
-                SetRestrictionsAPIPath,
+                Config.EndPointPaths.SetRestrictions,
                 service,
                 new Dictionary<string, string>
                 {

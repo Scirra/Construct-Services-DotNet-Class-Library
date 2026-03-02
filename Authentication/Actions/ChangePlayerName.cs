@@ -9,8 +9,6 @@ namespace ConstructServices.Authentication.Actions;
 
 public static partial class Players
 {
-    private const string changePlayerNameAPIPath = "/changeplayername.json";
-
     extension(AuthenticationService service)
     {
         [UsedImplicitly]
@@ -25,7 +23,7 @@ public static partial class Players
             }
             
             return Request.ExecuteSyncRequest<BaseResponse>(
-                changePlayerNameAPIPath,
+                Config.EndPointPaths.ChangePlayerName,
                 service,
                 new Dictionary<string, string>
                 {
@@ -47,7 +45,7 @@ public static partial class Players
             }
 
             return await Request.ExecuteAsyncRequest<BaseResponse>(
-                changePlayerNameAPIPath,
+                Config.EndPointPaths.ChangePlayerName,
                 service,
                 new Dictionary<string, string>
                 {
@@ -74,7 +72,7 @@ public static partial class Players
             }
 
             return Request.ExecuteSyncRequest<BaseResponse>(
-                changePlayerNameAPIPath,
+                Config.EndPointPaths.ChangePlayerName,
                 service,
                 new Dictionary<string, string>
                 {
@@ -101,7 +99,7 @@ public static partial class Players
             }
 
             return await Request.ExecuteAsyncRequest<BaseResponse>(
-                changePlayerNameAPIPath,
+                Config.EndPointPaths.ChangePlayerName,
                 service,
                 new Dictionary<string, string>
                 {

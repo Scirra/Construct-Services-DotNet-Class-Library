@@ -7,7 +7,6 @@ namespace ConstructServices.Authentication.Actions;
 
 public static partial class Players
 {
-    private const string RefreshAPIPath = "/link.json";
     
     extension(AuthenticationService service)
     {
@@ -21,7 +20,7 @@ public static partial class Players
             }
 
             return Request.ExecuteSyncRequest<BaseResponse>(
-                RefreshAPIPath,
+                Config.EndPointPaths.Refresh,
                 service,
                 new Dictionary<string, string>
                 {
@@ -40,7 +39,7 @@ public static partial class Players
             }
 
             return await Request.ExecuteAsyncRequest<BaseResponse>(
-                RefreshAPIPath,
+                Config.EndPointPaths.Refresh,
                 service,
                 new Dictionary<string, string>
                 {

@@ -8,7 +8,6 @@ namespace ConstructServices.Authentication.Actions;
 
 public static partial class Players
 {
-    private const string SetEmailAddressAPIPath = "/setemailaddress.json";
 
     extension(AuthenticationService service)
     {
@@ -31,7 +30,7 @@ public static partial class Players
             }
 
             return Request.ExecuteSyncRequest<BaseResponse>(
-                SetEmailAddressAPIPath,
+                Config.EndPointPaths.SetEmailAddress,
                 service,
                 new Dictionary<string, string>
                 {
@@ -60,7 +59,7 @@ public static partial class Players
             }
 
             return await Request.ExecuteAsyncRequest<BaseResponse>(
-                SetEmailAddressAPIPath,
+                Config.EndPointPaths.SetEmailAddress,
                 service,
                 new Dictionary<string, string>
                 {
@@ -89,7 +88,7 @@ public static partial class Players
             }
 
             return Request.ExecuteSyncRequest<BaseResponse>(
-                SetEmailAddressAPIPath,
+                Config.EndPointPaths.SetEmailAddress,
                 service,
                 new Dictionary<string, string>
                 {
@@ -118,7 +117,7 @@ public static partial class Players
             }
 
             return await Request.ExecuteAsyncRequest<BaseResponse>(
-                SetEmailAddressAPIPath,
+                Config.EndPointPaths.SetEmailAddress,
                 service,
                 new Dictionary<string, string>
                 {

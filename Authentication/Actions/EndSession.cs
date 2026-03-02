@@ -7,7 +7,6 @@ namespace ConstructServices.Authentication.Actions;
 
 public static partial class Players
 {
-    private const string EndSessionAPIPath = "/endsession.json";
     
     extension(AuthenticationService service)
     {
@@ -21,7 +20,7 @@ public static partial class Players
             }
 
             return Request.ExecuteSyncRequest<BaseResponse>(
-                EndSessionAPIPath,
+                Config.EndPointPaths.EndSession,
                 service,
                 new Dictionary<string, string>
                 {
@@ -40,7 +39,7 @@ public static partial class Players
             }
 
             return await Request.ExecuteAsyncRequest<BaseResponse>(
-                EndSessionAPIPath,
+                Config.EndPointPaths.EndSession,
                 service,
                 new Dictionary<string, string>
                 {

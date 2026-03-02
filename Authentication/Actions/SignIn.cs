@@ -9,7 +9,6 @@ namespace ConstructServices.Authentication.Actions;
 
 public static partial class Players
 {
-    private const string SignInAPIPath = "/signin.json";
 
     extension(AuthenticationService service)
     {
@@ -28,7 +27,7 @@ public static partial class Players
             }
 
             return Common.Request.ExecuteSyncRequest<SignInResponse>(
-                SignInAPIPath,
+                Config.EndPointPaths.SignIn,
                 service,
                 formData
             );
@@ -48,7 +47,7 @@ public static partial class Players
                 formData.Add("expiryMins", Convert.ToInt32(sessionExpiry.Value.TotalMinutes).ToString());
             }
             return await Common.Request.ExecuteAsyncRequest<SignInResponse>(
-                SignInAPIPath,
+                Config.EndPointPaths.SignIn,
                 service,
                 formData
             );
