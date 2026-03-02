@@ -1,9 +1,8 @@
-﻿using System;
+﻿using ConstructServices.Common;
+using ConstructServices.Leaderboards.Objects;
 using ConstructServices.Leaderboards.Responses;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using ConstructServices.Common;
 using JetBrains.Annotations;
+using System.Threading.Tasks;
 
 namespace ConstructServices.Leaderboards.Actions;
 
@@ -11,58 +10,36 @@ public static partial class Scores{
     
     extension(LeaderboardService service)
     {
+        /// <summary>
+        /// List a Players Scores
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/scores/get-player-scores" />
         [UsedImplicitly]
-        public GetScoreResponse GetPlayerScores(string playerID,
+        public GetScoreResponse ListPlayerScores(
+            ListPlayerScoresOptions listPlayerScoresOptions,
             PaginationOptions paginationOptions)
         {
-            var playerIDValidator = Common.Validations.Guid.IsValidGuid(playerID);
-            if (!playerIDValidator.Successfull)
-            {
-                return new GetScoreResponse(string.Format(playerIDValidator.ErrorMessage, "Player ID"));
-            }
-            return service.GetPlayerScores(playerIDValidator.ReturnedObject, paginationOptions);
-        }
-
-        [UsedImplicitly]
-        public async Task<GetScoreResponse> GetPlayerScoresAsync(string playerID,
-            PaginationOptions paginationOptions)
-        {
-            var playerIDValidator = Common.Validations.Guid.IsValidGuid(playerID);
-            if (!playerIDValidator.Successfull)
-            {
-                return new GetScoreResponse(string.Format(playerIDValidator.ErrorMessage, "Player ID"));
-            }
-            return await service.GetPlayerScoresAsync(playerIDValidator.ReturnedObject, paginationOptions);
-        }
-
-        [UsedImplicitly]
-        public GetScoreResponse GetPlayerScores(Guid playerID,
-            PaginationOptions paginationOptions)
-        {
-            var formData = new Dictionary<string, string>
-            {
-                { "playerID", playerID.ToString() }
-            };
             return Request.ExecuteSyncRequest<GetScoreResponse>(
                 Config.EndPointPaths.Scores.ListPlayerScores,
                 service,
-                formData,
+                listPlayerScoresOptions.BuildFormData(),
                 paginationOptions
             );
         }
 
+        /// <summary>
+        /// List a Players Scores
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/scores/get-player-scores" />
         [UsedImplicitly]
-        public async Task<GetScoreResponse> GetPlayerScoresAsync(Guid playerID,
+        public async Task<GetScoreResponse> ListPlayerScoresAsync(
+            ListPlayerScoresOptions listPlayerScoresOptions,
             PaginationOptions paginationOptions)
         {
-            var formData = new Dictionary<string, string>
-            {
-                { "playerID", playerID.ToString() }
-            };
             return await Request.ExecuteAsyncRequest<GetScoreResponse>(
                 Config.EndPointPaths.Scores.ListPlayerScores,
                 service,
-                formData,
+                listPlayerScoresOptions.BuildFormData(),
                 paginationOptions
             );
         }

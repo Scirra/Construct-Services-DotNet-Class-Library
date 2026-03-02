@@ -3,41 +3,26 @@ using ConstructServices.Leaderboards.Responses;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ConstructServices.Common;
+using ConstructServices.Leaderboards.Objects;
 using JetBrains.Annotations;
 
 namespace ConstructServices.Leaderboards.Actions;
 
 public static partial class Scores
 {
-    
     extension(LeaderboardService service)
     {
+        /// <summary>
+        /// List all Scores
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/scores/get-scores" />
         [UsedImplicitly]
-        public GetScoreResponse GetScores(PaginationOptions paginationOptions,
-            string countryISOAlpha2 = null,
-            ScoreRange? range = null,
-            int? rangeOffset = null,
-            int? compareRanks = null,
+        public GetScoreResponse ListScores(
+            ListScoreOptions listScoreOptions, 
+            PaginationOptions paginationOptions,
             RequestPerspective requestPerspective = null)
         {
-            var formData = new Dictionary<string, string>();
-            if (!string.IsNullOrWhiteSpace(countryISOAlpha2))
-            {
-                formData.Add("country", countryISOAlpha2);
-            }
-            if (range != null)
-            {
-                formData.Add("range", range.Value.ToString());
-            }
-            if (rangeOffset.HasValue)
-            {
-                formData.Add("rangeOffset", rangeOffset.Value.ToString());
-            }
-            if (compareRanks.HasValue)
-            {
-                formData.Add("compareRanks", compareRanks.Value.ToString());
-            }
-
+            var formData = listScoreOptions.BuildFormData();
             LeaderboardService.AddRequestPerspectiveFormData(requestPerspective, formData);
 
             return Request.ExecuteSyncRequest<GetScoreResponse>(
@@ -48,32 +33,19 @@ public static partial class Scores
             );
         }
 
+        /// <summary>
+        /// List all Scores
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/scores/get-scores" />
         [UsedImplicitly]
-        public async Task<GetScoreResponse> GetScoresAsync(PaginationOptions paginationOptions,
-            string countryISOAlpha2 = null,
-            ScoreRange? range = null,
-            int? rangeOffset = null,
-            int? compareRanks = null,
+        public async Task<GetScoreResponse> ListScoresAsync(
+            ListScoreOptions listScoreOptions, 
+            PaginationOptions paginationOptions,
             RequestPerspective requestPerspective = null)
         {
-            var formData = new Dictionary<string, string>();
-            if (!string.IsNullOrWhiteSpace(countryISOAlpha2))
-            {
-                formData.Add("country", countryISOAlpha2);
-            }
-            if (range != null)
-            {
-                formData.Add("range", range.Value.ToString());
-            }
-            if (rangeOffset.HasValue)
-            {
-                formData.Add("rangeOffset", rangeOffset.Value.ToString());
-            }
-            if (compareRanks.HasValue)
-            {
-                formData.Add("compareRanks", compareRanks.Value.ToString());
-            }
-
+            var formData = listScoreOptions.BuildFormData();
+            LeaderboardService.AddRequestPerspectiveFormData(requestPerspective, formData);
+            
             LeaderboardService.AddRequestPerspectiveFormData(requestPerspective, formData);
 
             return await Request.ExecuteAsyncRequest<GetScoreResponse>(

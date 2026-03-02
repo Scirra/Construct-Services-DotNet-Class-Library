@@ -1,114 +1,68 @@
-﻿using System;
+﻿using ConstructServices.Common;
+using ConstructServices.Leaderboards.Objects;
 using ConstructServices.Leaderboards.Responses;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using ConstructServices.Common;
 using JetBrains.Annotations;
+using System.Threading.Tasks;
 
 namespace ConstructServices.Leaderboards.Actions;
 
 public static partial class Scores
 {
-
     extension(LeaderboardService service)
     {
+        /// <summary>
+        /// Lists a Players Score history
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/scores/get-score-history" />
         [UsedImplicitly]
-        public GetScoreHistoryResponse GetPlayersScoreHistory(string playerID)
+        public GetScoreHistoryResponse ListPlayersScoreHistory(ListPlayerScoreHistoryOptions listPlayerScoreHistoryOptions)
         {
-            var idValidator = Common.Validations.Guid.IsValidGuid(playerID);
-            if (!idValidator.Successfull)
-            {
-                return new GetScoreHistoryResponse(string.Format(idValidator.ErrorMessage, "Player ID"));
-            }
-            return service.GetPlayersScoreHistory(idValidator.ReturnedObject);
-        }
-
-        [UsedImplicitly]
-        public async Task<GetScoreHistoryResponse> GetPlayersScoreHistoryAsync(string playerID)
-        {
-            var idValidator = Common.Validations.Guid.IsValidGuid(playerID);
-            if (!idValidator.Successfull)
-            {
-                return new GetScoreHistoryResponse(string.Format(idValidator.ErrorMessage, "Player ID"));
-            }
-            return await service.GetPlayersScoreHistoryAsync(idValidator.ReturnedObject);
-        }
-
-        [UsedImplicitly]
-        public GetScoreHistoryResponse GetPlayersScoreHistory(Guid playerID)
-        {
-            var formData = new Dictionary<string, string>
-            {
-                { "playerID", playerID.ToString() }
-            };
             return Request.ExecuteSyncRequest<GetScoreHistoryResponse>(
                 Config.EndPointPaths.Scores.ListScoreHistory,
                 service,
-                formData
+                listPlayerScoreHistoryOptions.BuildFormData()
             );
         }
 
+        /// <summary>
+        /// Lists a Players Score history
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/scores/get-score-history" />
         [UsedImplicitly]
-        public async Task<GetScoreHistoryResponse> GetPlayersScoreHistoryAsync(Guid playerID)
+        public async Task<GetScoreHistoryResponse> ListPlayersScoreHistoryAsync(ListPlayerScoreHistoryOptions listPlayerScoreHistoryOptions)
         {
-            var formData = new Dictionary<string, string>
-            {
-                { "playerID", playerID.ToString() }
-            };
             return await Request.ExecuteAsyncRequest<GetScoreHistoryResponse>(
                 Config.EndPointPaths.Scores.ListScoreHistory,
                 service,
-                formData
+                listPlayerScoreHistoryOptions.BuildFormData()
             );
         }
-        
-        [UsedImplicitly]
-        public GetScoreHistoryResponse GetScoreHistoryOnScoreID(string strScoreID)
-        {
-            var idValidator = Common.Validations.Guid.IsValidGuid(strScoreID);
-            if (!idValidator.Successfull)
-            {
-                return new GetScoreHistoryResponse(string.Format(idValidator.ErrorMessage, "Score ID"));
-            }
-            return service.GetScoreHistoryOnScoreID(idValidator.ReturnedObject);
-        }
 
+        /// <summary>
+        /// Lists a Scores history
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/scores/get-score-history" />
         [UsedImplicitly]
-        public async Task<GetScoreHistoryResponse> GetScoreHistoryOnScoreIDAsync(string strScoreID)
+        public GetScoreHistoryResponse ListScoreHistory(ListScoreHistoryOptions listScoreHistoryOptions)
         {
-            var idValidator = Common.Validations.Guid.IsValidGuid(strScoreID);
-            if (!idValidator.Successfull)
-            {
-                return new GetScoreHistoryResponse(string.Format(idValidator.ErrorMessage, "Score ID"));
-            }
-            return await service.GetScoreHistoryOnScoreIDAsync(idValidator.ReturnedObject);
-        }
-        
-        [UsedImplicitly]
-        public GetScoreHistoryResponse GetScoreHistoryOnScoreID(Guid scoreID)
-        {
-            var formData = new Dictionary<string, string>
-            {
-                { "scoreID", scoreID.ToString() }
-            };
             return Request.ExecuteSyncRequest<GetScoreHistoryResponse>(
                 Config.EndPointPaths.Scores.ListScoreHistory,
                 service,
-                formData
+                listScoreHistoryOptions.BuildFormData()
             );
         }
 
+        /// <summary>
+        /// Lists a Scores history
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/scores/get-score-history" />
         [UsedImplicitly]
-        public async Task<GetScoreHistoryResponse> GetScoreHistoryOnScoreIDAsync(Guid scoreID)
+        public async Task<GetScoreHistoryResponse> ListScoreHistoryAsync(ListScoreHistoryOptions listScoreHistoryOptions)
         {
-            var formData = new Dictionary<string, string>
-            {
-                { "scoreID", scoreID.ToString() }
-            };
             return await Request.ExecuteAsyncRequest<GetScoreHistoryResponse>(
                 Config.EndPointPaths.Scores.ListScoreHistory,
                 service,
-                formData
+                listScoreHistoryOptions.BuildFormData()
             );
         }
     }
