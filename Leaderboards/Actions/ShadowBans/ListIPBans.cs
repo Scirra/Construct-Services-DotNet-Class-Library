@@ -1,7 +1,7 @@
 ﻿using ConstructServices.Leaderboards.Responses;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using ConstructServices.Common;
+using ConstructServices.Leaderboards.Objects;
 using JetBrains.Annotations;
 
 namespace ConstructServices.Leaderboards.Actions;
@@ -11,26 +11,36 @@ public static partial class ShadowBans
     
     extension(LeaderboardService service)
     {
+        /// <summary>
+        /// List all IP based Shadow Bans
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/shadow-bans/get-ip-bans" />
         [UsedImplicitly]
-        public GetShadowBansResponse GetIPShadowBans(PaginationOptions paginationOptions)
+        public GetShadowBansResponse ListIPShadowBans(
+            ListShadowBanOptions listShadowBanOptions, 
+            PaginationOptions paginationOptions)
         {
-            var formData = new Dictionary<string, string>();
             return Request.ExecuteSyncRequest<GetShadowBansResponse>(
                 Config.EndPointPaths.ShadowBans.ListIPBans,
                 service,
-                formData,
+                listShadowBanOptions.BuildFormData(),
                 paginationOptions
             );
         }
 
+        /// <summary>
+        /// List all IP based Shadow Bans
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/shadow-bans/get-ip-bans" />
         [UsedImplicitly]
-        public async Task<GetShadowBansResponse> GetIPShadowBansAsync(PaginationOptions paginationOptions)
+        public async Task<GetShadowBansResponse> ListIPShadowBansAsync(
+            ListShadowBanOptions listShadowBanOptions, 
+            PaginationOptions paginationOptions)
         {
-            var formData = new Dictionary<string, string>();
             return await Request.ExecuteAsyncRequest<GetShadowBansResponse>(
                 Config.EndPointPaths.ShadowBans.ListIPBans,
                 service,
-                formData,
+                listShadowBanOptions.BuildFormData(),
                 paginationOptions
             );
         }

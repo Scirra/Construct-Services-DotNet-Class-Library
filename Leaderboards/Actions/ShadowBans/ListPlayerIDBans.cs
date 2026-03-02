@@ -1,7 +1,7 @@
 ﻿using ConstructServices.Common;
+using ConstructServices.Leaderboards.Objects;
 using ConstructServices.Leaderboards.Responses;
 using JetBrains.Annotations;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ConstructServices.Leaderboards.Actions;
@@ -11,26 +11,36 @@ public static partial class ShadowBans
     
     extension(LeaderboardService service)
     {
+        /// <summary>
+        /// List all Player ID based Shadow Bans
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/shadow-bans/get-player-bans" />
         [UsedImplicitly]
-        public GetShadowBansResponse GetPlayerIDShadowBans(PaginationOptions paginationOptions)
+        public GetShadowBansResponse GetPlayerIDShadowBans(
+            ListShadowBanOptions listShadowBanOptions, 
+            PaginationOptions paginationOptions)
         {
-            var formData = new Dictionary<string, string>();
             return Request.ExecuteSyncRequest<GetShadowBansResponse>(
                 Config.EndPointPaths.ShadowBans.ListPlayerIDBans,
                 service,
-                formData,
+                listShadowBanOptions.BuildFormData(),
                 paginationOptions
             );
         }
 
+        /// <summary>
+        /// List all Player ID based Shadow Bans
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/shadow-bans/get-player-bans" />
         [UsedImplicitly]
-        public async Task<GetShadowBansResponse> GetPlayerIDShadowBansAsync(PaginationOptions paginationOptions)
+        public async Task<GetShadowBansResponse> GetPlayerIDShadowBansAsync(
+            ListShadowBanOptions listShadowBanOptions, 
+            PaginationOptions paginationOptions)
         {
-            var formData = new Dictionary<string, string>();
             return await Request.ExecuteAsyncRequest<GetShadowBansResponse>(
                 Config.EndPointPaths.ShadowBans.ListPlayerIDBans,
                 service,
-                formData,
+                listShadowBanOptions.BuildFormData(),
                 paginationOptions
             );
         }

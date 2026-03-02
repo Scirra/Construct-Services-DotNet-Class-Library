@@ -1,7 +1,9 @@
 ﻿using ConstructServices.Common;
+using JetBrains.Annotations;
 
 namespace ConstructServices.Leaderboards.Responses;
 
+[UsedImplicitly]
 public sealed class ShadowBanResponse : BaseResponse
 {
     public ShadowBanResponse()
