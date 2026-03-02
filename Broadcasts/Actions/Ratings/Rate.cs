@@ -16,7 +16,7 @@ public static partial class Ratings
         [UsedImplicitly]
         public RateResponse Rate(RateBroadcastMessageOptions rateBroadcastMessageOptions)
         {
-            return global::ConstructServices.Ratings.Actions.Rating.Rate(service, Config.RateMessageAPIEndPoint, rateBroadcastMessageOptions);
+            return global::ConstructServices.Ratings.Actions.Rating.Rate(service, Config.EndPointPaths.Ratings.Rate, rateBroadcastMessageOptions);
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ public static partial class Ratings
         [UsedImplicitly]
         public async Task<RateResponse> RateAsync(RateBroadcastMessageOptions rateBroadcastMessageOptions)
         {
-            return await global::ConstructServices.Ratings.Actions.Rating.RateAsync(service, Config.RateMessageAPIEndPoint, rateBroadcastMessageOptions);
+            return await global::ConstructServices.Ratings.Actions.Rating.RateAsync(service, Config.EndPointPaths.Ratings.Rate, rateBroadcastMessageOptions);
         }
     }
 }

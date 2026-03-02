@@ -18,7 +18,7 @@ public static partial class Messages
         public MessageResponse CreateMessage(CreateMessageOptions createMessageOptions)
         {
             return Request.ExecuteSyncRequest<MessageResponse>(
-                Config.CreateMessageAPIPath,
+                Config.EndPointPaths.Messages.Create,
                 service,
                 createMessageOptions.BuildFormData()
             );
@@ -32,7 +32,7 @@ public static partial class Messages
         public async Task<MessageResponse> CreateMessageAsync(CreateMessageOptions createMessageOptions)
         {
             return await Request.ExecuteAsyncRequest<MessageResponse>(
-                Config.CreateMessageAPIPath,
+                Config.EndPointPaths.Messages.Create,
                 service,
                 createMessageOptions.BuildFormData()
             );

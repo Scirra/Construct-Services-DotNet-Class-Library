@@ -18,7 +18,7 @@ public static partial class Messages
         public MessagesResponse ListMessages(ListMessagesOptions listMessagesOptions)
         {
             return Request.ExecuteSyncRequest<MessagesResponse>(
-                Config.GetMessagesAPIPath,
+                Config.EndPointPaths.Messages.List,
                 service,
                 listMessagesOptions.BuildFormData(),
                 listMessagesOptions.PaginationOptions
@@ -33,7 +33,7 @@ public static partial class Messages
         public async Task<MessagesResponse> ListMessagesAsync(ListMessagesOptions listMessagesOptions)
         {
             return await Request.ExecuteAsyncRequest<MessagesResponse>(
-                Config.GetMessagesAPIPath,
+                Config.EndPointPaths.Messages.List,
                 service,
                 listMessagesOptions.BuildFormData(),
                 listMessagesOptions.PaginationOptions

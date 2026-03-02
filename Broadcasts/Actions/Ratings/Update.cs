@@ -17,7 +17,7 @@ public static partial class Ratings
         public DimensionResponse UpdateRatingDimension(
             UpdateBroadcastChannelRatingDimensionOptions updateBroadcastChannelRatingDimensionOptions)
         {
-            return global::ConstructServices.Ratings.Actions.Dimensions.UpdateDimension(service, Config.EditDimensionAPIPath, updateBroadcastChannelRatingDimensionOptions);
+            return global::ConstructServices.Ratings.Actions.Dimensions.UpdateDimension(service, Config.EndPointPaths.Ratings.UpdateDimension, updateBroadcastChannelRatingDimensionOptions);
         }        
         
         /// <summary>
@@ -27,7 +27,7 @@ public static partial class Ratings
         public async Task<DimensionResponse> UpdateRatingDimensionAsync(
             UpdateBroadcastChannelRatingDimensionOptions updateBroadcastChannelRatingDimensionOptions)
         {
-            return await global::ConstructServices.Ratings.Actions.Dimensions.UpdateDimensionAsync(service, Config.EditDimensionAPIPath, updateBroadcastChannelRatingDimensionOptions);
+            return await global::ConstructServices.Ratings.Actions.Dimensions.UpdateDimensionAsync(service, Config.EndPointPaths.Ratings.UpdateDimension, updateBroadcastChannelRatingDimensionOptions);
         }
     }
 }

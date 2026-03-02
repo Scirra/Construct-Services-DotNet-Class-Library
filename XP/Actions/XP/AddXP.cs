@@ -16,7 +16,7 @@ public static partial class XP
         public BaseResponse AddXP(ModifyXPOptions modifyXPOptions)
         {
             return Request.ExecuteSyncRequest<BaseResponse>(
-                Config.AddXPAPIPath,
+                Config.EndPointPaths.XP.Add,
                 xpService,
                 modifyXPOptions.BuildFormData()
             );
@@ -30,7 +30,7 @@ public static partial class XP
         public async Task<BaseResponse> AddXPAsync(ModifyXPOptions modifyXPOptions)
         {
             return await Request.ExecuteAsyncRequest<BaseResponse>(
-                Config.AddXPAPIPath,
+                Config.EndPointPaths.XP.Add,
                 xpService,
                 modifyXPOptions.BuildFormData()
             );

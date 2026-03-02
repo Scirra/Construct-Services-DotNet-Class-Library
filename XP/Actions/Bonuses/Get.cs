@@ -16,7 +16,7 @@ public static partial class Bonuses
         public BonusResponse GetBonus(GetBonusOptions getBonusOptions)
         {              
             return Request.ExecuteSyncRequest<BonusResponse>(
-                Config.GetBonusAPIPath,
+                Config.EndPointPaths.Bonuses.Get,
                 xpService,
                 getBonusOptions.BuildFormData()
             );
@@ -28,7 +28,7 @@ public static partial class Bonuses
         public async Task<BonusResponse> GetBonusAsync(GetBonusOptions getBonusOptions)
         {                    
             return await Request.ExecuteAsyncRequest<BonusResponse>(
-                Config.GetBonusAPIPath,
+                Config.EndPointPaths.Bonuses.Get,
                 xpService,
                 getBonusOptions.BuildFormData()
             );
@@ -40,7 +40,7 @@ public static partial class Bonuses
         public BonusesResponse GetBonuses(GetBonusesOptions getBonusesOptions)
         {              
             return Request.ExecuteSyncRequest<BonusesResponse>(
-                Config.ListBonusesAPIPath,
+                Config.EndPointPaths.Bonuses.List,
                 xpService,
                 getBonusesOptions.BuildFormData()
             );
@@ -52,7 +52,7 @@ public static partial class Bonuses
         public async Task<BonusesResponse> GetBonusesAsync(GetBonusesOptions getBonusesOptions)
         {                    
             return await Request.ExecuteAsyncRequest<BonusesResponse>(
-                Config.ListBonusesAPIPath,
+                Config.EndPointPaths.Bonuses.List,
                 xpService,
                 getBonusesOptions.BuildFormData()
             );

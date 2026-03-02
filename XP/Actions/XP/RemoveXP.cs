@@ -16,7 +16,7 @@ public static partial class XP
         public BaseResponse RemoveXP(ModifyXPOptions modifyXPOptions)
         {
             return Request.ExecuteSyncRequest<BaseResponse>(
-                Config.RemoveXPAPIPath,
+                Config.EndPointPaths.XP.Remove,
                 xpService,
                 modifyXPOptions.BuildFormData()
             );
@@ -30,7 +30,7 @@ public static partial class XP
         public async Task<BaseResponse> RemoveXPAsync(ModifyXPOptions modifyXPOptions)
         {
             return await Request.ExecuteAsyncRequest<BaseResponse>(
-                Config.RemoveXPAPIPath,
+                Config.EndPointPaths.XP.Remove,
                 xpService,
                 modifyXPOptions.BuildFormData()
             );

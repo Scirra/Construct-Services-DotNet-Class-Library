@@ -16,7 +16,7 @@ public static partial class Ratings
         [UsedImplicitly]
         public DimensionsResponse ListRatingDimensions(
             ListBroadcastChannelDimensionOptions listBroadcastChannelDimensionOptions)
-            => global::ConstructServices.Ratings.Actions.Dimensions.ListDimensions(service, Config.GetDimensionsAPIPath, listBroadcastChannelDimensionOptions);
+            => global::ConstructServices.Ratings.Actions.Dimensions.ListDimensions(service, Config.EndPointPaths.Ratings.ListDimensions, listBroadcastChannelDimensionOptions);
 
         /// <summary>
         /// List all Rating Dimension on a Broadcast Channel
@@ -25,6 +25,6 @@ public static partial class Ratings
         [UsedImplicitly]
         public async Task<DimensionsResponse> ListRatingDimensionsAsync(
             ListBroadcastChannelDimensionOptions listBroadcastChannelDimensionOptions)
-            => await global::ConstructServices.Ratings.Actions.Dimensions.ListDimensionsAsync(service, Config.GetDimensionsAPIPath, listBroadcastChannelDimensionOptions);
+            => await global::ConstructServices.Ratings.Actions.Dimensions.ListDimensionsAsync(service, Config.EndPointPaths.Ratings.ListDimensions, listBroadcastChannelDimensionOptions);
     }
 }

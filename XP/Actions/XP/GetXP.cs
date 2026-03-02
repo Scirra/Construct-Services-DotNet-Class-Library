@@ -18,7 +18,7 @@ public static partial class XP
         public XPResponse GetXP(GetXPOptions getXPOptions)
         {
             return Request.ExecuteSyncRequest<XPResponse>(
-                Config.GetXPAPIPath,
+                Config.EndPointPaths.XP.Get,
                 xpService,
                 getXPOptions.BuildFormData()
             );
@@ -32,7 +32,7 @@ public static partial class XP
         public async Task<XPResponse> GetXPAsync(GetXPOptions getXPOptions)
         {
             return await Request.ExecuteAsyncRequest<XPResponse>(
-                Config.GetXPAPIPath,
+                Config.EndPointPaths.XP.Get,
                 xpService,
                 getXPOptions.BuildFormData()
             );

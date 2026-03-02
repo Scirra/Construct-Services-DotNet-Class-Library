@@ -16,7 +16,7 @@ public static partial class Rankings
         public RanksResponse ListAllRanks()
         {
             return Request.ExecuteSyncRequest<RanksResponse>(
-                Config.GetRanksAPIPath,
+                Config.EndPointPaths.Rankings.List,
                 xpService,
                 []
             );
@@ -30,7 +30,7 @@ public static partial class Rankings
         public async Task<RanksResponse> ListAllRanksAsync()
         {
             return await Request.ExecuteAsyncRequest<RanksResponse>(
-                Config.GetRanksAPIPath,
+                Config.EndPointPaths.Rankings.List,
                 xpService,
                 []
             );

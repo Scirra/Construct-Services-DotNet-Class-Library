@@ -18,7 +18,7 @@ public static partial class Rankings
         public RankResponse UpdateRank(UpdateXPRankOptions updateOptions)
         {
             return Request.ExecuteSyncRequest<RankResponse>(
-                Config.EditRankAPIPath,
+                Config.EndPointPaths.Rankings.Update,
                 xpService,
                 updateOptions.BuildFormData()
             );
@@ -32,7 +32,7 @@ public static partial class Rankings
         public async Task<RankResponse> UpdateRankAsync(UpdateXPRankOptions updateOptions)
         {
             return await Request.ExecuteAsyncRequest<RankResponse>(
-                Config.EditRankAPIPath,
+                Config.EndPointPaths.Rankings.Update,
                 xpService,
                 updateOptions.BuildFormData()
             );

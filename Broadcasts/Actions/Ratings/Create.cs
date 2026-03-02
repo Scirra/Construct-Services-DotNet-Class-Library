@@ -19,7 +19,7 @@ public static partial class Ratings
         {
             return global::ConstructServices.Ratings.Actions.Dimensions.CreateDimension(
                 service,
-                Config.CreateRatingDimensionAPIPath,
+                Config.EndPointPaths.Ratings.CreateDimension,
                 createBroadcastChannelRatingDimensionOptions
             );
         }
@@ -33,7 +33,7 @@ public static partial class Ratings
         {
             return await global::ConstructServices.Ratings.Actions.Dimensions.CreateDimensionAsync(
                 service, 
-                Config.CreateRatingDimensionAPIPath,
+                Config.EndPointPaths.Ratings.CreateDimension,
                 createBroadcastChannelRatingDimensionOptions);
         }
     }

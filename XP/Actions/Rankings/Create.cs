@@ -17,7 +17,7 @@ public static partial class Rankings
         public RankResponse CreateRank(CreateXPRankOptions createXPRankOptions)
         {
             return Request.ExecuteSyncRequest<RankResponse>(
-                Config.CreateRankAPIPath,
+                Config.EndPointPaths.Rankings.Create,
                 xpService,
                 createXPRankOptions.BuildFormData()
             );
@@ -31,7 +31,7 @@ public static partial class Rankings
         public async Task<RankResponse> CreateRankAsync(CreateXPRankOptions createXPRankOptions)
         {
             return await Request.ExecuteAsyncRequest<RankResponse>(
-                Config.CreateRankAPIPath,
+                Config.EndPointPaths.Rankings.Create,
                 xpService,
                 createXPRankOptions.BuildFormData()
             );

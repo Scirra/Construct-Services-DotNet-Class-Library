@@ -18,7 +18,7 @@ public static partial class Messages
         public BaseResponse UpdateMessage(UpdateMessageOptions updateMessageOptions)
         {
             return Request.ExecuteSyncRequest<MessageResponse>(
-                Config.UpdateMessageAPIPath,
+                Config.EndPointPaths.Messages.Update,
                 service,
                 updateMessageOptions.BuildFormData()
             );
@@ -32,7 +32,7 @@ public static partial class Messages
         public async Task<BaseResponse> UpdateMessageAsync(UpdateMessageOptions updateMessageOptions)
         {
             return await Request.ExecuteAsyncRequest<MessageResponse>(
-                Config.UpdateMessageAPIPath,
+                Config.EndPointPaths.Messages.Update,
                 service,
                 updateMessageOptions.BuildFormData()
             );

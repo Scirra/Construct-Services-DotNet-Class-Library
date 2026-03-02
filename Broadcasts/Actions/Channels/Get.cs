@@ -18,7 +18,7 @@ public static partial class Channels
         public ChannelResponse GetChannel(GetChannelOptions getChannelOptions)
         {
             return Request.ExecuteSyncRequest<ChannelResponse>(
-                Config.GetChannelAPIPath,
+                Config.EndPointPaths.Channels.Get,
                 service,
                 getChannelOptions.BuildFormData()
             );
@@ -32,7 +32,7 @@ public static partial class Channels
         public async Task<ChannelResponse> GetChannelAsync(GetChannelOptions getChannelOptions)
         {
             return await Request.ExecuteAsyncRequest<ChannelResponse>(
-                Config.GetChannelAPIPath,
+                Config.EndPointPaths.Channels.Get,
                 service,
                 getChannelOptions.BuildFormData()
             );

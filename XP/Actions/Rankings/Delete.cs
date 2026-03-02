@@ -17,7 +17,7 @@ public static partial class Rankings
         public RankResponse DeleteRank(DeleteXPRankOptions deleteXPRankOptions)
         {
             return Request.ExecuteSyncRequest<RankResponse>(
-                Config.DeleteRankAPIPath,
+                Config.EndPointPaths.Rankings.Delete,
                 xpService,
                 deleteXPRankOptions.BuildFormData()
             );
@@ -31,7 +31,7 @@ public static partial class Rankings
         public async Task<RankResponse> DeleteRankAsync(DeleteXPRankOptions deleteXPRankOptions)
         {
             return await Request.ExecuteAsyncRequest<RankResponse>(
-                Config.DeleteRankAPIPath,
+                Config.EndPointPaths.Rankings.Delete,
                 xpService,
                 deleteXPRankOptions.BuildFormData()
             );

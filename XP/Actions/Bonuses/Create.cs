@@ -18,7 +18,7 @@ public static partial class Bonuses
         public BonusResponse CreateBonus(CreateXPBonusOptions createXPBonusOptions)
         {
             return Request.ExecuteSyncRequest<BonusResponse>(
-                Config.CreateBonusAPIPath,
+                Config.EndPointPaths.Bonuses.Create,
                 xpService,
                 createXPBonusOptions.BuildFormData()
             );
@@ -32,7 +32,7 @@ public static partial class Bonuses
         public async Task<BonusResponse> CreateBonusAsync(CreateXPBonusOptions createXPBonusOptions)
         {
             return await Request.ExecuteAsyncRequest<BonusResponse>(
-                Config.CreateBonusAPIPath,
+                Config.EndPointPaths.Bonuses.Create,
                 xpService,
                 createXPBonusOptions.BuildFormData()
             );

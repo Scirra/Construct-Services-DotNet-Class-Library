@@ -1,23 +1,39 @@
-﻿namespace ConstructServices.Broadcasts;
+﻿using ConstructServices.Broadcasts.Actions;
+
+namespace ConstructServices.Broadcasts;
 
 internal static class Config
 {
     internal static string APIDomain => 
         !GlobalConfig.DevMode ? "https://broadcasts.construct.net" : "https://broadcasts.constructdev.net";
+    
+    internal static class EndPointPaths
+    {
+        internal static class Channels
+        {
+            internal const string Create = "/createchannel.json";
+            internal const string Delete = "/deletechannel.json";
+            internal const string Get = "/getchannel.json";
+            internal const string List = "/getchannels.json";
+            internal const string Update = "/updatechannel.json";
+        }
 
-    internal const string CreateChannelAPIPath = "/createchannel.json";
-    internal const string CreateMessageAPIPath = "/createmessage.json";
-    internal const string CreateRatingDimensionAPIPath = "/channelcreateratingdimension.json";
-    internal const string DeleteChannelAPIPath = "/deletechannel.json";
-    internal const string DeleteMessageAPIPath = "/deletemessage.json";
-    internal const string DeleteDimensionAPIPath = "/channeldeleteratingsdimension.json";
-    internal const string EditDimensionAPIPath = "/channeleditratingdimension.json";
-    internal const string GetChannelAPIPath = "/getchannel.json";
-    internal const string GetChannelsAPIPath = "/getchannels.json";
-    internal const string GetMessageAPIPath = "/getmessage.json";
-    internal const string GetMessagesAPIPath = "/getmessages.json";
-    internal const string GetDimensionsAPIPath = "/channelgetratingdimensions.json";
-    internal const string UpdateChannelAPIPath = "/updatechannel.json";
-    internal const string UpdateMessageAPIPath = "/updatemessage.json";
-    internal const string RateMessageAPIEndPoint = "/rate.json";
+        internal static class Messages
+        {
+            internal const string Create = "/createmessage.json";
+            internal const string Delete = "/deletemessage.json";
+            internal const string Get = "/getmessage.json";
+            internal const string List = "/getmessages.json";
+            internal const string Update = "/updatemessage.json";
+        }
+
+        internal static class Ratings
+        {
+            internal const string CreateDimension = "/channelcreateratingdimension.json";
+            internal const string DeleteDimension = "/channeldeleteratingsdimension.json";
+            internal const string UpdateDimension = "/channeleditratingdimension.json";
+            internal const string ListDimensions = "/channelgetratingdimensions.json";
+            internal const string Rate = "/rate.json";
+        }
+    }
 }

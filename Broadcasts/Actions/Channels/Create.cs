@@ -18,7 +18,7 @@ public static partial class Channels
         public ChannelResponse CreateChannel(CreateChannelOptions createChannelOptions)
         {
             return Request.ExecuteSyncRequest<ChannelResponse>(
-                Config.CreateChannelAPIPath,
+                Config.EndPointPaths.Channels.Create,
                 service,
                 createChannelOptions.BuildFormData()
             );
@@ -32,7 +32,7 @@ public static partial class Channels
         public async Task<ChannelResponse> CreateChannelAsync(CreateChannelOptions createChannelOptions)
         {
             return await Request.ExecuteAsyncRequest<ChannelResponse>(
-                Config.CreateChannelAPIPath,
+                Config.EndPointPaths.Channels.Create,
                 service,
                 createChannelOptions.BuildFormData()
             );

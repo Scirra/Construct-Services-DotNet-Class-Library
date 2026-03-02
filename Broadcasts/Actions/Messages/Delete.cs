@@ -18,7 +18,7 @@ public static partial class Messages
         public BaseResponse DeleteMessage(DeleteMessageOptions deleteMessageOptions)
         {
             return Request.ExecuteSyncRequest<MessageResponse>(
-                Config.DeleteMessageAPIPath,
+                Config.EndPointPaths.Messages.Delete,
                 service,
                 deleteMessageOptions.BuildFormData()
             );
@@ -31,7 +31,7 @@ public static partial class Messages
         public async Task<BaseResponse> DeleteMessageAsync(DeleteMessageOptions deleteMessageOptions)
         {
             return await Request.ExecuteAsyncRequest<MessageResponse>(
-                Config.DeleteMessageAPIPath,
+                Config.EndPointPaths.Messages.Delete,
                 service,
                 deleteMessageOptions.BuildFormData()
             );

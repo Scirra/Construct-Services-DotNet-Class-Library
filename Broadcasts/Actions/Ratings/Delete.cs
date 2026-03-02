@@ -18,7 +18,7 @@ public static partial class Ratings
             DeleteBroadcastChannelRatingDimensionOptions deleteBroadcastChannelRatingDimensionOptions)
             => global::ConstructServices.Ratings.Actions.Dimensions.DeleteDimension(
                 service, 
-                Config.DeleteDimensionAPIPath, 
+                Config.EndPointPaths.Ratings.DeleteDimension, 
                 deleteBroadcastChannelRatingDimensionOptions);
 
         /// <summary>
@@ -30,7 +30,7 @@ public static partial class Ratings
             DeleteBroadcastChannelRatingDimensionOptions deleteBroadcastChannelRatingDimensionOptions)
             => await global::ConstructServices.Ratings.Actions.Dimensions.DeleteDimensionAsync(
                 service, 
-                Config.DeleteDimensionAPIPath,
+                Config.EndPointPaths.Ratings.DeleteDimension,
                 deleteBroadcastChannelRatingDimensionOptions);
 
     }

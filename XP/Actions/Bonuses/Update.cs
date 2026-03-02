@@ -16,7 +16,7 @@ public static partial class Bonuses
             UpdateXPBonusOptions updateXPBonusOptions)
         {
             return Request.ExecuteSyncRequest<BonusResponse>(
-                Config.EditBonusAPIPath,
+                Config.EndPointPaths.Bonuses.Update,
                 xpService,
                 updateXPBonusOptions.BuildFormData()
             );
@@ -29,7 +29,7 @@ public static partial class Bonuses
             UpdateXPBonusOptions updateXPBonusOptions)
         {
             return await Request.ExecuteAsyncRequest<BonusResponse>(
-                Config.EditBonusAPIPath,
+                Config.EndPointPaths.Bonuses.Update,
                 xpService,
                 updateXPBonusOptions.BuildFormData()
             );

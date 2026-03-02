@@ -17,7 +17,7 @@ public static partial class Channels
         public BaseResponse DeleteChannel(DeleteChannelOptions deleteChannelOptions)
         {
             return Request.ExecuteSyncRequest<BaseResponse>(
-                Config.DeleteChannelAPIPath,
+                Config.EndPointPaths.Channels.Delete,
                 service,
                 deleteChannelOptions.BuildFormData()
             );
@@ -31,7 +31,7 @@ public static partial class Channels
         public async Task<BaseResponse> DeleteChannelAsync(DeleteChannelOptions deleteChannelOptions)
         {
             return await Request.ExecuteAsyncRequest<BaseResponse>(
-                Config.DeleteChannelAPIPath,
+                Config.EndPointPaths.Channels.Delete,
                 service,
                 deleteChannelOptions.BuildFormData()
             );

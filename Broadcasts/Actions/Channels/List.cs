@@ -19,7 +19,7 @@ public static partial class Channels
         {
             var formData = new Dictionary<string, string>();
             return Request.ExecuteSyncRequest<ChannelsResponse>(
-                Config.GetChannelsAPIPath,
+                Config.EndPointPaths.Channels.List,
                 service,
                 formData
             );
@@ -34,7 +34,7 @@ public static partial class Channels
         {
             var formData = new Dictionary<string, string>();
             return await Request.ExecuteAsyncRequest<ChannelsResponse>(
-                Config.GetChannelsAPIPath,
+                Config.EndPointPaths.Channels.List,
                 service,
                 formData
             );

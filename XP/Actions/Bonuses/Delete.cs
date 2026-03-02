@@ -16,7 +16,7 @@ public static partial class Bonuses
         public BaseResponse DeleteBonus(DeleteXPBonusOptions deleteXPBonusOptions)
         {            
             return Request.ExecuteSyncRequest<BaseResponse>(
-                Config.DeleteBonusAPIPath,
+                Config.EndPointPaths.Bonuses.Delete,
                 xpService,
                 deleteXPBonusOptions.BuildFormData()
             );
@@ -28,7 +28,7 @@ public static partial class Bonuses
         public async Task<BaseResponse> DeleteBonusAsync(DeleteXPBonusOptions deleteXPBonusOptions)
         {       
             return await Request.ExecuteAsyncRequest<BaseResponse>(
-                Config.DeleteBonusAPIPath,
+                Config.EndPointPaths.Bonuses.Delete,
                 xpService,
                 deleteXPBonusOptions.BuildFormData()
             );

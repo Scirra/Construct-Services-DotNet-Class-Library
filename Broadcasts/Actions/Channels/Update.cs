@@ -18,7 +18,7 @@ public static partial class Channels
         public ChannelResponse UpdateChannel(UpdateChannelOptions updateChannelOptions)
         {
             return Request.ExecuteSyncRequest<ChannelResponse>(
-                Config.UpdateChannelAPIPath,
+                Config.EndPointPaths.Channels.Update,
                 service,
                 updateChannelOptions.BuildFormData()
             );
@@ -32,7 +32,7 @@ public static partial class Channels
         public async Task<ChannelResponse> UpdateChannelAsync(UpdateChannelOptions updateChannelOptions)
         {
             return await Request.ExecuteAsyncRequest<ChannelResponse>(
-                Config.UpdateChannelAPIPath,
+                Config.EndPointPaths.Channels.Update,
                 service,
                 updateChannelOptions.BuildFormData()
             );
