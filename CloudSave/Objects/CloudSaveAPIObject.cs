@@ -242,8 +242,8 @@ public sealed class DeleteCloudSavePictureOptions
 [UsedImplicitly]
 public sealed class SetCloudSavePictureOptions
 {
-    private Guid CloudSaveID { get; set; }
-    internal PictureData Picture { get; set; }
+    private Guid CloudSaveID { get; }
+    internal PictureData Picture { get; }
     
     public SetCloudSavePictureOptions(Guid cloudSaveID, PictureData picture)
     {
@@ -286,15 +286,10 @@ public sealed class SetCloudSavePictureOptions
         return postedBinaryData;
     }
 }
-public sealed class GetCloudSaveByIDOptions
+public sealed class GetCloudSaveByIDOptions(Guid cloudSaveID)
 {
     [UsedImplicitly]
-    private Guid CloudSaveID { get; set; }
-    
-    public GetCloudSaveByIDOptions(Guid cloudSaveID)
-    {
-        CloudSaveID = cloudSaveID;
-    }
+    private Guid CloudSaveID { get; set; } = cloudSaveID;
 
     [UsedImplicitly]
     internal Dictionary<string, string> BuildFormData()
@@ -306,19 +301,13 @@ public sealed class GetCloudSaveByIDOptions
         return formData;
     }
 }
-public sealed class GetCloudSaveByKeyOptions
+public sealed class GetCloudSaveByKeyOptions(string key, Guid bucketID)
 {
     [UsedImplicitly]
-    private string Key { get; set; }
+    private string Key { get; set; } = key;
 
     [UsedImplicitly]
-    private Guid BucketID { get; set; }
-    
-    public GetCloudSaveByKeyOptions(string key, Guid bucketID)
-    {
-        Key = key;
-        BucketID = bucketID;
-    }
+    private Guid BucketID { get; set; } = bucketID;
 
     [UsedImplicitly]
     internal Dictionary<string, string> BuildFormData()
@@ -337,24 +326,16 @@ public sealed class ListPlayerCloudSaveFilters
     public string Name { get; [UsedImplicitly] set; }
     public string Key { get; [UsedImplicitly] set; }
 }
-public abstract class ListPlayerSaveOptions
+public abstract class ListPlayerSaveOptions(
+    bool returnPrivateSaves,
+    Guid playerID,
+    Enums.GetPlayerCloudSaveSortMethod? sortBy = null,
+    ListPlayerCloudSaveFilters filters = null)
 {
-    private bool ReturnPrivateSaves { get; }
-    private Guid PlayerID { get; }
-    private Enums.GetPlayerCloudSaveSortMethod? SortBy { get; }
-    private ListPlayerCloudSaveFilters Filters { get; }
-
-    protected ListPlayerSaveOptions(
-        bool returnPrivateSaves,
-        Guid playerID,
-        Enums.GetPlayerCloudSaveSortMethod? sortBy = null,
-        ListPlayerCloudSaveFilters filters = null)
-    {
-        ReturnPrivateSaves = returnPrivateSaves;
-        PlayerID = playerID;
-        SortBy = sortBy;
-        Filters = filters;
-    }
+    private bool ReturnPrivateSaves { get; } = returnPrivateSaves;
+    private Guid PlayerID { get; } = playerID;
+    private Enums.GetPlayerCloudSaveSortMethod? SortBy { get; } = sortBy;
+    private ListPlayerCloudSaveFilters Filters { get; } = filters;
 
     [UsedImplicitly]
     protected Dictionary<string, string> BuildBaseFormData()
@@ -383,34 +364,30 @@ public abstract class ListPlayerSaveOptions
         }
         return formData;
     }
-}    
-public sealed class ListPlayersPrivateSavesOptions : ListPlayerSaveOptions
-{
-    [UsedImplicitly]
-    public ListPlayersPrivateSavesOptions(
-        Guid playerID,
-        Enums.GetPlayerCloudSaveSortMethod? sortBy = null,
-        ListPlayerCloudSaveFilters filters = null) : base(true, playerID, sortBy, filters)
-    {
-    }
+}
 
+[method: UsedImplicitly]
+public sealed class ListPlayersPrivateSavesOptions(
+    Guid playerID,
+    Enums.GetPlayerCloudSaveSortMethod? sortBy = null,
+    ListPlayerCloudSaveFilters filters = null)
+    : ListPlayerSaveOptions(true, playerID, sortBy, filters)
+{
     [UsedImplicitly]
     public Dictionary<string, string> BuildFormData()
     {
         var formData = BuildBaseFormData();
         return formData;
     }
-}    
-public sealed class ListPlayersSavesOptions : ListPlayerSaveOptions
-{
-    [UsedImplicitly]
-    public ListPlayersSavesOptions(
-        Guid playerID,
-        Enums.GetPlayerCloudSaveSortMethod? sortBy = null,
-        ListPlayerCloudSaveFilters filters = null) : base(false, playerID, sortBy, filters)
-    {
-    }
+}
 
+[method: UsedImplicitly]
+public sealed class ListPlayersSavesOptions(
+    Guid playerID,
+    Enums.GetPlayerCloudSaveSortMethod? sortBy = null,
+    ListPlayerCloudSaveFilters filters = null)
+    : ListPlayerSaveOptions(false, playerID, sortBy, filters)
+{
     [UsedImplicitly]
     public Dictionary<string, string> BuildFormData()
     {
