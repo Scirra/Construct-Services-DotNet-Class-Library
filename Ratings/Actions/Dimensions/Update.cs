@@ -15,7 +15,7 @@ public static partial class Dimensions
             string apiEndPointPath,            
             Guid forThingID,
             string dimensionID,
-            UpdateRatingDimensionOptions updateRatingDimensionBase)
+            UpdateRatingDimensionBase updateRatingDimensionBase)
         {
             return Request.ExecuteSyncRequest<DimensionResponse>(
                 apiEndPointPath,
@@ -28,7 +28,7 @@ public static partial class Dimensions
             string apiEndPointPath,    
             Guid forThingID,
             string dimensionID,
-            UpdateRatingDimensionOptions updateRatingDimensionBase)
+            UpdateRatingDimensionBase updateRatingDimensionBase)
         {
             return await Request.ExecuteAsyncRequest<DimensionResponse>(
                 apiEndPointPath,
@@ -37,14 +37,8 @@ public static partial class Dimensions
             );
         }
     }
-    
-    [UsedImplicitly]
-    public sealed class UpdateChannelRatingDimensionOptions() : UpdateRatingDimensionOptions(Thing.BroadcastChannel);
 
-    [UsedImplicitly]
-    public sealed class UpdateCloudSaveBucketRatingDimensionOptions() : UpdateRatingDimensionOptions(Thing.CloudSaveBucket);
-
-    public abstract class UpdateRatingDimensionOptions
+    public sealed class UpdateRatingDimensionOptions
     {
         private Thing ForThing { get; }
         
@@ -60,7 +54,7 @@ public static partial class Dimensions
         [UsedImplicitly]
         public string LanguageISO { get; set; }
 
-        internal UpdateRatingDimensionOptions(Thing forThing)
+        internal UpdateRatingDimensionBase(Thing forThing)
         {
             ForThing = forThing;
         }
@@ -79,5 +73,11 @@ public static partial class Dimensions
             if(MaxRating.HasValue) formData.Add("maxRating", MaxRating.ToString());
             return formData;
         }
-    }
+    }    
+    
+    [UsedImplicitly]
+    public sealed class UpdateChannelRatingDimensionOptions() : UpdateRatingDimensionBase(Thing.BroadcastChannel);
+    
+    [UsedImplicitly]
+    public sealed class UpdateCloudSaveBucketRatingDimensionOptions() : UpdateRatingDimensionBase(Thing.CloudSaveBucket);
 }

@@ -364,3 +364,5 @@ FodyWeavers.xsd
 
 # Nuget exe
 nuget.exe
+/CloudSave/Actions/Ratings/Update.cs
+/Broadcasts/Actions/Ratings/Update.cs
