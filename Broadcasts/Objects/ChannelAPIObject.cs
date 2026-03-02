@@ -100,11 +100,15 @@ public sealed class DeleteChannelOptions
 public sealed class GetChannelOptions
 {
     [UsedImplicitly]
-    public Guid ChannelID { get; private set; }
+    public string SessionKey { get; private set; }
 
-    public GetChannelOptions(string strChannelID)
+    [UsedImplicitly]
+    public Guid ChannelID { get; private set; }
+    
+    public GetChannelOptions(string sessionKey, Guid channelID)
     {
-        ChannelID = Guid.Parse(strChannelID);
+        SessionKey = sessionKey;
+        ChannelID = channelID;
     }
     public GetChannelOptions(Guid channelID)
     {
@@ -118,6 +122,10 @@ public sealed class GetChannelOptions
         {
             { "channelID", ChannelID.ToString() }
         };
+        if (!string.IsNullOrWhiteSpace(SessionKey))
+        {
+            formData.Add("sessionKey", SessionKey);
+        }
         return formData;
     }
 }

@@ -118,14 +118,18 @@ public sealed class DeleteMessageOptions
 public sealed class GetMessageOptions
 {
     [UsedImplicitly]
+    public string SessionKey { get; private set; }
+
+    [UsedImplicitly]
     public Guid MessageID { get; private set; }
     
-    public GetMessageOptions(string strMessageID)
-    {
-        MessageID = Guid.Parse(strMessageID);
-    }
     public GetMessageOptions(Guid messageID)
     {
+        MessageID = messageID;
+    }
+    public GetMessageOptions(string sessionKey, Guid messageID)
+    {
+        SessionKey = sessionKey;
         MessageID = messageID;
     }
 
@@ -136,6 +140,10 @@ public sealed class GetMessageOptions
         {
             { "messageID", MessageID.ToString() }
         };
+        if (!string.IsNullOrWhiteSpace(SessionKey))
+        {
+            formData.Add("sessionKey", SessionKey);
+        }
         return formData;
     }
 }
