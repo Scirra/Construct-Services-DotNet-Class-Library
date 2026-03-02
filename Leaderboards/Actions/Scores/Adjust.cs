@@ -20,7 +20,7 @@ public static partial class Scores
             return Request.ExecuteSyncRequest<PostScoreResponse>(
                 Config.EndPointPaths.Scores.Adjust,
                 service,
-                adjustPlayersScoreOptions.BuildFormData()
+                adjustPlayersScoreOptions.BuildFormData(service.LeaderboardID)
             );
         }
         
@@ -34,7 +34,7 @@ public static partial class Scores
             return await Request.ExecuteAsyncRequest<PostScoreResponse>(
                 Config.EndPointPaths.Scores.Adjust,
                 service,
-                adjustPlayersScoreOptions.BuildFormData()
+                adjustPlayersScoreOptions.BuildFormData(service.LeaderboardID)
             );
         }
 
@@ -48,7 +48,7 @@ public static partial class Scores
             return Request.ExecuteSyncRequest<PostScoreResponse>(
                 Config.EndPointPaths.Scores.Adjust,
                 service,
-                adjustScoreByIDOptions.BuildFormData()
+                adjustScoreByIDOptions.BuildFormData(service.LeaderboardID)
             );
         }
 
@@ -62,7 +62,7 @@ public static partial class Scores
             return await Request.ExecuteAsyncRequest<PostScoreResponse>(
                 Config.EndPointPaths.Scores.Adjust,
                 service,
-                adjustScoreByIDOptions.BuildFormData()
+                adjustScoreByIDOptions.BuildFormData(service.LeaderboardID)
             );
         }
     }

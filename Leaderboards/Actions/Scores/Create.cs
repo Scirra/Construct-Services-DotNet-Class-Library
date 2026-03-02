@@ -19,7 +19,7 @@ public static partial class Scores
             CreateScoreOptions createScoreOptions,
             RequestPerspective requestPerspective = null)
         {
-            var formData = createScoreOptions.BuildFormData();
+            var formData = createScoreOptions.BuildFormData(service.LeaderboardID);
 
             LeaderboardService.AddRequestPerspectiveFormData(requestPerspective, formData);
 
@@ -39,7 +39,7 @@ public static partial class Scores
             CreateScoreOptions createScoreOptions,
             RequestPerspective requestPerspective = null)
         {
-            var formData = createScoreOptions.BuildFormData();
+            var formData = createScoreOptions.BuildFormData(service.LeaderboardID);
 
             LeaderboardService.AddRequestPerspectiveFormData(requestPerspective, formData);
 

@@ -5,11 +5,8 @@ using System.Collections.Generic;
 
 namespace ConstructServices.Leaderboards.Objects;
 
-public sealed class AssignPlayerOptions(Guid leaderboardID, Guid teamID, Guid playerID)
+public sealed class AssignPlayerOptions(Guid teamID, Guid playerID)
 {
-    [UsedImplicitly]
-    public Guid LeaderboardID { get; private set; } = leaderboardID;
-
     [UsedImplicitly]
     public Guid TeamID { get; private set; } = teamID;
 
@@ -21,16 +18,14 @@ public sealed class AssignPlayerOptions(Guid leaderboardID, Guid teamID, Guid pl
     {
         var formData = new Dictionary<string, string>
         {
-            { "leaderboardID", LeaderboardID.ToString() },
             { "teamID", TeamID.ToString() },
             { "playerID", PlayerID.ToString() }
         };
         return formData;
     }
 }
-public sealed class DeleteTeamOptions(Guid leaderboardID, Guid teamID)
+public sealed class DeleteTeamOptions(Guid teamID)
 {
-    private Guid LeaderboardID { get; } = leaderboardID;
     private Guid TeamID { get; } = teamID;
 
     [UsedImplicitly]
@@ -38,15 +33,13 @@ public sealed class DeleteTeamOptions(Guid leaderboardID, Guid teamID)
     {
         var formData = new Dictionary<string, string>
         {
-            { "leaderboardID", LeaderboardID.ToString() },
             { "teamID", TeamID.ToString() }
         };
         return formData;
     }
 }
-public sealed class GetTeamOptions(Guid leaderboardID, Guid teamID)
+public sealed class GetTeamOptions(Guid teamID)
 {
-    private Guid LeaderboardID { get; } = leaderboardID;
     private Guid TeamID { get; } = teamID;
 
     [UsedImplicitly]
@@ -54,15 +47,13 @@ public sealed class GetTeamOptions(Guid leaderboardID, Guid teamID)
     {
         var formData = new Dictionary<string, string>
         {
-            { "leaderboardID", LeaderboardID.ToString() },
             { "teamID", TeamID.ToString() }
         };
         return formData;
     }
 }
-public sealed class DeleteTeamPlayerOptions(Guid leaderboardID, Guid teamID, Guid playerID)
+public sealed class DeleteTeamPlayerOptions(Guid teamID, Guid playerID)
 {
-    private Guid LeaderboardID { get; } = leaderboardID;
     private Guid TeamID { get; } = teamID;
     private Guid PlayerID { get; } = playerID;
 
@@ -71,16 +62,14 @@ public sealed class DeleteTeamPlayerOptions(Guid leaderboardID, Guid teamID, Gui
     {
         var formData = new Dictionary<string, string>
         {
-            { "leaderboardID", LeaderboardID.ToString() },
             { "teamID", TeamID.ToString() },
             { "playerID", PlayerID.ToString() }
         };
         return formData;
     }
 }
-public sealed class UpdateTeamOptions(Guid leaderboardID, Guid teamID, string name)
+public sealed class UpdateTeamOptions(Guid teamID, string name)
 {
-    private Guid LeaderboardID { get; } = leaderboardID;
     private Guid TeamID { get; } = teamID;
     private string Name { get; } = name;
 
@@ -89,16 +78,14 @@ public sealed class UpdateTeamOptions(Guid leaderboardID, Guid teamID, string na
     {
         var formData = new Dictionary<string, string>
         {
-            { "leaderboardID", LeaderboardID.ToString() },
             { "teamID", TeamID.ToString() },
             { "teamName", Name }
         };
         return formData;
     }
 }
-public sealed class CreateTeamOptions(Guid leaderboardID, string name)
+public sealed class CreateTeamOptions(string name)
 {
-    private Guid LeaderboardID { get; } = leaderboardID;
     private string Name { get; } = name;
 
     [UsedImplicitly]
@@ -106,7 +93,6 @@ public sealed class CreateTeamOptions(Guid leaderboardID, string name)
     {
         var formData = new Dictionary<string, string>
         {
-            { "leaderboardID", LeaderboardID.ToString() },
             { "teamName", Name }
         };
         return formData;
@@ -114,45 +100,36 @@ public sealed class CreateTeamOptions(Guid leaderboardID, string name)
 }
 public sealed class ListTeamOptions
 {
-    private Guid LeaderboardID { get; }
     private GetTeamsOrdering? Ordering { get; }
     
-    public ListTeamOptions(Guid leaderboardID, GetTeamsOrdering ordering)
+    public ListTeamOptions(GetTeamsOrdering ordering)
     {
-        LeaderboardID = leaderboardID;
         Ordering = ordering;
     } 
-    public ListTeamOptions(Guid leaderboardID)
+    public ListTeamOptions()
     {
-        LeaderboardID = leaderboardID;
     }
 
     [UsedImplicitly]
     internal Dictionary<string, string> BuildFormData()
     {
-        var formData = new Dictionary<string, string>
-        {
-            { "leaderboardID", LeaderboardID.ToString() }
-        };
+        var formData = new Dictionary<string, string>();
         if (Ordering.HasValue) formData.Add("order", Ordering.Value.ToString());
         return formData;
     }
 }
 public sealed class ListTeamPlayersOptions
 {
-    private Guid LeaderboardID { get; }
     private Guid TeamID { get; }
     private TeamPlayersOrdering? Ordering { get; }
     
-    public ListTeamPlayersOptions(Guid leaderboardID, Guid teamID, TeamPlayersOrdering ordering)
+    public ListTeamPlayersOptions(Guid teamID, TeamPlayersOrdering ordering)
     {
-        LeaderboardID = leaderboardID;
         TeamID = teamID;
         Ordering = ordering;
     } 
-    public ListTeamPlayersOptions(Guid leaderboardID, Guid teamID)
+    public ListTeamPlayersOptions(Guid teamID)
     {
-        LeaderboardID = leaderboardID;
         TeamID = teamID;
     } 
 
@@ -161,7 +138,6 @@ public sealed class ListTeamPlayersOptions
     {
         var formData = new Dictionary<string, string>
         {
-            { "leaderboardID", LeaderboardID.ToString() },
             { "teamID", TeamID.ToString() }
         };
         if (Ordering.HasValue) formData.Add("order", Ordering.Value.ToString());

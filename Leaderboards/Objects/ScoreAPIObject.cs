@@ -9,7 +9,6 @@ namespace ConstructServices.Leaderboards.Objects;
 public sealed class CreateScoreOptions
 {
     private string SessionKey { get; }
-    private Guid LeaderboardID { get; }
     private Guid? PlayerID { get; }
     private long Score { get; }
     private short? OptValue1 { get; }
@@ -17,14 +16,12 @@ public sealed class CreateScoreOptions
     private short? OptValue3 { get; }
     
     public CreateScoreOptions(
-        Guid leaderboardID, 
         Guid playerID, 
         long score,
         short? optValue1,
         short? optValue2,
         short? optValue3)
     {
-        LeaderboardID = leaderboardID;
         PlayerID = playerID;
         Score = score;
         OptValue1 = optValue1;
@@ -33,14 +30,12 @@ public sealed class CreateScoreOptions
     }
     public CreateScoreOptions(
         string sessionKey, 
-        Guid leaderboardID, 
         long score,
         short? optValue1,
         short? optValue2,
         short? optValue3)
     {
         SessionKey = sessionKey;
-        LeaderboardID = leaderboardID;
         PlayerID = null;
         Score = score;
         OptValue1 = optValue1;
@@ -49,14 +44,13 @@ public sealed class CreateScoreOptions
     }
 
     [UsedImplicitly]
-    internal Dictionary<string, string> BuildFormData()
+    internal Dictionary<string, string> BuildFormData(Guid leaderboardID)
     {            
         var timestamp = ((DateTimeOffset)DateTime.Now.ToUniversalTime()).ToUnixTimeSeconds();
-        var hash = Functions.GetSHA256Hash(LeaderboardID + "." + Score + "." + timestamp + "." + PlayerID);
+        var hash = Functions.GetSHA256Hash(leaderboardID + "." + Score + "." + timestamp + "." + PlayerID);
 
         var formData = new Dictionary<string, string>
         {
-            { "leaderboardID", LeaderboardID.ToString() },
             { "hash", hash },
             { "timestamp", timestamp.ToString() },
             { "score", Score.ToString() }
@@ -87,7 +81,6 @@ public sealed class CreateScoreOptions
 
 public abstract class AdjustScoreBase(
     string sessionKey,
-    Guid leaderboardID,
     Guid? playerID,
     Guid? scoreID,
     long adjustment,
@@ -96,7 +89,6 @@ public abstract class AdjustScoreBase(
     short? optValue3)
 {
     private string SessionKey { get; } = sessionKey;
-    private Guid LeaderboardID { get; } = leaderboardID;
     private Guid? ScoreID { get; } = scoreID;
     private Guid? PlayerID { get; } = playerID;
     private long Adjustment { get; } = adjustment;
@@ -105,14 +97,13 @@ public abstract class AdjustScoreBase(
     private short? OptValue3 { get; } = optValue3;
 
     [UsedImplicitly]
-    internal Dictionary<string, string> BuildFormData()
+    internal Dictionary<string, string> BuildFormData(Guid leaderboardID)
     {            
         var timestamp = ((DateTimeOffset)DateTime.Now.ToUniversalTime()).ToUnixTimeSeconds();
-        var hash = Functions.GetSHA256Hash(LeaderboardID + "." + Adjustment + "." + ScoreID + "." + timestamp + ".");
+        var hash = Functions.GetSHA256Hash(leaderboardID + "." + Adjustment + "." + ScoreID + "." + timestamp + ".");
 
         var formData = new Dictionary<string, string>
         {
-            { "leaderboardID", LeaderboardID.ToString() },
             { "hash", hash },
             { "timestamp", timestamp.ToString() },
             { "adjustment", Adjustment.ToString() }
@@ -143,67 +134,58 @@ public abstract class AdjustScoreBase(
 
 [UsedImplicitly]
 public sealed class AdjustScoreByIDOptions(
-    Guid leaderboardID,
     Guid scoreID,
     long adjustment,
     short? optValue1,
     short? optValue2,
     short? optValue3)
-    : AdjustScoreBase(null, leaderboardID, null, scoreID, adjustment, optValue1, optValue2, optValue3);
+    : AdjustScoreBase(null, null, scoreID, adjustment, optValue1, optValue2, optValue3);
 
 [UsedImplicitly]
 public sealed class AdjustPlayersScoreOptions : AdjustScoreBase
 {    public AdjustPlayersScoreOptions(
         string sessionKey,
-        Guid leaderboardID,
         Guid playerID,
         Guid scoreID,
         long adjustment,
         short? optValue1,
         short? optValue2,
         short? optValue3) :
-        base(sessionKey, leaderboardID, playerID, scoreID, adjustment, optValue1, optValue2, optValue3) { }
+        base(sessionKey, playerID, scoreID, adjustment, optValue1, optValue2, optValue3) { }
     public AdjustPlayersScoreOptions(
         string sessionKey,
-        Guid leaderboardID,
         Guid playerID,
         long adjustment,
         short? optValue1,
         short? optValue2,
         short? optValue3) :
-        base(sessionKey, leaderboardID, playerID, null, adjustment, optValue1, optValue2, optValue3) { }
+        base(sessionKey, playerID, null, adjustment, optValue1, optValue2, optValue3) { }
     public AdjustPlayersScoreOptions(
-        Guid leaderboardID,
         Guid playerID,
         Guid scoreID,
         long adjustment,
         short? optValue1,
         short? optValue2,
         short? optValue3) :
-        base(null, leaderboardID, playerID, scoreID, adjustment, optValue1, optValue2, optValue3) { }
+        base(null, playerID, scoreID, adjustment, optValue1, optValue2, optValue3) { }
     public AdjustPlayersScoreOptions(
-        Guid leaderboardID,
         Guid playerID,
         long adjustment,
         short? optValue1,
         short? optValue2,
         short? optValue3) :
-        base(null, leaderboardID, playerID, null, adjustment, optValue1, optValue2, optValue3) { }
+        base(null, playerID, null, adjustment, optValue1, optValue2, optValue3) { }
 }
 
-public abstract class DeleteScoreBase(Guid leaderboardID, Guid? scoreID, Guid? playerID)
+public abstract class DeleteScoreBase(Guid? scoreID, Guid? playerID)
 {
-    private Guid LeaderboardID { get; } = leaderboardID;
     private Guid? ScoreID { get; } = scoreID;
     private Guid? PlayerID { get; } = playerID;
 
     [UsedImplicitly]
     internal Dictionary<string, string> BuildFormData()
     {
-        var formData = new Dictionary<string, string>
-        {
-            { "leaderboardID", LeaderboardID.ToString() }
-        };
+        var formData = new Dictionary<string, string>();
         if (ScoreID.HasValue)
         {
             formData.Add("scoreID", ScoreID.Value.ToString());
@@ -217,25 +199,21 @@ public abstract class DeleteScoreBase(Guid leaderboardID, Guid? scoreID, Guid? p
 }
 
 [UsedImplicitly]
-public sealed class DeleteScoreOptions(Guid leaderboardID, Guid scoreID) : DeleteScoreBase(leaderboardID, scoreID, null);
+public sealed class DeleteScoreOptions(Guid scoreID) : DeleteScoreBase(scoreID, null);
 
 [UsedImplicitly]
-public sealed class DeletePlayerScoresOptions(Guid leaderboardID, Guid playerID) : DeleteScoreBase(leaderboardID, null, playerID);
+public sealed class DeletePlayerScoresOptions(Guid playerID) : DeleteScoreBase(null, playerID);
 
 
 [UsedImplicitly]
-public sealed class ListNewestScoresOptions(Guid leaderboardID, string countryISO = null)
+public sealed class ListNewestScoresOptions(string countryISO = null)
 {
-    private Guid LeaderboardID { get; } = leaderboardID;
     private string CountryISO { get; } = countryISO;
 
     [UsedImplicitly]
     internal Dictionary<string, string> BuildFormData()
     {
-        var formData = new Dictionary<string, string>
-        {
-            { "leaderboardID", LeaderboardID.ToString() }
-        };
+        var formData = new Dictionary<string, string>();
         if (!string.IsNullOrWhiteSpace(CountryISO))
         {
             formData.Add("country", CountryISO);
@@ -245,9 +223,8 @@ public sealed class ListNewestScoresOptions(Guid leaderboardID, string countryIS
 }
 
 [UsedImplicitly]
-public sealed class ListPlayerScoresOptions(Guid leaderboardID, Guid playerID)
+public sealed class ListPlayerScoresOptions(Guid playerID)
 {
-    private Guid LeaderboardID { get; } = leaderboardID;
     private Guid PlayerID { get; } = playerID;
 
     [UsedImplicitly]
@@ -255,26 +232,21 @@ public sealed class ListPlayerScoresOptions(Guid leaderboardID, Guid playerID)
     {
         var formData = new Dictionary<string, string>
         {
-            { "leaderboardID", LeaderboardID.ToString() },
             { "playerID", PlayerID.ToString() }
         };
         return formData;
     }
 }
 
-public abstract class ListScoreHistoryBase(Guid leaderboardID, Guid? playerID, Guid? scoreID)
+public abstract class ListScoreHistoryBase(Guid? playerID, Guid? scoreID)
 {
-    private Guid LeaderboardID { get; } = leaderboardID;
     private Guid? PlayerID { get; } = playerID;
     private Guid? ScoreID { get; } = scoreID;
 
     [UsedImplicitly]
     internal Dictionary<string, string> BuildFormData()
     {
-        var formData = new Dictionary<string, string>
-        {
-            { "leaderboardID", LeaderboardID.ToString() }
-        };
+        var formData = new Dictionary<string, string>();
         if (PlayerID.HasValue)
         {
             formData.Add("playerID", PlayerID.ToString());
@@ -288,17 +260,16 @@ public abstract class ListScoreHistoryBase(Guid leaderboardID, Guid? playerID, G
 }
 
 [UsedImplicitly]
-public sealed class ListPlayerScoreHistoryOptions(Guid leaderboardID, Guid playerID)
-    : ListScoreHistoryBase(leaderboardID, playerID, null);
+public sealed class ListPlayerScoreHistoryOptions(Guid playerID)
+    : ListScoreHistoryBase(playerID, null);
 
 [UsedImplicitly]
-public sealed class ListScoreHistoryOptions(Guid leaderboardID, Guid scoreID)
-    : ListScoreHistoryBase(leaderboardID, null, scoreID);
+public sealed class ListScoreHistoryOptions(Guid scoreID)
+    : ListScoreHistoryBase(null, scoreID);
 
 
-public abstract class ListNeighbourScoresBase(Guid leaderboardID, Guid? playerID, Guid? scoreID, short? range, short? compareRanks)
+public abstract class ListNeighbourScoresBase(Guid? playerID, Guid? scoreID, short? range, short? compareRanks)
 {
-    private Guid LeaderboardID { get; } = leaderboardID;
     private Guid? PlayerID { get; } = playerID;
     private Guid? ScoreID { get; } = scoreID;
     private short? Range { get; } = range;
@@ -307,10 +278,7 @@ public abstract class ListNeighbourScoresBase(Guid leaderboardID, Guid? playerID
     [UsedImplicitly]
     internal Dictionary<string, string> BuildFormData()
     {
-        var formData = new Dictionary<string, string>
-        {
-            { "leaderboardID", LeaderboardID.ToString() }
-        };
+        var formData = new Dictionary<string, string>();
         if (PlayerID.HasValue)
         {
             formData.Add("playerID", PlayerID.Value.ToString());
@@ -333,31 +301,25 @@ public abstract class ListNeighbourScoresBase(Guid leaderboardID, Guid? playerID
 
 [UsedImplicitly]
 public sealed class ListPlayerScoreNeighboursOptions(
-    Guid leaderboardID,
     Guid playerID,
     short? range,
     short? compareRanks)
-    : ListNeighbourScoresBase(leaderboardID, playerID, null, range, compareRanks);
+    : ListNeighbourScoresBase(playerID, null, range, compareRanks);
 
 [UsedImplicitly]
 public sealed class ListScoreNeighboursOptions(
-    Guid leaderboardID, 
     Guid scoreID, 
     short? range, 
     short? compareRanks)
-    : ListNeighbourScoresBase(leaderboardID, null, scoreID, range, compareRanks);
+    : ListNeighbourScoresBase(null, scoreID, range, compareRanks);
 
 
 public sealed class ListScoreOptions(
-    Guid leaderboardID, 
     string countryISO = null,
     short? compareRanks = null,
     ScoreRange? range = null,
     short? rangeOffset = null)
 {
-    [UsedImplicitly]
-    public Guid LeaderboardID { get; set; } = leaderboardID;
-
     [UsedImplicitly]
     public string CountryISO { get; set; } = countryISO;
 
@@ -373,10 +335,7 @@ public sealed class ListScoreOptions(
     [UsedImplicitly]
     internal Dictionary<string, string> BuildFormData()
     {
-        var formData = new Dictionary<string, string>
-        {
-            { "leaderboardID", LeaderboardID.ToString() }
-        };
+        var formData = new Dictionary<string, string>();
         if (!string.IsNullOrWhiteSpace(CountryISO))
         {
             formData.Add("country", CountryISO);

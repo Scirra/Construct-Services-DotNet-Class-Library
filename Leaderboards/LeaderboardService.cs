@@ -9,7 +9,7 @@ namespace ConstructServices.Leaderboards;
 [UsedImplicitly]
 public sealed class LeaderboardService : BaseService
 {
-    private Guid LeaderboardID { get; }
+    internal Guid LeaderboardID { get; }
 
     /// <summary>
     /// Create a new instance of leaderboard service
@@ -18,7 +18,6 @@ public sealed class LeaderboardService : BaseService
     /// <param name="leaderboardID">Leaderboard ID service is for</param>
     /// <param name="aPIKey">Optional API key, may be required for some request types and should never be exposed client side.</param>
     /// <param name="requestedLanguage">ISO Alpha 2 language to return translatable strings to</param>
-    /// <param name="culture">Culture to return formatted values in</param>
     public LeaderboardService(Guid gameID, Guid leaderboardID, SecretAPIKey aPIKey, string requestedLanguage = null, CultureInfo culture = null) 
         : base(gameID, Config.APIDomain, aPIKey, requestedLanguage, culture)
     {
@@ -40,10 +39,6 @@ public sealed class LeaderboardService : BaseService
         if (!formData.ContainsKey("leaderboardID"))
         {
             formData.Add("leaderboardID", LeaderboardID.ToString());
-        }
-        if (Culture != null && !formData.ContainsKey("culture"))
-        {
-            formData.Add("culture", Culture.ToString());
         }
     }
 }

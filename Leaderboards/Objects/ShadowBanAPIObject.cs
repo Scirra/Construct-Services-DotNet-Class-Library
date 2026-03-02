@@ -6,13 +6,11 @@ using Guid = System.Guid;
 namespace ConstructServices.Leaderboards.Objects;
 
 public abstract class CreateShadowBanBase(
-    Guid leaderboardID,
     Guid? scoreID = null,
     Guid? playerID = null,
     string ipAddress = null,
     int? ipHash = null)
-{
-    private Guid LeaderboardID { get; } = leaderboardID;
+{ 
     private Guid? ScoreID { get; } = scoreID;
     private Guid? PlayerID { get; } = playerID;
     private string IPAddress { get; } = ipAddress;
@@ -20,10 +18,7 @@ public abstract class CreateShadowBanBase(
 
     internal Dictionary<string, string> BuildFormData()
     {
-        var formData = new Dictionary<string, string>
-        {
-            { "leaderboardID", LeaderboardID.ToString() }
-        };
+        var formData = new Dictionary<string, string>();
         if (ScoreID.HasValue)
         {
             formData.Add("scoreID", ScoreID.Value.ToString());
@@ -47,29 +42,27 @@ public abstract class CreateShadowBanBase(
 [UsedImplicitly]
 public sealed class CreateIPShadowBanOptions : CreateShadowBanBase
 {
-    public CreateIPShadowBanOptions(Guid leaderboardID, string ipAddress) 
-        : base(leaderboardID, null, null, ipAddress) { }
-    public CreateIPShadowBanOptions(Guid leaderboardID, IPAddress ipAddress) 
-        : base(leaderboardID, null, null, ipAddress.ToString()) { }
-    public CreateIPShadowBanOptions(Guid leaderboardID, int ipHash) 
-        : base(leaderboardID, null, null, null, ipHash) { }
+    public CreateIPShadowBanOptions(string ipAddress) 
+        : base(null, null, ipAddress) { }
+    public CreateIPShadowBanOptions(IPAddress ipAddress) 
+        : base(null, null, ipAddress.ToString()) { }
+    public CreateIPShadowBanOptions(int ipHash) 
+        : base(null, null, null, ipHash) { }
 }
 
 [UsedImplicitly]
-public sealed class CreatePlayerShadowBanOptions(Guid leaderboardID, Guid playerID)
-    : CreateShadowBanBase(leaderboardID, null, playerID);
+public sealed class CreatePlayerShadowBanOptions(Guid playerID)
+    : CreateShadowBanBase(null, playerID);
 
 [UsedImplicitly]
-public sealed class CreateScoreShadowBanOptions(Guid leaderboardID, Guid scoreID)
-    : CreateShadowBanBase(leaderboardID, scoreID);
+public sealed class CreateScoreShadowBanOptions(Guid scoreID)
+    : CreateShadowBanBase(scoreID);
 public abstract class DeleteShadowBanBase(
-    Guid leaderboardID,
     Guid? scoreID = null,
     Guid? playerID = null,
     string ipAddress = null,
     int? ipHash = null)
 {
-    private Guid LeaderboardID { get; } = leaderboardID;
     private Guid? ScoreID { get; } = scoreID;
     private Guid? PlayerID { get; } = playerID;
     private string IPAddress { get; } = ipAddress;
@@ -77,10 +70,7 @@ public abstract class DeleteShadowBanBase(
 
     internal Dictionary<string, string> BuildFormData()
     {
-        var formData = new Dictionary<string, string>
-        {
-            { "leaderboardID", LeaderboardID.ToString() }
-        };
+        var formData = new Dictionary<string, string>();
         if (ScoreID.HasValue)
         {
             formData.Add("scoreID", ScoreID.Value.ToString());
@@ -105,33 +95,28 @@ public abstract class DeleteShadowBanBase(
 public sealed class DeleteIPShadowBanOptions : DeleteShadowBanBase
 {
     public DeleteIPShadowBanOptions(Guid leaderboardID, string ipAddress) 
-        : base(leaderboardID, null, null, ipAddress) { }
+        : base(null, null, ipAddress) { }
     public DeleteIPShadowBanOptions(Guid leaderboardID, IPAddress ipAddress) 
-        : base(leaderboardID, null, null, ipAddress.ToString()) { }
+        : base(null, null, ipAddress.ToString()) { }
     public DeleteIPShadowBanOptions(Guid leaderboardID, int ipHash) 
-        : base(leaderboardID, null, null, null, ipHash) { }
+        : base(null, null, null, ipHash) { }
 }
 
 [UsedImplicitly]
-public sealed class DeletePlayerShadowBanOptions(Guid leaderboardID, Guid playerID)
-    : DeleteShadowBanBase(leaderboardID, null, playerID);
+public sealed class DeletePlayerShadowBanOptions(Guid playerID)
+    : DeleteShadowBanBase(null, playerID);
 
 [UsedImplicitly]
-public sealed class DeleteScoreShadowBanOptions(Guid leaderboardID, Guid scoreID)
-    : DeleteShadowBanBase(leaderboardID, scoreID);
+public sealed class DeleteScoreShadowBanOptions(Guid scoreID)
+    : DeleteShadowBanBase(scoreID);
 
 [UsedImplicitly]
-public sealed class ListShadowBanOptions(Guid leaderboardID)
+public sealed class ListShadowBanOptions()
 {
-    private Guid LeaderboardID { get; } = leaderboardID;
-
     [UsedImplicitly]
     internal Dictionary<string, string> BuildFormData()
     {
-        var formData = new Dictionary<string, string>
-        {
-            { "leaderboardID", LeaderboardID.ToString() }
-        };
+        var formData = new Dictionary<string, string>();
         return formData;
     }
 }
