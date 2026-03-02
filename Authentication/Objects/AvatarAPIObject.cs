@@ -41,7 +41,7 @@ public sealed class SetAvatarOptions
 {    
     private Guid? PlayerID { get; }
     private string SessionKey { get; }
-    private PictureData Picture { get; }
+    internal PictureData Picture { get; }
         
     public SetAvatarOptions(Guid playerID, PictureData picture)
     {
