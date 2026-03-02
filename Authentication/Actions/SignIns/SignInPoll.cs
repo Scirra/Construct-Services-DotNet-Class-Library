@@ -1,6 +1,7 @@
-﻿using ConstructServices.Authentication.Responses;
+﻿using System;
+using System.Collections.Generic;
+using ConstructServices.Authentication.Responses;
 using System.Threading.Tasks;
-using ConstructServices.Authentication.Objects;
 using JetBrains.Annotations;
 
 namespace ConstructServices.Authentication.Actions;
@@ -36,6 +37,21 @@ public static partial class SignIns
                 service,
                 signInPollOptions.BuildFormData()
             );
+        }
+    }
+    
+    [UsedImplicitly]
+    public sealed class SignInPollOptions(Guid token)
+    {
+        private Guid Token { get; } = token;
+
+        internal Dictionary<string, string> BuildFormData()
+        {
+            var formData = new Dictionary<string, string>
+            {
+                { "pollToken", Token.ToString() }
+            };
+            return formData;
         }
     }
 }

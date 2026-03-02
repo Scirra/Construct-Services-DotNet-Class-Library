@@ -1,5 +1,5 @@
-﻿using System.Threading.Tasks;
-using ConstructServices.Authentication.Objects;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using ConstructServices.Authentication.Responses;
 using ConstructServices.Common;
 using JetBrains.Annotations;
@@ -37,6 +37,21 @@ public static partial class Players
                 service,
                 forgottenPasswordOptions.BuildFormData()
             );
+        }
+    }
+
+    [UsedImplicitly]
+    public sealed class ForgottenPasswordOptions(string emailAddress)
+    {
+        private string EmailAddress { get; } = emailAddress;
+
+        internal Dictionary<string, string> BuildFormData()
+        {
+            var formData = new Dictionary<string, string>
+            {
+                { "emailAddress", EmailAddress }
+            };
+            return formData;
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using ConstructServices.Authentication.Objects;
+﻿using System;
+using System.Collections.Generic;
+using ConstructServices.Authentication.Objects;
 using ConstructServices.Authentication.Responses;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
@@ -35,6 +37,26 @@ public static partial class SignIns
                 service,
                 signInOptions.BuildFormData()
             );
+        }
+    }
+    
+    [UsedImplicitly]
+    public sealed class SignInOptions(LoginProvider provider, TimeSpan? sessionExpiry = null)
+    {
+        private LoginProvider Provider { get; } = provider;
+        private TimeSpan? SessionExpiry { get; } = sessionExpiry;
+
+        internal Dictionary<string, string> BuildFormData()
+        {
+            var formData = new Dictionary<string, string>
+            {
+                { "provider", Provider.ToString() }
+            };
+            if (SessionExpiry.HasValue)
+            {
+                formData.Add("expiryMins", Convert.ToInt32(SessionExpiry.Value.TotalMinutes).ToString());
+            }
+            return formData;
         }
     }
 }

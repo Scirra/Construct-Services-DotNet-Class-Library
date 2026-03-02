@@ -1,7 +1,7 @@
-﻿using ConstructServices.Common;
+﻿using System.Collections.Generic;
+using ConstructServices.Common;
 using JetBrains.Annotations;
 using System.Threading.Tasks;
-using ConstructServices.Authentication.Objects;
 
 namespace ConstructServices.Authentication.Actions;
 
@@ -35,6 +35,22 @@ public static partial class Sessions
                 service,
                 endSessionOptions.BuildFormData()
             );
+        }
+    }
+
+    [UsedImplicitly]
+    public sealed class EndSessionOptions(string sessionKey)
+    {
+        private string SessionKey { get; } = sessionKey;
+
+        internal Dictionary<string, string> BuildFormData()
+        {
+            var formData = new Dictionary<string, string>();
+            if (!string.IsNullOrWhiteSpace(SessionKey))
+            {
+                formData.Add("sessionKey", SessionKey);
+            }
+            return formData;
         }
     }
 }

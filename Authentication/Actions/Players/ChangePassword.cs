@@ -1,4 +1,5 @@
-﻿using ConstructServices.Authentication.Objects;
+﻿using System;
+using System.Collections.Generic;
 using ConstructServices.Common;
 using JetBrains.Annotations;
 using System.Threading.Tasks;
@@ -35,6 +36,41 @@ public static partial class Players
                 service,
                 changePasswordOptions.BuildFormData()
             );
+        }
+    }
+
+    [UsedImplicitly]
+    public sealed class ChangePasswordOptions
+    {
+        private Guid? PlayerID { get; }
+        private string SessionKey { get; }         
+        private string NewPassword { get; }        
+        
+        public ChangePasswordOptions(string sessionKey, string newPassword)
+        {
+            SessionKey = sessionKey;
+            NewPassword = newPassword;
+        }
+        public ChangePasswordOptions(Guid playerID, string newPassword)
+        {
+            PlayerID = playerID;
+            NewPassword = newPassword;
+        }
+        internal Dictionary<string, string> BuildFormData()
+        {
+            var formData = new Dictionary<string, string>
+            {
+                { "newPassword", NewPassword }
+            };
+            if (PlayerID.HasValue)
+            {
+                formData.Add("playerID", PlayerID.Value.ToString());
+            }
+            if (!string.IsNullOrWhiteSpace(SessionKey))
+            {
+                formData.Add("sessionKey", SessionKey);
+            }
+            return formData;
         }
     }
 }

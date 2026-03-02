@@ -1,6 +1,6 @@
-﻿using ConstructServices.Authentication.Responses;
+﻿using System.Collections.Generic;
+using ConstructServices.Authentication.Responses;
 using System.Threading.Tasks;
-using ConstructServices.Authentication.Objects;
 using JetBrains.Annotations;
 
 namespace ConstructServices.Authentication.Actions;
@@ -36,6 +36,21 @@ public static partial class Players
                 service,
                 listLoginProviderOptions.BuildFormData()
             );
+        }
+    }
+
+    [UsedImplicitly]
+    public sealed class ListLoginProviderOptions(string sessionKey)
+    {
+        private string SessionKey { get; } = sessionKey;
+
+        internal Dictionary<string, string> BuildFormData()
+        {
+            var formData = new Dictionary<string, string>
+            {
+                { "sessionKey", SessionKey }
+            };
+            return formData;
         }
     }
 }

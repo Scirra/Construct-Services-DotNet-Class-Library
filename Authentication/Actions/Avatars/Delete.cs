@@ -1,4 +1,5 @@
-﻿using ConstructServices.Authentication.Objects;
+﻿using System;
+using System.Collections.Generic;
 using ConstructServices.Common;
 using JetBrains.Annotations;
 using System.Threading.Tasks;
@@ -36,6 +37,36 @@ public static partial class Avatars
                 service,
                 deleteAvatarOptions.BuildFormData()
             );
+        }
+    }
+
+    [UsedImplicitly]
+    public sealed class DeleteAvatarOptions
+    {    
+        private Guid? PlayerID { get; }
+        private string SessionKey { get; }
+        
+        public DeleteAvatarOptions(Guid playerID)
+        {
+            PlayerID = playerID;
+        }
+        public DeleteAvatarOptions(string sessionKey)
+        {
+            SessionKey = sessionKey;
+        }
+
+        internal Dictionary<string, string> BuildFormData()
+        {
+            var formData = new Dictionary<string, string>();
+            if (PlayerID.HasValue)
+            {
+                formData.Add("playerID", PlayerID.Value.ToString());
+            }
+            if (!string.IsNullOrWhiteSpace(SessionKey))
+            {
+                formData.Add("sessionKey", SessionKey);
+            }
+            return formData;
         }
     }
 }

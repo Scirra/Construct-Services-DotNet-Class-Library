@@ -1,4 +1,5 @@
-﻿using ConstructServices.Authentication.Objects;
+﻿using System;
+using System.Collections.Generic;
 using ConstructServices.Authentication.Responses;
 using ConstructServices.Common;
 using JetBrains.Annotations;
@@ -36,6 +37,56 @@ public static partial class Players
                 service,
                 createPlayerOptions.BuildFormData()
             );
+        }
+    }
+
+    [UsedImplicitly]
+    public sealed class CreatePlayerOptions(
+        string playerName,
+        string emailAddress,
+        string username,
+        string password,
+        TimeSpan? sessionExpiry = null)
+    {
+        private string PlayerName { get; } = playerName;
+        private string Username { get; } = username;
+        private string Password { get; } = password;
+        private string EmailAddress { get; } = emailAddress;
+        private TimeSpan? SessionExpiry { get; } = sessionExpiry;
+
+        public CreatePlayerOptions(string playerName, TimeSpan? sessionExpiry = null) : this(playerName, null, null, null, null)
+        {
+        }
+        public CreatePlayerOptions(string playerName, string emailAddress, TimeSpan? sessionExpiry = null) : this(playerName, emailAddress, null, null, null)
+        {
+        }
+        public CreatePlayerOptions(string playerName, string username, string password, TimeSpan? sessionExpiry = null) : this(playerName, null, username, password)
+        {
+        }
+
+        internal Dictionary<string, string> BuildFormData()
+        {
+            var formData = new Dictionary<string, string>
+            {
+                { "playerName", PlayerName }
+            };
+            if (!string.IsNullOrWhiteSpace(EmailAddress))
+            {
+                formData.Add("emailAddress", EmailAddress);
+            }
+            if (!string.IsNullOrWhiteSpace(Username))
+            {
+                formData.Add("username", Username);
+            }
+            if (!string.IsNullOrWhiteSpace(Password))
+            {
+                formData.Add("password", Password);
+            }
+            if (SessionExpiry.HasValue)
+            {
+                formData.Add("expiryMins", Convert.ToInt32(SessionExpiry.Value.TotalMinutes).ToString());
+            }
+            return formData;
         }
     }
 }

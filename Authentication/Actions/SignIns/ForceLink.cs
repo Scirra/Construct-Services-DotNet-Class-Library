@@ -1,4 +1,4 @@
-﻿using ConstructServices.Authentication.Objects;
+﻿using System.Collections.Generic;
 using ConstructServices.Authentication.Responses;
 using ConstructServices.Common;
 using JetBrains.Annotations;
@@ -36,6 +36,22 @@ public static partial class SignIns
                 service,
                 forceLinkOptions.BuildFormData()
             );
+        }
+    }
+    
+    [UsedImplicitly]
+    public sealed class ForceLinkOptions(string code)
+    {
+        [UsedImplicitly]
+        private string Code { get; } = code;
+
+        internal Dictionary<string, string> BuildFormData()
+        {
+            var formData = new Dictionary<string, string>
+            {
+                { "code", Code }
+            };
+            return formData;
         }
     }
 }

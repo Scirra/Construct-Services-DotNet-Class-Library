@@ -1,5 +1,6 @@
-﻿using System.Threading.Tasks;
-using ConstructServices.Authentication.Objects;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using ConstructServices.Common;
 using JetBrains.Annotations;
 
@@ -36,6 +37,35 @@ public static partial class Players
                 service,
                 deletePlayerOptions.BuildFormData()
             );
+        }
+    }
+
+    [UsedImplicitly]
+    public sealed class DeletePlayerOptions
+    {
+        private Guid? PlayerID { get; }
+        private string SessionKey { get; }       
+        
+        public DeletePlayerOptions(string sessionKey)
+        {
+            SessionKey = sessionKey;
+        }
+        public DeletePlayerOptions(Guid playerID)
+        {
+            PlayerID = playerID;
+        }
+        internal Dictionary<string, string> BuildFormData()
+        {
+            var formData = new Dictionary<string, string>();
+            if (PlayerID.HasValue)
+            {
+                formData.Add("playerID", PlayerID.Value.ToString());
+            }
+            if (!string.IsNullOrWhiteSpace(SessionKey))
+            {
+                formData.Add("sessionKey", SessionKey);
+            }
+            return formData;
         }
     }
 }
