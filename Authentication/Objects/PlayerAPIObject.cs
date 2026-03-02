@@ -226,10 +226,12 @@ public sealed class GetPlayerOptions
 public sealed class GetPlayersOptions
 {
     private List<Guid> PlayerIDs { get; }    
+    private PlayerOrdering? Ordering { get; }
         
-    public GetPlayersOptions(List<Guid> playerIDs)
+    public GetPlayersOptions(List<Guid> playerIDs, PlayerOrdering? ordering = null)
     {
         PlayerIDs = playerIDs;
+        Ordering = ordering;
     }
     public GetPlayersOptions(Guid playerID)
     {
@@ -241,6 +243,10 @@ public sealed class GetPlayersOptions
         if (PlayerIDs != null)
         {
             formData.Add("playerIDs", string.Join(",", PlayerIDs));
+        }
+        if (Ordering.HasValue)
+        {
+            formData.Add("order", Ordering.Value.ToString());
         }
         return formData;
     }
