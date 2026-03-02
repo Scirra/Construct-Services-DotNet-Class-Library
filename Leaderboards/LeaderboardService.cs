@@ -9,7 +9,7 @@ namespace ConstructServices.Leaderboards;
 [UsedImplicitly]
 public sealed class LeaderboardService : BaseService
 {
-    internal Guid LeaderboardID { get; }
+    private Guid LeaderboardID { get; }
 
     /// <summary>
     /// Create a new instance of leaderboard service

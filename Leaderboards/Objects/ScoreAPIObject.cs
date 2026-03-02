@@ -59,7 +59,7 @@ public sealed class CreateScoreOptions
             { "leaderboardID", LeaderboardID.ToString() },
             { "hash", hash },
             { "timestamp", timestamp.ToString() },
-            { "score", Score.ToString() },
+            { "score", Score.ToString() }
         };
         if (!string.IsNullOrWhiteSpace(SessionKey))
         {
@@ -115,7 +115,7 @@ public abstract class AdjustScoreBase(
             { "leaderboardID", LeaderboardID.ToString() },
             { "hash", hash },
             { "timestamp", timestamp.ToString() },
-            { "adjustment", Adjustment.ToString() },
+            { "adjustment", Adjustment.ToString() }
         };
         if (!string.IsNullOrWhiteSpace(SessionKey))
         {
@@ -142,20 +142,14 @@ public abstract class AdjustScoreBase(
 }
 
 [UsedImplicitly]
-public sealed class AdjustScoreByIDOptions : AdjustScoreBase
-{
-    public AdjustScoreByIDOptions(
-        Guid leaderboardID,
-        Guid scoreID,
-        long adjustment,
-        short? optValue1,
-        short? optValue2,
-        short? optValue3) :
-        base(null, leaderboardID, null, scoreID, adjustment, optValue1, optValue2, optValue3)
-    {
-
-    }
-}
+public sealed class AdjustScoreByIDOptions(
+    Guid leaderboardID,
+    Guid scoreID,
+    long adjustment,
+    short? optValue1,
+    short? optValue2,
+    short? optValue3)
+    : AdjustScoreBase(null, leaderboardID, null, scoreID, adjustment, optValue1, optValue2, optValue3);
 
 [UsedImplicitly]
 public sealed class AdjustPlayersScoreOptions : AdjustScoreBase
@@ -294,18 +288,12 @@ public abstract class ListScoreHistoryBase(Guid leaderboardID, Guid? playerID, G
 }
 
 [UsedImplicitly]
-public sealed class ListPlayerScoreHistoryOptions : ListScoreHistoryBase
-{
-    public ListPlayerScoreHistoryOptions(Guid leaderboardID, Guid playerID)
-        : base(leaderboardID, playerID, null) { }
-}
+public sealed class ListPlayerScoreHistoryOptions(Guid leaderboardID, Guid playerID)
+    : ListScoreHistoryBase(leaderboardID, playerID, null);
 
 [UsedImplicitly]
-public sealed class ListScoreHistoryOptions : ListScoreHistoryBase
-{
-    public ListScoreHistoryOptions(Guid leaderboardID, Guid scoreID)
-        : base(leaderboardID, null, scoreID) { }
-}
+public sealed class ListScoreHistoryOptions(Guid leaderboardID, Guid scoreID)
+    : ListScoreHistoryBase(leaderboardID, null, scoreID);
 
 
 public abstract class ListNeighbourScoresBase(Guid leaderboardID, Guid? playerID, Guid? scoreID, short? range, short? compareRanks)

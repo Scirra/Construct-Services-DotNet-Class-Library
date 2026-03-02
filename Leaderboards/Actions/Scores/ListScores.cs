@@ -1,6 +1,4 @@
-﻿using ConstructServices.Leaderboards.Enums;
-using ConstructServices.Leaderboards.Responses;
-using System.Collections.Generic;
+﻿using ConstructServices.Leaderboards.Responses;
 using System.Threading.Tasks;
 using ConstructServices.Common;
 using ConstructServices.Leaderboards.Objects;
