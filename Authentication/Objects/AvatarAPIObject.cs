@@ -6,13 +6,11 @@ using JetBrains.Annotations;
 
 namespace ConstructServices.Authentication.Objects;
 
+[UsedImplicitly]
 public sealed class DeleteAvatarOptions
 {    
-    [UsedImplicitly]
-    public Guid? PlayerID { get; private set; }
-
-    [UsedImplicitly]
-    public string SessionKey { get; private set; }
+    private Guid? PlayerID { get; }
+    private string SessionKey { get; }
         
     public DeleteAvatarOptions(Guid playerID)
     {
@@ -37,16 +35,13 @@ public sealed class DeleteAvatarOptions
         return formData;
     }
 }
+
+[UsedImplicitly]
 public sealed class SetAvatarOptions
 {    
-    [UsedImplicitly]
-    public Guid? PlayerID { get; private set; }
-        
-    [UsedImplicitly]
-    public string SessionKey { get; private set; }
-
-    [UsedImplicitly]
-    public PictureData Picture { get; private set; }
+    private Guid? PlayerID { get; }
+    private string SessionKey { get; }
+    private PictureData Picture { get; }
         
     public SetAvatarOptions(Guid playerID, PictureData picture)
     {

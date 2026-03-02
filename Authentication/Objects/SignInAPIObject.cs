@@ -4,13 +4,15 @@ using System.Collections.Generic;
 
 namespace ConstructServices.Authentication.Objects;
 
+
+[UsedImplicitly]
 public sealed class DisconnectSignInProviderOptions(string sessionKey, LoginProvider provider)
 {
     [UsedImplicitly]
-    public string SessionKey { get; private set; } = sessionKey;
+    private string SessionKey { get; } = sessionKey;
 
     [UsedImplicitly]
-    public LoginProvider Provider { get; private set; } = provider;
+    private LoginProvider Provider { get; } = provider;
 
     internal Dictionary<string, string> BuildFormData()
     {
@@ -22,10 +24,12 @@ public sealed class DisconnectSignInProviderOptions(string sessionKey, LoginProv
         return formData;
     }
 }
+
+[UsedImplicitly]
 public sealed class ForceLinkOptions(string code)
 {
     [UsedImplicitly]
-    public string Code { get; private set; } = code;
+    private string Code { get; } = code;
 
     internal Dictionary<string, string> BuildFormData()
     {
@@ -36,13 +40,12 @@ public sealed class ForceLinkOptions(string code)
         return formData;
     }
 }
+
+[UsedImplicitly]
 public sealed class LinkSignInProviderOptions(string sessionKey, LoginProvider provider)
 {
-    [UsedImplicitly]
-    public string SessionKey { get; private set; } = sessionKey;
-
-    [UsedImplicitly]
-    public LoginProvider Provider { get; private set; } = provider;
+    private string SessionKey { get; } = sessionKey;
+    private LoginProvider Provider { get; } = provider;
 
     internal Dictionary<string, string> BuildFormData()
     {
@@ -54,13 +57,12 @@ public sealed class LinkSignInProviderOptions(string sessionKey, LoginProvider p
         return formData;
     }
 }
+
+[UsedImplicitly]
 public sealed class SignInOptions(LoginProvider provider, TimeSpan? sessionExpiry = null)
 {
-    [UsedImplicitly]
-    public LoginProvider Provider { get; private set; } = provider;
-
-    [UsedImplicitly]
-    public TimeSpan? SessionExpiry { get; private set; } = sessionExpiry;
+    private LoginProvider Provider { get; } = provider;
+    private TimeSpan? SessionExpiry { get; } = sessionExpiry;
 
     internal Dictionary<string, string> BuildFormData()
     {
@@ -76,10 +78,11 @@ public sealed class SignInOptions(LoginProvider provider, TimeSpan? sessionExpir
     }
 }
 
+
+[UsedImplicitly]
 public sealed class SignInPollOptions(Guid token)
 {
-    [UsedImplicitly]
-    public Guid Token { get; private set; } = token;
+    private Guid Token { get; } = token;
 
     internal Dictionary<string, string> BuildFormData()
     {
@@ -90,11 +93,11 @@ public sealed class SignInPollOptions(Guid token)
         return formData;
     }
 }
+
+[UsedImplicitly]
 public sealed class LinkPollOptions(Guid token)
 {
-    [UsedImplicitly]
-    public Guid Token { get; private set; } = token;
-
+    private Guid Token { get; } = token;
     internal Dictionary<string, string> BuildFormData()
     {
         var formData = new Dictionary<string, string>

@@ -114,6 +114,7 @@ public sealed class SetUsernameAndPasswordOptions
         return formData;
     }
 }
+
 [UsedImplicitly]
 public sealed class ChangePlayerNameOptions
 {
