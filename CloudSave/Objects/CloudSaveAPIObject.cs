@@ -147,3 +147,40 @@ public sealed class CreateCloudSaveOptions : ModifyCloudSaveBase
         return postedBinaryData;
     }
 }
+public sealed class DeleteCloudSaveOptions
+{
+    [UsedImplicitly]
+    private Guid CloudSaveID { get; set; }
+
+    [UsedImplicitly]
+    private string SessionKey { get; set; }
+    
+    public DeleteCloudSaveOptions(Guid cloudSaveID)
+    {
+        CloudSaveID = cloudSaveID;
+    }
+    public DeleteCloudSaveOptions(string sessionKey, Guid cloudSaveID)
+    {
+        SessionKey = sessionKey;
+        CloudSaveID = cloudSaveID;
+    }
+    public DeleteCloudSaveOptions(string sessionKey, string strCloudSaveID)
+    {
+        SessionKey = sessionKey;
+        CloudSaveID = Guid.Parse(strCloudSaveID);
+    }
+
+    [UsedImplicitly]
+    internal Dictionary<string, string> BuildFormData()
+    {
+        var formData = new Dictionary<string, string>
+        {
+            { "blobID", CloudSaveID.ToString() }
+        };
+        if (!string.IsNullOrWhiteSpace(SessionKey))
+        {
+            formData.Add("sessionKey", SessionKey);
+        }
+        return formData;
+    }
+}

@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using ConstructServices.CloudSave.Objects;
 using ConstructServices.Common;
 using JetBrains.Annotations;
 
@@ -11,120 +10,30 @@ public static partial class Saves
     extension(CloudSaveService service)
     {
         /// <summary>
-        /// Delete a cloud save
+        /// Delete an existing Cloud Save
         /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/cloud-save/api-end-points/cloud-saves/delete-cloud-save" />
         [UsedImplicitly]
-        public BaseResponse Delete(string strCloudSaveID)
+        public BaseResponse Delete(DeleteCloudSaveOptions deleteCloudSaveOptions)
         {
-            var idValidator = Common.Validations.Guid.IsValidGuid(strCloudSaveID);
-            if (!idValidator.Successfull)
-            {
-                return new BaseResponse(string.Format(idValidator.ErrorMessage, "Cloud save ID"));
-            }
-            return service.Delete(idValidator.ReturnedObject);
-        }
-
-        /// <summary>
-        /// Delete a cloud save
-        /// </summary>
-        [UsedImplicitly]
-        public async Task<BaseResponse> DeleteAsync(string strCloudSaveID)
-        {
-            var idValidator = Common.Validations.Guid.IsValidGuid(strCloudSaveID);
-            if (!idValidator.Successfull)
-            {
-                return new BaseResponse(string.Format(idValidator.ErrorMessage, "Cloud save ID"));
-            }
-            return await service.DeleteAsync(idValidator.ReturnedObject);
-        }
-
-        /// <summary>
-        /// Delete a cloud save
-        /// </summary>
-        [UsedImplicitly]
-        public BaseResponse Delete(Guid cloudSaveID)
-        {
-            var formData = new Dictionary<string, string>
-            {
-                { "blobID", cloudSaveID.ToString() }
-            };
-
             return Request.ExecuteSyncRequest<BaseResponse>(
                 Config.EndPointPaths.Saves.Delete,
                 service,
-                formData
+                deleteCloudSaveOptions.BuildFormData()
             );
         }
 
         /// <summary>
-        /// Delete a cloud save
+        /// Delete an existing Cloud Save
         /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/cloud-save/api-end-points/cloud-saves/delete-cloud-save" />
         [UsedImplicitly]
-        public async Task<BaseResponse> DeleteAsync(Guid cloudSaveID)
+        public async Task<BaseResponse> DeleteAsync(DeleteCloudSaveOptions deleteCloudSaveOptions)
         {
-            var formData = new Dictionary<string, string>
-            {
-                { "blobID", cloudSaveID.ToString() }
-            };
-
             return await Request.ExecuteAsyncRequest<BaseResponse>(
                 Config.EndPointPaths.Saves.Delete,
                 service,
-                formData
-            );
-        }
-
-        /// <summary>
-        /// Delete a cloud save
-        /// </summary>
-        [UsedImplicitly]
-        public BaseResponse Delete(
-            string sessionKey,
-            Guid cloudSaveID)
-        {
-            var sessionKeyValidator = Common.Validations.PlayerSessionKey.ValidatePlayerSessionKey(sessionKey);
-            if (!sessionKeyValidator.Successfull)
-            {
-                return new BaseResponse(sessionKeyValidator.ErrorMessage);
-            }
-
-            var formData = new Dictionary<string, string>
-            {
-                { "sessionKey", sessionKey },
-                { "blobID", cloudSaveID.ToString() }
-            };
-
-            return Request.ExecuteSyncRequest<BaseResponse>(
-                Config.EndPointPaths.Saves.Delete,
-                service,
-                formData
-            );
-        }
-
-        /// <summary>
-        /// Delete a cloud save
-        /// </summary>
-        [UsedImplicitly]
-        public async Task<BaseResponse> DeleteAsync(
-            string sessionKey,
-            Guid cloudSaveID)
-        {
-            var sessionKeyValidator = Common.Validations.PlayerSessionKey.ValidatePlayerSessionKey(sessionKey);
-            if (!sessionKeyValidator.Successfull)
-            {
-                return new BaseResponse(sessionKeyValidator.ErrorMessage);
-            }
-
-            var formData = new Dictionary<string, string>
-            {
-                { "sessionKey", sessionKey },
-                { "blobID", cloudSaveID.ToString() }
-            };
-
-            return await Request.ExecuteAsyncRequest<BaseResponse>(
-                Config.EndPointPaths.Saves.Delete,
-                service,
-                formData
+                deleteCloudSaveOptions.BuildFormData()
             );
         }
     }
