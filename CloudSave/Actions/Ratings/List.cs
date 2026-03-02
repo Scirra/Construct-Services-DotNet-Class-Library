@@ -1,7 +1,7 @@
-﻿using ConstructServices.Ratings.Objects;
-using ConstructServices.Ratings.Responses;
+﻿using ConstructServices.Ratings.Responses;
 using JetBrains.Annotations;
 using System.Threading.Tasks;
+using ConstructServices.Ratings.Actions;
 
 namespace ConstructServices.CloudSave.Actions;
 
@@ -14,9 +14,9 @@ public static partial class Ratings
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/cloud-save/api-end-points/ratings/get-dimensions" />
         [UsedImplicitly]
-        public DimensionsResponse GetRatingDimensions(ListCloudSaveBucketDimensionOptions listCloudSaveBucketDimensionOptions)
+        public DimensionsResponse GetRatingDimensions(Dimensions.ListCloudSaveBucketDimensionOptions listCloudSaveBucketDimensionOptions)
         {
-            return global::ConstructServices.Ratings.Actions.Dimensions.ListDimensions(service, Config.EndPointPaths.Ratings.ListDimensions, listCloudSaveBucketDimensionOptions);
+            return service.ListDimensions(Config.EndPointPaths.Ratings.ListDimensions, listCloudSaveBucketDimensionOptions);
         }
 
         /// <summary>
@@ -24,9 +24,9 @@ public static partial class Ratings
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/cloud-save/api-end-points/ratings/get-dimensions" />
         [UsedImplicitly]
-        public async Task<DimensionsResponse> GetRatingDimensionsAsync(ListCloudSaveBucketDimensionOptions listCloudSaveBucketDimensionOptions)
+        public async Task<DimensionsResponse> GetRatingDimensionsAsync(Dimensions.ListCloudSaveBucketDimensionOptions listCloudSaveBucketDimensionOptions)
         {
-            return await global::ConstructServices.Ratings.Actions.Dimensions.ListDimensionsAsync(service, Config.EndPointPaths.Ratings.ListDimensions, listCloudSaveBucketDimensionOptions);
+            return await service.ListDimensionsAsync(Config.EndPointPaths.Ratings.ListDimensions, listCloudSaveBucketDimensionOptions);
         }
     }
 }

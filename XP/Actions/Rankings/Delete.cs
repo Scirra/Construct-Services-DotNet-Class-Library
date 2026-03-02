@@ -1,5 +1,6 @@
-﻿using ConstructServices.Common;
-using ConstructServices.XP.Objects;
+﻿using System;
+using System.Collections.Generic;
+using ConstructServices.Common;
 using ConstructServices.XP.Responses;
 using JetBrains.Annotations;
 using System.Threading.Tasks;
@@ -35,6 +36,30 @@ public static partial class Rankings
                 xpService,
                 deleteXPRankOptions.BuildFormData()
             );
+        }
+    }
+
+    [UsedImplicitly]
+    public sealed class DeleteXPRankOptions
+    {
+        private Guid RankID { get; }
+    
+        public DeleteXPRankOptions(string strRankID)
+        {
+            RankID = Guid.Parse(strRankID);
+        }
+        public DeleteXPRankOptions(Guid rankID)
+        {
+            RankID = rankID;
+        }
+
+        internal Dictionary<string, string> BuildFormData()
+        {
+            var formData = new Dictionary<string, string>
+            {
+                { "rankID", RankID.ToString() }
+            };
+            return formData;
         }
     }
 }

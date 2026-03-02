@@ -1,5 +1,6 @@
-﻿using ConstructServices.Common;
-using ConstructServices.XP.Objects;
+﻿using System;
+using System.Collections.Generic;
+using ConstructServices.Common;
 using ConstructServices.XP.Responses;
 using JetBrains.Annotations;
 using System.Threading.Tasks;
@@ -33,29 +34,28 @@ public static partial class Bonuses
                 getBonusOptions.BuildFormData()
             );
         }
+    }
+    [UsedImplicitly]
+    public sealed class GetBonusOptions
+    {
+        private Guid BonusID { get; }
 
-        /// <summary>Retrieve all XP Bonus objects between date ranges</summary>
-        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/bonuses/list-bonuses" />
-        [UsedImplicitly]
-        public BonusesResponse GetBonuses(GetBonusesOptions getBonusesOptions)
-        {              
-            return Request.ExecuteSyncRequest<BonusesResponse>(
-                Config.EndPointPaths.Bonuses.List,
-                xpService,
-                getBonusesOptions.BuildFormData()
-            );
-        }        
-        
-        /// <summary>Retrieve all XP Bonus objects between date ranges</summary>
-        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/bonuses/list-bonuses" />
-        [UsedImplicitly]
-        public async Task<BonusesResponse> GetBonusesAsync(GetBonusesOptions getBonusesOptions)
-        {                    
-            return await Request.ExecuteAsyncRequest<BonusesResponse>(
-                Config.EndPointPaths.Bonuses.List,
-                xpService,
-                getBonusesOptions.BuildFormData()
-            );
+        public GetBonusOptions(string strBonusID)
+        {
+            BonusID = Guid.Parse(strBonusID);
+        }
+        public GetBonusOptions(Guid bonusID)
+        {
+            BonusID = bonusID;
+        }
+
+        internal Dictionary<string, string> BuildFormData()
+        {
+            var formData = new Dictionary<string, string>
+            {
+                { "bonusID", BonusID.ToString() }
+            };
+            return formData;
         }
     }
 }

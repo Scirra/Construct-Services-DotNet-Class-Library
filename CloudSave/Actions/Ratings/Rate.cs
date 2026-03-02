@@ -1,7 +1,7 @@
-﻿using ConstructServices.Ratings.Objects;
-using ConstructServices.Ratings.Responses;
+﻿using ConstructServices.Ratings.Responses;
 using JetBrains.Annotations;
 using System.Threading.Tasks;
+using ConstructServices.Ratings.Actions;
 
 namespace ConstructServices.CloudSave.Actions;
 
@@ -14,9 +14,9 @@ public static partial class Ratings
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/cloud-save/api-end-points/ratings/rate-cloud-save" />
         [UsedImplicitly]
-        public RateResponse Rate(RateCloudSaveOptions rateCloudSaveOptions)
+        public RateResponse Rate(Rating.RateCloudSaveOptions rateCloudSaveOptions)
         {
-            return global::ConstructServices.Ratings.Actions.Rating.Rate(service, Config.EndPointPaths.Ratings.Rate, rateCloudSaveOptions);
+            return service.Rate(Config.EndPointPaths.Ratings.Rate, rateCloudSaveOptions);
         }
 
         /// <summary>
@@ -24,9 +24,9 @@ public static partial class Ratings
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/cloud-save/api-end-points/ratings/rate-cloud-save" />
         [UsedImplicitly]
-        public async Task<RateResponse> RateAsync(RateCloudSaveOptions rateCloudSaveOptions)
+        public async Task<RateResponse> RateAsync(Rating.RateCloudSaveOptions rateCloudSaveOptions)
         {
-            return await global::ConstructServices.Ratings.Actions.Rating.RateAsync(service, Config.EndPointPaths.Ratings.Rate, rateCloudSaveOptions);
+            return await service.RateAsync(Config.EndPointPaths.Ratings.Rate, rateCloudSaveOptions);
         }
     }
 }

@@ -1,5 +1,5 @@
-﻿using ConstructServices.Common;
-using ConstructServices.XP.Objects;
+﻿using System.Collections.Generic;
+using ConstructServices.Common;
 using ConstructServices.XP.Responses;
 using JetBrains.Annotations;
 using System.Threading.Tasks;
@@ -35,6 +35,42 @@ public static partial class Rankings
                 xpService,
                 createXPRankOptions.BuildFormData()
             );
+        }
+    }
+
+    [UsedImplicitly]
+    public sealed class CreateXPRankOptions
+    {    
+        private string Title { get; }
+        private string Description { get; }
+        private string LanguageISO { get; }
+        private long AtXP { get; }
+    
+        public CreateXPRankOptions(long atXP, string title, string description, string languageISO = null)
+        {
+            AtXP = atXP;
+            Title = title;
+            Description = description;
+            LanguageISO = languageISO;
+        }
+        public CreateXPRankOptions(string strAtXP, string title, string description, string languageISO = null)
+        {
+            AtXP = long.Parse(strAtXP);
+            Title = title;
+            Description = description;
+            LanguageISO = languageISO;
+        }
+
+        internal Dictionary<string, string> BuildFormData()
+        {
+            var formData = new Dictionary<string, string>
+            {
+                { "title", Title },
+                { "description", Description },
+                { "language", LanguageISO },
+                { "xp", AtXP.ToString() }
+            };
+            return formData;
         }
     }
 }

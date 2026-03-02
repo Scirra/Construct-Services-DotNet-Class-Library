@@ -1,7 +1,7 @@
 ﻿using ConstructServices.Common;
-using ConstructServices.Ratings.Objects;
 using JetBrains.Annotations;
 using System.Threading.Tasks;
+using ConstructServices.Ratings.Actions;
 
 namespace ConstructServices.Broadcasts.Actions;
 
@@ -15,10 +15,8 @@ public static partial class Ratings
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/broadcasts/api-end-points/ratings/delete-dimension" />
         [UsedImplicitly]
         public BaseResponse DeleteRatingDimension(
-            DeleteBroadcastChannelRatingDimensionOptions deleteBroadcastChannelRatingDimensionOptions)
-            => global::ConstructServices.Ratings.Actions.Dimensions.DeleteDimension(
-                service, 
-                Config.EndPointPaths.Ratings.DeleteDimension, 
+            Dimensions.DeleteBroadcastChannelRatingDimensionOptions deleteBroadcastChannelRatingDimensionOptions)
+            => service.DeleteDimension(Config.EndPointPaths.Ratings.DeleteDimension, 
                 deleteBroadcastChannelRatingDimensionOptions);
 
         /// <summary>
@@ -27,10 +25,8 @@ public static partial class Ratings
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/broadcasts/api-end-points/ratings/delete-dimension" />
         [UsedImplicitly]
         public async Task<BaseResponse> DeleteRatingDimensionAsync(
-            DeleteBroadcastChannelRatingDimensionOptions deleteBroadcastChannelRatingDimensionOptions)
-            => await global::ConstructServices.Ratings.Actions.Dimensions.DeleteDimensionAsync(
-                service, 
-                Config.EndPointPaths.Ratings.DeleteDimension,
+            Dimensions.DeleteBroadcastChannelRatingDimensionOptions deleteBroadcastChannelRatingDimensionOptions)
+            => await service.DeleteDimensionAsync(Config.EndPointPaths.Ratings.DeleteDimension,
                 deleteBroadcastChannelRatingDimensionOptions);
 
     }

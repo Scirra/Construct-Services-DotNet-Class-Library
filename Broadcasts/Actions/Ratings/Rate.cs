@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using ConstructServices.Ratings.Objects;
+using ConstructServices.Ratings.Actions;
 using ConstructServices.Ratings.Responses;
 using JetBrains.Annotations;
 
@@ -14,9 +14,9 @@ public static partial class Ratings
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/broadcasts/api-end-points/ratings/rate-message" />
         [UsedImplicitly]
-        public RateResponse Rate(RateBroadcastMessageOptions rateBroadcastMessageOptions)
+        public RateResponse Rate(Rating.RateBroadcastMessageOptions rateBroadcastMessageOptions)
         {
-            return global::ConstructServices.Ratings.Actions.Rating.Rate(service, Config.EndPointPaths.Ratings.Rate, rateBroadcastMessageOptions);
+            return service.Rate(Config.EndPointPaths.Ratings.Rate, rateBroadcastMessageOptions);
         }
 
         /// <summary>
@@ -24,9 +24,9 @@ public static partial class Ratings
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/broadcasts/api-end-points/ratings/rate-message" />
         [UsedImplicitly]
-        public async Task<RateResponse> RateAsync(RateBroadcastMessageOptions rateBroadcastMessageOptions)
+        public async Task<RateResponse> RateAsync(Rating.RateBroadcastMessageOptions rateBroadcastMessageOptions)
         {
-            return await global::ConstructServices.Ratings.Actions.Rating.RateAsync(service, Config.EndPointPaths.Ratings.Rate, rateBroadcastMessageOptions);
+            return await service.RateAsync(Config.EndPointPaths.Ratings.Rate, rateBroadcastMessageOptions);
         }
     }
 }

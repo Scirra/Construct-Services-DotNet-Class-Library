@@ -1,5 +1,6 @@
-﻿using ConstructServices.Common;
-using ConstructServices.XP.Objects;
+﻿using System;
+using System.Collections.Generic;
+using ConstructServices.Common;
 using ConstructServices.XP.Responses;
 using JetBrains.Annotations;
 using System.Threading.Tasks;
@@ -36,6 +37,45 @@ public static partial class Rankings
                 xpService,
                 updateOptions.BuildFormData()
             );
+        }
+    }
+
+    [UsedImplicitly]
+    public sealed class UpdateXPRankOptions
+    {
+        private Guid ID { get; }
+
+        [UsedImplicitly]
+        public long? AtXP { get; set; }
+
+        [UsedImplicitly]
+        public string Title { get; set; }
+
+        [UsedImplicitly]
+        public string Description { get; set; }
+
+        [UsedImplicitly]
+        public string LanguageISO { get; set; }
+        public UpdateXPRankOptions(Guid rankID)
+        {
+            ID = rankID;
+        }
+        public UpdateXPRankOptions(string strRankID)
+        {
+            ID = Guid.Parse(strRankID);
+        }
+
+        internal Dictionary<string, string> BuildFormData()
+        {
+            var formData = new Dictionary<string, string>
+            {
+                { "title", Title },
+                { "description", Description },
+                { "language", LanguageISO },
+                { "rankID", ID.ToString() }
+            };
+            if(AtXP.HasValue) formData.Add("xp", AtXP.Value.ToString());
+            return formData;
         }
     }
 }

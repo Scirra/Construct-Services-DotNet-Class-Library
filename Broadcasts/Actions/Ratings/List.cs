@@ -1,7 +1,7 @@
-﻿using ConstructServices.Ratings.Objects;
-using ConstructServices.Ratings.Responses;
+﻿using ConstructServices.Ratings.Responses;
 using JetBrains.Annotations;
 using System.Threading.Tasks;
+using ConstructServices.Ratings.Actions;
 
 namespace ConstructServices.Broadcasts.Actions;
 
@@ -15,8 +15,8 @@ public static partial class Ratings
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/broadcasts/api-end-points/ratings/get-dimensions" />
         [UsedImplicitly]
         public DimensionsResponse ListRatingDimensions(
-            ListBroadcastChannelDimensionOptions listBroadcastChannelDimensionOptions)
-            => global::ConstructServices.Ratings.Actions.Dimensions.ListDimensions(service, Config.EndPointPaths.Ratings.ListDimensions, listBroadcastChannelDimensionOptions);
+            Dimensions.ListBroadcastChannelDimensionOptions listBroadcastChannelDimensionOptions)
+            => service.ListDimensions(Config.EndPointPaths.Ratings.ListDimensions, listBroadcastChannelDimensionOptions);
 
         /// <summary>
         /// List all Rating Dimension on a Broadcast Channel
@@ -24,7 +24,7 @@ public static partial class Ratings
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/broadcasts/api-end-points/ratings/get-dimensions" />
         [UsedImplicitly]
         public async Task<DimensionsResponse> ListRatingDimensionsAsync(
-            ListBroadcastChannelDimensionOptions listBroadcastChannelDimensionOptions)
-            => await global::ConstructServices.Ratings.Actions.Dimensions.ListDimensionsAsync(service, Config.EndPointPaths.Ratings.ListDimensions, listBroadcastChannelDimensionOptions);
+            Dimensions.ListBroadcastChannelDimensionOptions listBroadcastChannelDimensionOptions)
+            => await service.ListDimensionsAsync(Config.EndPointPaths.Ratings.ListDimensions, listBroadcastChannelDimensionOptions);
     }
 }

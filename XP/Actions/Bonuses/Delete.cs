@@ -1,7 +1,8 @@
-﻿using ConstructServices.Common;
+﻿using System;
+using System.Collections.Generic;
+using ConstructServices.Common;
 using JetBrains.Annotations;
 using System.Threading.Tasks;
-using ConstructServices.XP.Objects;
 
 namespace ConstructServices.XP.Actions;
 
@@ -32,6 +33,30 @@ public static partial class Bonuses
                 xpService,
                 deleteXPBonusOptions.BuildFormData()
             );
+        }
+    }
+
+    [UsedImplicitly]
+    public sealed class DeleteXPBonusOptions
+    {
+        private Guid BonusID { get; }
+    
+        public DeleteXPBonusOptions(string strBonusID)
+        {
+            BonusID = Guid.Parse(strBonusID);
+        }
+        public DeleteXPBonusOptions(Guid bonusID)
+        {
+            BonusID = bonusID;
+        }
+
+        internal Dictionary<string, string> BuildFormData()
+        {
+            var formData = new Dictionary<string, string>
+            {
+                { "bonusID", BonusID.ToString() }
+            };
+            return formData;
         }
     }
 }

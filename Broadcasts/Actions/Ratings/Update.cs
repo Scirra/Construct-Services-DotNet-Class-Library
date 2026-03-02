@@ -1,7 +1,7 @@
-﻿using ConstructServices.Ratings.Objects;
-using ConstructServices.Ratings.Responses;
+﻿using ConstructServices.Ratings.Responses;
 using JetBrains.Annotations;
 using System.Threading.Tasks;
+using ConstructServices.Ratings.Actions;
 
 namespace ConstructServices.Broadcasts.Actions;
 
@@ -15,9 +15,9 @@ public static partial class Ratings
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/broadcasts/api-end-points/ratings/edit-dimension" />
         [UsedImplicitly]
         public DimensionResponse UpdateRatingDimension(
-            UpdateBroadcastChannelRatingDimensionOptions updateBroadcastChannelRatingDimensionOptions)
+            Dimensions.UpdateBroadcastChannelRatingDimensionOptions updateBroadcastChannelRatingDimensionOptions)
         {
-            return global::ConstructServices.Ratings.Actions.Dimensions.UpdateDimension(service, Config.EndPointPaths.Ratings.UpdateDimension, updateBroadcastChannelRatingDimensionOptions);
+            return service.UpdateDimension(Config.EndPointPaths.Ratings.UpdateDimension, updateBroadcastChannelRatingDimensionOptions);
         }        
         
         /// <summary>
@@ -25,9 +25,9 @@ public static partial class Ratings
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/broadcasts/api-end-points/ratings/edit-dimension" />
         public async Task<DimensionResponse> UpdateRatingDimensionAsync(
-            UpdateBroadcastChannelRatingDimensionOptions updateBroadcastChannelRatingDimensionOptions)
+            Dimensions.UpdateBroadcastChannelRatingDimensionOptions updateBroadcastChannelRatingDimensionOptions)
         {
-            return await global::ConstructServices.Ratings.Actions.Dimensions.UpdateDimensionAsync(service, Config.EndPointPaths.Ratings.UpdateDimension, updateBroadcastChannelRatingDimensionOptions);
+            return await service.UpdateDimensionAsync(Config.EndPointPaths.Ratings.UpdateDimension, updateBroadcastChannelRatingDimensionOptions);
         }
     }
 }

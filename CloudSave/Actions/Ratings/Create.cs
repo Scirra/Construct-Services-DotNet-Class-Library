@@ -1,7 +1,7 @@
-﻿using ConstructServices.Ratings.Objects;
-using ConstructServices.Ratings.Responses;
+﻿using ConstructServices.Ratings.Responses;
 using JetBrains.Annotations;
 using System.Threading.Tasks;
+using ConstructServices.Ratings.Actions;
 
 namespace ConstructServices.CloudSave.Actions;
 
@@ -15,11 +15,9 @@ public static partial class Ratings
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/cloud-save/api-end-points/ratings/create-dimension" />
         [UsedImplicitly]
         public DimensionResponse CreateRatingDimension(
-            CreateCloudSaveBucketRatingDimensionOptions createCloudSaveBucketRatingDimensionOptions)
+            Dimensions.CreateCloudSaveBucketRatingDimensionOptions createCloudSaveBucketRatingDimensionOptions)
         {
-            return global::ConstructServices.Ratings.Actions.Dimensions.CreateDimension(
-                service, 
-                Config.EndPointPaths.Ratings.CreateDimension,
+            return service.CreateDimension(Config.EndPointPaths.Ratings.CreateDimension,
                 createCloudSaveBucketRatingDimensionOptions);
         }
 
@@ -29,11 +27,9 @@ public static partial class Ratings
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/cloud-save/api-end-points/ratings/create-dimension" />
         [UsedImplicitly]
         public async Task<DimensionResponse> CreateRatingDimensionAsync(
-            CreateCloudSaveBucketRatingDimensionOptions createCloudSaveBucketRatingDimensionOptions)
+            Dimensions.CreateCloudSaveBucketRatingDimensionOptions createCloudSaveBucketRatingDimensionOptions)
         {
-            return await global::ConstructServices.Ratings.Actions.Dimensions.CreateDimensionAsync(
-                service, 
-                Config.EndPointPaths.Ratings.CreateDimension,
+            return await service.CreateDimensionAsync(Config.EndPointPaths.Ratings.CreateDimension,
                 createCloudSaveBucketRatingDimensionOptions);
         }
     }

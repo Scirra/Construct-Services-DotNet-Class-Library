@@ -1,5 +1,6 @@
-﻿using ConstructServices.Common;
-using ConstructServices.XP.Objects;
+﻿using System;
+using System.Collections.Generic;
+using ConstructServices.Common;
 using ConstructServices.XP.Responses;
 using JetBrains.Annotations;
 using System.Threading.Tasks;
@@ -36,6 +37,38 @@ public static partial class XP
                 xpService,
                 getXPOptions.BuildFormData()
             );
+        }
+    }
+    
+    [UsedImplicitly]
+    public sealed class GetXPOptions
+    { 
+        private Guid PlayerID { get; }
+
+        /// <summary>
+        /// No player ID specified, uses currently authenticated player
+        /// </summary>
+        public GetXPOptions()
+        {
+        }
+
+        public GetXPOptions(string strPlayerID)
+        {
+            PlayerID = Guid.Parse(strPlayerID);
+        }
+        public GetXPOptions(Guid playerID)
+        {
+            PlayerID = playerID;
+        }
+
+        internal Dictionary<string, string> BuildFormData()
+        {
+            var formData = new Dictionary<string, string>();
+            if (PlayerID != Guid.Empty)
+            {
+                formData.Add("playerID", PlayerID.ToString());
+            }
+            return formData;
         }
     }
 }
