@@ -1,7 +1,6 @@
 ﻿using ConstructServices.Common;
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
+using ConstructServices.CloudSave.Objects;
 using JetBrains.Annotations;
 
 namespace ConstructServices.CloudSave.Actions;
@@ -11,67 +10,23 @@ public static partial class Buckets
 {
     extension(CloudSaveService service)
     {
-        /// <summary>
-        /// Delete a bucket and all it's contained data
-        /// </summary>
         [UsedImplicitly]
-        public BaseResponse DeleteBucket(string strBucketID)
+        public BaseResponse DeleteBucket(DeleteBucketOptions deleteBucketOptions)
         {
-            var bucketIDValidator = Common.Validations.Guid.IsValidGuid(strBucketID);
-            if (!bucketIDValidator.Successfull)
-            {
-                return new BaseResponse(string.Format(bucketIDValidator.ErrorMessage, "Bucket ID"));
-            }
-            return service.DeleteBucket(bucketIDValidator.ReturnedObject);
-        }
-
-        /// <summary>
-        /// Delete a bucket and all it's contained data
-        /// </summary>
-        [UsedImplicitly]
-        public async Task<BaseResponse> DeleteBucketAsync(string strBucketID)
-        {
-            var bucketIDValidator = Common.Validations.Guid.IsValidGuid(strBucketID);
-            if (!bucketIDValidator.Successfull)
-            {
-                return new BaseResponse(string.Format(bucketIDValidator.ErrorMessage, "Bucket ID"));
-            }
-            return await service.DeleteBucketAsync(bucketIDValidator.ReturnedObject);
-        }
-
-        /// <summary>
-        /// Delete a bucket and all it's contained data
-        /// </summary>
-        [UsedImplicitly]
-        public BaseResponse DeleteBucket(Guid bucketID)
-        {
-            var formData = new Dictionary<string, string>
-            {
-                { "bucketID", bucketID.ToString() }
-            };
-
             return Request.ExecuteSyncRequest<BaseResponse>(
                 Config.EndPointPaths.Buckets.Delete,
                 service,
-                formData
+                deleteBucketOptions.BuildFormData()
             );
         }
 
-        /// <summary>
-        /// Delete a bucket and all it's contained data
-        /// </summary>
         [UsedImplicitly]
-        public async Task<BaseResponse> DeleteBucketAsync(Guid bucketID)
+        public async Task<BaseResponse> DeleteBucketAsync(DeleteBucketOptions deleteBucketOptions)
         {
-            var formData = new Dictionary<string, string>
-            {
-                { "bucketID", bucketID.ToString() }
-            };
-
             return await Request.ExecuteAsyncRequest<BaseResponse>(
                 Config.EndPointPaths.Buckets.Delete,
                 service,
-                formData
+                deleteBucketOptions.BuildFormData()
             );
         }
     }

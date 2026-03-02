@@ -1,4 +1,5 @@
-﻿using ConstructServices.CloudSave.Enums;
+﻿using System;
+using ConstructServices.CloudSave.Enums;
 using ConstructServices.Common;
 using JetBrains.Annotations;
 using System.Collections.Generic;
@@ -57,6 +58,30 @@ public sealed class CreateBucketOptions : ModifyBucketBase
     internal Dictionary<string, string> BuildFormData()
     {
         var formData = BuildBaseFormData();
+        return formData;
+    }
+}
+public sealed class DeleteBucketOptions
+{
+    [UsedImplicitly]
+    public Guid BucketID { get; private set; }
+    
+    public DeleteBucketOptions(string strBucketID)
+    {
+        BucketID = Guid.Parse(strBucketID);
+    }
+    public DeleteBucketOptions(Guid bucketID)
+    {
+        BucketID = bucketID;
+    }
+
+    [UsedImplicitly]
+    internal Dictionary<string, string> BuildFormData()
+    {
+        var formData = new Dictionary<string, string>
+        {
+            { "bucketID", BucketID.ToString() }
+        };
         return formData;
     }
 }
