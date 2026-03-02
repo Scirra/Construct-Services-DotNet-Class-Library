@@ -1,10 +1,8 @@
-﻿using ConstructServices.CloudSave.Responses;
+﻿using ConstructServices.CloudSave.Objects;
+using ConstructServices.CloudSave.Responses;
 using ConstructServices.Common;
-using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Threading.Tasks;
 using JetBrains.Annotations;
+using System.Threading.Tasks;
 
 namespace ConstructServices.CloudSave.Actions;
 
@@ -13,157 +11,49 @@ public static partial class Saves
     extension(CloudSaveService service)
     {
         /// <summary>
-        /// Set a cloud saves picture
+        /// Set a picture on an existing Cloud Save
         /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/cloud-save/api-end-points/cloud-saves/set-picture" />
         [UsedImplicitly]
-        public BaseResponse SetPicture(
-            string sessionKey,
-            string strCloudSaveID,
-            PictureData picture)
+        public BaseResponse SetPicture(SetCloudSavePictureOptions setCloudSavePictureOptions)
         {
-            var idValidator = Common.Validations.Guid.IsValidGuid(strCloudSaveID);
-            if (!idValidator.Successfull)
-            {
-                return new BaseResponse(string.Format(idValidator.ErrorMessage, "Cloud save ID"));
-            }
-            return service.SetPicture(sessionKey, idValidator.ReturnedObject, picture);
-        }
-
-        /// <summary>
-        /// Set a cloud saves picture
-        /// </summary>
-        [UsedImplicitly]
-        public async Task<BaseResponse> SetPictureAsync(
-            string sessionKey,
-            string strCloudSaveID,
-            PictureData picture)
-        {
-            var idValidator = Common.Validations.Guid.IsValidGuid(strCloudSaveID);
-            if (!idValidator.Successfull)
-            {
-                return new BaseResponse(string.Format(idValidator.ErrorMessage, "Cloud save ID"));
-            }
-            return await service.SetPictureAsync(sessionKey, idValidator.ReturnedObject, picture);
-        }
-        
-        /// <summary>
-        /// Set a cloud saves picture
-        /// </summary>
-        [UsedImplicitly]
-        public BaseResponse SetPicture(
-            string sessionKey,
-            Guid cloudSaveID,
-            PictureData picture)
-        {
-            var sessionKeyValidator = Common.Validations.PlayerSessionKey.ValidatePlayerSessionKey(sessionKey);
-            if (!sessionKeyValidator.Successfull)
-            {
-                return new BaseResponse(sessionKeyValidator.ErrorMessage);
-            }
-
-            var formData = new Dictionary<string, string>
-            {
-                { "blobID", cloudSaveID.ToString() }
-            };
-            if (!string.IsNullOrWhiteSpace(sessionKey))
-            {
-                formData.Add("sessionKey", sessionKey);
-            }
-
-            // Picture by data
-            if (picture.Bytes != null)
+            if (setCloudSavePictureOptions.Picture.Bytes != null)
             {
                 return Request.ExecuteMultiPartFormSyncRequest<BaseResponse>(
                     Config.EndPointPaths.Saves.SetPicture,
                     service,
-                    formData,
-                    new Dictionary<string, ByteArrayContent>{ {"picture", new ByteArrayContent(picture.Bytes) } }
+                    setCloudSavePictureOptions.BuildFormData(),
+                    setCloudSavePictureOptions.BuildBinaryFormData()
                 );
             }
-
-            // By URL
-            if (picture.URL != null)
-            {
-                formData.Add("pictureURL", picture.URL.ToString());
-                return Request.ExecuteSyncRequest<CloudSaveResponse>(
-                    Config.EndPointPaths.Saves.SetPicture,
-                    service,
-                    formData
-                );
-            }
-
-            // By base 64
-            if (!string.IsNullOrWhiteSpace(picture.Base64))
-            {
-                formData.Add("picture", picture.Base64);
-                return Request.ExecuteSyncRequest<CloudSaveResponse>(
-                    Config.EndPointPaths.Saves.SetPicture,
-                    service,
-                    formData
-                );
-            }
-
-            return new BaseResponse("No picture data provided.");
+            return Request.ExecuteSyncRequest<CloudSaveResponse>(
+                Config.EndPointPaths.Saves.SetPicture,
+                service,
+                setCloudSavePictureOptions.BuildFormData()
+            );
         }
 
         /// <summary>
-        /// Set a cloud saves picture
+        /// Set a picture on an existing Cloud Save
         /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/cloud-save/api-end-points/cloud-saves/set-picture" />
         [UsedImplicitly]
-        public async Task<BaseResponse> SetPictureAsync(
-            string sessionKey,
-            Guid cloudSaveID,
-            PictureData picture)
+        public async Task<BaseResponse> SetPictureAsync(SetCloudSavePictureOptions setCloudSavePictureOptions)
         {
-            var sessionKeyValidator = Common.Validations.PlayerSessionKey.ValidatePlayerSessionKey(sessionKey);
-            if (!sessionKeyValidator.Successfull)
-            {
-                return new BaseResponse(sessionKeyValidator.ErrorMessage);
-            }
-
-            var formData = new Dictionary<string, string>
-            {
-                { "blobID", cloudSaveID.ToString() }
-            };
-            if (!string.IsNullOrWhiteSpace(sessionKey))
-            {
-                formData.Add("sessionKey", sessionKey);
-            }
-
-            // Picture by data
-            if (picture.Bytes != null)
+            if (setCloudSavePictureOptions.Picture.Bytes != null)
             {
                 return await Request.ExecuteMultiPartFormAsyncRequest<BaseResponse>(
                     Config.EndPointPaths.Saves.SetPicture,
                     service,
-                    formData,
-                    new Dictionary<string, ByteArrayContent>{ {"picture", new ByteArrayContent(picture.Bytes) } }
+                    setCloudSavePictureOptions.BuildFormData(),
+                    setCloudSavePictureOptions.BuildBinaryFormData()
                 );
             }
-
-            // By URL
-            if (picture.URL != null)
-            {
-                formData.Add("pictureURL", picture.URL.ToString());
-                return await Request.ExecuteAsyncRequest<CloudSaveResponse>(
-                    Config.EndPointPaths.Saves.SetPicture,
-                    service,
-                    formData
-                );
-            }
-
-            // By base 64
-            if (!string.IsNullOrWhiteSpace(picture.Base64))
-            {
-                formData.Add("picture", picture.Base64);
-                return await Request.ExecuteAsyncRequest<CloudSaveResponse>(
-                    Config.EndPointPaths.Saves.SetPicture,
-                    service,
-                    formData
-                );
-            }
-
-            return new BaseResponse("No picture data provided.");
+            return await Request.ExecuteAsyncRequest<CloudSaveResponse>(
+                Config.EndPointPaths.Saves.SetPicture,
+                service,
+                setCloudSavePictureOptions.BuildFormData()
+            );
         }
     }
 }
