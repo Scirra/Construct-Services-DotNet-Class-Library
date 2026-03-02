@@ -63,6 +63,23 @@ public sealed class CreateCloudSaveOptions : ModifyCloudSaveBase
     }    
 
     /// <summary>
+    /// Create a save in an existing bucket with no player association
+    /// </summary>
+    public CreateCloudSaveOptions(
+        Bucket bucket,
+        byte[] data,
+        string name,
+        string key,
+        PictureData picture = null)
+    {
+        BucketID = bucket.ID;
+        Data = new ByteArrayContent(data);
+        Name = name;
+        Key = key;
+        Picture = picture;
+    }    
+
+    /// <summary>
     /// Create a player save in an existing bucket
     /// </summary>
     public CreateCloudSaveOptions(
@@ -266,4 +283,108 @@ public sealed class GetCloudSaveByKeyOptions
         };
         return formData;
     }
+}    
+
+public sealed class ListPlayerCloudSaveFilters
+{
+    public string Name { get; [UsedImplicitly] set; }
+    public string Key { get; [UsedImplicitly] set; }
 }
+public abstract class ListPlayerSaveOptions
+{
+    private bool ReturnPrivateSaves { get; }
+    private Guid PlayerID { get; }
+    private Guid? BucketID { get; }
+    private Enums.GetPlayerCloudSaveSortMethod? SortBy { get; }
+    private ListPlayerCloudSaveFilters Filters { get; }
+
+    protected ListPlayerSaveOptions(
+        bool returnPrivateSaves,
+        Guid playerID,
+        Guid? bucketID,
+        Enums.GetPlayerCloudSaveSortMethod? sortBy = null,
+        ListPlayerCloudSaveFilters filters = null)
+    {
+        ReturnPrivateSaves = returnPrivateSaves;
+        PlayerID = playerID;
+        BucketID = bucketID;
+        SortBy = sortBy;
+        Filters = filters;
+    }
+
+    [UsedImplicitly]
+    protected Dictionary<string, string> BuildBaseFormData()
+    {
+        var formData = new Dictionary<string, string>
+        {
+            { "mode", "Player" },
+            { "playerID", PlayerID.ToString() },
+            { "bucketSaves", (!ReturnPrivateSaves).ToInt().ToString() }
+        };
+        if (BucketID.HasValue)
+        {
+            formData.Add("bucketID", BucketID.Value.ToString());
+        }
+        if (SortBy.HasValue)
+        {
+            formData.Add("orderBy", SortBy.ToString());
+        }
+        if (Filters != null)
+        {
+            if (!string.IsNullOrWhiteSpace(Filters.Name))
+            {
+                formData.Add("name", Filters.Name);
+            }
+
+            if (!string.IsNullOrWhiteSpace(Filters.Key))
+            {
+                formData.Add("key", Filters.Key);
+            }
+        }
+        return formData;
+    }
+}    
+public sealed class ListPlayersPrivateSavesOptions : ListPlayerSaveOptions
+{
+    [UsedImplicitly]
+    public ListPlayersPrivateSavesOptions(
+        Guid playerID,
+        Enums.GetPlayerCloudSaveSortMethod? sortBy = null,
+        ListPlayerCloudSaveFilters filters = null) : base(true, playerID, null, sortBy, filters)
+    {
+    }
+
+    [UsedImplicitly]
+    public Dictionary<string, string> BuildFormData()
+    {
+        var formData = BuildBaseFormData();
+        return formData;
+    }
+}    
+public sealed class ListPlayersBucketSavesOptions : ListPlayerSaveOptions
+{
+    [UsedImplicitly]
+    public ListPlayersBucketSavesOptions(
+        Guid playerID,
+        Guid bucketID,
+        Enums.GetPlayerCloudSaveSortMethod? sortBy = null,
+        ListPlayerCloudSaveFilters filters = null) : base(false, playerID, bucketID, sortBy, filters)
+    {
+    }
+
+    [UsedImplicitly]
+    public ListPlayersBucketSavesOptions(
+        Guid playerID,
+        Bucket bucket,
+        Enums.GetPlayerCloudSaveSortMethod? sortBy = null,
+        ListPlayerCloudSaveFilters filters = null) : base(false, playerID, bucket.ID, sortBy, filters)
+    {
+    }
+
+    [UsedImplicitly]
+    public Dictionary<string, string> BuildFormData()
+    {
+        var formData = BuildBaseFormData();
+        return formData;
+    }
+}    
