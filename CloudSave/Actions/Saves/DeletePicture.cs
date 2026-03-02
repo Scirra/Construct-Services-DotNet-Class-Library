@@ -1,8 +1,7 @@
-﻿using ConstructServices.Common;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using ConstructServices.CloudSave.Objects;
+using ConstructServices.Common;
 using JetBrains.Annotations;
+using System.Threading.Tasks;
 
 namespace ConstructServices.CloudSave.Actions;
 
@@ -12,106 +11,30 @@ public static partial class Saves
     extension(CloudSaveService service)
     {
         /// <summary>
-        /// Delete a picture associated with a cloud save
+        /// Delete a picture on an existing Cloud Save
         /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/cloud-save/api-end-points/cloud-saves/delete-picture" />
         [UsedImplicitly]
-        public BaseResponse DeletePicture(
-            string sessionKey,
-            string strCloudSaveID)
+        public BaseResponse DeletePicture(DeleteCloudSavePictureOptions deleteCloudSavePictureOptions)
         {
-            var idValidator = Common.Validations.Guid.IsValidGuid(strCloudSaveID);
-            if (!idValidator.Successfull)
-            {
-                return new BaseResponse(string.Format(idValidator.ErrorMessage, "Cloud save ID"));
-            }
-            return service.DeletePicture(sessionKey, idValidator.ReturnedObject);
-        }
-        
-        /// <summary>
-        /// Delete a picture associated with a cloud save
-        /// </summary>
-        [UsedImplicitly]
-        public async Task<BaseResponse> DeletePictureAsync(
-            string sessionKey,
-            string strCloudSaveID)
-        {
-            var idValidator = Common.Validations.Guid.IsValidGuid(strCloudSaveID);
-            if (!idValidator.Successfull)
-            {
-                return new BaseResponse(string.Format(idValidator.ErrorMessage, "Cloud save ID"));
-            }
-            return await service.DeletePictureAsync(sessionKey, idValidator.ReturnedObject);
-        }
-
-        /// <summary>
-        /// Delete a picture associated with a cloud save
-        /// </summary>
-        [UsedImplicitly]
-        public BaseResponse DeletePicture(Guid cloudSaveID)
-            => service.DeletePicture(null, cloudSaveID);
-
-        /// <summary>
-        /// Delete a picture associated with a cloud save
-        /// </summary>
-        [UsedImplicitly]
-        public async Task<BaseResponse> DeletePictureAsync(Guid cloudSaveID)
-            => await service.DeletePictureAsync(null, cloudSaveID);
-
-        /// <summary>
-        /// Delete a picture associated with a cloud save
-        /// </summary>
-        [UsedImplicitly]
-        public BaseResponse DeletePicture(
-            string sessionKey,
-            Guid cloudSaveID)
-        {
-            var sessionKeyValidator = Common.Validations.PlayerSessionKey.ValidatePlayerSessionKey(sessionKey);
-            if (!sessionKeyValidator.Successfull)
-            {
-                return new BaseResponse(sessionKeyValidator.ErrorMessage);
-            }
-
-            var formData = new Dictionary<string, string>
-            {
-                { "blobID", cloudSaveID.ToString() }
-            };
-            if (!string.IsNullOrWhiteSpace(sessionKey))
-            {
-                formData.Add("sessionKey", sessionKey);
-            }
             return Request.ExecuteSyncRequest<BaseResponse>(
                 Config.EndPointPaths.Saves.DeletePicture,
                 service,
-                formData
+                deleteCloudSavePictureOptions.BuildFormData()
             );
         }
 
         /// <summary>
-        /// Delete a picture associated with a cloud save
+        /// Delete a picture on an existing Cloud Save
         /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/cloud-save/api-end-points/cloud-saves/delete-picture" />
         [UsedImplicitly]
-        public async Task<BaseResponse> DeletePictureAsync(
-            string sessionKey,
-            Guid cloudSaveID)
+        public async Task<BaseResponse> DeletePictureAsync(DeleteCloudSavePictureOptions deleteCloudSavePictureOptions)
         {
-            var sessionKeyValidator = Common.Validations.PlayerSessionKey.ValidatePlayerSessionKey(sessionKey);
-            if (!sessionKeyValidator.Successfull)
-            {
-                return new BaseResponse(sessionKeyValidator.ErrorMessage);
-            }
-
-            var formData = new Dictionary<string, string>
-            {
-                { "blobID", cloudSaveID.ToString() }
-            };
-            if (!string.IsNullOrWhiteSpace(sessionKey))
-            {
-                formData.Add("sessionKey", sessionKey);
-            }
             return await Request.ExecuteAsyncRequest<BaseResponse>(
                 Config.EndPointPaths.Saves.DeletePicture,
                 service,
-                formData
+                deleteCloudSavePictureOptions.BuildFormData()
             );
         }
     }

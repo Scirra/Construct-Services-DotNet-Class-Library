@@ -184,3 +184,86 @@ public sealed class DeleteCloudSaveOptions
         return formData;
     }
 }
+public sealed class DeleteCloudSavePictureOptions
+{
+    [UsedImplicitly]
+    private Guid CloudSaveID { get; set; }
+
+    [UsedImplicitly]
+    private string SessionKey { get; set; }
+    
+    public DeleteCloudSavePictureOptions(Guid cloudSaveID)
+    {
+        CloudSaveID = cloudSaveID;
+    }
+    public DeleteCloudSavePictureOptions(string sessionKey, Guid cloudSaveID)
+    {
+        SessionKey = sessionKey;
+        CloudSaveID = cloudSaveID;
+    }
+    public DeleteCloudSavePictureOptions(string sessionKey, string strCloudSaveID)
+    {
+        SessionKey = sessionKey;
+        CloudSaveID = Guid.Parse(strCloudSaveID);
+    }
+
+    [UsedImplicitly]
+    internal Dictionary<string, string> BuildFormData()
+    {
+        var formData = new Dictionary<string, string>
+        {
+            { "blobID", CloudSaveID.ToString() }
+        };
+        if (!string.IsNullOrWhiteSpace(SessionKey))
+        {
+            formData.Add("sessionKey", SessionKey);
+        }
+        return formData;
+    }
+}
+
+public sealed class GetCloudSaveByIDOptions
+{
+    [UsedImplicitly]
+    private Guid CloudSaveID { get; set; }
+    
+    public GetCloudSaveByIDOptions(Guid cloudSaveID)
+    {
+        CloudSaveID = cloudSaveID;
+    }
+
+    [UsedImplicitly]
+    internal Dictionary<string, string> BuildFormData()
+    {
+        var formData = new Dictionary<string, string>
+        {
+            { "blobID", CloudSaveID.ToString() }
+        };
+        return formData;
+    }
+}
+public sealed class GetCloudSaveByKeyOptions
+{
+    [UsedImplicitly]
+    private string Key { get; set; }
+
+    [UsedImplicitly]
+    private Guid BucketID { get; set; }
+    
+    public GetCloudSaveByKeyOptions(string key, Guid bucketID)
+    {
+        Key = key;
+        BucketID = bucketID;
+    }
+
+    [UsedImplicitly]
+    internal Dictionary<string, string> BuildFormData()
+    {
+        var formData = new Dictionary<string, string>
+        {
+            { "key", Key },
+            { "bucketID", BucketID.ToString() }
+        };
+        return formData;
+    }
+}
