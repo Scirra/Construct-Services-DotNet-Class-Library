@@ -13,7 +13,7 @@ public abstract class ModifyBucketBase
     public string Name { get; set; }
 
     [UsedImplicitly]
-    public CloudSaveGameBucketAccessMode AccessMode { get; set; }
+    public CloudSaveBucketAccessMode AccessMode { get; set; }
 
     [UsedImplicitly]
     public bool AllowRatings { get; set; }
@@ -41,7 +41,7 @@ public sealed class CreateBucketOptions : ModifyBucketBase
 {
     public CreateBucketOptions(
         string name,
-        CloudSaveGameBucketAccessMode accessMode,
+        CloudSaveBucketAccessMode accessMode,
         bool allowRatings = true,
         uint? maxBlobs = null,
         uint? maxBlobSizeBytes = null,
@@ -98,6 +98,10 @@ public sealed class UpdateBucketOptions : ModifyBucketBase
     public UpdateBucketOptions(Guid bucketID)
     {
         BucketID = bucketID;
+    }
+    public UpdateBucketOptions(Bucket bucket)
+    {
+        BucketID = bucket.ID;
     }
 
     [UsedImplicitly]
@@ -199,7 +203,7 @@ public sealed class ListBucketSavesOptions
         Filters = filters;
     }
     public ListBucketSavesOptions(
-        GameBucket bucket, 
+        Bucket bucket, 
         GetBucketsSortMethod? sortBy = null,
         GetBucketCloudSaveFilters filters = null)
     {

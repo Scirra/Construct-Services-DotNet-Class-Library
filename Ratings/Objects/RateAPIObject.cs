@@ -67,7 +67,7 @@ public sealed class RateCloudSaveOptions: RateObjectBase
     private const Thing ThisThing = Thing.CloudSaveBucket;
     
     [UsedImplicitly]
-    public RateCloudSaveOptions(string sessionKey, GameBucket bucket, byte rating) : base(sessionKey, ThisThing, bucket.ID, rating) { }
+    public RateCloudSaveOptions(string sessionKey, Bucket bucket, byte rating) : base(sessionKey, ThisThing, bucket.ID, rating) { }
 
     [UsedImplicitly]
     public RateCloudSaveOptions(string sessionKey, Guid bucketID, byte rating) : base(sessionKey, ThisThing, bucketID, rating) { }
@@ -76,7 +76,7 @@ public sealed class RateCloudSaveOptions: RateObjectBase
     public RateCloudSaveOptions(string sessionKey, string strBucketID, byte rating) : base(sessionKey, ThisThing, Guid.Parse(strBucketID), rating) { }
 
     [UsedImplicitly]
-    public RateCloudSaveOptions(string sessionKey, GameBucket bucket, Dictionary<string, byte> ratings) : base(sessionKey, ThisThing, bucket.ID, ratings) { }
+    public RateCloudSaveOptions(string sessionKey, Bucket bucket, Dictionary<string, byte> ratings) : base(sessionKey, ThisThing, bucket.ID, ratings) { }
 
     [UsedImplicitly]
     public RateCloudSaveOptions(string sessionKey, Guid bucketID, Dictionary<string, byte> ratings) : base(sessionKey, ThisThing, bucketID, ratings) { }

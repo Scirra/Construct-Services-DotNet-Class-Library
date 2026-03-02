@@ -11,7 +11,7 @@ public sealed class BucketsResponse : BaseResponse
     public Pagination Pagination { get; set; }
 
     [JsonProperty(PropertyName = "buckets")]
-    public List<GameBucket> Buckets { get; set; }
+    public List<Bucket> Buckets { get; set; }
 
     public BucketsResponse()
     {

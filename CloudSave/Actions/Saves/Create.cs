@@ -43,7 +43,7 @@ public static partial class Saves
         /// </summary>
         [UsedImplicitly]
         public CloudSaveResponse Create(string sessionKey,
-            GameBucket bucket,
+            Bucket bucket,
             byte[] cloudSaveData,
             string cloudSaveName,
             string cloudSaveKey,
@@ -55,7 +55,7 @@ public static partial class Saves
         /// </summary>
         [UsedImplicitly]
         public async Task<CloudSaveResponse> CreateAsync(string sessionKey,
-            GameBucket bucket,
+            Bucket bucket,
             byte[] cloudSaveData,
             string cloudSaveName,
             string cloudSaveKey,
@@ -88,7 +88,7 @@ public static partial class Saves
         /// Upload a new cloud save to a bucket with no player association
         /// </summary>
         [UsedImplicitly]
-        public CloudSaveResponse Create(GameBucket bucket,
+        public CloudSaveResponse Create(Bucket bucket,
             byte[] cloudSaveData,
             string cloudSaveName,
             string cloudSaveKey,
@@ -99,7 +99,7 @@ public static partial class Saves
         /// Upload a new cloud save to a bucket with no player association
         /// </summary>
         [UsedImplicitly]
-        public async Task<CloudSaveResponse> CreateAsync(GameBucket bucket,
+        public async Task<CloudSaveResponse> CreateAsync(Bucket bucket,
             byte[] cloudSaveData,
             string cloudSaveName,
             string cloudSaveKey,

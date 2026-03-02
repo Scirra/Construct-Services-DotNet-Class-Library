@@ -1,6 +1,6 @@
 ﻿namespace ConstructServices.CloudSave.Enums;
 
-public enum CloudSaveGameBucketAccessMode
+public enum CloudSaveBucketAccessMode
 {
     Private,
     PublicRead,

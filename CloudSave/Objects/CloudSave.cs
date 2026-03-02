@@ -16,7 +16,7 @@ public sealed class CloudSave
     public string Key { get; private set; }
 
     [JsonProperty(PropertyName = "bucket")]
-    public GameBucket Bucket { get; private set; }
+    public Bucket Bucket { get; private set; }
 
     [JsonProperty(PropertyName = "player")]
     public Player Player { get; private set; }

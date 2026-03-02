@@ -3,7 +3,7 @@ using System;
 
 namespace ConstructServices.CloudSave.Objects;
 
-public sealed class GameBucket
+public sealed class Bucket
 {
     [JsonProperty(PropertyName = "id")]
     public Guid ID { get; private set; }
@@ -35,7 +35,7 @@ public sealed class GameBucket
     [JsonProperty(PropertyName = "maxBlobsPerPlayer")]
     public short? MaxBlobsPerPlayer { get; private set; }
 
-    public GameBucket()
+    public Bucket()
     {
 
     }

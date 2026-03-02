@@ -7,7 +7,7 @@ namespace ConstructServices.CloudSave.Responses;
 public sealed class BucketResponse : BaseResponse
 {
     [JsonProperty(PropertyName = "bucket")]
-    public GameBucket Bucket { get; set; }
+    public Bucket Bucket { get; set; }
 
     public BucketResponse()
     {

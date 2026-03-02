@@ -129,7 +129,7 @@ public sealed class CreateCloudSaveBucketRatingDimensionOptions : CreateRatingDi
 {
     [UsedImplicitly]
     public CreateCloudSaveBucketRatingDimensionOptions(
-        GameBucket bucket,
+        Bucket bucket,
         byte maxRating,
         string id,
         string title,
@@ -222,7 +222,7 @@ public sealed class UpdateCloudSaveBucketRatingDimensionOptions : UpdateRatingDi
     private const Thing ThisThing = Thing.CloudSaveBucket;
 
     [UsedImplicitly]
-    public UpdateCloudSaveBucketRatingDimensionOptions(GameBucket bucket, string dimensionID) 
+    public UpdateCloudSaveBucketRatingDimensionOptions(Bucket bucket, string dimensionID) 
         : base(ThisThing, bucket.ID, dimensionID)
     {
     }
@@ -290,7 +290,7 @@ public sealed class DeleteCloudSaveBucketRatingDimensionOptions : DeleteRatingDi
     private const Thing ThisThing = Thing.CloudSaveBucket;
 
     [UsedImplicitly]
-    public DeleteCloudSaveBucketRatingDimensionOptions(GameBucket bucket, string dimensionID) 
+    public DeleteCloudSaveBucketRatingDimensionOptions(Bucket bucket, string dimensionID) 
         : base(ThisThing, bucket.ID, dimensionID)
     {
     }
@@ -352,7 +352,7 @@ public sealed class ListCloudSaveBucketDimensionOptions : ListRatingDimensionOpt
     private const Thing ThisThing = Thing.CloudSaveBucket;
 
     [UsedImplicitly]
-    public ListCloudSaveBucketDimensionOptions(GameBucket bucket) : base(ThisThing, bucket.ID)
+    public ListCloudSaveBucketDimensionOptions(Bucket bucket) : base(ThisThing, bucket.ID)
     {
     }
 
