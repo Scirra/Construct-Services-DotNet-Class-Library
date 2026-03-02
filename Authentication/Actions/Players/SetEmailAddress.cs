@@ -30,7 +30,7 @@ public static partial class Players
             }
 
             return Request.ExecuteSyncRequest<BaseResponse>(
-                Config.EndPointPaths.SetEmailAddress,
+                Config.EndPointPaths.Players.SetEmailAddress,
                 service,
                 new Dictionary<string, string>
                 {
@@ -59,7 +59,7 @@ public static partial class Players
             }
 
             return await Request.ExecuteAsyncRequest<BaseResponse>(
-                Config.EndPointPaths.SetEmailAddress,
+                Config.EndPointPaths.Players.SetEmailAddress,
                 service,
                 new Dictionary<string, string>
                 {
@@ -88,7 +88,7 @@ public static partial class Players
             }
 
             return Request.ExecuteSyncRequest<BaseResponse>(
-                Config.EndPointPaths.SetEmailAddress,
+                Config.EndPointPaths.Players.SetEmailAddress,
                 service,
                 new Dictionary<string, string>
                 {
@@ -117,7 +117,7 @@ public static partial class Players
             }
 
             return await Request.ExecuteAsyncRequest<BaseResponse>(
-                Config.EndPointPaths.SetEmailAddress,
+                Config.EndPointPaths.Players.SetEmailAddress,
                 service,
                 new Dictionary<string, string>
                 {

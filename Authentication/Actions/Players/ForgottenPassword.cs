@@ -21,7 +21,7 @@ public static partial class Players
             }
 
             return Request.ExecuteSyncRequest<LinkLoginProviderResponse>(
-                Config.EndPointPaths.ForgottenPassword,
+                Config.EndPointPaths.Players.ForgottenPassword,
                 service,
                 new Dictionary<string, string>
                 {
@@ -40,7 +40,7 @@ public static partial class Players
             }
 
             return await Request.ExecuteAsyncRequest<LinkLoginProviderResponse>(
-                Config.EndPointPaths.ForgottenPassword,
+                Config.EndPointPaths.Players.ForgottenPassword,
                 service,
                 new Dictionary<string, string>
                 {
