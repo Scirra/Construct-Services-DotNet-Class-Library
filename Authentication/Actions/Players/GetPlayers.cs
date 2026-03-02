@@ -15,12 +15,13 @@ public static partial class Players
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/get-players" />
         [UsedImplicitly]
-        public GetPlayersResponse GetPlayers(GetPlayersOptions getPlayersOptions)
+        public GetPlayersResponse GetPlayers(GetPlayersOptions getPlayersOptions, PaginationOptions pagination = null)
         {
             return Request.ExecuteSyncRequest<GetPlayersResponse>(
                 Config.EndPointPaths.Players.ListPlayers,
                 service,
-                getPlayersOptions.BuildFormData()
+                getPlayersOptions.BuildFormData(),
+                pagination
             );
         }
 
@@ -29,12 +30,13 @@ public static partial class Players
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/get-players" />
         [UsedImplicitly]
-        public async Task<GetPlayersResponse> GetPlayersAsync(GetPlayersOptions getPlayersOptions)
+        public async Task<GetPlayersResponse> GetPlayersAsync(GetPlayersOptions getPlayersOptions, PaginationOptions pagination = null)
         {
             return await Request.ExecuteAsyncRequest<GetPlayersResponse>(
                 Config.EndPointPaths.Players.ListPlayers,
                 service,
-                getPlayersOptions.BuildFormData()
+                getPlayersOptions.BuildFormData(),
+                pagination
             );
         }
     }

@@ -233,6 +233,10 @@ public sealed class GetPlayersOptions
         PlayerIDs = playerIDs;
         Ordering = ordering;
     }
+    public GetPlayersOptions(PlayerOrdering ordering)
+    {
+        Ordering = ordering;
+    }
     public GetPlayersOptions(Guid playerID)
     {
         PlayerIDs = [playerID];
