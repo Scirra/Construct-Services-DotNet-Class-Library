@@ -130,7 +130,7 @@ public static partial class Buckets
             formData.Add("maxBlobsPerPlayer", newMaxBlobsPerPlayer?.ToString() ?? string.Empty);
 
             return Request.ExecuteSyncRequest<BaseResponse>(
-                Config.EditBucketAPIEndPoint,
+                Config.EndPointPaths.Buckets.Update,
                 service,
                 formData
             );
@@ -176,7 +176,7 @@ public static partial class Buckets
             formData.Add("maxBlobsPerPlayer", newMaxBlobsPerPlayer?.ToString() ?? string.Empty);
 
             return await Request.ExecuteAsyncRequest<BaseResponse>(
-                Config.EditBucketAPIEndPoint,
+                Config.EndPointPaths.Buckets.Update,
                 service,
                 formData
             );

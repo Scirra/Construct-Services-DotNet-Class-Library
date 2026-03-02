@@ -80,7 +80,7 @@ public static partial class Saves
                 formData.Add("sessionKey", sessionKey);
             }
             return Request.ExecuteSyncRequest<BaseResponse>(
-                Config.DeletePictureAPIEndPoint,
+                Config.EndPointPaths.Saves.DeletePicture,
                 service,
                 formData
             );
@@ -109,7 +109,7 @@ public static partial class Saves
                 formData.Add("sessionKey", sessionKey);
             }
             return await Request.ExecuteAsyncRequest<BaseResponse>(
-                Config.DeletePictureAPIEndPoint,
+                Config.EndPointPaths.Saves.DeletePicture,
                 service,
                 formData
             );

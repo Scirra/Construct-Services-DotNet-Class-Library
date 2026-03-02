@@ -50,7 +50,7 @@ public static partial class Buckets
                 { "bucketID", bucketID.ToString() }
             };
             return Request.ExecuteSyncRequest<BucketResponse>(
-                Config.GetBucketAPIEndPoint,
+                Config.EndPointPaths.Buckets.Get,
                 service,
                 formData
             );
@@ -67,7 +67,7 @@ public static partial class Buckets
                 { "bucketID", bucketID.ToString() }
             };
             return await Request.ExecuteAsyncRequest<BucketResponse>(
-                Config.GetBucketAPIEndPoint,
+                Config.EndPointPaths.Buckets.Get,
                 service,
                 formData
             );

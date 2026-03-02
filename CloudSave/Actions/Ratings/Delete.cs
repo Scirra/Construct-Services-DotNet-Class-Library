@@ -15,7 +15,7 @@ public static partial class Ratings
         [UsedImplicitly]
         public BaseResponse DeleteRatingDimension(
             DeleteCloudSaveBucketRatingDimensionOptions deleteCloudSaveBucketRatingDimensionOptions)
-            => global::ConstructServices.Ratings.Actions.Dimensions.DeleteDimension(service, Config.DeleteDimensionAPIEndPoint, deleteCloudSaveBucketRatingDimensionOptions);
+            => global::ConstructServices.Ratings.Actions.Dimensions.DeleteDimension(service, Config.EndPointPaths.Ratings.DeleteDimension, deleteCloudSaveBucketRatingDimensionOptions);
 
         /// <summary>
         /// Delete a rating dimension for a bucket
@@ -23,6 +23,6 @@ public static partial class Ratings
         [UsedImplicitly]
         public async Task<BaseResponse> DeleteRatingDimensionAsync(
             DeleteCloudSaveBucketRatingDimensionOptions deleteCloudSaveBucketRatingDimensionOptions)
-            => await global::ConstructServices.Ratings.Actions.Dimensions.DeleteDimensionAsync(service, Config.DeleteDimensionAPIEndPoint, deleteCloudSaveBucketRatingDimensionOptions);
+            => await global::ConstructServices.Ratings.Actions.Dimensions.DeleteDimensionAsync(service, Config.EndPointPaths.Ratings.DeleteDimension, deleteCloudSaveBucketRatingDimensionOptions);
     }
 }

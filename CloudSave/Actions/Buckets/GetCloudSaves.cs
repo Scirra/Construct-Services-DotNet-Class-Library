@@ -141,7 +141,7 @@ public static partial class Buckets
             }
 
             return Request.ExecuteSyncRequest<CloudSavesResponse>(
-                Config.GetSavesAPIEndPoint,
+                Config.EndPointPaths.Saves.ListBucketSaves,
                 service,
                 formData,
                 paginationOptions
@@ -207,7 +207,7 @@ public static partial class Buckets
             }
 
             return await Request.ExecuteAsyncRequest<CloudSavesResponse>(
-                Config.GetSavesAPIEndPoint,
+                Config.EndPointPaths.Saves.ListBucketSaves,
                 service,
                 formData,
                 paginationOptions

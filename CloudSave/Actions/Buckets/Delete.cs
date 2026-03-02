@@ -51,7 +51,7 @@ public static partial class Buckets
             };
 
             return Request.ExecuteSyncRequest<BaseResponse>(
-                Config.DeleteBucketAPIEndPoint,
+                Config.EndPointPaths.Buckets.Delete,
                 service,
                 formData
             );
@@ -69,7 +69,7 @@ public static partial class Buckets
             };
 
             return await Request.ExecuteAsyncRequest<BaseResponse>(
-                Config.DeleteBucketAPIEndPoint,
+                Config.EndPointPaths.Buckets.Delete,
                 service,
                 formData
             );

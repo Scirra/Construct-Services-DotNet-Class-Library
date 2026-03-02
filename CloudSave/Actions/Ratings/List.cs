@@ -15,7 +15,7 @@ public static partial class Ratings
         [UsedImplicitly]
         public DimensionsResponse GetRatingDimensions(ListCloudSaveBucketDimensionOptions listCloudSaveBucketDimensionOptions)
         {
-            return global::ConstructServices.Ratings.Actions.Dimensions.ListDimensions(service, Config.GetDimensionsAPIEndPoint, listCloudSaveBucketDimensionOptions);
+            return global::ConstructServices.Ratings.Actions.Dimensions.ListDimensions(service, Config.EndPointPaths.Ratings.ListDimensions, listCloudSaveBucketDimensionOptions);
         }
 
         /// <summary>
@@ -24,7 +24,7 @@ public static partial class Ratings
         [UsedImplicitly]
         public async Task<DimensionsResponse> GetRatingDimensionsAsync(ListCloudSaveBucketDimensionOptions listCloudSaveBucketDimensionOptions)
         {
-            return await global::ConstructServices.Ratings.Actions.Dimensions.ListDimensionsAsync(service, Config.GetDimensionsAPIEndPoint, listCloudSaveBucketDimensionOptions);
+            return await global::ConstructServices.Ratings.Actions.Dimensions.ListDimensionsAsync(service, Config.EndPointPaths.Ratings.ListDimensions, listCloudSaveBucketDimensionOptions);
         }
     }
 }

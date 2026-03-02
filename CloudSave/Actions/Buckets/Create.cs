@@ -48,7 +48,7 @@ public static partial class Buckets
             }
 
             return Request.ExecuteSyncRequest<BucketResponse>(
-                Config.CreateBucketAPIEndPoint,
+                Config.EndPointPaths.Buckets.Create,
                 service,
                 formData
             );
@@ -91,7 +91,7 @@ public static partial class Buckets
             }
 
             return await Request.ExecuteAsyncRequest<BucketResponse>(
-                Config.CreateBucketAPIEndPoint,
+                Config.EndPointPaths.Buckets.Create,
                 service,
                 formData
             );

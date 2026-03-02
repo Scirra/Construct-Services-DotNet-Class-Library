@@ -18,7 +18,7 @@ public static partial class Ratings
         {
             return global::ConstructServices.Ratings.Actions.Dimensions.CreateDimension(
                 service, 
-                Config.CreateDimensionAPIEndPoint,
+                Config.EndPointPaths.Ratings.CreateDimension,
                 createCloudSaveBucketRatingDimensionOptions);
         }
 
@@ -31,7 +31,7 @@ public static partial class Ratings
         {
             return await global::ConstructServices.Ratings.Actions.Dimensions.CreateDimensionAsync(
                 service, 
-                Config.CreateDimensionAPIEndPoint,
+                Config.EndPointPaths.Ratings.CreateDimension,
                 createCloudSaveBucketRatingDimensionOptions);
         }
     }

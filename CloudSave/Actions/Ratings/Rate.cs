@@ -15,7 +15,7 @@ public static partial class Ratings
         [UsedImplicitly]
         public RateResponse Rate(RateCloudSaveOptions rateCloudSaveOptions)
         {
-            return global::ConstructServices.Ratings.Actions.Rating.Rate(service, Config.RateAPIEndPoint, rateCloudSaveOptions);
+            return global::ConstructServices.Ratings.Actions.Rating.Rate(service, Config.EndPointPaths.Ratings.Rate, rateCloudSaveOptions);
         }
 
         /// <summary>
@@ -24,7 +24,7 @@ public static partial class Ratings
         [UsedImplicitly]
         public async Task<RateResponse> RateAsync(RateCloudSaveOptions rateCloudSaveOptions)
         {
-            return await global::ConstructServices.Ratings.Actions.Rating.RateAsync(service, Config.RateAPIEndPoint, rateCloudSaveOptions);
+            return await global::ConstructServices.Ratings.Actions.Rating.RateAsync(service, Config.EndPointPaths.Ratings.Rate, rateCloudSaveOptions);
         }
     }
 }

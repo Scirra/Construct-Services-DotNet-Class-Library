@@ -50,7 +50,7 @@ public static partial class Saves
             };
 
             return Request.ExecuteSyncRequest<BaseResponse>(
-                Config.DeleteAPIEndPoint,
+                Config.EndPointPaths.Saves.Delete,
                 service,
                 formData
             );
@@ -68,7 +68,7 @@ public static partial class Saves
             };
 
             return await Request.ExecuteAsyncRequest<BaseResponse>(
-                Config.DeleteAPIEndPoint,
+                Config.EndPointPaths.Saves.Delete,
                 service,
                 formData
             );
@@ -95,7 +95,7 @@ public static partial class Saves
             };
 
             return Request.ExecuteSyncRequest<BaseResponse>(
-                Config.DeleteAPIEndPoint,
+                Config.EndPointPaths.Saves.Delete,
                 service,
                 formData
             );
@@ -122,7 +122,7 @@ public static partial class Saves
             };
 
             return await Request.ExecuteAsyncRequest<BaseResponse>(
-                Config.DeleteAPIEndPoint,
+                Config.EndPointPaths.Saves.Delete,
                 service,
                 formData
             );

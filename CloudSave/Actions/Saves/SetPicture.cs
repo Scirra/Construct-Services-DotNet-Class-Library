@@ -74,7 +74,7 @@ public static partial class Saves
             if (picture.Bytes != null)
             {
                 return Request.ExecuteMultiPartFormSyncRequest<BaseResponse>(
-                    Config.SetPictureAPIEndPoint,
+                    Config.EndPointPaths.Saves.SetPicture,
                     service,
                     formData,
                     new Dictionary<string, ByteArrayContent>{ {"picture", new ByteArrayContent(picture.Bytes) } }
@@ -86,7 +86,7 @@ public static partial class Saves
             {
                 formData.Add("pictureURL", picture.URL.ToString());
                 return Request.ExecuteSyncRequest<CloudSaveResponse>(
-                    Config.SetPictureAPIEndPoint,
+                    Config.EndPointPaths.Saves.SetPicture,
                     service,
                     formData
                 );
@@ -97,7 +97,7 @@ public static partial class Saves
             {
                 formData.Add("picture", picture.Base64);
                 return Request.ExecuteSyncRequest<CloudSaveResponse>(
-                    Config.SetPictureAPIEndPoint,
+                    Config.EndPointPaths.Saves.SetPicture,
                     service,
                     formData
                 );
@@ -134,7 +134,7 @@ public static partial class Saves
             if (picture.Bytes != null)
             {
                 return await Request.ExecuteMultiPartFormAsyncRequest<BaseResponse>(
-                    Config.SetPictureAPIEndPoint,
+                    Config.EndPointPaths.Saves.SetPicture,
                     service,
                     formData,
                     new Dictionary<string, ByteArrayContent>{ {"picture", new ByteArrayContent(picture.Bytes) } }
@@ -146,7 +146,7 @@ public static partial class Saves
             {
                 formData.Add("pictureURL", picture.URL.ToString());
                 return await Request.ExecuteAsyncRequest<CloudSaveResponse>(
-                    Config.SetPictureAPIEndPoint,
+                    Config.EndPointPaths.Saves.SetPicture,
                     service,
                     formData
                 );
@@ -157,7 +157,7 @@ public static partial class Saves
             {
                 formData.Add("picture", picture.Base64);
                 return await Request.ExecuteAsyncRequest<CloudSaveResponse>(
-                    Config.SetPictureAPIEndPoint,
+                    Config.EndPointPaths.Saves.SetPicture,
                     service,
                     formData
                 );

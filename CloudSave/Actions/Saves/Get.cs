@@ -27,7 +27,7 @@ public static partial class Saves
                 { "key", cloudSaveKey }
             };
             return Request.ExecuteSyncRequest<CloudSaveResponse>(
-                Config.GetSaveAPIEndPoint,
+                Config.EndPointPaths.Saves.Get,
                 service,
                 formData
             );
@@ -49,7 +49,7 @@ public static partial class Saves
                 { "key", cloudSaveKey }
             };
             return await Request.ExecuteAsyncRequest<CloudSaveResponse>(
-                Config.GetSaveAPIEndPoint,
+                Config.EndPointPaths.Saves.Get,
                 service,
                 formData
             );
@@ -75,7 +75,7 @@ public static partial class Saves
                 { "bucketID", bucketID.ToString() }
             };
             return Request.ExecuteSyncRequest<CloudSaveResponse>(
-                Config.GetSaveAPIEndPoint,
+                Config.EndPointPaths.Saves.Get,
                 service,
                 formData
             );
@@ -101,7 +101,7 @@ public static partial class Saves
                 { "bucketID", bucketID.ToString() }
             };
             return await Request.ExecuteAsyncRequest<CloudSaveResponse>(
-                Config.GetSaveAPIEndPoint,
+                Config.EndPointPaths.Saves.Get,
                 service,
                 formData
             );
@@ -134,7 +134,7 @@ public static partial class Saves
                 { "bucketID", bucketID.ToString() }
             };
             return Request.ExecuteSyncRequest<CloudSaveResponse>(
-                Config.GetSaveAPIEndPoint,
+                Config.EndPointPaths.Saves.Get,
                 service,
                 formData
             );
@@ -167,7 +167,7 @@ public static partial class Saves
                 { "bucketID", bucketID.ToString() }
             };
             return await Request.ExecuteAsyncRequest<CloudSaveResponse>(
-                Config.GetSaveAPIEndPoint,
+                Config.EndPointPaths.Saves.Get,
                 service,
                 formData
             );
@@ -198,7 +198,7 @@ public static partial class Saves
                 { "key", cloudSaveKey }
             };
             return Request.ExecuteSyncRequest<CloudSaveResponse>(
-                Config.GetSaveAPIEndPoint,
+                Config.EndPointPaths.Saves.Get,
                 service,
                 formData
             );
@@ -229,7 +229,7 @@ public static partial class Saves
                 { "key", cloudSaveKey }
             };
             return await Request.ExecuteAsyncRequest<CloudSaveResponse>(
-                Config.GetSaveAPIEndPoint,
+                Config.EndPointPaths.Saves.Get,
                 service,
                 formData
             );
@@ -246,7 +246,7 @@ public static partial class Saves
                 { "blobID", cloudSaveID.ToString() }
             };
             return Request.ExecuteSyncRequest<CloudSaveResponse>(
-                Config.GetSaveAPIEndPoint,
+                Config.EndPointPaths.Saves.Get,
                 service,
                 formData
             );
@@ -263,7 +263,7 @@ public static partial class Saves
                 { "blobID", cloudSaveID.ToString() }
             };
             return await Request.ExecuteAsyncRequest<CloudSaveResponse>(
-                Config.GetSaveAPIEndPoint,
+                Config.EndPointPaths.Saves.Get,
                 service,
                 formData
             );
@@ -283,7 +283,7 @@ public static partial class Saves
                 { "bucketID", bucketID.ToString() }
             };
             return Request.ExecuteSyncRequest<CloudSaveResponse>(
-                Config.GetSaveAPIEndPoint,
+                Config.EndPointPaths.Saves.Get,
                 service,
                 formData
             );
@@ -303,7 +303,7 @@ public static partial class Saves
                 { "bucketID", bucketID.ToString() }
             };
             return await Request.ExecuteAsyncRequest<CloudSaveResponse>(
-                Config.GetSaveAPIEndPoint,
+                Config.EndPointPaths.Saves.Get,
                 service,
                 formData
             );
@@ -331,7 +331,7 @@ public static partial class Saves
                 { "bucketID", bucketID.ToString() }
             };
             return Request.ExecuteSyncRequest<CloudSaveResponse>(
-                Config.GetSaveAPIEndPoint,
+                Config.EndPointPaths.Saves.Get,
                 service,
                 formData
             );
@@ -359,7 +359,7 @@ public static partial class Saves
                 { "bucketID", bucketID.ToString() }
             };
             return await Request.ExecuteAsyncRequest<CloudSaveResponse>(
-                Config.GetSaveAPIEndPoint,
+                Config.EndPointPaths.Saves.Get,
                 service,
                 formData
             );
@@ -385,7 +385,7 @@ public static partial class Saves
                 { "blobID", cloudSaveID.ToString() }
             };
             return Request.ExecuteSyncRequest<CloudSaveResponse>(
-                Config.GetSaveAPIEndPoint,
+                Config.EndPointPaths.Saves.Get,
                 service,
                 formData
             );
@@ -411,7 +411,7 @@ public static partial class Saves
                 { "blobID", cloudSaveID.ToString() }
             };
             return await Request.ExecuteAsyncRequest<CloudSaveResponse>(
-                Config.GetSaveAPIEndPoint,
+                Config.EndPointPaths.Saves.Get,
                 service,
                 formData
             );

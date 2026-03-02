@@ -24,7 +24,7 @@ public static partial class Buckets
             };
 
             return Request.ExecuteSyncRequest<BucketsResponse>(
-                Config.GetBucketsAPIEndPoint,
+                Config.EndPointPaths.Buckets.List,
                 service,
                 formData,
                 paginationOptions
@@ -44,7 +44,7 @@ public static partial class Buckets
             };
 
             return await Request.ExecuteAsyncRequest<BucketsResponse>(
-                Config.GetBucketsAPIEndPoint,
+                Config.EndPointPaths.Buckets.List,
                 service,
                 formData,
                 paginationOptions

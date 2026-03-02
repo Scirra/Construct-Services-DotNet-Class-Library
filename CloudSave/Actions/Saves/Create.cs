@@ -158,7 +158,7 @@ public static partial class Saves
         }
 
         return Request.ExecuteMultiPartFormSyncRequest<CloudSaveResponse>(
-            Config.CreateAPIEndPoint,
+            Config.EndPointPaths.Saves.Create,
             service,
             formData,
             postedBinaryData
@@ -216,7 +216,7 @@ public static partial class Saves
         }
 
         return await Request.ExecuteMultiPartFormAsyncRequest<CloudSaveResponse>(
-            Config.CreateAPIEndPoint,
+            Config.EndPointPaths.Saves.Create,
             service,
             formData,
             postedBinaryData

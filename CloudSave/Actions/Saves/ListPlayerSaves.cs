@@ -10,7 +10,7 @@ namespace ConstructServices.CloudSave.Actions;
 
 public static partial class Saves
 {
-    public sealed class GetPlayerCloudSaveFilters
+    public sealed class ListPlayerCloudSaveFilters
     {
         public string Name { get; [UsedImplicitly] set; }
         public string Key { get; [UsedImplicitly] set; }
@@ -22,153 +22,153 @@ public static partial class Saves
         /// Return paginated players private cloud saves
         /// </summary>
         [UsedImplicitly]
-        public CloudSavesResponse GetPlayersPrivateCloudSaves(
+        public CloudSavesResponse ListPlayersPrivateCloudSaves(
             string sessionKey,
             PaginationOptions paginationOptions,
             Enums.GetPlayerCloudSaveSortMethod? orderBy = null,
-            GetPlayerCloudSaveFilters filters = null)
+            ListPlayerCloudSaveFilters filters = null)
             =>
-                service.GetPlayersCloudSaves(null, sessionKey, false, paginationOptions, orderBy, filters);
+                service.ListPlayersCloudSaves(null, sessionKey, false, paginationOptions, orderBy, filters);
 
         /// <summary>
         /// Return paginated players private cloud saves
         /// </summary>
         [UsedImplicitly]
-        public async Task<CloudSavesResponse> GetPlayersPrivateCloudSavesAsync(
+        public async Task<CloudSavesResponse> ListPlayersPrivateCloudSavesAsync(
             string sessionKey,
             PaginationOptions paginationOptions,
             Enums.GetPlayerCloudSaveSortMethod? orderBy = null,
-            GetPlayerCloudSaveFilters filters = null)
+            ListPlayerCloudSaveFilters filters = null)
             =>
-                await service.GetPlayersCloudSavesAsync(null, sessionKey, false, paginationOptions, orderBy, filters);
+                await service.ListPlayersCloudSavesAsync(null, sessionKey, false, paginationOptions, orderBy, filters);
         
         /// <summary>
         /// Return paginated players private cloud saves
         /// </summary>
         [UsedImplicitly]
-        public CloudSavesResponse GetPlayersPrivateCloudSaves(
+        public CloudSavesResponse ListPlayersPrivateCloudSaves(
             ExpandedPlayer player,
             PaginationOptions paginationOptions,
             Enums.GetPlayerCloudSaveSortMethod? orderBy = null,
-            GetPlayerCloudSaveFilters filters = null)
+            ListPlayerCloudSaveFilters filters = null)
             =>
-                service.GetPlayersCloudSaves(player.ID, null, false, paginationOptions, orderBy, filters);
+                service.ListPlayersCloudSaves(player.ID, null, false, paginationOptions, orderBy, filters);
 
         /// <summary>
         /// Return paginated players private cloud saves
         /// </summary>
         [UsedImplicitly]
-        public async Task<CloudSavesResponse> GetPlayersPrivateCloudSavesAsync(
+        public async Task<CloudSavesResponse> ListPlayersPrivateCloudSavesAsync(
             ExpandedPlayer player,
             PaginationOptions paginationOptions,
             Enums.GetPlayerCloudSaveSortMethod? orderBy = null,
-            GetPlayerCloudSaveFilters filters = null)
+            ListPlayerCloudSaveFilters filters = null)
             =>
-                await service.GetPlayersCloudSavesAsync(player.ID, null, false, paginationOptions, orderBy, filters);
+                await service.ListPlayersCloudSavesAsync(player.ID, null, false, paginationOptions, orderBy, filters);
         
         /// <summary>
         /// Return paginated players private cloud saves
         /// </summary>
         [UsedImplicitly]
-        public CloudSavesResponse GetPlayersPrivateCloudSaves(
+        public CloudSavesResponse ListPlayersPrivateCloudSaves(
             Guid playerID,
             PaginationOptions paginationOptions,
             Enums.GetPlayerCloudSaveSortMethod? orderBy = null,
-            GetPlayerCloudSaveFilters filters = null)
+            ListPlayerCloudSaveFilters filters = null)
             =>
-                service.GetPlayersCloudSaves(playerID, null, false, paginationOptions, orderBy, filters);
+                service.ListPlayersCloudSaves(playerID, null, false, paginationOptions, orderBy, filters);
 
         /// <summary>
         /// Return paginated players private cloud saves
         /// </summary>
         [UsedImplicitly]
-        public async Task<CloudSavesResponse> GetPlayersPrivateCloudSavesAsync(
+        public async Task<CloudSavesResponse> ListPlayersPrivateCloudSavesAsync(
             Guid playerID,
             PaginationOptions paginationOptions,
             Enums.GetPlayerCloudSaveSortMethod? orderBy = null,
-            GetPlayerCloudSaveFilters filters = null)
+            ListPlayerCloudSaveFilters filters = null)
             =>
-                await service.GetPlayersCloudSavesAsync(playerID, null, false, paginationOptions, orderBy, filters);
+                await service.ListPlayersCloudSavesAsync(playerID, null, false, paginationOptions, orderBy, filters);
         
         /// <summary>
         /// Return paginated players cloud saves in game buckets
         /// </summary>
         [UsedImplicitly]
-        public CloudSavesResponse GetPlayersBucketCloudSaves(
+        public CloudSavesResponse ListPlayersBucketCloudSaves(
             string sessionKey,
             PaginationOptions paginationOptions,
             Enums.GetPlayerCloudSaveSortMethod? orderBy = null,
-            GetPlayerCloudSaveFilters filters = null)
+            ListPlayerCloudSaveFilters filters = null)
             =>
-                service.GetPlayersCloudSaves(null, sessionKey, true, paginationOptions, orderBy, filters);
+                service.ListPlayersCloudSaves(null, sessionKey, true, paginationOptions, orderBy, filters);
 
         /// <summary>
         /// Return paginated players cloud saves in game buckets
         /// </summary>
         [UsedImplicitly]
-        public async Task<CloudSavesResponse> GetPlayersBucketCloudSavesAsync(
+        public async Task<CloudSavesResponse> ListPlayersBucketCloudSavesAsync(
             string sessionKey,
             PaginationOptions paginationOptions,
             Enums.GetPlayerCloudSaveSortMethod? orderBy = null,
-            GetPlayerCloudSaveFilters filters = null)
+            ListPlayerCloudSaveFilters filters = null)
             =>
-                await service.GetPlayersCloudSavesAsync(null, sessionKey, true, paginationOptions, orderBy, filters);
+                await service.ListPlayersCloudSavesAsync(null, sessionKey, true, paginationOptions, orderBy, filters);
         
         /// <summary>
         /// Return paginated players cloud saves in game buckets
         /// </summary>
         [UsedImplicitly]
-        public CloudSavesResponse GetPlayersBucketCloudSaves(
+        public CloudSavesResponse ListPlayersBucketCloudSaves(
             ExpandedPlayer player,
             PaginationOptions paginationOptions,
             Enums.GetPlayerCloudSaveSortMethod? orderBy = null,
-            GetPlayerCloudSaveFilters filters = null)
+            ListPlayerCloudSaveFilters filters = null)
             =>
-                service.GetPlayersCloudSaves(player.ID, null, true, paginationOptions, orderBy, filters);
+                service.ListPlayersCloudSaves(player.ID, null, true, paginationOptions, orderBy, filters);
 
         /// <summary>
         /// Return paginated players cloud saves in game buckets
         /// </summary>
         [UsedImplicitly]
-        public async Task<CloudSavesResponse> GetPlayersBucketCloudSavesAsync(
+        public async Task<CloudSavesResponse> ListPlayersBucketCloudSavesAsync(
             ExpandedPlayer player,
             PaginationOptions paginationOptions,
             Enums.GetPlayerCloudSaveSortMethod? orderBy = null,
-            GetPlayerCloudSaveFilters filters = null)
+            ListPlayerCloudSaveFilters filters = null)
             =>
-                await service.GetPlayersCloudSavesAsync(player.ID, null, true, paginationOptions, orderBy, filters);
+                await service.ListPlayersCloudSavesAsync(player.ID, null, true, paginationOptions, orderBy, filters);
         
         /// <summary>
         /// Return paginated players cloud saves in game buckets
         /// </summary>
         [UsedImplicitly]
-        public CloudSavesResponse GetPlayersBucketCloudSaves(
+        public CloudSavesResponse ListPlayersBucketCloudSaves(
             Guid playerID,
             PaginationOptions paginationOptions,
             Enums.GetPlayerCloudSaveSortMethod? orderBy = null,
-            GetPlayerCloudSaveFilters filters = null)
+            ListPlayerCloudSaveFilters filters = null)
             =>
-                service.GetPlayersCloudSaves(playerID, null, true, paginationOptions, orderBy, filters);
+                service.ListPlayersCloudSaves(playerID, null, true, paginationOptions, orderBy, filters);
         
         /// <summary>
         /// Return paginated players cloud saves in game buckets
         /// </summary>
         [UsedImplicitly]
-        public async Task<CloudSavesResponse> GetPlayersBucketCloudSavesAsync(
+        public async Task<CloudSavesResponse> ListPlayersBucketCloudSavesAsync(
             Guid playerID,
             PaginationOptions paginationOptions,
             Enums.GetPlayerCloudSaveSortMethod? orderBy = null,
-            GetPlayerCloudSaveFilters filters = null)
+            ListPlayerCloudSaveFilters filters = null)
             =>
-                await service.GetPlayersCloudSavesAsync(playerID, null, true, paginationOptions, orderBy, filters);
+                await service.ListPlayersCloudSavesAsync(playerID, null, true, paginationOptions, orderBy, filters);
 
-        private CloudSavesResponse GetPlayersCloudSaves(
+        private CloudSavesResponse ListPlayersCloudSaves(
             Guid? playerID,
             string sessionKey,
             bool getBucketSaves,
             PaginationOptions paginationOptions,
             Enums.GetPlayerCloudSaveSortMethod? orderBy = null,
-            GetPlayerCloudSaveFilters filters = null)
+            ListPlayerCloudSaveFilters filters = null)
         {
             var formData = new Dictionary<string, string>
             {
@@ -205,20 +205,20 @@ public static partial class Saves
             }
 
             return Request.ExecuteSyncRequest<CloudSavesResponse>(
-                Config.GetPlayerSavesAPIEndPoint,
+                Config.EndPointPaths.Saves.ListPlayerSaves,
                 service,
                 formData,
                 paginationOptions
             );
         }
 
-        private async Task<CloudSavesResponse> GetPlayersCloudSavesAsync(
+        private async Task<CloudSavesResponse> ListPlayersCloudSavesAsync(
             Guid? playerID,
             string sessionKey,
             bool getBucketSaves,
             PaginationOptions paginationOptions,
             Enums.GetPlayerCloudSaveSortMethod? orderBy = null,
-            GetPlayerCloudSaveFilters filters = null)
+            ListPlayerCloudSaveFilters filters = null)
         {
             var formData = new Dictionary<string, string>
             {
@@ -255,7 +255,7 @@ public static partial class Saves
             }
 
             return await Request.ExecuteAsyncRequest<CloudSavesResponse>(
-                Config.GetPlayerSavesAPIEndPoint,
+                Config.EndPointPaths.Saves.ListPlayerSaves,
                 service,
                 formData,
                 paginationOptions

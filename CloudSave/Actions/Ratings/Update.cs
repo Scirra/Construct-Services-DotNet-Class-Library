@@ -16,7 +16,7 @@ public static partial class Ratings
         public DimensionResponse EditRatingDimension(
             UpdateCloudSaveBucketRatingDimensionOptions updateCloudSaveBucketRatingDimensionOptions)
         {
-            return global::ConstructServices.Ratings.Actions.Dimensions.UpdateDimension(service, Config.EditDimensionAPIEndPoint, updateCloudSaveBucketRatingDimensionOptions);
+            return global::ConstructServices.Ratings.Actions.Dimensions.UpdateDimension(service, Config.EndPointPaths.Ratings.UpdateDimension, updateCloudSaveBucketRatingDimensionOptions);
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ public static partial class Ratings
         public async Task<DimensionResponse> EditRatingDimensionAsync(
             UpdateCloudSaveBucketRatingDimensionOptions updateCloudSaveBucketRatingDimensionOptions)
         {
-            return await global::ConstructServices.Ratings.Actions.Dimensions.UpdateDimensionAsync(service, Config.EditDimensionAPIEndPoint, updateCloudSaveBucketRatingDimensionOptions);
+            return await global::ConstructServices.Ratings.Actions.Dimensions.UpdateDimensionAsync(service, Config.EndPointPaths.Ratings.UpdateDimension, updateCloudSaveBucketRatingDimensionOptions);
         }
     }
 }
