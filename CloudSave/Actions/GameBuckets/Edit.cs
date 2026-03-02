@@ -10,8 +10,6 @@ namespace ConstructServices.CloudSave.Actions;
 
 public static partial class GameBuckets
 {
-    private const string EditBucketAPIEndPoint = "/editbucket.json";
-
     extension(CloudSaveService service)
     {
         /// <summary>
@@ -132,7 +130,7 @@ public static partial class GameBuckets
             formData.Add("maxBlobsPerPlayer", newMaxBlobsPerPlayer?.ToString() ?? string.Empty);
 
             return Request.ExecuteSyncRequest<BaseResponse>(
-                EditBucketAPIEndPoint,
+                Config.EditBucketAPIEndPoint,
                 service,
                 formData
             );
@@ -178,7 +176,7 @@ public static partial class GameBuckets
             formData.Add("maxBlobsPerPlayer", newMaxBlobsPerPlayer?.ToString() ?? string.Empty);
 
             return await Request.ExecuteAsyncRequest<BaseResponse>(
-                EditBucketAPIEndPoint,
+                Config.EditBucketAPIEndPoint,
                 service,
                 formData
             );

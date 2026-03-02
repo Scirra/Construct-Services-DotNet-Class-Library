@@ -15,7 +15,6 @@ public abstract class ModifyXPRankBase
     [UsedImplicitly]
     public string LanguageISO { get; set; }
 
-
     protected Dictionary<string, string> BuildBaseFormData() => new()
     {
         { "title", Title },

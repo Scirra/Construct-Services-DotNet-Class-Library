@@ -9,8 +9,6 @@ namespace ConstructServices.CloudSave.Actions;
 
 public static partial class GameBuckets
 {
-    private const string CreateBucketAPIEndPoint = "/createbucket.json";
-    
     extension(CloudSaveService service)
     {
         /// <summary>
@@ -50,7 +48,7 @@ public static partial class GameBuckets
             }
 
             return Request.ExecuteSyncRequest<BucketResponse>(
-                CreateBucketAPIEndPoint,
+                Config.CreateBucketAPIEndPoint,
                 service,
                 formData
             );
@@ -93,7 +91,7 @@ public static partial class GameBuckets
             }
 
             return await Request.ExecuteAsyncRequest<BucketResponse>(
-                CreateBucketAPIEndPoint,
+                Config.CreateBucketAPIEndPoint,
                 service,
                 formData
             );

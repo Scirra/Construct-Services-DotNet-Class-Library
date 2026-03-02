@@ -9,8 +9,6 @@ namespace ConstructServices.CloudSave.Actions;
 [UsedImplicitly]
 public static partial class CloudSaves
 {
-    private const string DeletePictureAPIEndPoint = "/deletepicture.json";
-
     extension(CloudSaveService service)
     {
         /// <summary>
@@ -82,7 +80,7 @@ public static partial class CloudSaves
                 formData.Add("sessionKey", sessionKey);
             }
             return Request.ExecuteSyncRequest<BaseResponse>(
-                DeletePictureAPIEndPoint,
+                Config.DeletePictureAPIEndPoint,
                 service,
                 formData
             );
@@ -111,7 +109,7 @@ public static partial class CloudSaves
                 formData.Add("sessionKey", sessionKey);
             }
             return await Request.ExecuteAsyncRequest<BaseResponse>(
-                DeletePictureAPIEndPoint,
+                Config.DeletePictureAPIEndPoint,
                 service,
                 formData
             );

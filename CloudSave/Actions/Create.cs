@@ -11,8 +11,6 @@ namespace ConstructServices.CloudSave.Actions;
 
 public static partial class CloudSaves
 {
-    private const string CreateAPIEndPoint = "/create.json";
-
     extension(CloudSaveService service)
     {
         /// <summary>
@@ -160,7 +158,7 @@ public static partial class CloudSaves
         }
 
         return Request.ExecuteMultiPartFormSyncRequest<CloudSaveResponse>(
-            CreateAPIEndPoint,
+            Config.CreateAPIEndPoint,
             service,
             formData,
             postedBinaryData
@@ -218,7 +216,7 @@ public static partial class CloudSaves
         }
 
         return await Request.ExecuteMultiPartFormAsyncRequest<CloudSaveResponse>(
-            CreateAPIEndPoint,
+            Config.CreateAPIEndPoint,
             service,
             formData,
             postedBinaryData

@@ -16,8 +16,6 @@ public static partial class CloudSaves
         public string Key { get; [UsedImplicitly] set; }
     }
 
-    private const string GetPlayerSavesAPIEndPoint = "/getcloudsaves.json";
-    
     extension(CloudSaveService service)
     {
         /// <summary>
@@ -207,7 +205,7 @@ public static partial class CloudSaves
             }
 
             return Request.ExecuteSyncRequest<CloudSavesResponse>(
-                GetPlayerSavesAPIEndPoint,
+                Config.GetPlayerSavesAPIEndPoint,
                 service,
                 formData,
                 paginationOptions
@@ -257,7 +255,7 @@ public static partial class CloudSaves
             }
 
             return await Request.ExecuteAsyncRequest<CloudSavesResponse>(
-                GetPlayerSavesAPIEndPoint,
+                Config.GetPlayerSavesAPIEndPoint,
                 service,
                 formData,
                 paginationOptions

@@ -21,8 +21,6 @@ public static partial class GameBuckets
         public HashSet<Guid> BlobIDs { get; [UsedImplicitly] set; }
     }
     
-    private const string GetSavesAPIEndPoint = "/getbucketsaves.json";
-
     extension(CloudSaveService service)
     {        
         /// <summary>
@@ -143,7 +141,7 @@ public static partial class GameBuckets
             }
 
             return Request.ExecuteSyncRequest<CloudSavesResponse>(
-                GetSavesAPIEndPoint,
+                Config.GetSavesAPIEndPoint,
                 service,
                 formData,
                 paginationOptions
@@ -209,7 +207,7 @@ public static partial class GameBuckets
             }
 
             return await Request.ExecuteAsyncRequest<CloudSavesResponse>(
-                GetSavesAPIEndPoint,
+                Config.GetSavesAPIEndPoint,
                 service,
                 formData,
                 paginationOptions

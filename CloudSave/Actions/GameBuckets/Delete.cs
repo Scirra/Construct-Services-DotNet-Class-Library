@@ -9,8 +9,6 @@ namespace ConstructServices.CloudSave.Actions;
 [UsedImplicitly]
 public static partial class GameBuckets
 {
-    private const string DeleteBucketAPIEndPoint = "/deletebucket.json";
-    
     extension(CloudSaveService service)
     {
         /// <summary>
@@ -53,7 +51,7 @@ public static partial class GameBuckets
             };
 
             return Request.ExecuteSyncRequest<BaseResponse>(
-                DeleteBucketAPIEndPoint,
+                Config.DeleteBucketAPIEndPoint,
                 service,
                 formData
             );
@@ -71,7 +69,7 @@ public static partial class GameBuckets
             };
 
             return await Request.ExecuteAsyncRequest<BaseResponse>(
-                DeleteBucketAPIEndPoint,
+                Config.DeleteBucketAPIEndPoint,
                 service,
                 formData
             );
