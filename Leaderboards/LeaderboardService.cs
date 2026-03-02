@@ -1,7 +1,6 @@
 ﻿using ConstructServices.Common;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using JetBrains.Annotations;
 
 namespace ConstructServices.Leaderboards;
@@ -18,8 +17,8 @@ public sealed class LeaderboardService : BaseService
     /// <param name="leaderboardID">Leaderboard ID service is for</param>
     /// <param name="aPIKey">Optional API key, may be required for some request types and should never be exposed client side.</param>
     /// <param name="requestedLanguage">ISO Alpha 2 language to return translatable strings to</param>
-    public LeaderboardService(Guid gameID, Guid leaderboardID, SecretAPIKey aPIKey, string requestedLanguage = null, CultureInfo culture = null) 
-        : base(gameID, Config.APIDomain, aPIKey, requestedLanguage, culture)
+    public LeaderboardService(Guid gameID, Guid leaderboardID, SecretAPIKey aPIKey, string requestedLanguage = null) 
+        : base(gameID, Config.APIDomain, aPIKey, requestedLanguage)
     {
         LeaderboardID = leaderboardID;
     }
