@@ -3,15 +3,11 @@ using JetBrains.Annotations;
 
 namespace ConstructServices.Authentication.Objects;
 
-public sealed class EndSessionOptions
+public sealed class EndSessionOptions(string sessionKey)
 {
     [UsedImplicitly]
-    public string SessionKey { get; private set; }        
-        
-    public EndSessionOptions(string sessionKey)
-    {
-        SessionKey = sessionKey;
-    }
+    public string SessionKey { get; private set; } = sessionKey;
+
     internal Dictionary<string, string> BuildFormData()
     {
         var formData = new Dictionary<string, string>();
@@ -22,15 +18,11 @@ public sealed class EndSessionOptions
         return formData;
     }
 }
-public sealed class RefreshSessionOptions
+public sealed class RefreshSessionOptions(string sessionKey)
 {
     [UsedImplicitly]
-    public string SessionKey { get; private set; }        
-        
-    public RefreshSessionOptions(string sessionKey)
-    {
-        SessionKey = sessionKey;
-    }
+    public string SessionKey { get; private set; } = sessionKey;
+
     internal Dictionary<string, string> BuildFormData()
     {
         var formData = new Dictionary<string, string>();
@@ -41,15 +33,11 @@ public sealed class RefreshSessionOptions
         return formData;
     }
 }
-public sealed class GetSessionOptions
+public sealed class GetSessionOptions(string sessionKey)
 {
     [UsedImplicitly]
-    public string SessionKey { get; private set; }        
-        
-    public GetSessionOptions(string sessionKey)
-    {
-        SessionKey = sessionKey;
-    }
+    public string SessionKey { get; private set; } = sessionKey;
+
     internal Dictionary<string, string> BuildFormData()
     {
         var formData = new Dictionary<string, string>();

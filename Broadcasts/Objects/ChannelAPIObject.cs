@@ -97,22 +97,16 @@ public sealed class DeleteChannelOptions
         return formData;
     }
 }
-public sealed class GetChannelOptions
+public sealed class GetChannelOptions(string sessionKey, Guid channelID)
 {
     [UsedImplicitly]
-    public string SessionKey { get; private set; }
+    public string SessionKey { get; private set; } = sessionKey;
 
     [UsedImplicitly]
-    public Guid ChannelID { get; private set; }
-    
-    public GetChannelOptions(string sessionKey, Guid channelID)
+    public Guid ChannelID { get; private set; } = channelID;
+
+    public GetChannelOptions(Guid channelID) : this(null, channelID)
     {
-        SessionKey = sessionKey;
-        ChannelID = channelID;
-    }
-    public GetChannelOptions(Guid channelID)
-    {
-        ChannelID = channelID;
     }
 
     [UsedImplicitly]

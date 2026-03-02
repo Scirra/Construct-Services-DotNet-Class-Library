@@ -4,19 +4,14 @@ using System.Collections.Generic;
 
 namespace ConstructServices.Authentication.Objects;
 
-public sealed class DisconnectSignInProviderOptions
+public sealed class DisconnectSignInProviderOptions(string sessionKey, LoginProvider provider)
 {
     [UsedImplicitly]
-    public string SessionKey { get; private set; }    
-        
+    public string SessionKey { get; private set; } = sessionKey;
+
     [UsedImplicitly]
-    public LoginProvider Provider { get; private set; }
-        
-    public DisconnectSignInProviderOptions(string sessionKey, LoginProvider provider)
-    {
-        SessionKey = sessionKey;
-        Provider = provider;
-    }
+    public LoginProvider Provider { get; private set; } = provider;
+
     internal Dictionary<string, string> BuildFormData()
     {
         var formData = new Dictionary<string, string>
@@ -27,15 +22,11 @@ public sealed class DisconnectSignInProviderOptions
         return formData;
     }
 }
-public sealed class ForceLinkOptions
+public sealed class ForceLinkOptions(string code)
 {
     [UsedImplicitly]
-    public string Code { get; private set; }    
-        
-    public ForceLinkOptions(string code)
-    {
-        Code = code;
-    }
+    public string Code { get; private set; } = code;
+
     internal Dictionary<string, string> BuildFormData()
     {
         var formData = new Dictionary<string, string>
@@ -45,19 +36,14 @@ public sealed class ForceLinkOptions
         return formData;
     }
 }
-public sealed class LinkSignInProviderOptions
+public sealed class LinkSignInProviderOptions(string sessionKey, LoginProvider provider)
 {
     [UsedImplicitly]
-    public string SessionKey { get; private set; }    
-        
+    public string SessionKey { get; private set; } = sessionKey;
+
     [UsedImplicitly]
-    public LoginProvider Provider { get; private set; }
-        
-    public LinkSignInProviderOptions(string sessionKey, LoginProvider provider)
-    {
-        SessionKey = sessionKey;
-        Provider = provider;
-    }
+    public LoginProvider Provider { get; private set; } = provider;
+
     internal Dictionary<string, string> BuildFormData()
     {
         var formData = new Dictionary<string, string>
@@ -68,19 +54,14 @@ public sealed class LinkSignInProviderOptions
         return formData;
     }
 }
-public sealed class SignInOptions
+public sealed class SignInOptions(LoginProvider provider, TimeSpan? sessionExpiry = null)
 {
     [UsedImplicitly]
-    public LoginProvider Provider { get; private set; }
-    
+    public LoginProvider Provider { get; private set; } = provider;
+
     [UsedImplicitly]
-    public TimeSpan? SessionExpiry { get; private set; }
-        
-    public SignInOptions(LoginProvider provider, TimeSpan? sessionExpiry = null)
-    {
-        Provider = provider;
-        SessionExpiry = sessionExpiry;
-    }
+    public TimeSpan? SessionExpiry { get; private set; } = sessionExpiry;
+
     internal Dictionary<string, string> BuildFormData()
     {
         var formData = new Dictionary<string, string>
@@ -95,15 +76,11 @@ public sealed class SignInOptions
     }
 }
 
-public sealed class SignInPollOptions
+public sealed class SignInPollOptions(Guid token)
 {
     [UsedImplicitly]
-    public Guid Token { get; private set; }    
-        
-    public SignInPollOptions(Guid token)
-    {
-        Token = token;
-    }
+    public Guid Token { get; private set; } = token;
+
     internal Dictionary<string, string> BuildFormData()
     {
         var formData = new Dictionary<string, string>
@@ -113,15 +90,11 @@ public sealed class SignInPollOptions
         return formData;
     }
 }
-public sealed class LinkPollOptions
+public sealed class LinkPollOptions(Guid token)
 {
     [UsedImplicitly]
-    public Guid Token { get; private set; }    
-        
-    public LinkPollOptions(Guid token)
-    {
-        Token = token;
-    }
+    public Guid Token { get; private set; } = token;
+
     internal Dictionary<string, string> BuildFormData()
     {
         var formData = new Dictionary<string, string>

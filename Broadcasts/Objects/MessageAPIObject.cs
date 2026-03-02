@@ -115,22 +115,16 @@ public sealed class DeleteMessageOptions
         return formData;
     }
 }
-public sealed class GetMessageOptions
+public sealed class GetMessageOptions(string sessionKey, Guid messageID)
 {
     [UsedImplicitly]
-    public string SessionKey { get; private set; }
+    public string SessionKey { get; private set; } = sessionKey;
 
     [UsedImplicitly]
-    public Guid MessageID { get; private set; }
-    
-    public GetMessageOptions(Guid messageID)
+    public Guid MessageID { get; private set; } = messageID;
+
+    public GetMessageOptions(Guid messageID) : this(null, messageID)
     {
-        MessageID = messageID;
-    }
-    public GetMessageOptions(string sessionKey, Guid messageID)
-    {
-        SessionKey = sessionKey;
-        MessageID = messageID;
     }
 
     [UsedImplicitly]

@@ -179,14 +179,10 @@ public sealed class DeletePlayerOptions
 }
 
 [UsedImplicitly]
-public sealed class ForgottenPasswordOptions
+public sealed class ForgottenPasswordOptions(string emailAddress)
 {
-    private string EmailAddress { get; }       
-        
-    public ForgottenPasswordOptions(string emailAddress)
-    {
-        EmailAddress = emailAddress;
-    }
+    private string EmailAddress { get; } = emailAddress;
+
     internal Dictionary<string, string> BuildFormData()
     {
         var formData = new Dictionary<string, string>
@@ -251,14 +247,9 @@ public sealed class GetPlayersOptions
 }
 
 [UsedImplicitly]
-public sealed class ListLoginProviderOptions
+public sealed class ListLoginProviderOptions(string sessionKey)
 {
-    private string SessionKey { get; }       
-        
-    public ListLoginProviderOptions(string sessionKey)
-    {
-        SessionKey = sessionKey;
-    }
+    private string SessionKey { get; } = sessionKey;
 
     internal Dictionary<string, string> BuildFormData()
     {
@@ -307,16 +298,11 @@ public sealed class SetEmailAddressOptions
 }
 
 [UsedImplicitly]
-public sealed class SetPlayerRestrictionsOptions
+public sealed class SetPlayerRestrictionsOptions(Guid playerID, List<PlayerRestriction> restrictions)
 {
-    private Guid PlayerID { get; }
-    private List<PlayerRestriction> Restrictions { get; }
-        
-    public SetPlayerRestrictionsOptions(Guid playerID, List<PlayerRestriction> restrictions)
-    {
-        PlayerID = playerID;
-        Restrictions = restrictions;
-    }
+    private Guid PlayerID { get; } = playerID;
+    private List<PlayerRestriction> Restrictions { get; } = restrictions;
+
     internal Dictionary<string, string> BuildFormData()
     {
         var formData = new Dictionary<string, string>
@@ -332,37 +318,29 @@ public sealed class SetPlayerRestrictionsOptions
 }
 
 [UsedImplicitly]
-public sealed class CreatePlayerOptions
+public sealed class CreatePlayerOptions(
+    string playerName,
+    string emailAddress,
+    string username,
+    string password,
+    TimeSpan? sessionExpiry = null)
 {
-    private string PlayerName { get; }
-    private string Username { get; }
-    private string Password { get; }
-    private string EmailAddress { get; }
-    private TimeSpan? SessionExpiry { get; }
-        
-    public CreatePlayerOptions(string playerName, TimeSpan? sessionExpiry = null)
+    private string PlayerName { get; } = playerName;
+    private string Username { get; } = username;
+    private string Password { get; } = password;
+    private string EmailAddress { get; } = emailAddress;
+    private TimeSpan? SessionExpiry { get; } = sessionExpiry;
+
+    public CreatePlayerOptions(string playerName, TimeSpan? sessionExpiry = null) : this(playerName, null, null, null, null)
     {
-        PlayerName = playerName;
     }
-    public CreatePlayerOptions(string playerName, string emailAddress, TimeSpan? sessionExpiry = null)
+    public CreatePlayerOptions(string playerName, string emailAddress, TimeSpan? sessionExpiry = null) : this(playerName, emailAddress, null, null, null)
     {
-        PlayerName = playerName;
-        EmailAddress = emailAddress;
     }
-    public CreatePlayerOptions(string playerName, string username, string password, TimeSpan? sessionExpiry = null)
+    public CreatePlayerOptions(string playerName, string username, string password, TimeSpan? sessionExpiry = null) : this(playerName, null, username, password)
     {
-        PlayerName = playerName;
-        Username = username;
-        Password = password;
     }
-    public CreatePlayerOptions(string playerName, string emailAddress, string username, string password, TimeSpan? sessionExpiry = null)
-    {
-        PlayerName = playerName;
-        EmailAddress = emailAddress;
-        Username = username;
-        Password = password;
-        SessionExpiry = sessionExpiry;
-    }
+
     internal Dictionary<string, string> BuildFormData()
     {
         var formData = new Dictionary<string, string>
