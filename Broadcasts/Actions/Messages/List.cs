@@ -1,4 +1,6 @@
-﻿using ConstructServices.Broadcasts.Objects;
+﻿using System;
+using System.Collections.Generic;
+using ConstructServices.Broadcasts.Objects;
 using ConstructServices.Broadcasts.Responses;
 using ConstructServices.Common;
 using JetBrains.Annotations;
@@ -15,13 +17,13 @@ public static partial class Messages
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/broadcasts/api-end-points/channels/get-messages" />
         [UsedImplicitly]
-        public MessagesResponse ListMessages(ListMessagesOptions listMessagesOptions)
+        public MessagesResponse ListMessages(ListMessagesOptions listMessagesOptions, PaginationOptions paginationOptions = null)
         {
             return Request.ExecuteSyncRequest<MessagesResponse>(
                 Config.EndPointPaths.Messages.List,
                 service,
                 listMessagesOptions.BuildFormData(),
-                listMessagesOptions.PaginationOptions
+                paginationOptions
             );
         }
 
@@ -30,14 +32,43 @@ public static partial class Messages
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/broadcasts/api-end-points/channels/get-messages" />
         [UsedImplicitly]
-        public async Task<MessagesResponse> ListMessagesAsync(ListMessagesOptions listMessagesOptions)
+        public async Task<MessagesResponse> ListMessagesAsync(ListMessagesOptions listMessagesOptions, PaginationOptions paginationOptions = null)
         {
             return await Request.ExecuteAsyncRequest<MessagesResponse>(
                 Config.EndPointPaths.Messages.List,
                 service,
                 listMessagesOptions.BuildFormData(),
-                listMessagesOptions.PaginationOptions
+                paginationOptions
             );
+        }
+    }
+
+    
+    [UsedImplicitly]
+    public sealed class ListMessagesOptions
+    {
+        private Guid ChannelID { get; }
+    
+        public ListMessagesOptions(string strChannelID)
+        {
+            ChannelID = Guid.Parse(strChannelID);
+        }
+        public ListMessagesOptions(Guid channelID)
+        {
+            ChannelID = channelID;
+        }
+        public ListMessagesOptions(Channel channel)
+        {
+            ChannelID = channel.ID;
+        }
+
+        internal Dictionary<string, string> BuildFormData()
+        {
+            var formData = new Dictionary<string, string>
+            {
+                { "channelID", ChannelID.ToString() }
+            };
+            return formData;
         }
     }
 }

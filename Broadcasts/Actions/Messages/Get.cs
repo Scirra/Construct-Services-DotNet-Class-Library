@@ -1,4 +1,5 @@
-﻿using ConstructServices.Broadcasts.Objects;
+﻿using System;
+using System.Collections.Generic;
 using ConstructServices.Broadcasts.Responses;
 using ConstructServices.Common;
 using JetBrains.Annotations;
@@ -36,6 +37,32 @@ public static partial class Messages
                 service,
                 getMessageOptions.BuildFormData()
             );
+        }
+    }
+
+    
+    [UsedImplicitly]
+    public sealed class GetMessageOptions(string sessionKey, Guid messageID)
+    {
+        private string SessionKey { get; } = sessionKey;
+
+        private Guid MessageID { get; } = messageID;
+
+        public GetMessageOptions(Guid messageID) : this(null, messageID)
+        {
+        }
+
+        internal Dictionary<string, string> BuildFormData()
+        {
+            var formData = new Dictionary<string, string>
+            {
+                { "messageID", MessageID.ToString() }
+            };
+            if (!string.IsNullOrWhiteSpace(SessionKey))
+            {
+                formData.Add("sessionKey", SessionKey);
+            }
+            return formData;
         }
     }
 }

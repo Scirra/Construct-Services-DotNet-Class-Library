@@ -1,4 +1,5 @@
-﻿using ConstructServices.CloudSave.Objects;
+﻿using System;
+using System.Collections.Generic;
 using ConstructServices.CloudSave.Responses;
 using ConstructServices.Common;
 using JetBrains.Annotations;
@@ -36,6 +37,31 @@ public static partial class Buckets
                 service,
                 getBucketOptions.BuildFormData()
             );
+        }
+    }
+
+    
+    [UsedImplicitly]
+    public sealed class GetBucketOptions
+    {
+        private Guid BucketID { get; }
+    
+        public GetBucketOptions(string strBucketID)
+        {
+            BucketID = Guid.Parse(strBucketID);
+        }
+        public GetBucketOptions(Guid bucketID)
+        {
+            BucketID = bucketID;
+        }
+
+        internal Dictionary<string, string> BuildFormData()
+        {
+            var formData = new Dictionary<string, string>
+            {
+                { "bucketID", BucketID.ToString() }
+            };
+            return formData;
         }
     }
 }

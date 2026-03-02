@@ -1,5 +1,5 @@
-﻿using System.Threading.Tasks;
-using ConstructServices.Broadcasts.Objects;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using ConstructServices.Broadcasts.Responses;
 using ConstructServices.Common;
 using JetBrains.Annotations;
@@ -36,6 +36,31 @@ public static partial class Channels
                 service,
                 createChannelOptions.BuildFormData()
             );
+        }
+    }
+
+    [UsedImplicitly]
+    public sealed class CreateChannelOptions(
+        string name,
+        string description,
+        bool allowRatings,
+        string languageISO = null)
+    {    
+        private string Name { get; } = name;
+        private string Description { get; } = description;
+        private string LanguageISO { get; } = languageISO;
+        private bool AllowRatings { get; } = allowRatings;
+
+        internal Dictionary<string, string> BuildFormData()
+        {
+            var formData = new Dictionary<string, string>
+            {
+                { "name", Name },
+                { "description", Description },
+                { "language", LanguageISO },
+                { "allowRatings", AllowRatings.ToInt().ToString() }
+            };
+            return formData;
         }
     }
 }

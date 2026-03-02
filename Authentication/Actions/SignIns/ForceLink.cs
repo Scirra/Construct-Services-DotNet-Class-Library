@@ -42,7 +42,6 @@ public static partial class SignIns
     [UsedImplicitly]
     public sealed class ForceLinkOptions(string code)
     {
-        [UsedImplicitly]
         private string Code { get; } = code;
 
         internal Dictionary<string, string> BuildFormData()

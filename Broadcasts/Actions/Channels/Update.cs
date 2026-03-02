@@ -1,4 +1,5 @@
-﻿using ConstructServices.Broadcasts.Objects;
+﻿using System;
+using System.Collections.Generic;
 using ConstructServices.Broadcasts.Responses;
 using ConstructServices.Common;
 using JetBrains.Annotations;
@@ -36,6 +37,37 @@ public static partial class Channels
                 service,
                 updateChannelOptions.BuildFormData()
             );
+        }
+    }
+    
+    [UsedImplicitly]
+    public sealed class UpdateChannelOptions
+    {    
+        private Guid ID { get; [UsedImplicitly] set; }
+        public string Name { get; [UsedImplicitly] set; }
+        public string Description { get; [UsedImplicitly] set; }
+        public string LanguageISO { get; [UsedImplicitly] set; }
+        public bool? AllowRatings { get; [UsedImplicitly] set; }
+    
+        public UpdateChannelOptions(Guid channelID)
+        {
+            ID = channelID;
+        }
+        public UpdateChannelOptions(string strChannelID)
+        {
+            ID = Guid.Parse(strChannelID);
+        }
+        internal Dictionary<string, string> BuildFormData()
+        {        
+            var formData = new Dictionary<string, string>
+            {
+                { "channelID", ID.ToString() },
+                { "name", Name },
+                { "description", Description },
+                { "language", LanguageISO }
+            };
+            if(AllowRatings.HasValue) formData.Add("allowRatings", AllowRatings.Value.ToInt().ToString());
+            return formData;
         }
     }
 }

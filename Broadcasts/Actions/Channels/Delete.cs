@@ -1,4 +1,5 @@
-﻿using ConstructServices.Broadcasts.Objects;
+﻿using System;
+using System.Collections.Generic;
 using ConstructServices.Common;
 using JetBrains.Annotations;
 using System.Threading.Tasks;
@@ -35,6 +36,30 @@ public static partial class Channels
                 service,
                 deleteChannelOptions.BuildFormData()
             );
+        }
+    }
+
+    [UsedImplicitly]
+    public sealed class DeleteChannelOptions
+    {
+        private Guid ChannelID { get; }
+    
+        public DeleteChannelOptions(string strChannelID)
+        {
+            ChannelID = Guid.Parse(strChannelID);
+        }
+        public DeleteChannelOptions(Guid channelID)
+        {
+            ChannelID = channelID;
+        }
+
+        internal Dictionary<string, string> BuildFormData()
+        {
+            var formData = new Dictionary<string, string>
+            {
+                { "channelID", ChannelID.ToString() }
+            };
+            return formData;
         }
     }
 }

@@ -1,6 +1,7 @@
-﻿using ConstructServices.Common;
+﻿using System;
+using System.Collections.Generic;
+using ConstructServices.Common;
 using System.Threading.Tasks;
-using ConstructServices.CloudSave.Objects;
 using JetBrains.Annotations;
 
 namespace ConstructServices.CloudSave.Actions;
@@ -36,6 +37,30 @@ public static partial class Buckets
                 service,
                 deleteBucketOptions.BuildFormData()
             );
+        }
+    }
+    
+    [UsedImplicitly]
+    public sealed class DeleteBucketOptions
+    {
+        private Guid BucketID { get; }
+    
+        public DeleteBucketOptions(string strBucketID)
+        {
+            BucketID = Guid.Parse(strBucketID);
+        }
+        public DeleteBucketOptions(Guid bucketID)
+        {
+            BucketID = bucketID;
+        }
+
+        internal Dictionary<string, string> BuildFormData()
+        {
+            var formData = new Dictionary<string, string>
+            {
+                { "bucketID", BucketID.ToString() }
+            };
+            return formData;
         }
     }
 }

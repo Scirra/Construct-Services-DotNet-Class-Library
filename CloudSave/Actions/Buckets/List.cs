@@ -1,8 +1,9 @@
-﻿using ConstructServices.CloudSave.Objects;
+﻿using System.Collections.Generic;
 using ConstructServices.CloudSave.Responses;
 using ConstructServices.Common;
 using JetBrains.Annotations;
 using System.Threading.Tasks;
+using ConstructServices.CloudSave.Enums;
 
 namespace ConstructServices.CloudSave.Actions;
 
@@ -44,4 +45,29 @@ public static partial class Buckets
             );
         }
     }
+
+    [UsedImplicitly]
+    public sealed class ListBucketOptions
+    {
+        private GetBucketsSortMethod? SortBy { get; }
+    
+        public ListBucketOptions(GetBucketsSortMethod sortBy)
+        {
+            SortBy = sortBy;
+        }
+        public ListBucketOptions()
+        {
+        }
+
+        internal Dictionary<string, string> BuildFormData()
+        {
+            var formData = new Dictionary<string, string>();
+            if (SortBy.HasValue)
+            {
+                formData.Add("orderBy", SortBy.ToString());
+            }
+            return formData;
+        }
+    }
+
 }

@@ -15,7 +15,7 @@ public static partial class Channels
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/broadcasts/api-end-points/channels/list-channels" />
         [UsedImplicitly]
-        public ChannelsResponse ListChannels()
+        public ChannelsResponse ListChannels(ListChannelOptions listChannelOptions = null)
         {
             var formData = new Dictionary<string, string>();
             return Request.ExecuteSyncRequest<ChannelsResponse>(
@@ -30,7 +30,7 @@ public static partial class Channels
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/broadcasts/api-end-points/channels/list-channels" />
         [UsedImplicitly]
-        public async Task<ChannelsResponse> ListChannelsAsync()
+        public async Task<ChannelsResponse> ListChannelsAsync(ListChannelOptions listChannelOptions = null)
         {
             var formData = new Dictionary<string, string>();
             return await Request.ExecuteAsyncRequest<ChannelsResponse>(
@@ -39,5 +39,11 @@ public static partial class Channels
                 formData
             );
         }
+    }
+
+    [UsedImplicitly]
+    public sealed class ListChannelOptions
+    {
+
     }
 }

@@ -1,6 +1,7 @@
-﻿using ConstructServices.CloudSave.Objects;
-using ConstructServices.Common;
+﻿using ConstructServices.Common;
 using JetBrains.Annotations;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ConstructServices.CloudSave.Actions;
@@ -36,6 +37,41 @@ public static partial class Saves
                 service,
                 deleteCloudSavePictureOptions.BuildFormData()
             );
+        }
+    }
+
+    [UsedImplicitly]
+    public sealed class DeleteCloudSavePictureOptions
+    {
+        private Guid CloudSaveID { get; }
+        private string SessionKey { get; }
+    
+        public DeleteCloudSavePictureOptions(Guid cloudSaveID)
+        {
+            CloudSaveID = cloudSaveID;
+        }
+        public DeleteCloudSavePictureOptions(string sessionKey, Guid cloudSaveID)
+        {
+            SessionKey = sessionKey;
+            CloudSaveID = cloudSaveID;
+        }
+        public DeleteCloudSavePictureOptions(string sessionKey, string strCloudSaveID)
+        {
+            SessionKey = sessionKey;
+            CloudSaveID = Guid.Parse(strCloudSaveID);
+        }
+
+        internal Dictionary<string, string> BuildFormData()
+        {
+            var formData = new Dictionary<string, string>
+            {
+                { "blobID", CloudSaveID.ToString() }
+            };
+            if (!string.IsNullOrWhiteSpace(SessionKey))
+            {
+                formData.Add("sessionKey", SessionKey);
+            }
+            return formData;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using ConstructServices.Broadcasts.Objects;
+﻿using System;
+using System.Collections.Generic;
 using ConstructServices.Broadcasts.Responses;
 using ConstructServices.Common;
 using JetBrains.Annotations;
@@ -35,6 +36,31 @@ public static partial class Messages
                 service,
                 deleteMessageOptions.BuildFormData()
             );
+        }
+    }
+
+    
+    [UsedImplicitly]
+    public sealed class DeleteMessageOptions
+    {
+        private Guid MessageID { get; }
+    
+        public DeleteMessageOptions(string strMessageID)
+        {
+            MessageID = Guid.Parse(strMessageID);
+        }
+        public DeleteMessageOptions(Guid messageID)
+        {
+            MessageID = messageID;
+        }
+
+        internal Dictionary<string, string> BuildFormData()
+        {
+            var formData = new Dictionary<string, string>
+            {
+                { "messageID", MessageID.ToString() }
+            };
+            return formData;
         }
     }
 }
