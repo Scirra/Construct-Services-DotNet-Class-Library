@@ -1,8 +1,7 @@
-﻿using ConstructServices.CloudSave.Responses;
+﻿using ConstructServices.CloudSave.Objects;
+using ConstructServices.CloudSave.Responses;
 using ConstructServices.Common;
 using JetBrains.Annotations;
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ConstructServices.CloudSave.Actions;
@@ -12,64 +11,30 @@ public static partial class Buckets
     extension(CloudSaveService service)
     {
         /// <summary>
-        /// Get a bucket by its ID.  Doesn't return cloud saves in bucket, just the bucket itself.
+        /// Get an existing CloudSave Bucket
         /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/cloud-save/api-end-points/buckets/get-bucket" />
         [UsedImplicitly]
-        public BucketResponse GetBucket(string strBucketID)
+        public BucketResponse GetBucket(GetBucketOptions getBucketOptions)
         {
-            var bucketIDValidator = Common.Validations.Guid.IsValidGuid(strBucketID);
-            if (!bucketIDValidator.Successfull)
-            {
-                return new BucketResponse(string.Format(bucketIDValidator.ErrorMessage, "Bucket ID"));
-            }
-            return service.GetBucket(bucketIDValidator.ReturnedObject);
-        }
-
-        /// <summary>
-        /// Get a bucket by its ID.  Doesn't return cloud saves in bucket, just the bucket itself.
-        /// </summary>
-        [UsedImplicitly]
-        public async Task<BucketResponse> GetBucketAsync(string strBucketID)
-        {
-            var bucketIDValidator = Common.Validations.Guid.IsValidGuid(strBucketID);
-            if (!bucketIDValidator.Successfull)
-            {
-                return new BucketResponse(string.Format(bucketIDValidator.ErrorMessage, "Bucket ID"));
-            }
-            return await service.GetBucketAsync(bucketIDValidator.ReturnedObject);
-        }
-
-        /// <summary>
-        /// Get a bucket by its ID.  Doesn't return cloud saves in bucket, just the bucket itself.
-        /// </summary>
-        [UsedImplicitly]
-        public BucketResponse GetBucket(Guid bucketID)
-        {
-            var formData = new Dictionary<string, string>
-            {
-                { "bucketID", bucketID.ToString() }
-            };
             return Request.ExecuteSyncRequest<BucketResponse>(
                 Config.EndPointPaths.Buckets.Get,
                 service,
-                formData
+                getBucketOptions.BuildFormData()
             );
         }
 
         /// <summary>
-        /// Get a bucket by its ID.  Doesn't return cloud saves in bucket, just the bucket itself.
+        /// Get an existing CloudSave Bucket
         /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/cloud-save/api-end-points/buckets/get-bucket" />
         [UsedImplicitly]
-        public async Task<BucketResponse> GetBucketAsync(Guid bucketID)
+        public async Task<BucketResponse> GetBucketAsync(GetBucketOptions getBucketOptions)
         {
-            var formData = new Dictionary<string, string>
-            {
-                { "bucketID", bucketID.ToString() }
-            };
             return await Request.ExecuteAsyncRequest<BucketResponse>(
                 Config.EndPointPaths.Buckets.Get,
                 service,
-                formData
+                getBucketOptions.BuildFormData()
             );
         }
     }

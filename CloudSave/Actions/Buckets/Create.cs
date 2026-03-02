@@ -11,8 +11,9 @@ public static partial class Buckets
     extension(CloudSaveService service)
     {
         /// <summary>
-        /// Create a new bucket
+        /// Creates a new CloudSave Bucket
         /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/cloud-save/api-end-points/buckets/create-bucket" />
         [UsedImplicitly]
         public BucketResponse CreateBucket(CreateBucketOptions createBucketOptions)
         {
@@ -24,8 +25,9 @@ public static partial class Buckets
         }
 
         /// <summary>
-        /// Create a new bucket
+        /// Creates a new CloudSave Bucket
         /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/cloud-save/api-end-points/buckets/create-bucket" />
         [UsedImplicitly]
         public async Task<BucketResponse> CreateBucketAsync(CreateBucketOptions createBucketOptions)
         {

@@ -10,6 +10,10 @@ public static partial class Buckets
 {
     extension(CloudSaveService service)
     {
+        /// <summary>
+        /// Delete an existing CloudSave Bucket
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/cloud-save/api-end-points/buckets/delete-bucket" />
         [UsedImplicitly]
         public BaseResponse DeleteBucket(DeleteBucketOptions deleteBucketOptions)
         {
@@ -20,6 +24,10 @@ public static partial class Buckets
             );
         }
 
+        /// <summary>
+        /// Delete an existing CloudSave Bucket
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/cloud-save/api-end-points/buckets/delete-bucket" />
         [UsedImplicitly]
         public async Task<BaseResponse> DeleteBucketAsync(DeleteBucketOptions deleteBucketOptions)
         {
