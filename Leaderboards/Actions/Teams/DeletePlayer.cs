@@ -1,81 +1,39 @@
 ﻿using ConstructServices.Common;
+using ConstructServices.Leaderboards.Objects;
 using JetBrains.Annotations;
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ConstructServices.Leaderboards.Actions;
 
 public static partial class Teams
 {
-
     extension(LeaderboardService service)
     {
+        /// <summary>
+        /// Delete a player from a Team
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/teams/remove-player" />
         [UsedImplicitly]
-        public BaseResponse RemovePlayerFromTeam(
-            string strTeamID,
-            string strPlayerID)
-        {
-            var teamIDValidator = Common.Validations.Guid.IsValidGuid(strTeamID);
-            if (!teamIDValidator.Successfull)
-            {
-                return new BaseResponse(string.Format(teamIDValidator.ErrorMessage, "Team ID"));
-            }
-            var playerIDValidator = Common.Validations.Guid.IsValidGuid(strPlayerID);
-            if (!playerIDValidator.Successfull)
-            {
-                return new BaseResponse(string.Format(playerIDValidator.ErrorMessage, "Player ID"));
-            }
-            return service.RemovePlayerFromTeam(teamIDValidator.ReturnedObject, playerIDValidator.ReturnedObject);
-        }
-
-        [UsedImplicitly]
-        public async Task<BaseResponse> RemovePlayerFromTeamAsync(
-            string strTeamID,
-            string strPlayerID)
-        {
-            var teamIDValidator = Common.Validations.Guid.IsValidGuid(strTeamID);
-            if (!teamIDValidator.Successfull)
-            {
-                return new BaseResponse(string.Format(teamIDValidator.ErrorMessage, "Team ID"));
-            }
-            var playerIDValidator = Common.Validations.Guid.IsValidGuid(strPlayerID);
-            if (!playerIDValidator.Successfull)
-            {
-                return new BaseResponse(string.Format(playerIDValidator.ErrorMessage, "Player ID"));
-            }
-            return await service.RemovePlayerFromTeamAsync(teamIDValidator.ReturnedObject, playerIDValidator.ReturnedObject);
-        }
-        
-        [UsedImplicitly]
-        public BaseResponse RemovePlayerFromTeam(
-            Guid teamID,
-            Guid playerID)
+        public BaseResponse DeletePlayerFromTeam(DeleteTeamPlayerOptions deleteTeamPlayerOptions)
         {
             return Request.ExecuteSyncRequest<BaseResponse>(
                 Config.EndPointPaths.Teams.DeletePlayer,
                 service,
-                new Dictionary<string, string>
-                {
-                    { "teamID", teamID.ToString() },
-                    { "playerID", playerID.ToString() }
-                }
+                deleteTeamPlayerOptions.BuildFormData()
             );
         }
         
+        /// <summary>
+        /// Delete a player from a Team
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/teams/remove-player" />
         [UsedImplicitly]
-        public async Task<BaseResponse> RemovePlayerFromTeamAsync(
-            Guid teamID,
-            Guid playerID)
+        public async Task<BaseResponse> DeletePlayerFromTeamAsync(DeleteTeamPlayerOptions deleteTeamPlayerOptions)
         {
             return await Request.ExecuteAsyncRequest<BaseResponse>(
                 Config.EndPointPaths.Teams.DeletePlayer,
                 service,
-                new Dictionary<string, string>
-                {
-                    { "teamID", teamID.ToString() },
-                    { "playerID", playerID.ToString() }
-                }
+                deleteTeamPlayerOptions.BuildFormData()
             );
         }
     }

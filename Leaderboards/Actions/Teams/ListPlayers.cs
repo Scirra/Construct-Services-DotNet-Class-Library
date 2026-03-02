@@ -1,81 +1,45 @@
-﻿using System;
-using ConstructServices.Leaderboards.Responses;
-using System.Collections.Generic;
+﻿using ConstructServices.Leaderboards.Responses;
 using System.Threading.Tasks;
 using ConstructServices.Common;
+using ConstructServices.Leaderboards.Objects;
 using JetBrains.Annotations;
 
 namespace ConstructServices.Leaderboards.Actions;
 
 public static partial class Teams
 {
-    
     extension(LeaderboardService service)
     {
+        /// <summary>
+        /// List all Players on an existing Team
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/teams/team-players" />
         [UsedImplicitly]
-        public GetTeamPlayersResponse GetTeamPlayers(PaginationOptions paginationOptions,
-            string strTeamID,
-            string order = null)
+        public GetTeamPlayersResponse GetTeamPlayers(
+            ListTeamPlayersOptions listTeamPlayersOptions,
+            PaginationOptions paginationOptions)
         {
-            var teamIDValidator = Common.Validations.Guid.IsValidGuid(strTeamID);
-            if (!teamIDValidator.Successfull)
-            {
-                return new GetTeamPlayersResponse(string.Format(teamIDValidator.ErrorMessage, "Team ID"));
-            }
-            return service.GetTeamPlayers(paginationOptions, teamIDValidator.ReturnedObject, order);
-        }
-
-        [UsedImplicitly]
-        public async Task<GetTeamPlayersResponse> GetTeamPlayersAsync(PaginationOptions paginationOptions,
-            string strTeamID,
-            string order = null)
-        {
-            var teamIDValidator = Common.Validations.Guid.IsValidGuid(strTeamID);
-            if (!teamIDValidator.Successfull)
-            {
-                return new GetTeamPlayersResponse(string.Format(teamIDValidator.ErrorMessage, "Team ID"));
-            }
-            return await service.GetTeamPlayersAsync(paginationOptions, teamIDValidator.ReturnedObject, order);
-        }
-
-        [UsedImplicitly]
-        public GetTeamPlayersResponse GetTeamPlayers(PaginationOptions paginationOptions,
-            Guid teamID,
-            string order = null)
-        {
-            var formData = new Dictionary<string, string>
-            {
-                { "teamID", teamID.ToString() }
-            };
-            if (!string.IsNullOrWhiteSpace(order))
-            {
-                formData.Add("order", order);
-            }
             return Request.ExecuteSyncRequest<GetTeamPlayersResponse>(
                 Config.EndPointPaths.Teams.ListPlayers,
                 service,
-                formData,
+                listTeamPlayersOptions.BuildFormData(),
                 paginationOptions
             );
         }
 
+        /// <summary>
+        /// List all Players on an existing Team
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/teams/team-players" />
         [UsedImplicitly]
-        public async Task<GetTeamPlayersResponse> GetTeamPlayersAsync(PaginationOptions paginationOptions,
-            Guid teamID,
-            string order = null)
+        public async Task<GetTeamPlayersResponse> GetTeamPlayersAsync(
+            ListTeamPlayersOptions listTeamPlayersOptions,
+            PaginationOptions paginationOptions)
         {
-            var formData = new Dictionary<string, string>
-            {
-                { "teamID", teamID.ToString() }
-            };
-            if (!string.IsNullOrWhiteSpace(order))
-            {
-                formData.Add("order", order);
-            }
             return await Request.ExecuteAsyncRequest<GetTeamPlayersResponse>(
                 Config.EndPointPaths.Teams.ListPlayers,
                 service,
-                formData,
+                listTeamPlayersOptions.BuildFormData(),
                 paginationOptions
             );
         }
