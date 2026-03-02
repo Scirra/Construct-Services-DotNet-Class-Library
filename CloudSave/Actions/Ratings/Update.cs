@@ -14,7 +14,7 @@ public static partial class Ratings
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/cloud-save/api-end-points/ratings/edit-dimension" />
         [UsedImplicitly]
-        public DimensionResponse EditRatingDimension(
+        public DimensionResponse UpdateRatingDimension(
             Dimensions.UpdateCloudSaveBucketRatingDimensionOptions updateCloudSaveBucketRatingDimensionOptions)
         {
             return service.UpdateDimension(Config.EndPointPaths.Ratings.UpdateDimension, updateCloudSaveBucketRatingDimensionOptions);
@@ -25,7 +25,7 @@ public static partial class Ratings
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/cloud-save/api-end-points/ratings/edit-dimension" />
         [UsedImplicitly]
-        public async Task<DimensionResponse> EditRatingDimensionAsync(
+        public async Task<DimensionResponse> UpdateRatingDimensionAsync(
             Dimensions.UpdateCloudSaveBucketRatingDimensionOptions updateCloudSaveBucketRatingDimensionOptions)
         {
             return await service.UpdateDimensionAsync(Config.EndPointPaths.Ratings.UpdateDimension, updateCloudSaveBucketRatingDimensionOptions);
