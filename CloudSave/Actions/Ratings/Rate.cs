@@ -10,8 +10,9 @@ public static partial class Ratings
     extension(CloudSaveService service)
     {
         /// <summary>
-        /// Rate a cloud save
+        /// Rate a CloudSave
         /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/cloud-save/api-end-points/ratings/rate-cloud-save" />
         [UsedImplicitly]
         public RateResponse Rate(RateCloudSaveOptions rateCloudSaveOptions)
         {
@@ -19,8 +20,9 @@ public static partial class Ratings
         }
 
         /// <summary>
-        /// Rate a cloud save
+        /// Rate a CloudSave
         /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/cloud-save/api-end-points/ratings/rate-cloud-save" />
         [UsedImplicitly]
         public async Task<RateResponse> RateAsync(RateCloudSaveOptions rateCloudSaveOptions)
         {

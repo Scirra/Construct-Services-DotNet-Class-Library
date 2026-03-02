@@ -179,14 +179,14 @@ public sealed class ListBucketSavesOptions
     public Guid BucketID { get; private set; }
 
     [UsedImplicitly]
-    public GetBucketsSortMethod? SortBy { get; private set; }
+    public GetBucketCloudSaveSortMethod? SortBy { get; private set; }
 
     [UsedImplicitly]
     public GetBucketCloudSaveFilters Filters { get; private set; }
     
     public ListBucketSavesOptions(
         Guid bucketID, 
-        GetBucketsSortMethod? sortBy = null,
+        GetBucketCloudSaveSortMethod? sortBy = null,
         GetBucketCloudSaveFilters filters = null)
     {
         BucketID = bucketID;
@@ -195,7 +195,7 @@ public sealed class ListBucketSavesOptions
     }
     public ListBucketSavesOptions(
         string strBucketID, 
-        GetBucketsSortMethod? sortBy = null,
+        GetBucketCloudSaveSortMethod? sortBy = null,
         GetBucketCloudSaveFilters filters = null)
     {
         BucketID = Guid.Parse(strBucketID);
@@ -204,7 +204,7 @@ public sealed class ListBucketSavesOptions
     }
     public ListBucketSavesOptions(
         Bucket bucket, 
-        GetBucketsSortMethod? sortBy = null,
+        GetBucketCloudSaveSortMethod? sortBy = null,
         GetBucketCloudSaveFilters filters = null)
     {
         BucketID = bucket.ID;

@@ -10,8 +10,9 @@ public static partial class Ratings
     extension(CloudSaveService service)
     {
         /// <summary>
-        /// Create a rating dimension for a bucket
+        /// Creates a new Rating Dimension for a CloudSave Bucket
         /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/cloud-save/api-end-points/ratings/create-dimension" />
         [UsedImplicitly]
         public DimensionResponse CreateRatingDimension(
             CreateCloudSaveBucketRatingDimensionOptions createCloudSaveBucketRatingDimensionOptions)
@@ -23,8 +24,9 @@ public static partial class Ratings
         }
 
         /// <summary>
-        /// Create a rating dimension for a bucket
+        /// Creates a new Rating Dimension for a CloudSave Bucket
         /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/cloud-save/api-end-points/ratings/create-dimension" />
         [UsedImplicitly]
         public async Task<DimensionResponse> CreateRatingDimensionAsync(
             CreateCloudSaveBucketRatingDimensionOptions createCloudSaveBucketRatingDimensionOptions)

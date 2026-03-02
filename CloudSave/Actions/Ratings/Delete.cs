@@ -10,16 +10,18 @@ public static partial class Ratings
     extension(CloudSaveService service)
     {
         /// <summary>
-        /// Delete a rating dimension for a bucket
+        /// Delete an existing Rating Dimension on a CloudSave Bucket
         /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/cloud-save/api-end-points/ratings/delete-dimension" />
         [UsedImplicitly]
         public BaseResponse DeleteRatingDimension(
             DeleteCloudSaveBucketRatingDimensionOptions deleteCloudSaveBucketRatingDimensionOptions)
             => global::ConstructServices.Ratings.Actions.Dimensions.DeleteDimension(service, Config.EndPointPaths.Ratings.DeleteDimension, deleteCloudSaveBucketRatingDimensionOptions);
 
         /// <summary>
-        /// Delete a rating dimension for a bucket
+        /// Delete an existing Rating Dimension on a CloudSave Bucket
         /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/cloud-save/api-end-points/ratings/delete-dimension" />
         [UsedImplicitly]
         public async Task<BaseResponse> DeleteRatingDimensionAsync(
             DeleteCloudSaveBucketRatingDimensionOptions deleteCloudSaveBucketRatingDimensionOptions)

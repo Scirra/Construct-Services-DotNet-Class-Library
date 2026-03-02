@@ -10,8 +10,9 @@ public static partial class Ratings
     extension(CloudSaveService service)
     {
         /// <summary>
-        /// Get rating dimensions for a bucket
+        /// List all Rating Dimensions on a CloudSave Bucket
         /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/cloud-save/api-end-points/ratings/get-dimensions" />
         [UsedImplicitly]
         public DimensionsResponse GetRatingDimensions(ListCloudSaveBucketDimensionOptions listCloudSaveBucketDimensionOptions)
         {
@@ -19,8 +20,9 @@ public static partial class Ratings
         }
 
         /// <summary>
-        /// Get rating dimensions for a bucket
+        /// List all Rating Dimensions on a CloudSave Bucket
         /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/cloud-save/api-end-points/ratings/get-dimensions" />
         [UsedImplicitly]
         public async Task<DimensionsResponse> GetRatingDimensionsAsync(ListCloudSaveBucketDimensionOptions listCloudSaveBucketDimensionOptions)
         {
