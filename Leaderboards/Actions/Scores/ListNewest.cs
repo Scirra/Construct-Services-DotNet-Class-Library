@@ -1,5 +1,5 @@
-﻿using ConstructServices.Common;
-using ConstructServices.Leaderboards.Objects;
+﻿using System.Collections.Generic;
+using ConstructServices.Common;
 using ConstructServices.Leaderboards.Responses;
 using JetBrains.Annotations;
 using System.Threading.Tasks;
@@ -55,4 +55,22 @@ public static partial class Scores
             );
         }
     }
+    
+
+    [UsedImplicitly]
+    public sealed class ListNewestScoresOptions(string countryISO = null)
+    {
+        private string CountryISO { get; } = countryISO;
+
+        internal Dictionary<string, string> BuildFormData()
+        {
+            var formData = new Dictionary<string, string>();
+            if (!string.IsNullOrWhiteSpace(CountryISO))
+            {
+                formData.Add("country", CountryISO);
+            }
+            return formData;
+        }
+    }
+
 }

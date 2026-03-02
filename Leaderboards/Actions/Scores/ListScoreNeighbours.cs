@@ -1,5 +1,6 @@
-﻿using ConstructServices.Common;
-using ConstructServices.Leaderboards.Objects;
+﻿using System;
+using System.Collections.Generic;
+using ConstructServices.Common;
 using ConstructServices.Leaderboards.Responses;
 using JetBrains.Annotations;
 using System.Threading.Tasks;
@@ -8,7 +9,6 @@ namespace ConstructServices.Leaderboards.Actions;
 
 public static partial class Scores
 {
-
     extension(LeaderboardService service)
     {        
         /// <summary>
@@ -87,4 +87,51 @@ public static partial class Scores
             );
         }
     }
+    
+    [UsedImplicitly]
+    public abstract class ListNeighbourScoresBase(Guid? playerID, Guid? scoreID, short? range, short? compareRanks)
+    {
+        private Guid? PlayerID { get; } = playerID;
+        private Guid? ScoreID { get; } = scoreID;
+        private short? Range { get; } = range;
+        private short? CompareRanks { get; } = compareRanks;
+
+        internal Dictionary<string, string> BuildFormData()
+        {
+            var formData = new Dictionary<string, string>();
+            if (PlayerID.HasValue)
+            {
+                formData.Add("playerID", PlayerID.Value.ToString());
+            }
+            if (ScoreID.HasValue)
+            {
+                formData.Add("scoreID", ScoreID.Value.ToString());
+            }
+            if (Range.HasValue)
+            {
+                formData.Add("range", Range.Value.ToString());
+            }
+            if (CompareRanks.HasValue)
+            {
+                formData.Add("compareRanks", CompareRanks.Value.ToString());
+            }
+            return formData;
+        }
+    }
+
+    [UsedImplicitly]
+    public sealed class ListPlayerScoreNeighboursOptions(
+        Guid playerID,
+        short? range,
+        short? compareRanks)
+        : ListNeighbourScoresBase(playerID, null, range, compareRanks);
+
+    [UsedImplicitly]
+    public sealed class ListScoreNeighboursOptions(
+        Guid scoreID, 
+        short? range, 
+        short? compareRanks)
+        : ListNeighbourScoresBase(null, scoreID, range, compareRanks);
+
+
 }

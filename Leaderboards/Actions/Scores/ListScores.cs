@@ -1,7 +1,8 @@
-﻿using ConstructServices.Leaderboards.Responses;
+﻿using System.Collections.Generic;
+using ConstructServices.Leaderboards.Responses;
 using System.Threading.Tasks;
 using ConstructServices.Common;
-using ConstructServices.Leaderboards.Objects;
+using ConstructServices.Leaderboards.Enums;
 using JetBrains.Annotations;
 
 namespace ConstructServices.Leaderboards.Actions;
@@ -54,4 +55,41 @@ public static partial class Scores
             );
         }
     }
+
+    
+    [UsedImplicitly]
+    public sealed class ListScoreOptions(
+        string countryISO = null,
+        short? compareRanks = null,
+        ScoreRange? range = null,
+        short? rangeOffset = null)
+    {
+        private string CountryISO { get; } = countryISO;
+        private short? CompareRanks { get; } = compareRanks;
+        private ScoreRange? Range { get; } = range;
+        private short? RangeOffset { get; } = rangeOffset;
+
+        internal Dictionary<string, string> BuildFormData()
+        {
+            var formData = new Dictionary<string, string>();
+            if (!string.IsNullOrWhiteSpace(CountryISO))
+            {
+                formData.Add("country", CountryISO);
+            }
+            if (CompareRanks.HasValue)
+            {
+                formData.Add("compareRanks", CompareRanks.Value.ToString());
+            }
+            if (Range.HasValue)
+            {
+                formData.Add("range", Range.Value.ToString());
+            }
+            if (RangeOffset.HasValue)
+            {
+                formData.Add("rangeOffset", RangeOffset.Value.ToString());
+            }
+            return formData;
+        }
+    }
+
 }

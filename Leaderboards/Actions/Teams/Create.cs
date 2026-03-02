@@ -1,4 +1,5 @@
-﻿using ConstructServices.Common;
+﻿using System.Collections.Generic;
+using ConstructServices.Common;
 using ConstructServices.Leaderboards.Objects;
 using ConstructServices.Leaderboards.Responses;
 using JetBrains.Annotations;
@@ -36,6 +37,21 @@ public static partial class Teams
                 service,
                 createTeamOptions.BuildFormData()
             );
+        }
+    }
+
+    [UsedImplicitly]
+    public sealed class CreateTeamOptions(string name)
+    {
+        private string Name { get; } = name;
+
+        internal Dictionary<string, string> BuildFormData()
+        {
+            var formData = new Dictionary<string, string>
+            {
+                { "teamName", Name }
+            };
+            return formData;
         }
     }
 }

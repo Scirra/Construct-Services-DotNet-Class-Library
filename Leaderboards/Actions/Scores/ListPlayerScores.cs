@@ -1,5 +1,6 @@
-﻿using ConstructServices.Common;
-using ConstructServices.Leaderboards.Objects;
+﻿using System;
+using System.Collections.Generic;
+using ConstructServices.Common;
 using ConstructServices.Leaderboards.Responses;
 using JetBrains.Annotations;
 using System.Threading.Tasks;
@@ -44,4 +45,21 @@ public static partial class Scores{
             );
         }
     }
+
+    
+    [UsedImplicitly]
+    public sealed class ListPlayerScoresOptions(Guid playerID)
+    {
+        private Guid PlayerID { get; } = playerID;
+
+        internal Dictionary<string, string> BuildFormData()
+        {
+            var formData = new Dictionary<string, string>
+            {
+                { "playerID", PlayerID.ToString() }
+            };
+            return formData;
+        }
+    }
+
 }

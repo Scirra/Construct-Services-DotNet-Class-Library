@@ -1,5 +1,6 @@
-﻿using ConstructServices.Common;
-using ConstructServices.Leaderboards.Objects;
+﻿using System;
+using System.Collections.Generic;
+using ConstructServices.Common;
 using ConstructServices.Leaderboards.Responses;
 using JetBrains.Annotations;
 using System.Threading.Tasks;
@@ -66,4 +67,33 @@ public static partial class Scores
             );
         }
     }
+
+    
+    [UsedImplicitly]
+    public abstract class DeleteScoreBase(Guid? scoreID, Guid? playerID)
+    {
+        private Guid? ScoreID { get; } = scoreID;
+        private Guid? PlayerID { get; } = playerID;
+
+        internal Dictionary<string, string> BuildFormData()
+        {
+            var formData = new Dictionary<string, string>();
+            if (ScoreID.HasValue)
+            {
+                formData.Add("scoreID", ScoreID.Value.ToString());
+            }
+            if (PlayerID.HasValue)
+            {
+                formData.Add("playerID", PlayerID.Value.ToString());
+            }
+            return formData;
+        }
+    }
+
+    [UsedImplicitly]
+    public sealed class DeleteScoreOptions(Guid scoreID) : DeleteScoreBase(scoreID, null);
+
+    [UsedImplicitly]
+    public sealed class DeletePlayerScoresOptions(Guid playerID) : DeleteScoreBase(null, playerID);
+
 }

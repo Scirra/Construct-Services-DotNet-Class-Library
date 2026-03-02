@@ -1,4 +1,6 @@
-﻿using ConstructServices.Common;
+﻿using System;
+using System.Collections.Generic;
+using ConstructServices.Common;
 using ConstructServices.Leaderboards.Objects;
 using JetBrains.Annotations;
 using System.Threading.Tasks;
@@ -35,6 +37,23 @@ public static partial class Teams
                 service,
                 deleteTeamPlayerOptions.BuildFormData()
             );
+        }
+    }
+
+    [UsedImplicitly]
+    public sealed class DeleteTeamPlayerOptions(Guid teamID, Guid playerID)
+    {
+        private Guid TeamID { get; } = teamID;
+        private Guid PlayerID { get; } = playerID;
+
+        internal Dictionary<string, string> BuildFormData()
+        {
+            var formData = new Dictionary<string, string>
+            {
+                { "teamID", TeamID.ToString() },
+                { "playerID", PlayerID.ToString() }
+            };
+            return formData;
         }
     }
 }

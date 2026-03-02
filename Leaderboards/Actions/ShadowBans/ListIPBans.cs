@@ -1,7 +1,6 @@
 ﻿using ConstructServices.Leaderboards.Responses;
 using System.Threading.Tasks;
 using ConstructServices.Common;
-using ConstructServices.Leaderboards.Objects;
 using JetBrains.Annotations;
 
 namespace ConstructServices.Leaderboards.Actions;

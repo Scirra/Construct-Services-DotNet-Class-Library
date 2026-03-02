@@ -1,4 +1,6 @@
-﻿using ConstructServices.Common;
+﻿using System;
+using System.Collections.Generic;
+using ConstructServices.Common;
 using JetBrains.Annotations;
 using System.Threading.Tasks;
 using ConstructServices.Leaderboards.Objects;
@@ -34,6 +36,23 @@ public static partial class Teams
                 service,
                 assignPlayerOptions.BuildFormData()
             );
+        }
+    }
+
+    [UsedImplicitly]
+    public sealed class AssignPlayerOptions(Guid teamID, Guid playerID)
+    {
+        private Guid TeamID { get; } = teamID;
+        private Guid PlayerID { get; } = playerID;
+
+        internal Dictionary<string, string> BuildFormData()
+        {
+            var formData = new Dictionary<string, string>
+            {
+                { "teamID", TeamID.ToString() },
+                { "playerID", PlayerID.ToString() }
+            };
+            return formData;
         }
     }
 }

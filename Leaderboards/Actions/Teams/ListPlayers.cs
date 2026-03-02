@@ -1,6 +1,9 @@
-﻿using ConstructServices.Leaderboards.Responses;
+﻿using System;
+using System.Collections.Generic;
+using ConstructServices.Leaderboards.Responses;
 using System.Threading.Tasks;
 using ConstructServices.Common;
+using ConstructServices.Leaderboards.Enums;
 using ConstructServices.Leaderboards.Objects;
 using JetBrains.Annotations;
 
@@ -42,6 +45,33 @@ public static partial class Teams
                 listTeamPlayersOptions.BuildFormData(),
                 paginationOptions
             );
+        }
+    }
+    
+    [UsedImplicitly]
+    public sealed class ListTeamPlayersOptions
+    {
+        private Guid TeamID { get; }
+        private TeamPlayersOrdering? Ordering { get; }
+    
+        public ListTeamPlayersOptions(Guid teamID, TeamPlayersOrdering ordering)
+        {
+            TeamID = teamID;
+            Ordering = ordering;
+        } 
+        public ListTeamPlayersOptions(Guid teamID)
+        {
+            TeamID = teamID;
+        } 
+
+        internal Dictionary<string, string> BuildFormData()
+        {
+            var formData = new Dictionary<string, string>
+            {
+                { "teamID", TeamID.ToString() }
+            };
+            if (Ordering.HasValue) formData.Add("order", Ordering.Value.ToString());
+            return formData;
         }
     }
 }
