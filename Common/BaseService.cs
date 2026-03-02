@@ -22,13 +22,13 @@ public abstract class BaseService(
     /// If a response returned valid JSON, the raw JSON string is returned here.
     /// Should only be used for debugging.
     /// </summary>
-    public string RawJson { get; internal set; }
+    public string RawJson { [UsedImplicitly] get; internal set; }
 
     /// <summary>
     /// If a response returned valid JSON, the raw object.  Shouldn't be needed, but
     /// can be useful if the API returns properties not implemented in this library.
     /// </summary>
-    public dynamic RawObject { get; internal set; }
+    public dynamic RawObject { [UsedImplicitly] get; internal set; }
 
     internal Guid GameID { get; private set; } = gameID;
 

@@ -182,7 +182,7 @@ public sealed class ListBucketSavesOptions
     public GetBucketsSortMethod? SortBy { get; private set; }
 
     [UsedImplicitly]
-    public GetBucketCloudSaveFilters? Filters { get; private set; }
+    public GetBucketCloudSaveFilters Filters { get; private set; }
     
     public ListBucketSavesOptions(
         Guid bucketID, 
