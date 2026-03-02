@@ -27,7 +27,7 @@ public static partial class Buckets
         /// Return paginated cloud saves within a bucket
         /// </summary>
         [UsedImplicitly]
-        public CloudSavesResponse GetCloudSaves(
+        public CloudSavesResponse ListCloudSaves(
             string strBucketID,
             PaginationOptions paginationOptions,
             Enums.GetBucketCloudSaveSortMethod? orderBy = null,
@@ -38,14 +38,14 @@ public static partial class Buckets
             {
                 return new CloudSavesResponse(string.Format(bucketIDValidator.ErrorMessage, "Bucket ID"));
             }
-            return service.GetCloudSaves(bucketIDValidator.ReturnedObject, paginationOptions, orderBy, filters);
+            return service.ListCloudSaves(bucketIDValidator.ReturnedObject, paginationOptions, orderBy, filters);
         }
 
         /// <summary>
         /// Return paginated cloud saves within a bucket
         /// </summary>
         [UsedImplicitly]
-        public async Task<CloudSavesResponse> GetCloudSavesAsync(
+        public async Task<CloudSavesResponse> ListCloudSavesAsync(
             string strBucketID,
             PaginationOptions paginationOptions,
             Enums.GetBucketCloudSaveSortMethod? orderBy = null,
@@ -56,37 +56,37 @@ public static partial class Buckets
             {
                 return new CloudSavesResponse(string.Format(bucketIDValidator.ErrorMessage, "Bucket ID"));
             }
-            return await service.GetCloudSavesAsync(bucketIDValidator.ReturnedObject, paginationOptions, orderBy, filters);
+            return await service.ListCloudSavesAsync(bucketIDValidator.ReturnedObject, paginationOptions, orderBy, filters);
         }
         
         /// <summary>
         /// Return paginated cloud saves within a bucket
         /// </summary>
         [UsedImplicitly]
-        public CloudSavesResponse GetCloudSaves(GameBucket bucket,
+        public CloudSavesResponse ListCloudSaves(GameBucket bucket,
             PaginationOptions paginationOptions,
             Enums.GetBucketCloudSaveSortMethod? orderBy = null,
             GetBucketCloudSaveFilters filters = null)
             =>
-                service.GetCloudSaves(bucket.ID, paginationOptions, orderBy, filters);
+                service.ListCloudSaves(bucket.ID, paginationOptions, orderBy, filters);
 
         /// <summary>
         /// Return paginated cloud saves within a bucket
         /// </summary>
         [UsedImplicitly]
-        public async Task<CloudSavesResponse> GetCloudSavesAsync(GameBucket bucket,
+        public async Task<CloudSavesResponse> ListCloudSavesAsync(GameBucket bucket,
             PaginationOptions paginationOptions,
             Enums.GetBucketCloudSaveSortMethod? orderBy = null,
             GetBucketCloudSaveFilters filters = null)
             =>
-                await service.GetCloudSavesAsync(bucket.ID, paginationOptions, orderBy, filters);
+                await service.ListCloudSavesAsync(bucket.ID, paginationOptions, orderBy, filters);
 
 
         /// <summary>
         /// Return paginated cloud saves within a bucket
         /// </summary>
         [UsedImplicitly]
-        public CloudSavesResponse GetCloudSaves(
+        public CloudSavesResponse ListCloudSaves(
             Guid bucketID,
             PaginationOptions paginationOptions,
             Enums.GetBucketCloudSaveSortMethod? orderBy = null,
@@ -152,7 +152,7 @@ public static partial class Buckets
         /// Return paginated cloud saves within a bucket
         /// </summary>
         [UsedImplicitly]
-        public async Task<CloudSavesResponse> GetCloudSavesAsync(
+        public async Task<CloudSavesResponse> ListCloudSavesAsync(
             Guid bucketID,
             PaginationOptions paginationOptions,
             Enums.GetBucketCloudSaveSortMethod? orderBy = null,

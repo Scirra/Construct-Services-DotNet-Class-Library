@@ -15,7 +15,7 @@ public static partial class Buckets
         /// Get paginated buckets for a game
         /// </summary>
         [UsedImplicitly]
-        public BucketsResponse GetBuckets(GetBucketsSortMethod sortBy,
+        public BucketsResponse ListBuckets(GetBucketsSortMethod sortBy,
             PaginationOptions paginationOptions)
         {
             var formData = new Dictionary<string, string>
@@ -35,7 +35,7 @@ public static partial class Buckets
         /// Get paginated buckets for a game
         /// </summary>
         [UsedImplicitly]
-        public async Task<BucketsResponse> GetBucketsAsync(GetBucketsSortMethod sortBy,
+        public async Task<BucketsResponse> ListBucketsAsync(GetBucketsSortMethod sortBy,
             PaginationOptions paginationOptions)
         {
             var formData = new Dictionary<string, string>
