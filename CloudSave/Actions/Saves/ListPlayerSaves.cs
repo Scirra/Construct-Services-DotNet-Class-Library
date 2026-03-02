@@ -16,13 +16,13 @@ public static partial class Saves
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/cloud-save/api-end-points/cloud-saves/get-cloud-saves" />
         [UsedImplicitly]
         public CloudSavesResponse ListPlayersCloudSaves(
-            ListPlayersBucketSavesOptions listPlayersBucketSavesOptions,
+            ListPlayersSavesOptions listPlayersSavesOptions,
             PaginationOptions paginationOptions)
         {
             return Request.ExecuteSyncRequest<CloudSavesResponse>(
                 Config.EndPointPaths.Saves.ListPlayerSaves,
                 service,
-                listPlayersBucketSavesOptions.BuildFormData(),
+                listPlayersSavesOptions.BuildFormData(),
                 paginationOptions
             );
         }
@@ -33,13 +33,13 @@ public static partial class Saves
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/cloud-save/api-end-points/cloud-saves/get-cloud-saves" />
         [UsedImplicitly]
         public async Task<CloudSavesResponse> ListPlayersCloudSavesAsync(
-            ListPlayersBucketSavesOptions listPlayersBucketSavesOptions,
+            ListPlayersSavesOptions listPlayersSavesOptions,
             PaginationOptions paginationOptions)
         {
             return await Request.ExecuteAsyncRequest<CloudSavesResponse>(
                 Config.EndPointPaths.Saves.ListPlayerSaves,
                 service,
-                listPlayersBucketSavesOptions.BuildFormData(),
+                listPlayersSavesOptions.BuildFormData(),
                 paginationOptions
             );
         }

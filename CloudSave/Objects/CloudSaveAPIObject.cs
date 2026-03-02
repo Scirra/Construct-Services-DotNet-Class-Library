@@ -294,20 +294,17 @@ public abstract class ListPlayerSaveOptions
 {
     private bool ReturnPrivateSaves { get; }
     private Guid PlayerID { get; }
-    private Guid? BucketID { get; }
     private Enums.GetPlayerCloudSaveSortMethod? SortBy { get; }
     private ListPlayerCloudSaveFilters Filters { get; }
 
     protected ListPlayerSaveOptions(
         bool returnPrivateSaves,
         Guid playerID,
-        Guid? bucketID,
         Enums.GetPlayerCloudSaveSortMethod? sortBy = null,
         ListPlayerCloudSaveFilters filters = null)
     {
         ReturnPrivateSaves = returnPrivateSaves;
         PlayerID = playerID;
-        BucketID = bucketID;
         SortBy = sortBy;
         Filters = filters;
     }
@@ -321,10 +318,6 @@ public abstract class ListPlayerSaveOptions
             { "playerID", PlayerID.ToString() },
             { "bucketSaves", (!ReturnPrivateSaves).ToInt().ToString() }
         };
-        if (BucketID.HasValue)
-        {
-            formData.Add("bucketID", BucketID.Value.ToString());
-        }
         if (SortBy.HasValue)
         {
             formData.Add("orderBy", SortBy.ToString());
@@ -350,7 +343,7 @@ public sealed class ListPlayersPrivateSavesOptions : ListPlayerSaveOptions
     public ListPlayersPrivateSavesOptions(
         Guid playerID,
         Enums.GetPlayerCloudSaveSortMethod? sortBy = null,
-        ListPlayerCloudSaveFilters filters = null) : base(true, playerID, null, sortBy, filters)
+        ListPlayerCloudSaveFilters filters = null) : base(true, playerID, sortBy, filters)
     {
     }
 
@@ -361,23 +354,13 @@ public sealed class ListPlayersPrivateSavesOptions : ListPlayerSaveOptions
         return formData;
     }
 }    
-public sealed class ListPlayersBucketSavesOptions : ListPlayerSaveOptions
+public sealed class ListPlayersSavesOptions : ListPlayerSaveOptions
 {
     [UsedImplicitly]
-    public ListPlayersBucketSavesOptions(
+    public ListPlayersSavesOptions(
         Guid playerID,
-        Guid bucketID,
         Enums.GetPlayerCloudSaveSortMethod? sortBy = null,
-        ListPlayerCloudSaveFilters filters = null) : base(false, playerID, bucketID, sortBy, filters)
-    {
-    }
-
-    [UsedImplicitly]
-    public ListPlayersBucketSavesOptions(
-        Guid playerID,
-        Bucket bucket,
-        Enums.GetPlayerCloudSaveSortMethod? sortBy = null,
-        ListPlayerCloudSaveFilters filters = null) : base(false, playerID, bucket.ID, sortBy, filters)
+        ListPlayerCloudSaveFilters filters = null) : base(false, playerID, sortBy, filters)
     {
     }
 
