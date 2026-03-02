@@ -9,7 +9,10 @@ namespace ConstructServices.CloudSave.Objects;
 public abstract class ModifyCloudSaveBase
 {        
     [UsedImplicitly]
-    public Guid BucketID { get; set; }
+    public Guid? BucketID { get; set; }
+
+    [UsedImplicitly]
+    public string SessionKey { get; set; }
 
     [UsedImplicitly]
     public string Name { get; set; }
@@ -17,12 +20,23 @@ public abstract class ModifyCloudSaveBase
     [UsedImplicitly]
     public string Key { get; set; }
 
-    protected Dictionary<string, string> BuildBaseFormData() => new()
+    protected Dictionary<string, string> BuildBaseFormData()
     {
-        { "bucketID", BucketID.ToString() },
-        { "name", Name },
-        { "key", Key }
-    };
+        var formData = new Dictionary<string, string>
+        {
+            { "name", Name },
+            { "key", Key }
+        };
+        if (BucketID.HasValue)
+        {
+            formData.Add("bucketID", BucketID.Value.ToString());
+        }
+        if (!string.IsNullOrWhiteSpace(SessionKey))
+        {
+            formData.Add("sessionKey", SessionKey);
+        }
+        return formData;
+    }
 }
 
 [UsedImplicitly]
@@ -30,7 +44,10 @@ public sealed class CreateCloudSaveOptions : ModifyCloudSaveBase
 {
     private ByteArrayContent Data { get; }
     private PictureData Picture { get; }
-
+    
+    /// <summary>
+    /// Create a save in an existing bucket with no player association
+    /// </summary>
     public CreateCloudSaveOptions(
         Guid bucketID,
         byte[] data,
@@ -43,7 +60,62 @@ public sealed class CreateCloudSaveOptions : ModifyCloudSaveBase
         Name = name;
         Key = key;
         Picture = picture;
+    }    
+
+    /// <summary>
+    /// Create a player save in an existing bucket
+    /// </summary>
+    public CreateCloudSaveOptions(
+        string sessionKey,
+        Guid bucketID,
+        byte[] data,
+        string name,
+        string key,
+        PictureData picture = null)
+    {
+        SessionKey = sessionKey;
+        BucketID = bucketID;
+        Data = new ByteArrayContent(data);
+        Name = name;
+        Key = key;
+        Picture = picture;
+    }    
+
+    /// <summary>
+    /// Create a player save in an existing bucket
+    /// </summary>
+    public CreateCloudSaveOptions(
+        string sessionKey,
+        string strBucketID,
+        byte[] data,
+        string name,
+        string key,
+        PictureData picture = null)
+    {
+        SessionKey = sessionKey;
+        BucketID = Guid.Parse(strBucketID);
+        Data = new ByteArrayContent(data);
+        Name = name;
+        Key = key;
+        Picture = picture;
     }
+
+    /// <summary>
+    /// Create a private save in a players account
+    /// </summary>
+    public CreateCloudSaveOptions(
+        string sessionKey,
+        byte[] data,
+        string name,
+        string key,
+        PictureData picture = null)
+    {
+        SessionKey = sessionKey;
+        Data = new ByteArrayContent(data);
+        Name = name;
+        Key = key;
+        Picture = picture;
+    }    
 
     internal Dictionary<string, string> BuildFormData()
     {
