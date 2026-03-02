@@ -1,3 +1,0 @@
-﻿namespace ConstructServices.XP.Objects;
-
-

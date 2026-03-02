@@ -16,12 +16,12 @@ public static partial class Rankings
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/ranks/edit-rank" />
         [UsedImplicitly]
-        public RankResponse UpdateRank(UpdateXPRankOptions updateOptions)
+        public RankResponse UpdateRank(Guid rankID, UpdateXPRankOptions updateOptions)
         {
             return Request.ExecuteSyncRequest<RankResponse>(
                 Config.EndPointPaths.Rankings.Update,
                 xpService,
-                updateOptions.BuildFormData()
+                updateOptions.BuildFormData(rankID)
             );
         }
 
@@ -30,12 +30,12 @@ public static partial class Rankings
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/ranks/edit-rank" />
         [UsedImplicitly]
-        public async Task<RankResponse> UpdateRankAsync(UpdateXPRankOptions updateOptions)
+        public async Task<RankResponse> UpdateRankAsync(Guid rankID, UpdateXPRankOptions updateOptions)
         {
             return await Request.ExecuteAsyncRequest<RankResponse>(
                 Config.EndPointPaths.Rankings.Update,
                 xpService,
-                updateOptions.BuildFormData()
+                updateOptions.BuildFormData(rankID)
             );
         }
     }
@@ -43,7 +43,6 @@ public static partial class Rankings
     [UsedImplicitly]
     public sealed class UpdateXPRankOptions
     {
-        private Guid ID { get; }
 
         [UsedImplicitly]
         public long? AtXP { get; set; }
@@ -56,23 +55,15 @@ public static partial class Rankings
 
         [UsedImplicitly]
         public string LanguageISO { get; set; }
-        public UpdateXPRankOptions(Guid rankID)
-        {
-            ID = rankID;
-        }
-        public UpdateXPRankOptions(string strRankID)
-        {
-            ID = Guid.Parse(strRankID);
-        }
 
-        internal Dictionary<string, string> BuildFormData()
+        internal Dictionary<string, string> BuildFormData(Guid rankID)
         {
             var formData = new Dictionary<string, string>
             {
                 { "title", Title },
                 { "description", Description },
                 { "language", LanguageISO },
-                { "rankID", ID.ToString() }
+                { "rankID", rankID.ToString() }
             };
             if(AtXP.HasValue) formData.Add("xp", AtXP.Value.ToString());
             return formData;

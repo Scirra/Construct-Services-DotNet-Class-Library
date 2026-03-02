@@ -16,12 +16,12 @@ public static partial class Channels
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/broadcasts/api-end-points/channels/update-channel" />
         [UsedImplicitly]
-        public ChannelResponse UpdateChannel(UpdateChannelOptions updateChannelOptions)
+        public ChannelResponse UpdateChannel(Guid channelID, UpdateChannelOptions updateChannelOptions)
         {
             return Request.ExecuteSyncRequest<ChannelResponse>(
                 Config.EndPointPaths.Channels.Update,
                 service,
-                updateChannelOptions.BuildFormData()
+                updateChannelOptions.BuildFormData(channelID)
             );
         }
 
@@ -30,12 +30,12 @@ public static partial class Channels
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/broadcasts/api-end-points/channels/update-channel" />
         [UsedImplicitly]
-        public async Task<ChannelResponse> UpdateChannelAsync(UpdateChannelOptions updateChannelOptions)
+        public async Task<ChannelResponse> UpdateChannelAsync(Guid channelID, UpdateChannelOptions updateChannelOptions)
         {
             return await Request.ExecuteAsyncRequest<ChannelResponse>(
                 Config.EndPointPaths.Channels.Update,
                 service,
-                updateChannelOptions.BuildFormData()
+                updateChannelOptions.BuildFormData(channelID)
             );
         }
     }
@@ -43,25 +43,16 @@ public static partial class Channels
     [UsedImplicitly]
     public sealed class UpdateChannelOptions
     {    
-        private Guid ID { get; [UsedImplicitly] set; }
         public string Name { get; [UsedImplicitly] set; }
         public string Description { get; [UsedImplicitly] set; }
         public string LanguageISO { get; [UsedImplicitly] set; }
         public bool? AllowRatings { get; [UsedImplicitly] set; }
     
-        public UpdateChannelOptions(Guid channelID)
-        {
-            ID = channelID;
-        }
-        public UpdateChannelOptions(string strChannelID)
-        {
-            ID = Guid.Parse(strChannelID);
-        }
-        internal Dictionary<string, string> BuildFormData()
+        internal Dictionary<string, string> BuildFormData(Guid channelID)
         {        
             var formData = new Dictionary<string, string>
             {
-                { "channelID", ID.ToString() },
+                { "channelID", channelID.ToString() },
                 { "name", Name },
                 { "description", Description },
                 { "language", LanguageISO }

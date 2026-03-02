@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using ConstructServices.Common;
 using JetBrains.Annotations;
 using System.Threading.Tasks;
-using ConstructServices.Leaderboards.Objects;
 
 namespace ConstructServices.Leaderboards.Actions;
 public static partial class Teams

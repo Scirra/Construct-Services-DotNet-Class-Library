@@ -15,12 +15,13 @@ public static partial class Bonuses
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/bonuses/edit-bonus" />
         [UsedImplicitly]
         public BonusResponse UpdateBonus(
+            Guid bonusID,
             UpdateXPBonusOptions updateXPBonusOptions)
         {
             return Request.ExecuteSyncRequest<BonusResponse>(
                 Config.EndPointPaths.Bonuses.Update,
                 xpService,
-                updateXPBonusOptions.BuildFormData()
+                updateXPBonusOptions.BuildFormData(bonusID)
             );
         }
 
@@ -28,12 +29,13 @@ public static partial class Bonuses
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/bonuses/edit-bonus" />
         [UsedImplicitly]
         public async Task<BonusResponse> UpdateBonusAsync(
+            Guid bonusID,
             UpdateXPBonusOptions updateXPBonusOptions)
         {
             return await Request.ExecuteAsyncRequest<BonusResponse>(
                 Config.EndPointPaths.Bonuses.Update,
                 xpService,
-                updateXPBonusOptions.BuildFormData()
+                updateXPBonusOptions.BuildFormData(bonusID)
             );
         }
     }
@@ -42,8 +44,6 @@ public static partial class Bonuses
     [UsedImplicitly]
     public sealed class UpdateXPBonusOptions
     {
-        private Guid ID { get; }
-
         [UsedImplicitly]
         public DateTime Start { get; set; }
 
@@ -61,15 +61,7 @@ public static partial class Bonuses
         [UsedImplicitly]
         public decimal? Modifier { get; set; }
     
-        public UpdateXPBonusOptions(Guid bonusID)
-        {
-            ID = bonusID;
-        }
-        public UpdateXPBonusOptions(string strBonusID)
-        {
-            ID = Guid.Parse(strBonusID);
-        }
-        internal Dictionary<string, string> BuildFormData()
+        internal Dictionary<string, string> BuildFormData(Guid bonusID)
         {
             var formData = new Dictionary<string, string>
             {
@@ -78,7 +70,7 @@ public static partial class Bonuses
                 { "title", Title },
                 { "description", Description },
                 { "language", LanguageISO },
-                { "bonusID", ID.ToString() }
+                { "bonusID", bonusID.ToString() }
             };
             if(Modifier.HasValue) formData.Add("modifier", Modifier.Value.ToString(CultureInfo.InvariantCulture));
             return formData;

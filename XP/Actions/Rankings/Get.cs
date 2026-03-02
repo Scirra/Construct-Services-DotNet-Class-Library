@@ -38,8 +38,5 @@ public static partial class Rankings
     }
 
     [UsedImplicitly]
-    public sealed class ListRanksOptions()
-    {
-
-    }
+    public sealed class ListRanksOptions();
 }

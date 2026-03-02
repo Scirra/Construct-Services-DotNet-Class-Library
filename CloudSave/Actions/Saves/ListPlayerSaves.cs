@@ -139,7 +139,7 @@ public static partial class Saves
             ListPlayerCloudSaveFilters filters = null) 
             : base(true, null, playerID, sortBy, filters) { }
 
-        public Dictionary<string, string> BuildFormData()
+        internal Dictionary<string, string> BuildFormData()
         {
             var formData = BuildBaseFormData();
             return formData;
@@ -161,7 +161,7 @@ public static partial class Saves
             ListPlayerCloudSaveFilters filters = null) 
             : base(false, null, playerID, sortBy, filters) { }
 
-        public Dictionary<string, string> BuildFormData()
+        internal Dictionary<string, string> BuildFormData()
         {
             var formData = BuildBaseFormData();
             return formData;

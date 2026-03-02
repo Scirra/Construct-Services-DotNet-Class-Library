@@ -16,12 +16,12 @@ public static partial class Messages
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/broadcasts/api-end-points/messages/update-message" />
         [UsedImplicitly]
-        public BaseResponse UpdateMessage(UpdateMessageOptions updateMessageOptions)
+        public BaseResponse UpdateMessage(Guid messageID, UpdateMessageOptions updateMessageOptions)
         {
             return Request.ExecuteSyncRequest<MessageResponse>(
                 Config.EndPointPaths.Messages.Update,
                 service,
-                updateMessageOptions.BuildFormData()
+                updateMessageOptions.BuildFormData(messageID)
             );
         }
 
@@ -30,12 +30,12 @@ public static partial class Messages
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/broadcasts/api-end-points/messages/update-message" />
         [UsedImplicitly]
-        public async Task<BaseResponse> UpdateMessageAsync(UpdateMessageOptions updateMessageOptions)
+        public async Task<BaseResponse> UpdateMessageAsync(Guid messageID, UpdateMessageOptions updateMessageOptions)
         {
             return await Request.ExecuteAsyncRequest<MessageResponse>(
                 Config.EndPointPaths.Messages.Update,
                 service,
-                updateMessageOptions.BuildFormData()
+                updateMessageOptions.BuildFormData(messageID)
             );
         }
     }
@@ -43,8 +43,6 @@ public static partial class Messages
     [UsedImplicitly]
     public sealed class UpdateMessageOptions
     {
-        private Guid MessageID { get; }
-
         [UsedImplicitly]
         public string Title { get; set; }
 
@@ -54,23 +52,14 @@ public static partial class Messages
         [UsedImplicitly]
         public string LanguageISO { get; set; }
     
-        public UpdateMessageOptions(Guid messageID)
-        {
-            MessageID = messageID;
-        }
-        public UpdateMessageOptions(string strMessageID)
-        {
-            MessageID = Guid.Parse(strMessageID);
-        }
-
-        internal Dictionary<string, string> BuildFormData()
+        internal Dictionary<string, string> BuildFormData(Guid messageID)
         {
             var formData = new Dictionary<string, string>
             {
-                { "messageID", MessageID.ToString() },
+                { "messageID", messageID.ToString() },
                 { "title", Title },
                 { "text", Text },
-                { "language", LanguageISO },
+                { "language", LanguageISO }
             };
             return formData;
         }

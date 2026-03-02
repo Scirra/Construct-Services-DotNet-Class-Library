@@ -42,8 +42,5 @@ public static partial class Channels
     }
 
     [UsedImplicitly]
-    public sealed class ListChannelOptions
-    {
-
-    }
+    public sealed class ListChannelOptions;
 }

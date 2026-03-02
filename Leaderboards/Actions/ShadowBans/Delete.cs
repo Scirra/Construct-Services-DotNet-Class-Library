@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Net;
 using ConstructServices.Common;
-using ConstructServices.Leaderboards.Objects;
 using ConstructServices.Leaderboards.Responses;
 using JetBrains.Annotations;
 using System.Threading.Tasks;

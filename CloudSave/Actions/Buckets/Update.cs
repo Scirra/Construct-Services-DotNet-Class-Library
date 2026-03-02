@@ -4,7 +4,6 @@ using ConstructServices.Common;
 using JetBrains.Annotations;
 using System.Threading.Tasks;
 using ConstructServices.CloudSave.Enums;
-using ConstructServices.CloudSave.Objects;
 
 namespace ConstructServices.CloudSave.Actions;
 
@@ -17,12 +16,12 @@ public static partial class Buckets
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/cloud-save/api-end-points/buckets/edit-bucket" />
         [UsedImplicitly]
-        public BaseResponse UpdateBucket(UpdateBucketOptions updateBucketOptions)
+        public BaseResponse UpdateBucket(Guid bucketID, UpdateBucketOptions updateBucketOptions)
         {
             return Request.ExecuteSyncRequest<BaseResponse>(
                 Config.EndPointPaths.Buckets.Update,
                 service,
-                updateBucketOptions.BuildFormData()
+                updateBucketOptions.BuildFormData(bucketID)
             );
         }
 
@@ -31,12 +30,12 @@ public static partial class Buckets
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/cloud-save/api-end-points/buckets/edit-bucket" />
         [UsedImplicitly]
-        public async Task<BaseResponse> UpdateBucketAsync(UpdateBucketOptions updateBucketOptions)
+        public async Task<BaseResponse> UpdateBucketAsync(Guid bucketID, UpdateBucketOptions updateBucketOptions)
         {
             return await Request.ExecuteAsyncRequest<BaseResponse>(
                 Config.EndPointPaths.Buckets.Update,
                 service,
-                updateBucketOptions.BuildFormData()
+                updateBucketOptions.BuildFormData(bucketID)
             );
         }
     }
@@ -44,8 +43,6 @@ public static partial class Buckets
     [UsedImplicitly]
     public sealed class UpdateBucketOptions
     {    
-        private Guid BucketID { get; }
-
         [UsedImplicitly]
         public string Name { get; set; }
 
@@ -63,21 +60,8 @@ public static partial class Buckets
 
         [UsedImplicitly]
         public uint? MaxSavesPerPlayer { get; set; }
-
-        public UpdateBucketOptions(string strBucketID)
-        {
-            BucketID = Guid.Parse(strBucketID);
-        }
-        public UpdateBucketOptions(Guid bucketID)
-        {
-            BucketID = bucketID;
-        }
-        public UpdateBucketOptions(Bucket bucket)
-        {
-            BucketID = bucket.ID;
-        }
-
-        internal Dictionary<string, string> BuildFormData()
+        
+        internal Dictionary<string, string> BuildFormData(Guid bucketID)
         {
             var formData = new Dictionary<string, string>
             {
@@ -87,7 +71,7 @@ public static partial class Buckets
                 { "maxBlobs", MaxSaves.ToString() },
                 { "maxBlobSize", MaxSaveSizeBytes.ToString() },
                 { "maxBlobsPerPlayer", MaxSavesPerPlayer.ToString() },
-                { "bucketID", BucketID.ToString() }
+                { "bucketID", bucketID.ToString() }
             };
             return formData;
         }
