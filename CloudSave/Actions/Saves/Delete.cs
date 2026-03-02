@@ -1,0 +1,131 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using ConstructServices.Common;
+using JetBrains.Annotations;
+
+namespace ConstructServices.CloudSave.Actions;
+
+public static partial class Saves
+{
+    extension(CloudSaveService service)
+    {
+        /// <summary>
+        /// Delete a cloud save
+        /// </summary>
+        [UsedImplicitly]
+        public BaseResponse Delete(string strCloudSaveID)
+        {
+            var idValidator = Common.Validations.Guid.IsValidGuid(strCloudSaveID);
+            if (!idValidator.Successfull)
+            {
+                return new BaseResponse(string.Format(idValidator.ErrorMessage, "Cloud save ID"));
+            }
+            return service.Delete(idValidator.ReturnedObject);
+        }
+
+        /// <summary>
+        /// Delete a cloud save
+        /// </summary>
+        [UsedImplicitly]
+        public async Task<BaseResponse> DeleteAsync(string strCloudSaveID)
+        {
+            var idValidator = Common.Validations.Guid.IsValidGuid(strCloudSaveID);
+            if (!idValidator.Successfull)
+            {
+                return new BaseResponse(string.Format(idValidator.ErrorMessage, "Cloud save ID"));
+            }
+            return await service.DeleteAsync(idValidator.ReturnedObject);
+        }
+
+        /// <summary>
+        /// Delete a cloud save
+        /// </summary>
+        [UsedImplicitly]
+        public BaseResponse Delete(Guid cloudSaveID)
+        {
+            var formData = new Dictionary<string, string>
+            {
+                { "blobID", cloudSaveID.ToString() }
+            };
+
+            return Request.ExecuteSyncRequest<BaseResponse>(
+                Config.DeleteAPIEndPoint,
+                service,
+                formData
+            );
+        }
+
+        /// <summary>
+        /// Delete a cloud save
+        /// </summary>
+        [UsedImplicitly]
+        public async Task<BaseResponse> DeleteAsync(Guid cloudSaveID)
+        {
+            var formData = new Dictionary<string, string>
+            {
+                { "blobID", cloudSaveID.ToString() }
+            };
+
+            return await Request.ExecuteAsyncRequest<BaseResponse>(
+                Config.DeleteAPIEndPoint,
+                service,
+                formData
+            );
+        }
+
+        /// <summary>
+        /// Delete a cloud save
+        /// </summary>
+        [UsedImplicitly]
+        public BaseResponse Delete(
+            string sessionKey,
+            Guid cloudSaveID)
+        {
+            var sessionKeyValidator = Common.Validations.PlayerSessionKey.ValidatePlayerSessionKey(sessionKey);
+            if (!sessionKeyValidator.Successfull)
+            {
+                return new BaseResponse(sessionKeyValidator.ErrorMessage);
+            }
+
+            var formData = new Dictionary<string, string>
+            {
+                { "sessionKey", sessionKey },
+                { "blobID", cloudSaveID.ToString() }
+            };
+
+            return Request.ExecuteSyncRequest<BaseResponse>(
+                Config.DeleteAPIEndPoint,
+                service,
+                formData
+            );
+        }
+
+        /// <summary>
+        /// Delete a cloud save
+        /// </summary>
+        [UsedImplicitly]
+        public async Task<BaseResponse> DeleteAsync(
+            string sessionKey,
+            Guid cloudSaveID)
+        {
+            var sessionKeyValidator = Common.Validations.PlayerSessionKey.ValidatePlayerSessionKey(sessionKey);
+            if (!sessionKeyValidator.Successfull)
+            {
+                return new BaseResponse(sessionKeyValidator.ErrorMessage);
+            }
+
+            var formData = new Dictionary<string, string>
+            {
+                { "sessionKey", sessionKey },
+                { "blobID", cloudSaveID.ToString() }
+            };
+
+            return await Request.ExecuteAsyncRequest<BaseResponse>(
+                Config.DeleteAPIEndPoint,
+                service,
+                formData
+            );
+        }
+    }
+}
