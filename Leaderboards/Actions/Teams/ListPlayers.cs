@@ -15,7 +15,7 @@ public static partial class Teams
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/teams/team-players" />
         [UsedImplicitly]
-        public GetTeamPlayersResponse GetTeamPlayers(
+        public GetTeamPlayersResponse ListTeamPlayers(
             ListTeamPlayersOptions listTeamPlayersOptions,
             PaginationOptions paginationOptions)
         {
@@ -32,7 +32,7 @@ public static partial class Teams
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/teams/team-players" />
         [UsedImplicitly]
-        public async Task<GetTeamPlayersResponse> GetTeamPlayersAsync(
+        public async Task<GetTeamPlayersResponse> ListTeamPlayersAsync(
             ListTeamPlayersOptions listTeamPlayersOptions,
             PaginationOptions paginationOptions)
         {
