@@ -1,9 +1,7 @@
-﻿using ConstructServices.Common;
-using ConstructServices.Common.Validations;
+﻿using ConstructServices.Authentication.Objects;
+using ConstructServices.Common;
 using JetBrains.Annotations;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using Guid = System.Guid;
 
 namespace ConstructServices.Authentication.Actions;
 
@@ -12,67 +10,31 @@ public static partial class Avatars
 
     extension(AuthenticationService service)
     {
+        /// <summary>
+        /// Delete a players avatar
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/avatars/delete-avatar" />
         [UsedImplicitly]
-        public BaseResponse DeleteAvatar(Guid playerID)
+        public BaseResponse DeleteAvatar(DeleteAvatarOptions deleteAvatarOptions)
         {
             return Request.ExecuteSyncRequest<BaseResponse>(
                 Config.EndPointPaths.Avatars.DeleteAvatar,
                 service,
-                new Dictionary<string, string>
-                {
-                    { "playerID", playerID.ToString() }
-                }
+                deleteAvatarOptions.BuildFormData()
             );
         }
 
+        /// <summary>
+        /// Delete a players avatar
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/avatars/delete-avatar" />
         [UsedImplicitly]
-        public async Task<BaseResponse> DeleteAvatarAsync(Guid playerID)
+        public async Task<BaseResponse> DeleteAvatarAsync(DeleteAvatarOptions deleteAvatarOptions)
         {
             return await Request.ExecuteAsyncRequest<BaseResponse>(
                 Config.EndPointPaths.Avatars.DeleteAvatar,
                 service,
-                new Dictionary<string, string>
-                {
-                    { "playerID", playerID.ToString() }
-                }
-            );
-        }
-
-        [UsedImplicitly]
-        public BaseResponse DeleteAvatar(string sessionKey)
-        {
-            var sessionKeyValidator = sessionKey.ValidatePlayerSessionKey();
-            if (!sessionKeyValidator.Successfull)
-            {
-                return new BaseResponse(sessionKeyValidator.ErrorMessage);
-            }
-
-            return Request.ExecuteSyncRequest<BaseResponse>(
-                Config.EndPointPaths.Avatars.DeleteAvatar,
-                service,
-                new Dictionary<string, string>
-                {
-                    { "sessionKey", sessionKey }
-                }
-            );
-        }
-
-        [UsedImplicitly]
-        public async Task<BaseResponse> DeleteAvatarAsync(string sessionKey)
-        {
-            var sessionKeyValidator = sessionKey.ValidatePlayerSessionKey();
-            if (!sessionKeyValidator.Successfull)
-            {
-                return new BaseResponse(sessionKeyValidator.ErrorMessage);
-            }
-
-            return await Request.ExecuteAsyncRequest<BaseResponse>(
-                Config.EndPointPaths.Avatars.DeleteAvatar,
-                service,
-                new Dictionary<string, string>
-                {
-                    { "sessionKey", sessionKey }
-                }
+                deleteAvatarOptions.BuildFormData()
             );
         }
     }

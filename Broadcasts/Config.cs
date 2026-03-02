@@ -1,6 +1,4 @@
-﻿using ConstructServices.Broadcasts.Actions;
-
-namespace ConstructServices.Broadcasts;
+﻿namespace ConstructServices.Broadcasts;
 
 internal static class Config
 {

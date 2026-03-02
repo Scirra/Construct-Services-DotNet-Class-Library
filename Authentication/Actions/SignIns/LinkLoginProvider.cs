@@ -1,54 +1,39 @@
 ﻿using ConstructServices.Authentication.Objects;
 using ConstructServices.Authentication.Responses;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 
 namespace ConstructServices.Authentication.Actions;
+
 public static partial class SignIns
 {
-    
     extension(AuthenticationService service)
     {
+        /// <summary>
+        /// Link a login provider to a Player
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/login-providers/link-login-provider" />
         [UsedImplicitly]
-        public SignInResponse LinkLoginProvider(LoginProvider provider,
-            string sessionKey)
+        public SignInResponse LinkLoginProvider(LinkSignInProviderOptions linkSignInProviderOptions)
         {
-            var sessionKeyValidator = Common.Validations.PlayerSessionKey.ValidatePlayerSessionKey(sessionKey);
-            if (!sessionKeyValidator.Successfull)
-            {
-                return new SignInResponse(sessionKeyValidator.ErrorMessage);
-            }
-
             return Common.Request.ExecuteSyncRequest<SignInResponse>(
                 Config.EndPointPaths.SignIns.Link,
                 service,
-                new Dictionary<string, string>
-                {
-                    { "provider", provider.ToString() },
-                    { "sessionKey", sessionKey }
-                }
+                linkSignInProviderOptions.BuildFormData()
             );
         }
 
+        /// <summary>
+        /// Link a login provider to a Player
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/login-providers/link-login-provider" />
         [UsedImplicitly]
-        public async Task<SignInResponse> LinkLoginProviderAsync(LoginProvider provider,
-            string sessionKey)
+        public async Task<SignInResponse> LinkLoginProviderAsync(LinkSignInProviderOptions linkSignInProviderOptions)
         {
-            var sessionKeyValidator = Common.Validations.PlayerSessionKey.ValidatePlayerSessionKey(sessionKey);
-            if (!sessionKeyValidator.Successfull)
-            {
-                return new SignInResponse(sessionKeyValidator.ErrorMessage);
-            }
-
             return await Common.Request.ExecuteAsyncRequest<SignInResponse>(
                 Config.EndPointPaths.SignIns.Link,
                 service,
-                new Dictionary<string, string>
-                {
-                    { "provider", provider.ToString() },
-                    { "sessionKey", sessionKey }
-                }
+                linkSignInProviderOptions.BuildFormData()
             );
         }
     }

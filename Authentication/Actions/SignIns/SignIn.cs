@@ -1,7 +1,5 @@
 ﻿using ConstructServices.Authentication.Objects;
 using ConstructServices.Authentication.Responses;
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 
@@ -9,47 +7,33 @@ namespace ConstructServices.Authentication.Actions;
 
 public static partial class SignIns
 {
-
     extension(AuthenticationService service)
     {
+        /// <summary>
+        /// Create a new sign in request
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/sign-in" />
         [UsedImplicitly]
-        public SignInResponse SignIn(
-            LoginProvider provider,
-            TimeSpan? sessionExpiry = null)
+        public SignInResponse SignIn(SignInOptions signInOptions)
         {
-            var formData = new Dictionary<string, string>
-            {
-                { "provider", provider.ToString() }
-            };
-            if (sessionExpiry.HasValue)
-            {
-                formData.Add("expiryMins", Convert.ToInt32(sessionExpiry.Value.TotalMinutes).ToString());
-            }
-
             return Common.Request.ExecuteSyncRequest<SignInResponse>(
                 Config.EndPointPaths.SignIns.SignIn,
                 service,
-                formData
+                signInOptions.BuildFormData()
             );
         }
 
+        /// <summary>
+        /// Create a new sign in request
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/sign-in" />
         [UsedImplicitly]
-        public async Task<SignInResponse> SignInAsync(
-            LoginProvider provider,
-            TimeSpan? sessionExpiry = null)
+        public async Task<SignInResponse> SignInAsync(SignInOptions signInOptions)
         {
-            var formData = new Dictionary<string, string>
-            {
-                { "provider", provider.ToString() }
-            };
-            if (sessionExpiry.HasValue)
-            {
-                formData.Add("expiryMins", Convert.ToInt32(sessionExpiry.Value.TotalMinutes).ToString());
-            }
             return await Common.Request.ExecuteAsyncRequest<SignInResponse>(
                 Config.EndPointPaths.SignIns.SignIn,
                 service,
-                formData
+                signInOptions.BuildFormData()
             );
         }
     }

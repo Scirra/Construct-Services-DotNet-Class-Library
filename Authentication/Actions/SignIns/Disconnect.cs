@@ -1,5 +1,4 @@
 ﻿using ConstructServices.Authentication.Objects;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using ConstructServices.Common;
 using JetBrains.Annotations;
@@ -11,47 +10,31 @@ public static partial class SignIns
     
     extension(AuthenticationService service)
     {
+        /// <summary>
+        /// Disconnect a login provider from a Player
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/login-providers/disconnect" />
         [UsedImplicitly]
-        public BaseResponse DisconnectLoginProvider(
-            string sessionKey,
-            LoginProvider provider)
+        public BaseResponse DisconnectLoginProvider(DisconnectSignInProviderOptions disconnectSignInProviderOptions)
         {
-            var sessionKeyValidator = Common.Validations.PlayerSessionKey.ValidatePlayerSessionKey(sessionKey);
-            if (!sessionKeyValidator.Successfull)
-            {
-                return new BaseResponse(sessionKeyValidator.ErrorMessage);
-            }
-
             return Request.ExecuteSyncRequest<BaseResponse>(
                 Config.EndPointPaths.SignIns.Disconnect,
                 service,
-                new Dictionary<string, string>
-                {
-                    { "sessionKey", sessionKey },
-                    { "provider", provider.ToString() }
-                }
+                disconnectSignInProviderOptions.BuildFormData()
             );
         }
 
+        /// <summary>
+        /// Disconnect a login provider from a Player
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/login-providers/disconnect" />
         [UsedImplicitly]
-        public async Task<BaseResponse> DisconnectLoginProviderAsync(
-            string sessionKey,
-            LoginProvider provider)
+        public async Task<BaseResponse> DisconnectLoginProviderAsync(DisconnectSignInProviderOptions disconnectSignInProviderOptions)
         {
-            var sessionKeyValidator = Common.Validations.PlayerSessionKey.ValidatePlayerSessionKey(sessionKey);
-            if (!sessionKeyValidator.Successfull)
-            {
-                return new BaseResponse(sessionKeyValidator.ErrorMessage);
-            }
-
             return await Request.ExecuteAsyncRequest<BaseResponse>(
                 Config.EndPointPaths.SignIns.Disconnect,
                 service,
-                new Dictionary<string, string>
-                {
-                    { "sessionKey", sessionKey },
-                    { "provider", provider.ToString() }
-                }
+                disconnectSignInProviderOptions.BuildFormData()
             );
         }
     }

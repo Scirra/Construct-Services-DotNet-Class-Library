@@ -1,101 +1,57 @@
-﻿using ConstructServices.Common;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Threading.Tasks;
+﻿using ConstructServices.Authentication.Objects;
+using ConstructServices.Common;
 using JetBrains.Annotations;
+using System.Threading.Tasks;
 
 namespace ConstructServices.Authentication.Actions;
 
 public static partial class Avatars
 {
-    
     extension(AuthenticationService service)
     {
+        /// <summary>
+        /// Set a Players avatar
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/avatars/set-avatar" />
         [UsedImplicitly]
-        public BaseResponse SetAvatar(
-            string sessionKey,
-            PictureData picture)
+        public BaseResponse SetAvatar(SetAvatarOptions setAvatarOptions)
         {
-            var sessionKeyValidator = Common.Validations.PlayerSessionKey.ValidatePlayerSessionKey(sessionKey);
-            if (!sessionKeyValidator.Successfull)
-            {
-                return new BaseResponse(sessionKeyValidator.ErrorMessage);
-            }
-
-            var formData = new Dictionary<string, string>
-            {
-                { "sessionKey", sessionKey }
-            };
-
-            if (picture.Bytes != null)
+            if (setAvatarOptions.Picture.Bytes != null)
             {
                 return Request.ExecuteMultiPartFormSyncRequest<BaseResponse>(
                     Config.EndPointPaths.Avatars.SetAvatar,
                     service,
-                    formData,
-                    new Dictionary<string, ByteArrayContent>{ {"picture", new ByteArrayContent(picture.Bytes) } }
+                    setAvatarOptions.BuildFormData(),
+                    setAvatarOptions.BuildBinaryFormData()
                 );
-            }
-            if (picture.URL != null)
-            {
-                formData.Add("avatarURL", picture.URL.ToString());
-            }
-            else if (!string.IsNullOrWhiteSpace(picture.Base64))
-            {
-                formData.Add("avatar", picture.Base64);
-            }
-            else
-            {
-                return new BaseResponse("No picture data in request.");
             }
             return Request.ExecuteSyncRequest<BaseResponse>(
                 Config.EndPointPaths.Avatars.SetAvatar,
                 service,
-                formData
+                setAvatarOptions.BuildFormData()
             );
         }
 
+        /// <summary>
+        /// Set a Players avatar
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/avatars/set-avatar" />
         [UsedImplicitly]
-        public async Task<BaseResponse> SetAvatarAsync(
-            string sessionKey,
-            PictureData picture)
+        public async Task<BaseResponse> SetAvatarAsync(SetAvatarOptions setAvatarOptions)
         {
-            var sessionKeyValidator = Common.Validations.PlayerSessionKey.ValidatePlayerSessionKey(sessionKey);
-            if (!sessionKeyValidator.Successfull)
-            {
-                return new BaseResponse(sessionKeyValidator.ErrorMessage);
-            }
-
-            var formData = new Dictionary<string, string>
-            {
-                { "sessionKey", sessionKey }
-            };
-
-            if (picture.Bytes != null)
+            if (setAvatarOptions.Picture.Bytes != null)
             {
                 return await Request.ExecuteMultiPartFormAsyncRequest<BaseResponse>(
                     Config.EndPointPaths.Avatars.SetAvatar,
                     service,
-                    formData,
-                    new Dictionary<string, ByteArrayContent>{ {"picture", new ByteArrayContent(picture.Bytes) } }
+                    setAvatarOptions.BuildFormData(),
+                    setAvatarOptions.BuildBinaryFormData()
                 );
-            }
-            if (picture.URL != null)
-            {
-                formData.Add("avatarURL", picture.URL.ToString());
-            }
-            else if (!string.IsNullOrWhiteSpace(picture.Base64))
-            {
-                formData.Add("avatar", picture.Base64);
-            }
-            else
-            {
-                return new BaseResponse("No picture data in request.");
             }
             return await Request.ExecuteAsyncRequest<BaseResponse>(
                 Config.EndPointPaths.Avatars.SetAvatar,
                 service,
-                formData
+                setAvatarOptions.BuildFormData()
             );
         }
     }

@@ -1,51 +1,40 @@
-﻿using ConstructServices.Authentication.Responses;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using ConstructServices.Authentication.Objects;
+using ConstructServices.Authentication.Responses;
 using ConstructServices.Common;
 using JetBrains.Annotations;
+using System.Threading.Tasks;
 
 namespace ConstructServices.Authentication.Actions;
 
 public static partial class SignIns
 {
-    
     extension(AuthenticationService service)
     {
+        /// <summary>
+        /// Force link a login provider with another Player to current Player
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/login-providers/force-link" />
         [UsedImplicitly]
-        public LinkLoginProviderResponse ForceLinkLoginProvider(string forceLinkCode)
+        public LinkLoginProviderResponse ForceLinkLoginProvider(ForceLinkOptions forceLinkOptions)
         {
-            var validator = Common.Validations.ForceLinkCode.ValidateForceLinkCode(forceLinkCode);
-            if (!validator.Successfull)
-            {
-                return new LinkLoginProviderResponse(validator.ErrorMessage);
-            }
-
             return Request.ExecuteSyncRequest<LinkLoginProviderResponse>(
                 Config.EndPointPaths.SignIns.ForceLink,
                 service,
-                new Dictionary<string, string>
-                {
-                    { "code", forceLinkCode }
-                }
+                forceLinkOptions.BuildFormData()
             );
         }
 
+        /// <summary>
+        /// Force link a login provider with another Player to current Player
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/login-providers/force-link" />
         [UsedImplicitly]
-        public async Task<LinkLoginProviderResponse> ForceLinkLoginProviderAsync(string forceLinkCode)
+        public async Task<LinkLoginProviderResponse> ForceLinkLoginProviderAsync(ForceLinkOptions forceLinkOptions)
         {
-            var validator = Common.Validations.ForceLinkCode.ValidateForceLinkCode(forceLinkCode);
-            if (!validator.Successfull)
-            {
-                return new LinkLoginProviderResponse(validator.ErrorMessage);
-            }
-
             return await Request.ExecuteAsyncRequest<LinkLoginProviderResponse>(
                 Config.EndPointPaths.SignIns.ForceLink,
                 service,
-                new Dictionary<string, string>
-                {
-                    { "code", forceLinkCode }
-                }
+                forceLinkOptions.BuildFormData()
             );
         }
     }

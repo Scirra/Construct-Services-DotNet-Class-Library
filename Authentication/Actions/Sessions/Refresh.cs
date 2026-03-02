@@ -1,7 +1,7 @@
 ﻿using ConstructServices.Common;
 using JetBrains.Annotations;
-using System.Collections.Generic;
 using System.Threading.Tasks;
+using ConstructServices.Authentication.Objects;
 
 namespace ConstructServices.Authentication.Actions;
 
@@ -10,41 +10,31 @@ public static partial class Sessions
     
     extension(AuthenticationService service)
     {
+        /// <summary>
+        /// Refresh a Players Session
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/avatars/set-avatar" />
         [UsedImplicitly]
-        public BaseResponse RefreshSession(string sessionKey)
+        public BaseResponse RefreshSession(RefreshSessionOptions refreshSessionOptions)
         {
-            var sessionKeyValidator = Common.Validations.PlayerSessionKey.ValidatePlayerSessionKey(sessionKey);
-            if (!sessionKeyValidator.Successfull)
-            {
-                return new BaseResponse(sessionKeyValidator.ErrorMessage);
-            }
-
             return Request.ExecuteSyncRequest<BaseResponse>(
                 Config.EndPointPaths.Sessions.Refresh,
                 service,
-                new Dictionary<string, string>
-                {
-                    { "sessionKey", sessionKey }
-                }
+                refreshSessionOptions.BuildFormData()
             );
         }
 
+        /// <summary>
+        /// Refresh a Players Session
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/avatars/set-avatar" />
         [UsedImplicitly]
-        public async Task<BaseResponse> RefreshSessionAsync(string sessionKey)
+        public async Task<BaseResponse> RefreshSessionAsync(RefreshSessionOptions refreshSessionOptions)
         {
-            var sessionKeyValidator = Common.Validations.PlayerSessionKey.ValidatePlayerSessionKey(sessionKey);
-            if (!sessionKeyValidator.Successfull)
-            {
-                return new BaseResponse(sessionKeyValidator.ErrorMessage);
-            }
-
             return await Request.ExecuteAsyncRequest<BaseResponse>(
                 Config.EndPointPaths.Sessions.Refresh,
                 service,
-                new Dictionary<string, string>
-                {
-                    { "sessionKey", sessionKey }
-                }
+                refreshSessionOptions.BuildFormData()
             );
         }
     }
