@@ -45,10 +45,10 @@ public static partial class Bonuses
     public sealed class UpdateXPBonusOptions
     {
         [UsedImplicitly]
-        public DateTime Start { get; set; }
+        public DateTime? Start { get; set; }
 
         [UsedImplicitly]
-        public DateTime End { get; set; }
+        public DateTime? End { get; set; }
 
         [UsedImplicitly]
         public string Title { get; set; }
@@ -58,6 +58,7 @@ public static partial class Bonuses
 
         [UsedImplicitly]
         public string LanguageISO { get; set; }
+
         [UsedImplicitly]
         public decimal? Modifier { get; set; }
     
@@ -65,13 +66,20 @@ public static partial class Bonuses
         {
             var formData = new Dictionary<string, string>
             {
-                { "start", new DateTimeOffset(Start).ToUnixTimeSeconds().ToString() },
-                { "end", new DateTimeOffset(End).ToUnixTimeSeconds().ToString() },
                 { "title", Title },
                 { "description", Description },
                 { "language", LanguageISO },
                 { "bonusID", bonusID.ToString() }
             };
+            if (Start.HasValue)
+            {
+                formData.Add("start", new DateTimeOffset(Start.Value).ToUnixTimeSeconds().ToString());
+            }
+            if (End.HasValue)
+            {
+                formData.Add("end", new DateTimeOffset(End.Value).ToUnixTimeSeconds().ToString());
+            }
+
             if(Modifier.HasValue) formData.Add("modifier", Modifier.Value.ToString(CultureInfo.InvariantCulture));
             return formData;
         }
