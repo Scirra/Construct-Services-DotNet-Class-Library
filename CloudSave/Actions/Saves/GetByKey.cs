@@ -47,6 +47,7 @@ public static partial class Saves
         private string Key { get; } = key;
         private Guid BucketID { get; } = bucketID;
     
+        [UsedImplicitly]
         public GetCloudSaveByKeyOptions(string key, Guid bucketID) : this(null, key, bucketID) { }
         public GetCloudSaveByKeyOptions(string key, string strBucketID) : this(null, key, Guid.Parse(strBucketID)) { }
         public GetCloudSaveByKeyOptions(string key, Bucket bucket) : this(null, key, bucket.ID) { }

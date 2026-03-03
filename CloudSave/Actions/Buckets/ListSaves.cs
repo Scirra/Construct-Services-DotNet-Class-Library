@@ -51,18 +51,12 @@ public static partial class Buckets
     }
     
     [UsedImplicitly]
-    public sealed class ListBucketSavesOptions
+    public sealed class ListBucketSavesOptions(
+        GetBucketCloudSaveSortMethod sortBy,
+        GetBucketCloudSaveFilters filters = null)
     {
-        private GetBucketCloudSaveSortMethod? SortBy { get; }
-        private GetBucketCloudSaveFilters Filters { get; }
-        
-        public ListBucketSavesOptions(
-            GetBucketCloudSaveSortMethod sortBy, 
-            GetBucketCloudSaveFilters filters = null)
-        {
-            SortBy = sortBy;
-            Filters = filters;
-        }
+        private GetBucketCloudSaveSortMethod? SortBy { get; } = sortBy;
+        private GetBucketCloudSaveFilters Filters { get; } = filters;
 
         internal Dictionary<string, string> BuildFormData(Guid bucketID)
         {

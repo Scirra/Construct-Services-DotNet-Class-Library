@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using JetBrains.Annotations;
+using Newtonsoft.Json;
 
 namespace ConstructServices.Common.Tests;
 
@@ -8,10 +9,12 @@ public enum TestResultStatus
     Passed,
     Failed
 }
+
+[UsedImplicitly]
 public class TestResult
 {
-    public TestResultStatus ResultStatus { get; }
-    public string Data { get; }
+    public TestResultStatus ResultStatus { [UsedImplicitly] get; }
+    public string Data { [UsedImplicitly] get; }
     
     public TestResult()
     {

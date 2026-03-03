@@ -15,7 +15,7 @@ public static partial class Saves
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/cloud-save/api-end-points/cloud-saves/delete-cloud-save" />
         [UsedImplicitly]
-        public BaseResponse Delete(DeleteCloudSaveOptions deleteCloudSaveOptions)
+        public BaseResponse DeleteCloudSave(DeleteCloudSaveOptions deleteCloudSaveOptions)
         {
             return Request.ExecuteSyncRequest<BaseResponse>(
                 Config.EndPointPaths.Saves.Delete,
@@ -29,7 +29,7 @@ public static partial class Saves
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/cloud-save/api-end-points/cloud-saves/delete-cloud-save" />
         [UsedImplicitly]
-        public async Task<BaseResponse> DeleteAsync(DeleteCloudSaveOptions deleteCloudSaveOptions)
+        public async Task<BaseResponse> DeleteCloudSaveAsync(DeleteCloudSaveOptions deleteCloudSaveOptions)
         {
             return await Request.ExecuteAsyncRequest<BaseResponse>(
                 Config.EndPointPaths.Saves.Delete,

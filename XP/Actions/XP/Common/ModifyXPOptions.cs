@@ -5,14 +5,9 @@ using JetBrains.Annotations;
 namespace ConstructServices.XP.Actions;
 
 [UsedImplicitly]
-public sealed class ModifyXPOptions
+public sealed class ModifyXPOptions(long amount)
 {
-    private long Amount { get; }
-
-    public ModifyXPOptions(long amount)
-    {
-        Amount = amount;
-    }
+    private long Amount { get; } = amount;
 
     internal Dictionary<string, string> BuildFormData(Guid playerID)
     {

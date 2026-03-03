@@ -4,6 +4,9 @@ using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using ConstructServices.Authentication;
+using ConstructServices.Authentication.Actions;
+using ConstructServices.Authentication.Enums;
 using ConstructServices.CloudSave.Actions;
 using ConstructServices.CloudSave.Enums;
 
@@ -18,7 +21,16 @@ public static class Run
         ListBuckets,
         UpdateBucket,
         ListBucketSaves,
-        DeleteBucket
+        DeleteBucket,
+
+        CreateSave,
+        GetByID,
+        GetByKey,
+        GetBytes,
+        SetPicture,
+        DeletePicture,
+        ListPlayerSaves,
+        DeleteSave
     }
 
     [UsedImplicitly]
@@ -60,6 +72,67 @@ public static class Run
                 {
                     var result = service.ListCloudSaves(bucket.ID, new Buckets.ListBucketSavesOptions(GetBucketCloudSaveSortMethod.NameAZ), new PaginationOptions(1, 10));
                     results[nameof(CloudSaveTest.ListBucketSaves)] = new TestResult(result);
+                }
+
+                // Saves
+                {
+                    byte[] data;
+                    {
+                        var rnd = new Random();
+                        data = new byte[8 * 1024];
+                        rnd.NextBytes(data);
+                    }
+                    const string testSaveKey = "my.save.key.1";
+                    var saveResult = service.CreateCloudSave(new Saves.CreateCloudSaveOptions(bucket.ID, data, "my-save-1", testSaveKey));
+                    results[nameof(CloudSaveTest.CreateSave)] = new TestResult(saveResult);
+
+                    if (saveResult.Success)
+                    {
+                        var save = saveResult.Blob;
+                        {
+                            var result = service.GetByID(new Saves.GetCloudSaveByIDOptions(save.ID));
+                            results[nameof(CloudSaveTest.GetByID)] = new TestResult(result);
+                        }
+                        {
+                            var result = service.GetByKey(new Saves.GetCloudSaveByKeyOptions(testSaveKey, bucket.ID));
+                            results[nameof(CloudSaveTest.GetByKey)] = new TestResult(result);
+                        }
+                        {
+                            var result = service.GetCloudSaveBytes(save);
+                            if (result.Length == data.Length)
+                            {
+                                results[nameof(CloudSaveTest.GetBytes)] = new TestResult(TestResultStatus.Passed);
+                            }
+                            else
+                            {
+                                results[nameof(CloudSaveTest.GetBytes)] = new TestResult(TestResultStatus.Failed);
+                            }
+                        }
+                        {
+                            var result = service.SetPicture(new Saves.SetCloudSavePictureOptions(save.ID, new PictureData(new Uri("https://construct-static.com/images/v1746/r/global/construct-3-logo_v64.png", UriKind.Absolute))));
+                            results[nameof(CloudSaveTest.SetPicture)] = new TestResult(result);
+                        }
+                        {
+                            var result = service.DeletePicture(new Saves.DeleteCloudSavePictureOptions(save.ID));
+                            results[nameof(CloudSaveTest.DeletePicture)] = new TestResult(result);
+                        }
+                        {
+                            var result = service.DeleteCloudSave(new Saves.DeleteCloudSaveOptions(save.ID));
+                            results[nameof(CloudSaveTest.DeleteSave)] = new TestResult(result);
+                        }
+                    }
+
+                    var authService = new AuthenticationService(gameID, apiKey);
+                    var playerResult = authService.ListPlayers(new Players.GetPlayersOptions(PlayerOrdering.Newest));
+                    if (playerResult.Success)
+                    {
+                        var player = playerResult.Players.FirstOrDefault();
+                        if (player != null)
+                        {
+                            var result = service.ListPlayersCloudSaves(new Saves.ListPlayersSavesOptions(player.ID), new PaginationOptions(1, 10));
+                            results[nameof(CloudSaveTest.ListPlayerSaves)] = new TestResult(result);
+                        }
+                    }
                 }
 
                 {
