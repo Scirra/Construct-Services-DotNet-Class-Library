@@ -37,8 +37,14 @@ public static partial class Dimensions
             );
         }
     }
+    
+    [UsedImplicitly]
+    public sealed class UpdateChannelRatingDimensionOptions() : UpdateRatingDimensionOptions(Thing.BroadcastChannel);
 
-    public sealed class UpdateRatingDimensionOptions
+    [UsedImplicitly]
+    public sealed class UpdateCloudSaveBucketRatingDimensionOptions() : UpdateRatingDimensionOptions(Thing.CloudSaveBucket);
+
+    public abstract class UpdateRatingDimensionOptions
     {
         private Thing ForThing { get; }
         
