@@ -15,12 +15,12 @@ public static partial class Rankings
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/ranks/delete-rank" />
         [UsedImplicitly]
-        public RankResponse DeleteRank(DeleteXPRankOptions deleteXPRankOptions)
+        public RankResponse DeleteRank(Guid rankID, DeleteXPRankOptions deleteXPRankOptions = null)
         {
             return Request.ExecuteSyncRequest<RankResponse>(
                 Config.EndPointPaths.Rankings.Delete,
                 xpService,
-                deleteXPRankOptions.BuildFormData()
+                DeleteXPRankOptions.BuildFormData(rankID)
             );
         }
 
@@ -29,12 +29,12 @@ public static partial class Rankings
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/ranks/delete-rank" />
         [UsedImplicitly]
-        public async Task<RankResponse> DeleteRankAsync(DeleteXPRankOptions deleteXPRankOptions)
+        public async Task<RankResponse> DeleteRankAsync(Guid rankID, DeleteXPRankOptions deleteXPRankOptions = null)
         {
             return await Request.ExecuteAsyncRequest<RankResponse>(
                 Config.EndPointPaths.Rankings.Delete,
                 xpService,
-                deleteXPRankOptions.BuildFormData()
+                DeleteXPRankOptions.BuildFormData(rankID)
             );
         }
     }
@@ -42,22 +42,11 @@ public static partial class Rankings
     [UsedImplicitly]
     public sealed class DeleteXPRankOptions
     {
-        private Guid RankID { get; }
-    
-        public DeleteXPRankOptions(string strRankID)
-        {
-            RankID = Guid.Parse(strRankID);
-        }
-        public DeleteXPRankOptions(Guid rankID)
-        {
-            RankID = rankID;
-        }
-
-        internal Dictionary<string, string> BuildFormData()
+        internal static Dictionary<string, string> BuildFormData(Guid rankID)
         {
             var formData = new Dictionary<string, string>
             {
-                { "rankID", RankID.ToString() }
+                { "rankID", rankID.ToString() }
             };
             return formData;
         }

@@ -16,12 +16,12 @@ public static partial class XP
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/xp/get-xp" />
         [UsedImplicitly]
-        public XPResponse GetXP(GetXPOptions getXPOptions)
+        public XPResponse GetXP(Guid playerID, GetXPOptions getXPOptions = null)
         {
             return Request.ExecuteSyncRequest<XPResponse>(
                 Config.EndPointPaths.XP.Get,
                 xpService,
-                getXPOptions.BuildFormData()
+                GetXPOptions.BuildFormData(playerID)
             );
         }
 
@@ -30,12 +30,12 @@ public static partial class XP
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/xp/get-xp" />
         [UsedImplicitly]
-        public async Task<XPResponse> GetXPAsync(GetXPOptions getXPOptions)
+        public async Task<XPResponse> GetXPAsync(Guid playerID, GetXPOptions getXPOptions = null)
         {
             return await Request.ExecuteAsyncRequest<XPResponse>(
                 Config.EndPointPaths.XP.Get,
                 xpService,
-                getXPOptions.BuildFormData()
+                GetXPOptions.BuildFormData(playerID)
             );
         }
     }
@@ -43,31 +43,12 @@ public static partial class XP
     [UsedImplicitly]
     public sealed class GetXPOptions
     { 
-        private Guid PlayerID { get; }
-
-        /// <summary>
-        /// No player ID specified, uses currently authenticated player
-        /// </summary>
-        public GetXPOptions()
+        internal static Dictionary<string, string> BuildFormData(Guid playerID)
         {
-        }
-
-        public GetXPOptions(string strPlayerID)
-        {
-            PlayerID = Guid.Parse(strPlayerID);
-        }
-        public GetXPOptions(Guid playerID)
-        {
-            PlayerID = playerID;
-        }
-
-        internal Dictionary<string, string> BuildFormData()
-        {
-            var formData = new Dictionary<string, string>();
-            if (PlayerID != Guid.Empty)
+            var formData = new Dictionary<string, string>
             {
-                formData.Add("playerID", PlayerID.ToString());
-            }
+                { "playerID", playerID.ToString() }
+            };
             return formData;
         }
     }

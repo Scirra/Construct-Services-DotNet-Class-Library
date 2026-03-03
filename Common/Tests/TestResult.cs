@@ -12,10 +12,15 @@ public class TestResult
 {
     public TestResultStatus ResultStatus { get; }
     public string Data { get; }
-
+    
     public TestResult()
     {
         ResultStatus = TestResultStatus.DidNotRun;
+    }
+    public TestResult(TestResultStatus status, string data = null)
+    {
+        ResultStatus = TestResultStatus.DidNotRun;
+        Data = data;
     }
 
     public TestResult(BaseResponse baseResponse)

@@ -7,25 +7,18 @@ namespace ConstructServices.XP.Actions;
 [UsedImplicitly]
 public sealed class ModifyXPOptions
 {
-    private Guid PlayerID { get; }
     private long Amount { get; }
 
-    public ModifyXPOptions(string strPlayerID, long amount)
+    public ModifyXPOptions(long amount)
     {
-        PlayerID = Guid.Parse(strPlayerID);
-        Amount = amount;
-    }
-    public ModifyXPOptions(Guid playerID, long amount)
-    {
-        PlayerID = playerID;
         Amount = amount;
     }
 
-    internal Dictionary<string, string> BuildFormData()
+    internal Dictionary<string, string> BuildFormData(Guid playerID)
     {
         var formData = new Dictionary<string, string>
         {
-            { "playerID", PlayerID.ToString() },
+            { "playerID", playerID.ToString() },
             { "xp", Amount.ToString() }
         };
         return formData;

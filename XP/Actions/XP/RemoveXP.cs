@@ -1,5 +1,6 @@
 ﻿using ConstructServices.Common;
 using JetBrains.Annotations;
+using System;
 using System.Threading.Tasks;
 
 namespace ConstructServices.XP.Actions;
@@ -12,12 +13,12 @@ public static partial class XP
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/xp/remove-xp" />
         [UsedImplicitly]
-        public BaseResponse RemoveXP(ModifyXPOptions modifyXPOptions)
+        public BaseResponse RemoveXP(Guid playerID, ModifyXPOptions modifyXPOptions)
         {
             return Request.ExecuteSyncRequest<BaseResponse>(
                 Config.EndPointPaths.XP.Remove,
                 xpService,
-                modifyXPOptions.BuildFormData()
+                modifyXPOptions.BuildFormData(playerID)
             );
         }
 
@@ -26,12 +27,12 @@ public static partial class XP
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/xp/remove-xp" />
         [UsedImplicitly]
-        public async Task<BaseResponse> RemoveXPAsync(ModifyXPOptions modifyXPOptions)
+        public async Task<BaseResponse> RemoveXPAsync(Guid playerID, ModifyXPOptions modifyXPOptions)
         {
             return await Request.ExecuteAsyncRequest<BaseResponse>(
                 Config.EndPointPaths.XP.Remove,
                 xpService,
-                modifyXPOptions.BuildFormData()
+                modifyXPOptions.BuildFormData(playerID)
             );
         }
     }

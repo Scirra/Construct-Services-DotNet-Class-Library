@@ -1,5 +1,6 @@
 ﻿using ConstructServices.Common;
 using JetBrains.Annotations;
+using System;
 using System.Threading.Tasks;
 
 namespace ConstructServices.XP.Actions;
@@ -13,12 +14,12 @@ public static partial class XP
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/xp/set-xp" />
         [UsedImplicitly]
-        public BaseResponse SetXP(ModifyXPOptions modifyXPOptions)
+        public BaseResponse SetXP(Guid playerID, ModifyXPOptions modifyXPOptions)
         {
             return Request.ExecuteSyncRequest<BaseResponse>(
                 Config.EndPointPaths.XP.Set,
                 xpService,
-                modifyXPOptions.BuildFormData()
+                modifyXPOptions.BuildFormData(playerID)
             );
         }
 
@@ -27,12 +28,12 @@ public static partial class XP
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/xp/set-xp" />
         [UsedImplicitly]
-        public async Task<BaseResponse> SetXPAsync(ModifyXPOptions modifyXPOptions)
+        public async Task<BaseResponse> SetXPAsync(Guid playerID, ModifyXPOptions modifyXPOptions)
         {
             return await Request.ExecuteAsyncRequest<BaseResponse>(
                 Config.EndPointPaths.XP.Set,
                 xpService,
-                modifyXPOptions.BuildFormData()
+                modifyXPOptions.BuildFormData(playerID)
             );
         }
     }
