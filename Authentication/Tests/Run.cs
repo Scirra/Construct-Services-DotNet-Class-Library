@@ -39,7 +39,7 @@ public static class Run
             var player = createResult.Player;
             
             {
-                var result = service.GetPlayers(new Players.GetPlayersOptions(PlayerOrdering.Newest));
+                var result = service.ListPlayers(new Players.GetPlayersOptions(PlayerOrdering.Newest));
                 results[nameof(AuthTest.GetPlayers)] = new TestResult(result);
                 if (result.Success)
                 {

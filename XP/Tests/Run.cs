@@ -128,7 +128,7 @@ public static class Run
         {
             // Get player
             var authService = new AuthenticationService(gameID, apiKey);
-            var player = authService.GetPlayers(new Players.GetPlayersOptions(PlayerOrdering.Newest)).Players.FirstOrDefault();
+            var player = authService.ListPlayers(new Players.GetPlayersOptions(PlayerOrdering.Newest)).Players.FirstOrDefault();
             if (player != null)
             {
                 var addResult = service.AddXP(player.ID, new ModifyXPOptions(new Random().Next(1, 10)));
