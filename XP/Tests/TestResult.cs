@@ -1,4 +1,5 @@
 ﻿using ConstructServices.Common;
+using Newtonsoft.Json;
 
 namespace ConstructServices.XP.Tests
 {
@@ -11,6 +12,7 @@ namespace ConstructServices.XP.Tests
     public class TestResult
     {
         public TestResultStatus ResultStatus { get; }
+        public string Data { get; }
 
         public TestResult()
         {
@@ -26,6 +28,12 @@ namespace ConstructServices.XP.Tests
             else
             {
                 ResultStatus = TestResultStatus.Failed;
+
+                var dataObject = new
+                {
+                    baseResponse
+                };
+                Data = JsonConvert.SerializeObject(dataObject);
             }
         }
     }
