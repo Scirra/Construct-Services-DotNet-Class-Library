@@ -16,12 +16,12 @@ public static partial class Messages
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/broadcasts/api-end-points/messages/delete-message" />
         [UsedImplicitly]
-        public BaseResponse DeleteMessage(DeleteMessageOptions deleteMessageOptions)
+        public BaseResponse DeleteMessage(Guid messageID)
         {
             return Request.ExecuteSyncRequest<MessageResponse>(
                 Config.EndPointPaths.Messages.Delete,
                 service,
-                deleteMessageOptions.BuildFormData()
+                DeleteMessageOptions.BuildFormData(messageID)
             );
         }
         
@@ -30,36 +30,23 @@ public static partial class Messages
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/broadcasts/api-end-points/messages/delete-message" />
         [UsedImplicitly]
-        public async Task<BaseResponse> DeleteMessageAsync(DeleteMessageOptions deleteMessageOptions)
+        public async Task<BaseResponse> DeleteMessageAsync(Guid messageID)
         {
             return await Request.ExecuteAsyncRequest<MessageResponse>(
                 Config.EndPointPaths.Messages.Delete,
                 service,
-                deleteMessageOptions.BuildFormData()
+                DeleteMessageOptions.BuildFormData(messageID)
             );
         }
     }
-
     
-    [UsedImplicitly]
-    public sealed class DeleteMessageOptions
+    private static class DeleteMessageOptions
     {
-        private Guid MessageID { get; }
-    
-        public DeleteMessageOptions(string strMessageID)
-        {
-            MessageID = Guid.Parse(strMessageID);
-        }
-        public DeleteMessageOptions(Guid messageID)
-        {
-            MessageID = messageID;
-        }
-
-        internal Dictionary<string, string> BuildFormData()
+        internal static Dictionary<string, string> BuildFormData(Guid messageID)
         {
             var formData = new Dictionary<string, string>
             {
-                { "messageID", MessageID.ToString() }
+                { "messageID", messageID.ToString() }
             };
             return formData;
         }

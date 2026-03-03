@@ -15,12 +15,12 @@ public static partial class Channels
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/broadcasts/api-end-points/channels/delete-channel" />
         [UsedImplicitly]
-        public BaseResponse DeleteChannel(DeleteChannelOptions deleteChannelOptions)
+        public BaseResponse DeleteChannel(Guid channelID)
         {
             return Request.ExecuteSyncRequest<BaseResponse>(
                 Config.EndPointPaths.Channels.Delete,
                 service,
-                deleteChannelOptions.BuildFormData()
+                DeleteChannelOptions.BuildFormData(channelID)
             );
         }
 
@@ -29,35 +29,23 @@ public static partial class Channels
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/broadcasts/api-end-points/channels/delete-channel" />
         [UsedImplicitly]
-        public async Task<BaseResponse> DeleteChannelAsync(DeleteChannelOptions deleteChannelOptions)
+        public async Task<BaseResponse> DeleteChannelAsync(Guid channelID)
         {
             return await Request.ExecuteAsyncRequest<BaseResponse>(
                 Config.EndPointPaths.Channels.Delete,
                 service,
-                deleteChannelOptions.BuildFormData()
+                DeleteChannelOptions.BuildFormData(channelID)
             );
         }
     }
 
-    [UsedImplicitly]
-    public sealed class DeleteChannelOptions
-    {
-        private Guid ChannelID { get; }
-    
-        public DeleteChannelOptions(string strChannelID)
-        {
-            ChannelID = Guid.Parse(strChannelID);
-        }
-        public DeleteChannelOptions(Guid channelID)
-        {
-            ChannelID = channelID;
-        }
-
-        internal Dictionary<string, string> BuildFormData()
+    private static class DeleteChannelOptions
+    { 
+        internal static Dictionary<string, string> BuildFormData(Guid channelID)
         {
             var formData = new Dictionary<string, string>
             {
-                { "channelID", ChannelID.ToString() }
+                { "channelID", channelID.ToString() }
             };
             return formData;
         }
