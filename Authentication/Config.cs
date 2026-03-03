@@ -13,7 +13,7 @@ internal static class Config
             internal const string ForgottenPassword = "/forgottenpassword.json";
             internal const string ListProviders = "/getconnectedloginproviders.json";
             internal const string GetPlayer = "/getplayer.json";
-            internal const string ListPlayers = "/getplayers.json";
+            internal const string ListPlayers = "/listplayers.json";
             internal const string Register = "/registerplayer.json";
             internal const string SetEmailAddress = "/setemailaddress.json";
             internal const string SetRestrictions = "/setplayerrestrictions.json";

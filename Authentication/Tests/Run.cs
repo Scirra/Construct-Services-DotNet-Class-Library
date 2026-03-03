@@ -19,11 +19,14 @@ public static class Run
         ChangePassword,
         ChangeUsername,
         GetPlayer,
-        GetPlayers,
+        ListPlayers,
         ForgottenPassword,
         SetEmailAddress,
         SetRestrictions,
-        DeletePlayer
+        DeletePlayer,
+
+        SetAvatar,
+        DeleteAvatar
     }
 
     [UsedImplicitly]
@@ -40,12 +43,12 @@ public static class Run
             
             {
                 var result = service.ListPlayers(new Players.GetPlayersOptions(PlayerOrdering.Newest));
-                results[nameof(AuthTest.GetPlayers)] = new TestResult(result);
+                results[nameof(AuthTest.ListPlayers)] = new TestResult(result);
                 if (result.Success)
                 {
                     if (result.Players.All(c => c.ID != player.ID))
                     {
-                        results[nameof(AuthTest.GetPlayers)] =
+                        results[nameof(AuthTest.ListPlayers)] =
                             new TestResult(TestResultStatus.Failed, "Player ID not returned.");
                     }
                 }
@@ -89,6 +92,19 @@ public static class Run
             {
                 var result = service.SetPlayerRestrictions(new Players.SetPlayerRestrictionsOptions(player.ID, [PlayerRestriction.PlayerRateObjects]));
                 results[nameof(AuthTest.SetRestrictions)] = new TestResult(result);
+            }
+
+            {
+                var result = service.SetAvatar(new Avatars.SetAvatarOptions(player.ID,
+                    new PictureData(new Uri(
+                        "https://construct-static.com/images/v1746/r/uploads/user/15844/avatar/94145/avatar_v128.jpg",
+                        UriKind.Absolute))));
+                results[nameof(AuthTest.SetAvatar)] = new TestResult(result);
+            }
+
+            {
+                var result = service.DeleteAvatar(new Avatars.DeleteAvatarOptions(player.ID));
+                results[nameof(AuthTest.DeleteAvatar)] = new TestResult(result);
             }
 
             {
