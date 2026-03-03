@@ -29,6 +29,7 @@ public static partial class Messages
         /// Delete an existing Broadcast Message
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/broadcasts/api-end-points/messages/delete-message" />
+        [UsedImplicitly]
         public async Task<BaseResponse> DeleteMessageAsync(DeleteMessageOptions deleteMessageOptions)
         {
             return await Request.ExecuteAsyncRequest<MessageResponse>(

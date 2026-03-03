@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using ConstructServices.Common;
 using ConstructServices.XP.Actions;
 using JetBrains.Annotations;
@@ -7,7 +8,7 @@ using JetBrains.Annotations;
 namespace ConstructServices.XP.Tests;
 
 [UsedImplicitly]
-public static class Run
+public static class XP
 {
     public enum XPTest
     {
@@ -22,11 +23,8 @@ public static class Run
     [UsedImplicitly]
     public static Dictionary<string, TestResult> RunTests(Guid gameID, SecretAPIKey apiKey)
     {
-        var results = new Dictionary<string, TestResult>();
-        foreach (var XPTest in (XPTest[])Enum.GetValues(typeof(XPTest)))
-        {
-            results.Add(XPTest.ToString(), new TestResult());
-        }
+        var results = ((XPTest[])Enum.GetValues(typeof(XPTest)))
+            .ToDictionary(XPTest => XPTest.ToString(), _ => new TestResult());
 
         var service = new XPService(gameID, apiKey);
 

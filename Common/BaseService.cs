@@ -31,6 +31,7 @@ public abstract class BaseService(
     /// <summary>
     /// Allows change of requested language without needing to create new service object
     /// </summary>
+    [UsedImplicitly]
     public void SetRequestedLanguage(string requestedLanguage)
     {
         RequestedLanguage = requestedLanguage;
@@ -39,6 +40,7 @@ public abstract class BaseService(
     /// <summary>
     /// Allows change of culture without needing to create new service object
     /// </summary>
+    [UsedImplicitly]
     public void SetCulture(CultureInfo culture)
     {
         Culture = culture;

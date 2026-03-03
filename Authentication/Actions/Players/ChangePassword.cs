@@ -29,6 +29,7 @@ public static partial class Players
         /// Change a Players password
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/set-username-password" />
+        [UsedImplicitly]
         public async Task<BaseResponse> ChangePasswordAsync(ChangePasswordOptions changePasswordOptions)
         {
             return await Request.ExecuteAsyncRequest<BaseResponse>(

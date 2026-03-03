@@ -28,6 +28,7 @@ public static partial class Players
         /// Change a Players username
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/set-username-password" />
+        [UsedImplicitly]
         public async Task<BaseResponse> ChangeUsernameAsync(ChangeUsernameOptions changeUsernameOptions)
         {
             return await Request.ExecuteAsyncRequest<BaseResponse>(

@@ -1,40 +1,39 @@
 ﻿using ConstructServices.Common;
 using Newtonsoft.Json;
 
-namespace ConstructServices.XP.Tests
+namespace ConstructServices.XP.Tests;
+
+public enum TestResultStatus
 {
-    public enum TestResultStatus
+    DidNotRun,
+    Passed,
+    Failed
+}
+public class TestResult
+{
+    public TestResultStatus ResultStatus { get; }
+    public string Data { get; }
+
+    public TestResult()
     {
-        DidNotRun,
-        Passed,
-        Failed
+        ResultStatus = TestResultStatus.DidNotRun;
     }
-    public class TestResult
+
+    public TestResult(BaseResponse baseResponse)
     {
-        public TestResultStatus ResultStatus { get; }
-        public string Data { get; }
-
-        public TestResult()
+        if (baseResponse.Success)
         {
-            ResultStatus = TestResultStatus.DidNotRun;
+            ResultStatus = TestResultStatus.Passed;
         }
-
-        public TestResult(BaseResponse baseResponse)
+        else
         {
-            if (baseResponse.Success)
-            {
-                ResultStatus = TestResultStatus.Passed;
-            }
-            else
-            {
-                ResultStatus = TestResultStatus.Failed;
+            ResultStatus = TestResultStatus.Failed;
 
-                var dataObject = new
-                {
-                    baseResponse
-                };
-                Data = JsonConvert.SerializeObject(dataObject);
-            }
+            var dataObject = new
+            {
+                baseResponse
+            };
+            Data = JsonConvert.SerializeObject(dataObject);
         }
     }
 }

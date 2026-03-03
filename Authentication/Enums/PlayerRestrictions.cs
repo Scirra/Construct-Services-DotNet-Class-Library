@@ -26,6 +26,9 @@ public enum PlayerRestriction
 [UsedImplicitly] 
 public sealed class PlayerRestrictionAttribute(string friendlyName, string description) : System.Attribute
 {
+    [UsedImplicitly]
     public string FriendlyName { [UsedImplicitly] get; set; } = friendlyName;
+
+    [UsedImplicitly]
     public string Description { [UsedImplicitly] get; set; } = description;
 }
