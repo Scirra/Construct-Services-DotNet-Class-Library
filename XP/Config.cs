@@ -12,6 +12,7 @@ internal static class Config
             internal const string Delete = "/deletebonus.json";
             internal const string Update = "/editbonus.json";
             internal const string List = "/listbonuses.json";
+            internal const string ListActive = "/listactivebonuses.json";
             internal const string Get = "/getbonus.json";
         }
 

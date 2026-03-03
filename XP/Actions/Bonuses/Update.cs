@@ -12,7 +12,7 @@ public static partial class Bonuses
     extension(XPService xpService)
     {
         /// <summary>Update an existing XP Bonus object</summary>
-        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/bonuses/edit-bonus" />
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/bonuses/update-bonus" />
         [UsedImplicitly]
         public BonusResponse UpdateBonus(
             Guid bonusID,
@@ -26,7 +26,7 @@ public static partial class Bonuses
         }
 
         /// <summary>Update an existing XP Bonus object</summary>
-        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/bonuses/edit-bonus" />
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/bonuses/update-bonus" />
         [UsedImplicitly]
         public async Task<BonusResponse> UpdateBonusAsync(
             Guid bonusID,

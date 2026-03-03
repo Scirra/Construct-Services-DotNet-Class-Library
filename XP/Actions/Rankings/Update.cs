@@ -14,7 +14,7 @@ public static partial class Rankings
         /// <summary>
         /// Edit an existing XP Rank object
         /// </summary>
-        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/ranks/edit-rank" />
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/ranks/update-rank" />
         [UsedImplicitly]
         public RankResponse UpdateRank(Guid rankID, UpdateXPRankOptions updateOptions)
         {
@@ -28,7 +28,7 @@ public static partial class Rankings
         /// <summary>
         /// Edit an existing XP Rank object
         /// </summary>
-        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/ranks/edit-rank" />
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/ranks/update-rank" />
         [UsedImplicitly]
         public async Task<RankResponse> UpdateRankAsync(Guid rankID, UpdateXPRankOptions updateOptions)
         {
