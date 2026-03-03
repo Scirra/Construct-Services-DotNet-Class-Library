@@ -20,12 +20,12 @@ public static class Run
     }
     
     [UsedImplicitly]
-    public static Dictionary<XPTest, bool?> RunTests(Guid gameID, SecretAPIKey apiKey)
+    public static Dictionary<string, TestResult> RunTests(Guid gameID, SecretAPIKey apiKey)
     {
-        var results = new Dictionary<XPTest, bool?>();
+        var results = new Dictionary<string, TestResult>();
         foreach (var XPTest in (XPTest[])Enum.GetValues(typeof(XPTest)))
         {
-            results.Add(XPTest, null);
+            results.Add(XPTest.ToString(), new TestResult());
         }
 
         var service = new XPService(gameID, apiKey);
@@ -40,7 +40,7 @@ public static class Run
                     "Test Bonus",
                     "Test bonus description")
             );
-            results[XPTest.CreateBonus] = createResult.Success;
+            results[nameof(XPTest.CreateBonus)] = new TestResult(createResult);
 
             // Edit
             if (createResult.Success)
@@ -51,19 +51,19 @@ public static class Run
                     Title = "New title",
                     Description = "New description"
                 });
-                results[XPTest.EditBonus] = editResult.Success;
+                results[nameof(XPTest.EditBonus)] = new TestResult(editResult);
 
                 if (editResult.Success)
                 {
                     var getResult = service.GetBonus(bonus.ID);
-                    results[XPTest.GetBonus] = getResult.Success;
+                    results[nameof(XPTest.GetBonus)] = new TestResult(getResult);
 
                     if (getResult.Success)
                     {
                         bonus = getResult.Bonus;
 
                         var deleteResult = service.DeleteBonus(bonus.ID);
-                        results[XPTest.DeleteBonus] = deleteResult.Success;
+                        results[nameof(XPTest.DeleteBonus)] = new TestResult(deleteResult);
                     }
                 }
             }
@@ -72,13 +72,13 @@ public static class Run
         // List bonuses
         {
             var listResult =service.ListBonuses(new Bonuses.ListBonusesOptions(DateTime.UtcNow, DateTime.UtcNow.AddDays(30)));
-            results[XPTest.ListBonuses] = listResult.Success;
+            results[nameof(XPTest.ListBonuses)] = new TestResult(listResult);
         }
 
         // List active bonuses
         {
             var listResult = service.ListActiveBonuses();
-            results[XPTest.ListActiveBonuses] = listResult.Success;
+            results[nameof(XPTest.ListActiveBonuses)] = new TestResult(listResult);
         }
 
         return results;
