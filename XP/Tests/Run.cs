@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using ConstructServices.Common;
+using ConstructServices.Common.Tests;
 using ConstructServices.XP.Actions;
 using JetBrains.Annotations;
 
 namespace ConstructServices.XP.Tests;
 
 [UsedImplicitly]
-public static class XP
+public static class Run
 {
     public enum XPTest
     {

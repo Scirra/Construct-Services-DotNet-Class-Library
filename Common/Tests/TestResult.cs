@@ -1,7 +1,6 @@
-﻿using ConstructServices.Common;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
-namespace ConstructServices.XP.Tests;
+namespace ConstructServices.Common.Tests;
 
 public enum TestResultStatus
 {
