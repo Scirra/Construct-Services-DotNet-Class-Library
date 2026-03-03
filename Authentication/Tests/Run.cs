@@ -1,0 +1,110 @@
+﻿using ConstructServices.Common;
+using ConstructServices.Common.Tests;
+using JetBrains.Annotations;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using ConstructServices.Authentication.Actions;
+using ConstructServices.Authentication.Enums;
+
+namespace ConstructServices.Authentication.Tests;
+
+public static class Run
+{
+    private enum AuthTest
+    {
+        CreatePlayer,
+        ChangePlayerName,
+        SetUsernamePassword,
+        ChangePassword,
+        ChangeUsername,
+        GetPlayer,
+        GetPlayers,
+        ForgottenPassword,
+        SetEmailAddress,
+        SetRestrictions,
+        DeletePlayer
+    }
+
+    [UsedImplicitly]
+    public static Dictionary<string, TestResult> RunTests(Guid gameID, SecretAPIKey apiKey)
+    {
+        var results = new Dictionary<string, TestResult>();
+        var service = new AuthenticationService(gameID, apiKey);
+
+        var createResult = service.CreatePlayer(new Players.CreatePlayerOptions("Test" + new Random().Next(0, 10000)));
+        results[nameof(AuthTest.CreatePlayer)] = new TestResult(createResult);
+        if (createResult.Success)
+        {
+            var player = createResult.Player;
+            
+            {
+                var result = service.GetPlayers(new Players.GetPlayersOptions(PlayerOrdering.Newest));
+                results[nameof(AuthTest.GetPlayers)] = new TestResult(result);
+                if (result.Success)
+                {
+                    if (result.Players.All(c => c.ID != player.ID))
+                    {
+                        results[nameof(AuthTest.GetPlayers)] =
+                            new TestResult(TestResultStatus.Failed, "Player ID not returned.");
+                    }
+                }
+            }
+
+            {
+                var result = service.ChangePlayerName(new Players.ChangePlayerNameOptions(player.ID, "Test" + new Random().Next(0, 10000)));
+                results[nameof(AuthTest.ChangePlayerName)] = new TestResult(result);
+            }
+
+            {
+                var result = service.SetUsernameAndPassword(new Players.SetUsernameAndPasswordOptions(player.ID, "Test" + new Random().Next(0, 10000), "abc123#AB£"));
+                results[nameof(AuthTest.SetUsernamePassword)] = new TestResult(result);
+            }
+
+            {
+                var result = service.ChangePassword(new Players.ChangePasswordOptions(player.ID, "abcdEE1234###£"));
+                results[nameof(AuthTest.ChangePassword)] = new TestResult(result);
+            }
+
+            {
+                var result = service.ChangeUsername(new Players.ChangeUsernameOptions(player.ID, "Test" + new Random().Next(0, 10000)));
+                results[nameof(AuthTest.ChangeUsername)] = new TestResult(result);
+            }
+
+            {
+                var result = service.GetPlayer(new Players.GetPlayerOptions(player.ID));
+                results[nameof(AuthTest.GetPlayer)] = new TestResult(result);
+            }
+
+            {
+                var result = service.RequestForgottenPasswordEmail(new Players.ForgottenPasswordOptions("testemail@construct.ner"));
+                results[nameof(AuthTest.ForgottenPassword)] = new TestResult(result);
+            }
+
+            {
+                var result = service.SetEmailAddress(new Players.SetEmailAddressOptions(player.ID, "test+email@construct.net"));
+                results[nameof(AuthTest.SetEmailAddress)] = new TestResult(result);
+            }
+
+            {
+                var result = service.SetPlayerRestrictions(new Players.SetPlayerRestrictionsOptions(player.ID, [PlayerRestriction.PlayerRateObjects]));
+                results[nameof(AuthTest.SetRestrictions)] = new TestResult(result);
+            }
+
+            {
+                var result = service.DeletePlayer(new Players.DeletePlayerOptions(player.ID));
+                results[nameof(AuthTest.DeletePlayer)] = new TestResult(result);
+            }
+        }
+
+        var testNames = Enum.GetNames(typeof(AuthTest));
+        foreach (var testName in testNames)
+        {
+            if (!results.ContainsKey(testName))
+            {
+                results[testName] = new TestResult();
+            }
+        }
+        return results;
+    }
+}

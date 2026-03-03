@@ -61,7 +61,7 @@ public static partial class Players
         {
             var formData = new Dictionary<string, string>
             {
-                { "newPassword", NewPassword }
+                { "password", NewPassword }
             };
             if (PlayerID.HasValue)
             {

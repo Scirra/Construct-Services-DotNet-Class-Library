@@ -14,7 +14,7 @@ namespace ConstructServices.XP.Tests;
 [UsedImplicitly]
 public static class Run
 {
-    public enum XPTest
+    private enum XPTest
     {
         CreateBonus,
         EditBonus,
