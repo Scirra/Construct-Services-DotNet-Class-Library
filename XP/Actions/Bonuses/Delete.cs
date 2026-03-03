@@ -14,7 +14,7 @@ public static partial class Bonuses
         /// <summary>Deletes an existing XP Bonus object</summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/bonuses/delete-bonus" />
         [UsedImplicitly]
-        public BaseResponse DeleteBonus(Guid bonusID, DeleteXPBonusOptions deleteXPBonusOptions = null)
+        public BaseResponse DeleteBonus(Guid bonusID)
         {            
             return Request.ExecuteSyncRequest<BaseResponse>(
                 Config.EndPointPaths.Bonuses.Delete,
@@ -26,7 +26,7 @@ public static partial class Bonuses
         /// <summary>Deletes an existing XP Bonus object</summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/bonuses/delete-bonus" />
         [UsedImplicitly]
-        public async Task<BaseResponse> DeleteBonusAsync(Guid bonusID, DeleteXPBonusOptions deleteXPBonusOptions = null)
+        public async Task<BaseResponse> DeleteBonusAsync(Guid bonusID)
         {       
             return await Request.ExecuteAsyncRequest<BaseResponse>(
                 Config.EndPointPaths.Bonuses.Delete,
@@ -36,8 +36,7 @@ public static partial class Bonuses
         }
     }
 
-    [UsedImplicitly]
-    public sealed class DeleteXPBonusOptions
+    private static class DeleteXPBonusOptions
     {
         internal static Dictionary<string, string> BuildFormData(Guid bonusID)
         {

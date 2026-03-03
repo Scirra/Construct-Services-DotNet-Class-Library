@@ -12,7 +12,7 @@ public static partial class Bonuses
         /// <summary>Retrieve all active XP bonuses</summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/bonuses/list-active" />
         [UsedImplicitly]
-        public BonusesResponse ListActiveBonuses(ListActiveBonusesOptions listActiveBonusesOptions = null)
+        public BonusesResponse ListActiveBonuses()
         {              
             return Request.ExecuteSyncRequest<BonusesResponse>(
                 Config.EndPointPaths.Bonuses.ListActive,
@@ -24,7 +24,7 @@ public static partial class Bonuses
         /// <summary>Retrieve all active XP bonuses</summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/bonuses/list-active" />
         [UsedImplicitly]
-        public async Task<BonusesResponse> ListActiveBonusesAsync(ListActiveBonusesOptions listActiveBonusesOptions = null)
+        public async Task<BonusesResponse> ListActiveBonusesAsync()
         {                    
             return await Request.ExecuteAsyncRequest<BonusesResponse>(
                 Config.EndPointPaths.Bonuses.ListActive,
@@ -33,7 +33,4 @@ public static partial class Bonuses
             );
         }
     }
-
-    [UsedImplicitly]
-    public sealed class ListActiveBonusesOptions;
 }

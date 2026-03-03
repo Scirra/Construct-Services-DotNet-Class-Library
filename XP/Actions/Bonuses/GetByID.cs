@@ -14,7 +14,7 @@ public static partial class Bonuses
         /// <summary>Get a XP Bonus object</summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/bonuses/get-bonus" />
         [UsedImplicitly]
-        public BonusResponse GetBonus(Guid bonusID, GetBonusOptions getBonusOptions = null)
+        public BonusResponse GetBonus(Guid bonusID)
         {              
             return Request.ExecuteSyncRequest<BonusResponse>(
                 Config.EndPointPaths.Bonuses.Get,
@@ -26,7 +26,7 @@ public static partial class Bonuses
         /// <summary>Get a XP Bonus object</summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/bonuses/get-bonus" />
         [UsedImplicitly]
-        public async Task<BonusResponse> GetBonusAsync(Guid bonusID, GetBonusOptions getBonusOptions = null)
+        public async Task<BonusResponse> GetBonusAsync(Guid bonusID)
         {                    
             return await Request.ExecuteAsyncRequest<BonusResponse>(
                 Config.EndPointPaths.Bonuses.Get,
@@ -35,8 +35,7 @@ public static partial class Bonuses
             );
         }
     }
-    [UsedImplicitly]
-    public sealed class GetBonusOptions
+    private static class GetBonusOptions
     {
         internal static Dictionary<string, string> BuildFormData(Guid bonusID)
         {
