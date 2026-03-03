@@ -1,7 +1,6 @@
 ﻿using ConstructServices.Common;
 using ConstructServices.XP.Responses;
 using JetBrains.Annotations;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ConstructServices.XP.Actions;
@@ -18,7 +17,7 @@ public static partial class Bonuses
             return Request.ExecuteSyncRequest<BonusesResponse>(
                 Config.EndPointPaths.Bonuses.ListActive,
                 xpService,
-                new Dictionary<string, string>()
+                null
             );
         }        
         
@@ -30,11 +29,11 @@ public static partial class Bonuses
             return await Request.ExecuteAsyncRequest<BonusesResponse>(
                 Config.EndPointPaths.Bonuses.ListActive,
                 xpService,
-                new Dictionary<string, string>()
+                null
             );
         }
     }
 
     [UsedImplicitly]
-    public sealed class ListActiveBonusesOptions();
+    public sealed class ListActiveBonusesOptions;
 }

@@ -14,24 +14,24 @@ public static partial class Bonuses
         /// <summary>Deletes an existing XP Bonus object</summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/bonuses/delete-bonus" />
         [UsedImplicitly]
-        public BaseResponse DeleteBonus(DeleteXPBonusOptions deleteXPBonusOptions)
+        public BaseResponse DeleteBonus(Guid bonusID, DeleteXPBonusOptions deleteXPBonusOptions = null)
         {            
             return Request.ExecuteSyncRequest<BaseResponse>(
                 Config.EndPointPaths.Bonuses.Delete,
                 xpService,
-                deleteXPBonusOptions.BuildFormData()
+                DeleteXPBonusOptions.BuildFormData(bonusID)
             );
         }
 
         /// <summary>Deletes an existing XP Bonus object</summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/bonuses/delete-bonus" />
         [UsedImplicitly]
-        public async Task<BaseResponse> DeleteBonusAsync(DeleteXPBonusOptions deleteXPBonusOptions)
+        public async Task<BaseResponse> DeleteBonusAsync(Guid bonusID, DeleteXPBonusOptions deleteXPBonusOptions = null)
         {       
             return await Request.ExecuteAsyncRequest<BaseResponse>(
                 Config.EndPointPaths.Bonuses.Delete,
                 xpService,
-                deleteXPBonusOptions.BuildFormData()
+                DeleteXPBonusOptions.BuildFormData(bonusID)
             );
         }
     }
@@ -39,22 +39,11 @@ public static partial class Bonuses
     [UsedImplicitly]
     public sealed class DeleteXPBonusOptions
     {
-        private Guid BonusID { get; }
-    
-        public DeleteXPBonusOptions(string strBonusID)
-        {
-            BonusID = Guid.Parse(strBonusID);
-        }
-        public DeleteXPBonusOptions(Guid bonusID)
-        {
-            BonusID = bonusID;
-        }
-
-        internal Dictionary<string, string> BuildFormData()
+        internal static Dictionary<string, string> BuildFormData(Guid bonusID)
         {
             var formData = new Dictionary<string, string>
             {
-                { "bonusID", BonusID.ToString() }
+                { "bonusID", bonusID.ToString() }
             };
             return formData;
         }

@@ -19,7 +19,7 @@ public static partial class Bonuses
             return Request.ExecuteSyncRequest<BonusesResponse>(
                 Config.EndPointPaths.Bonuses.List,
                 xpService,
-                listBonusesOptions.BuildFormData()
+                listBonusesOptions?.BuildFormData()
             );
         }        
         
@@ -31,7 +31,7 @@ public static partial class Bonuses
             return await Request.ExecuteAsyncRequest<BonusesResponse>(
                 Config.EndPointPaths.Bonuses.List,
                 xpService,
-                listBonusesOptions.BuildFormData()
+                listBonusesOptions?.BuildFormData()
             );
         }
     }

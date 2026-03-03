@@ -14,46 +14,35 @@ public static partial class Bonuses
         /// <summary>Get a XP Bonus object</summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/bonuses/get-bonus" />
         [UsedImplicitly]
-        public BonusResponse GetBonus(GetBonusOptions getBonusOptions)
+        public BonusResponse GetBonus(Guid bonusID, GetBonusOptions getBonusOptions = null)
         {              
             return Request.ExecuteSyncRequest<BonusResponse>(
                 Config.EndPointPaths.Bonuses.Get,
                 xpService,
-                getBonusOptions.BuildFormData()
+                GetBonusOptions.BuildFormData(bonusID)
             );
         }        
         
         /// <summary>Get a XP Bonus object</summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/bonuses/get-bonus" />
         [UsedImplicitly]
-        public async Task<BonusResponse> GetBonusAsync(GetBonusOptions getBonusOptions)
+        public async Task<BonusResponse> GetBonusAsync(Guid bonusID, GetBonusOptions getBonusOptions = null)
         {                    
             return await Request.ExecuteAsyncRequest<BonusResponse>(
                 Config.EndPointPaths.Bonuses.Get,
                 xpService,
-                getBonusOptions.BuildFormData()
+                GetBonusOptions.BuildFormData(bonusID)
             );
         }
     }
     [UsedImplicitly]
     public sealed class GetBonusOptions
     {
-        private Guid BonusID { get; }
-
-        public GetBonusOptions(string strBonusID)
-        {
-            BonusID = Guid.Parse(strBonusID);
-        }
-        public GetBonusOptions(Guid bonusID)
-        {
-            BonusID = bonusID;
-        }
-
-        internal Dictionary<string, string> BuildFormData()
+        internal static Dictionary<string, string> BuildFormData(Guid bonusID)
         {
             var formData = new Dictionary<string, string>
             {
-                { "bonusID", BonusID.ToString() }
+                { "bonusID", bonusID.ToString() }
             };
             return formData;
         }
