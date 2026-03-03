@@ -15,7 +15,7 @@ public static partial class Rankings
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/ranks/delete-rank" />
         [UsedImplicitly]
-        public RankResponse DeleteRank(Guid rankID, DeleteXPRankOptions deleteXPRankOptions = null)
+        public RankResponse DeleteRank(Guid rankID)
         {
             return Request.ExecuteSyncRequest<RankResponse>(
                 Config.EndPointPaths.Rankings.Delete,
@@ -29,7 +29,7 @@ public static partial class Rankings
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/ranks/delete-rank" />
         [UsedImplicitly]
-        public async Task<RankResponse> DeleteRankAsync(Guid rankID, DeleteXPRankOptions deleteXPRankOptions = null)
+        public async Task<RankResponse> DeleteRankAsync(Guid rankID)
         {
             return await Request.ExecuteAsyncRequest<RankResponse>(
                 Config.EndPointPaths.Rankings.Delete,
@@ -39,8 +39,7 @@ public static partial class Rankings
         }
     }
 
-    [UsedImplicitly]
-    public sealed class DeleteXPRankOptions
+    private static class DeleteXPRankOptions
     {
         internal static Dictionary<string, string> BuildFormData(Guid rankID)
         {

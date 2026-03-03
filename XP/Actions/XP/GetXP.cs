@@ -16,7 +16,7 @@ public static partial class XP
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/xp/get-xp" />
         [UsedImplicitly]
-        public XPResponse GetXP(Guid playerID, GetXPOptions getXPOptions = null)
+        public XPResponse GetXP(Guid playerID)
         {
             return Request.ExecuteSyncRequest<XPResponse>(
                 Config.EndPointPaths.XP.Get,
@@ -30,7 +30,7 @@ public static partial class XP
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/xp/get-xp" />
         [UsedImplicitly]
-        public async Task<XPResponse> GetXPAsync(Guid playerID, GetXPOptions getXPOptions = null)
+        public async Task<XPResponse> GetXPAsync(Guid playerID)
         {
             return await Request.ExecuteAsyncRequest<XPResponse>(
                 Config.EndPointPaths.XP.Get,
@@ -40,8 +40,7 @@ public static partial class XP
         }
     }
     
-    [UsedImplicitly]
-    public sealed class GetXPOptions
+    private static class GetXPOptions
     { 
         internal static Dictionary<string, string> BuildFormData(Guid playerID)
         {

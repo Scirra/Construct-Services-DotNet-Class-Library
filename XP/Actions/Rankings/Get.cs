@@ -13,7 +13,7 @@ public static partial class Rankings
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/ranks/list-ranks" />
         [UsedImplicitly]
-        public RanksResponse ListAllRanks(ListRanksOptions listRanksOptions = null)
+        public RanksResponse ListAllRanks()
         {
             return Request.ExecuteSyncRequest<RanksResponse>(
                 Config.EndPointPaths.Rankings.List,
@@ -27,7 +27,7 @@ public static partial class Rankings
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/ranks/list-ranks" />
         [UsedImplicitly]
-        public async Task<RanksResponse> ListAllRanksAsync(ListRanksOptions listRanksOptions = null)
+        public async Task<RanksResponse> ListAllRanksAsync()
         {
             return await Request.ExecuteAsyncRequest<RanksResponse>(
                 Config.EndPointPaths.Rankings.List,
@@ -36,7 +36,4 @@ public static partial class Rankings
             );
         }
     }
-
-    [UsedImplicitly]
-    public sealed class ListRanksOptions();
 }

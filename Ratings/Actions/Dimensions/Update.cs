@@ -38,7 +38,7 @@ public static partial class Dimensions
         }
     }
 
-    public sealed class UpdateRatingDimensionOptions
+    public abstract class UpdateRatingDimensionBase
     {
         private Thing ForThing { get; }
         
