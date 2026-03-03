@@ -1,5 +1,4 @@
 ﻿using ConstructServices.CloudSave.Enums;
-using ConstructServices.CloudSave.Objects;
 using ConstructServices.CloudSave.Responses;
 using ConstructServices.Common;
 using JetBrains.Annotations;
@@ -20,13 +19,14 @@ public static partial class Buckets
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/cloud-save/api-end-points/buckets/get-cloud-saves" />
         [UsedImplicitly]
         public CloudSavesResponse ListCloudSaves(
+            Guid bucketID,
             ListBucketSavesOptions listBucketSavesOptions,
             PaginationOptions paginationOptions)
         {
             return Request.ExecuteSyncRequest<CloudSavesResponse>(
                 Config.EndPointPaths.Saves.ListBucketSaves,
                 service,
-                listBucketSavesOptions.BuildFormData(),
+                listBucketSavesOptions.BuildFormData(bucketID),
                 paginationOptions
             );
         }
@@ -37,13 +37,14 @@ public static partial class Buckets
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/cloud-save/api-end-points/buckets/get-cloud-saves" />
         [UsedImplicitly]
         public async Task<CloudSavesResponse> ListCloudSavesAsync(
+            Guid bucketID,
             ListBucketSavesOptions listBucketSavesOptions,
             PaginationOptions paginationOptions)
         {
             return await Request.ExecuteAsyncRequest<CloudSavesResponse>(
                 Config.EndPointPaths.Saves.ListBucketSaves,
                 service,
-                listBucketSavesOptions.BuildFormData(),
+                listBucketSavesOptions.BuildFormData(bucketID),
                 paginationOptions
             );
         }
@@ -52,44 +53,23 @@ public static partial class Buckets
     [UsedImplicitly]
     public sealed class ListBucketSavesOptions
     {
-        private Guid BucketID { get; }
         private GetBucketCloudSaveSortMethod? SortBy { get; }
         private GetBucketCloudSaveFilters Filters { get; }
         
         public ListBucketSavesOptions(
-            Guid bucketID, 
-            GetBucketCloudSaveSortMethod? sortBy = null,
+            GetBucketCloudSaveSortMethod sortBy, 
             GetBucketCloudSaveFilters filters = null)
         {
-            BucketID = bucketID;
-            SortBy = sortBy;
-            Filters = filters;
-        }
-        public ListBucketSavesOptions(
-            string strBucketID, 
-            GetBucketCloudSaveSortMethod? sortBy = null,
-            GetBucketCloudSaveFilters filters = null)
-        {
-            BucketID = Guid.Parse(strBucketID);
-            SortBy = sortBy;
-            Filters = filters;
-        }
-        public ListBucketSavesOptions(
-            Bucket bucket, 
-            GetBucketCloudSaveSortMethod? sortBy = null,
-            GetBucketCloudSaveFilters filters = null)
-        {
-            BucketID = bucket.ID;
             SortBy = sortBy;
             Filters = filters;
         }
 
-        internal Dictionary<string, string> BuildFormData()
+        internal Dictionary<string, string> BuildFormData(Guid bucketID)
         {
             var formData = new Dictionary<string, string>
             {
                 { "mode", "Bucket" },
-                { "bucketID", BucketID.ToString() }
+                { "bucketID", bucketID.ToString() }
             };
             if (SortBy.HasValue)
             {

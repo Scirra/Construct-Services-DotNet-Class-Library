@@ -16,12 +16,12 @@ public static partial class Buckets
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/cloud-save/api-end-points/buckets/get-bucket" />
         [UsedImplicitly]
-        public BucketResponse GetBucket(GetBucketOptions getBucketOptions)
+        public BucketResponse GetBucket(Guid bucketID)
         {
             return Request.ExecuteSyncRequest<BucketResponse>(
                 Config.EndPointPaths.Buckets.Get,
                 service,
-                getBucketOptions.BuildFormData()
+                GetBucketOptions.BuildFormData(bucketID)
             );
         }
 
@@ -30,36 +30,23 @@ public static partial class Buckets
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/cloud-save/api-end-points/buckets/get-bucket" />
         [UsedImplicitly]
-        public async Task<BucketResponse> GetBucketAsync(GetBucketOptions getBucketOptions)
+        public async Task<BucketResponse> GetBucketAsync(Guid bucketID)
         {
             return await Request.ExecuteAsyncRequest<BucketResponse>(
                 Config.EndPointPaths.Buckets.Get,
                 service,
-                getBucketOptions.BuildFormData()
+                GetBucketOptions.BuildFormData(bucketID)
             );
         }
     }
-
     
-    [UsedImplicitly]
-    public sealed class GetBucketOptions
+    private static class GetBucketOptions
     {
-        private Guid BucketID { get; }
-    
-        public GetBucketOptions(string strBucketID)
-        {
-            BucketID = Guid.Parse(strBucketID);
-        }
-        public GetBucketOptions(Guid bucketID)
-        {
-            BucketID = bucketID;
-        }
-
-        internal Dictionary<string, string> BuildFormData()
+        internal static Dictionary<string, string> BuildFormData(Guid bucketID)
         {
             var formData = new Dictionary<string, string>
             {
-                { "bucketID", BucketID.ToString() }
+                { "bucketID", bucketID.ToString() }
             };
             return formData;
         }
