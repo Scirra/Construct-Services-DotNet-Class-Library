@@ -12,79 +12,45 @@ public static partial class Scores
     extension(LeaderboardService service)
     {
         /// <summary>
-        /// Adjust an existing Score for a player.  If Score ID is not specified, Players best score will be updated.
+        /// Adjust an existing Score.
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/scores/adjust-score" />
         [UsedImplicitly]
-        public PostScoreResponse AdjustPlayersScore(AdjustPlayersScoreOptions adjustPlayersScoreOptions)
+        public PostScoreResponse AdjustScore(AdjustScoreBase adjustScoreOptions)
         {
             return Request.ExecuteSyncRequest<PostScoreResponse>(
                 Config.EndPointPaths.Scores.Adjust,
                 service,
-                adjustPlayersScoreOptions.BuildFormData(service.LeaderboardID)
+                adjustScoreOptions.BuildFormData(service.LeaderboardID)
             );
         }
         
         /// <summary>
-        /// Adjust an existing Score for a player.  If Score ID is not specified, Players best score will be updated.
-        /// </summary>
-        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/scores/adjust-score" />
-        [UsedImplicitly]
-        public async Task<PostScoreResponse> AdjustPlayersScoreAsync(AdjustPlayersScoreOptions adjustPlayersScoreOptions)
-        {
-            return await Request.ExecuteAsyncRequest<PostScoreResponse>(
-                Config.EndPointPaths.Scores.Adjust,
-                service,
-                adjustPlayersScoreOptions.BuildFormData(service.LeaderboardID)
-            );
-        }
-
-        /// <summary>
         /// Adjust an existing Score.
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/scores/adjust-score" />
         [UsedImplicitly]
-        public PostScoreResponse AdjustScoreByID(AdjustScoreByIDOptions adjustScoreByIDOptions)
-        {
-            return Request.ExecuteSyncRequest<PostScoreResponse>(
-                Config.EndPointPaths.Scores.Adjust,
-                service,
-                adjustScoreByIDOptions.BuildFormData(service.LeaderboardID)
-            );
-        }
-
-        /// <summary>
-        /// Adjust an existing Score.
-        /// </summary>
-        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/scores/adjust-score" />
-        [UsedImplicitly]
-        public async Task<PostScoreResponse> AdjustScoreByIDAsync(AdjustScoreByIDOptions adjustScoreByIDOptions)
+        public async Task<PostScoreResponse> AdjustScoreScoreAsync(AdjustScoreBase adjustScoreOptions)
         {
             return await Request.ExecuteAsyncRequest<PostScoreResponse>(
                 Config.EndPointPaths.Scores.Adjust,
                 service,
-                adjustScoreByIDOptions.BuildFormData(service.LeaderboardID)
+                adjustScoreOptions.BuildFormData(service.LeaderboardID)
             );
         }
     }
 
     [UsedImplicitly]
-    public abstract class AdjustScoreBase(
-        string sessionKey,
-        Guid? playerID,
-        Guid? scoreID,
-        long adjustment,
-        short? optValue1,
-        short? optValue2,
-        short? optValue3)
+    public abstract class AdjustScoreBase
     {
-        private string SessionKey { get; } = sessionKey;
-        private Guid? ScoreID { get; } = scoreID;
-        private Guid? PlayerID { get; } = playerID;
-        private long Adjustment { get; } = adjustment;
-        private short? OptValue1 { get; } = optValue1;
-        private short? OptValue2 { get; } = optValue2;
-        private short? OptValue3 { get; } = optValue3;
+        internal string SessionKey { get; set; }
+        internal Guid? ScoreID { get; set; }
+        internal Guid? PlayerID { get; set; }
+
+        public long Adjustment { get; set; }
+        public short? OptValue1 { get; set; }
+        public short? OptValue2 { get; set; }
+        public short? OptValue3 { get; set; }
 
         internal Dictionary<string, string> BuildFormData(Guid leaderboardID)
         {            
@@ -122,47 +88,24 @@ public static partial class Scores
     }
 
     [UsedImplicitly]
-    public sealed class AdjustScoreByIDOptions(
-        Guid scoreID,
-        long adjustment,
-        short? optValue1,
-        short? optValue2,
-        short? optValue3)
-        : AdjustScoreBase(null, null, scoreID, adjustment, optValue1, optValue2, optValue3);
+    public sealed class AdjustScoreByIDOptions : AdjustScoreBase
+    {
+        public AdjustScoreByIDOptions(Guid scoreID)
+        {
+            ScoreID = scoreID;
+        }
+    }
 
     [UsedImplicitly]
     public sealed class AdjustPlayersScoreOptions : AdjustScoreBase
-    {    public AdjustPlayersScoreOptions(
-            string sessionKey,
-            Guid playerID,
-            Guid scoreID,
-            long adjustment,
-            short? optValue1,
-            short? optValue2,
-            short? optValue3) :
-            base(sessionKey, playerID, scoreID, adjustment, optValue1, optValue2, optValue3) { }
-        public AdjustPlayersScoreOptions(
-            string sessionKey,
-            Guid playerID,
-            long adjustment,
-            short? optValue1,
-            short? optValue2,
-            short? optValue3) :
-            base(sessionKey, playerID, null, adjustment, optValue1, optValue2, optValue3) { }
-        public AdjustPlayersScoreOptions(
-            Guid playerID,
-            Guid scoreID,
-            long adjustment,
-            short? optValue1,
-            short? optValue2,
-            short? optValue3) :
-            base(null, playerID, scoreID, adjustment, optValue1, optValue2, optValue3) { }
-        public AdjustPlayersScoreOptions(
-            Guid playerID,
-            long adjustment,
-            short? optValue1,
-            short? optValue2,
-            short? optValue3) :
-            base(null, playerID, null, adjustment, optValue1, optValue2, optValue3) { }
+    {
+        public AdjustPlayersScoreOptions(Guid playerID)
+        {
+            PlayerID = playerID;
+        }
+        public AdjustPlayersScoreOptions(string sessionKey)
+        {
+            SessionKey = sessionKey;
+        }
     }
 }

@@ -1,13 +1,14 @@
-﻿using ConstructServices.Common;
+﻿using ConstructServices.Authentication.Actions;
+using ConstructServices.Authentication.Enums;
+using ConstructServices.Common;
 using ConstructServices.Common.Tests;
+using ConstructServices.Leaderboards.Actions;
+using ConstructServices.Leaderboards.Enums;
+using ConstructServices.XP.Responses;
 using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using ConstructServices.Authentication.Actions;
-using ConstructServices.Authentication.Enums;
-using ConstructServices.Leaderboards.Actions;
-using ConstructServices.Leaderboards.Enums;
 
 namespace ConstructServices.Leaderboards.Tests;
 
@@ -29,7 +30,16 @@ public static class Run
         DeleteIPBan,
         CreatePlayerBan,
         ListPlayerBan,
-        DeletePlayerBan
+        DeletePlayerBan,
+
+        CreateScore,
+        AdjustScore,
+        ListNewest,
+        ListPlayerScores,
+        ListScoreHistory,
+        ListScoreNeighbours,
+        ListScores,
+        DeleteScore,
     }
 
     [UsedImplicitly]
@@ -146,6 +156,41 @@ public static class Run
                             var response = service.DeleteShadowBan(new ShadowBans.DeletePlayerShadowBanOptions(player.ID));
                             results[nameof(LeaderboardTest.DeletePlayerBan)] = new TestResult(response);
                         }
+
+                        // Scores
+                        try
+                        {
+                            var response = service.CreateScore(new Scores.CreateScoreOptions(player.ID, 1000, 1, 2, 3));
+                            results[nameof(LeaderboardTest.CreateScore)] = new TestResult(response);
+                        }
+                        catch (Exception ex)
+                        {
+                            results[nameof(LeaderboardTest.CreateScore)] = new TestResult(TestResultStatus.Failed, ex.Message);
+                        }
+                        
+                        try
+                        {
+                            var response = service.AdjustScore(new Scores.AdjustPlayersScoreOptions(player.ID)
+                            {
+                                Adjustment = 100,
+                                OptValue1 = 4
+                            });
+                            results[nameof(LeaderboardTest.AdjustScore)] = new TestResult(response);
+                        }
+                        catch (Exception ex)
+                        {
+                            results[nameof(LeaderboardTest.CreateScore)] = new TestResult(TestResultStatus.Failed, ex.Message);
+                        }
+
+
+                        /*
+                           ListNewest,
+                           ListPlayerScores,
+                           ListScoreHistory,
+                           ListScoreNeighbours,
+                           ListScores,
+                           DeleteScore,
+                         */
                     }
                 }
             }

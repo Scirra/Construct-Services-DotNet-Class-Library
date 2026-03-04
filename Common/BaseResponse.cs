@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using JetBrains.Annotations;
+using Newtonsoft.Json;
 
 namespace ConstructServices.Common;
 
@@ -24,5 +25,30 @@ public class BaseResponse
         Success = false;
         ErrorMessage = errorMessage;
         ShouldRetry = shouldRetry;
+    }
+
+
+    [UsedImplicitly]
+    public string RawJson { get; private set; }
+
+    private dynamic RawObject_ { get; set; }
+
+    [UsedImplicitly]
+    public dynamic RawObject
+    {
+        get
+        {
+            if (string.IsNullOrWhiteSpace(RawJson)) return null;
+            if (RawObject_ != null)
+            {
+                RawObject_ = JsonConvert.SerializeObject(RawJson);
+            }
+            return RawObject_;
+        }
+    }
+
+    internal void SetRawJson(string json)
+    {
+        RawJson = json;
     }
 }

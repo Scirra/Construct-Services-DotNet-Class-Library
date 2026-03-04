@@ -187,7 +187,9 @@ internal static class Request
             return (T)Activator.CreateInstance(typeof(T), "Response was not valid JSON.", false);
         }
 
-        return JsonConvert.DeserializeObject<T>(json);
+        var r = JsonConvert.DeserializeObject<T>(json);
+        r.SetRawJson(json);
+        return r;
     }
     internal static async Task<byte[]> DownloadBytes(
         Uri absolutePath,

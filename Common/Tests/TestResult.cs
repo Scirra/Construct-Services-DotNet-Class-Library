@@ -22,7 +22,7 @@ public class TestResult
     }
     public TestResult(TestResultStatus status, string data = null)
     {
-        ResultStatus = TestResultStatus.DidNotRun;
+        ResultStatus = status;
         Data = data;
     }
 
