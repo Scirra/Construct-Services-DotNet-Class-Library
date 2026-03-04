@@ -15,9 +15,9 @@ public static partial class Teams
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/teams/create-team" />
         [UsedImplicitly]
-        public CreateTeamResponse CreateTeam(CreateTeamOptions createTeamOptions)
+        public GetTeamResponse CreateTeam(CreateTeamOptions createTeamOptions)
         {
-            return Request.ExecuteSyncRequest<CreateTeamResponse>(
+            return Request.ExecuteSyncRequest<GetTeamResponse>(
                 Config.EndPointPaths.Teams.Create,
                 service,
                 createTeamOptions.BuildFormData()
@@ -29,9 +29,9 @@ public static partial class Teams
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/teams/create-team" />
         [UsedImplicitly]
-        public async Task<CreateTeamResponse> CreateTeamAsync(CreateTeamOptions createTeamOptions)
+        public async Task<GetTeamResponse> CreateTeamAsync(CreateTeamOptions createTeamOptions)
         {
-            return await Request.ExecuteAsyncRequest<CreateTeamResponse>(
+            return await Request.ExecuteAsyncRequest<GetTeamResponse>(
                 Config.EndPointPaths.Teams.Create,
                 service,
                 createTeamOptions.BuildFormData()

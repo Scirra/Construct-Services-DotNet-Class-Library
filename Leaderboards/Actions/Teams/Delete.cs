@@ -16,12 +16,12 @@ public static partial class Teams
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/teams/delete-team" />
         [UsedImplicitly]
-        public BaseResponse DeleteTeam(DeleteTeamOptions deleteTeamOptions)
+        public BaseResponse DeleteTeam(Guid teamID)
         {
             return Request.ExecuteSyncRequest<BaseResponse>(
                 Config.EndPointPaths.Teams.Delete,
                 service,
-                deleteTeamOptions.BuildFormData()
+                DeleteTeamOptions.BuildFormData(teamID)
             );
         }
         
@@ -30,26 +30,23 @@ public static partial class Teams
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/teams/delete-team" />
         [UsedImplicitly]
-        public async Task<BaseResponse> DeleteTeamAsync(DeleteTeamOptions deleteTeamOptions)
+        public async Task<BaseResponse> DeleteTeamAsync(Guid teamID)
         {
             return await Request.ExecuteAsyncRequest<BaseResponse>(
                 Config.EndPointPaths.Teams.Delete,
                 service,
-                deleteTeamOptions.BuildFormData()
+                DeleteTeamOptions.BuildFormData(teamID)
             );
         }
     }
 
-    [UsedImplicitly]
-    public sealed class DeleteTeamOptions(Guid teamID)
+    private static class DeleteTeamOptions
     {
-        private Guid TeamID { get; } = teamID;
-
-        internal Dictionary<string, string> BuildFormData()
+        internal static Dictionary<string, string> BuildFormData(Guid teamID)
         {
             var formData = new Dictionary<string, string>
             {
-                { "teamID", TeamID.ToString() }
+                { "teamID", teamID.ToString() }
             };
             return formData;
         }

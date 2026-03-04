@@ -15,12 +15,12 @@ public static partial class Teams
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/teams/remove-player" />
         [UsedImplicitly]
-        public BaseResponse DeletePlayerFromTeam(DeleteTeamPlayerOptions deleteTeamPlayerOptions)
+        public BaseResponse DeletePlayerFromTeam(Guid teamID, Guid playerID)
         {
             return Request.ExecuteSyncRequest<BaseResponse>(
                 Config.EndPointPaths.Teams.DeletePlayer,
                 service,
-                deleteTeamPlayerOptions.BuildFormData()
+                DeleteTeamPlayerOptions.BuildFormData(teamID, playerID)
             );
         }
         
@@ -29,28 +29,24 @@ public static partial class Teams
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/teams/remove-player" />
         [UsedImplicitly]
-        public async Task<BaseResponse> DeletePlayerFromTeamAsync(DeleteTeamPlayerOptions deleteTeamPlayerOptions)
+        public async Task<BaseResponse> DeletePlayerFromTeamAsync(Guid teamID, Guid playerID)
         {
             return await Request.ExecuteAsyncRequest<BaseResponse>(
                 Config.EndPointPaths.Teams.DeletePlayer,
                 service,
-                deleteTeamPlayerOptions.BuildFormData()
+                DeleteTeamPlayerOptions.BuildFormData(teamID, playerID)
             );
         }
     }
 
-    [UsedImplicitly]
-    public sealed class DeleteTeamPlayerOptions(Guid teamID, Guid playerID)
+    private static class DeleteTeamPlayerOptions
     {
-        private Guid TeamID { get; } = teamID;
-        private Guid PlayerID { get; } = playerID;
-
-        internal Dictionary<string, string> BuildFormData()
+        internal static Dictionary<string, string> BuildFormData(Guid teamID, Guid playerID)
         {
             var formData = new Dictionary<string, string>
             {
-                { "teamID", TeamID.ToString() },
-                { "playerID", PlayerID.ToString() }
+                { "teamID", teamID.ToString() },
+                { "playerID", playerID.ToString() }
             };
             return formData;
         }

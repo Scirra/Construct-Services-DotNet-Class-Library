@@ -16,12 +16,12 @@ public static partial class Teams
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/teams/get-team" />
         [UsedImplicitly]
-        public GetTeamResponse GetTeam(GetTeamOptions getTeamOptions)
+        public GetTeamResponse GetTeam(Guid teamID)
         {
             return Request.ExecuteSyncRequest<GetTeamResponse>(
                 Config.EndPointPaths.Teams.Get,
                 service,
-                getTeamOptions.BuildFormData()
+                GetTeamOptions.BuildFormData(teamID)
             );
         }
         
@@ -30,26 +30,23 @@ public static partial class Teams
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/teams/get-team" />
         [UsedImplicitly]
-        public async Task<GetTeamResponse> GetTeamAsync(GetTeamOptions getTeamOptions)
+        public async Task<GetTeamResponse> GetTeamAsync(Guid teamID)
         {
             return await Request.ExecuteAsyncRequest<GetTeamResponse>(
                 Config.EndPointPaths.Teams.Get,
                 service,
-                getTeamOptions.BuildFormData()
+                GetTeamOptions.BuildFormData(teamID)
             );
         }
     }
 
-    [UsedImplicitly]
-    public sealed class GetTeamOptions(Guid teamID)
+    private static class GetTeamOptions
     {
-        private Guid TeamID { get; } = teamID;
-
-        internal Dictionary<string, string> BuildFormData()
+        internal static Dictionary<string, string> BuildFormData(Guid teamID)
         {
             var formData = new Dictionary<string, string>
             {
-                { "teamID", TeamID.ToString() }
+                { "teamID", teamID.ToString() }
             };
             return formData;
         }

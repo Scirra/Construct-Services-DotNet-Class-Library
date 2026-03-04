@@ -18,13 +18,14 @@ public static partial class Teams
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/teams/team-players" />
         [UsedImplicitly]
         public GetTeamPlayersResponse ListTeamPlayers(
+            Guid teamID,
             ListTeamPlayersOptions listTeamPlayersOptions,
             PaginationOptions paginationOptions)
         {
             return Request.ExecuteSyncRequest<GetTeamPlayersResponse>(
                 Config.EndPointPaths.Teams.ListPlayers,
                 service,
-                listTeamPlayersOptions.BuildFormData(),
+                listTeamPlayersOptions.BuildFormData(teamID),
                 paginationOptions
             );
         }
@@ -35,13 +36,14 @@ public static partial class Teams
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/teams/team-players" />
         [UsedImplicitly]
         public async Task<GetTeamPlayersResponse> ListTeamPlayersAsync(
+            Guid teamID,
             ListTeamPlayersOptions listTeamPlayersOptions,
             PaginationOptions paginationOptions)
         {
             return await Request.ExecuteAsyncRequest<GetTeamPlayersResponse>(
                 Config.EndPointPaths.Teams.ListPlayers,
                 service,
-                listTeamPlayersOptions.BuildFormData(),
+                listTeamPlayersOptions.BuildFormData(teamID),
                 paginationOptions
             );
         }
@@ -50,24 +52,21 @@ public static partial class Teams
     [UsedImplicitly]
     public sealed class ListTeamPlayersOptions
     {
-        private Guid TeamID { get; }
         private TeamPlayersOrdering? Ordering { get; }
     
-        public ListTeamPlayersOptions(Guid teamID, TeamPlayersOrdering ordering)
+        public ListTeamPlayersOptions(TeamPlayersOrdering ordering)
         {
-            TeamID = teamID;
             Ordering = ordering;
         } 
-        public ListTeamPlayersOptions(Guid teamID)
+        public ListTeamPlayersOptions()
         {
-            TeamID = teamID;
         } 
 
-        internal Dictionary<string, string> BuildFormData()
+        internal Dictionary<string, string> BuildFormData(Guid teamID)
         {
             var formData = new Dictionary<string, string>
             {
-                { "teamID", TeamID.ToString() }
+                { "teamID", teamID.ToString() }
             };
             if (Ordering.HasValue) formData.Add("order", Ordering.Value.ToString());
             return formData;

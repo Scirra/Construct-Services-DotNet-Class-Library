@@ -14,12 +14,12 @@ public static partial class Teams
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/teams/assign-player" />
         [UsedImplicitly]
-        public BaseResponse AssignPlayerToTeam(AssignPlayerOptions assignPlayerOptions)
+        public BaseResponse AssignPlayerToTeam(Guid teamID, AssignPlayerOptions assignPlayerOptions)
         {
             return Request.ExecuteSyncRequest<BaseResponse>(
                 Config.EndPointPaths.Teams.AssignPlayer,
                 service,
-                assignPlayerOptions.BuildFormData()
+                assignPlayerOptions.BuildFormData(teamID)
             );
         }
 
@@ -28,27 +28,26 @@ public static partial class Teams
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/teams/assign-player" />
         [UsedImplicitly]
-        public async Task<BaseResponse> AssignPlayerToTeamAsync(AssignPlayerOptions assignPlayerOptions)
+        public async Task<BaseResponse> AssignPlayerToTeamAsync(Guid teamID, AssignPlayerOptions assignPlayerOptions)
         {
             return await Request.ExecuteAsyncRequest<BaseResponse>(
                 Config.EndPointPaths.Teams.AssignPlayer,
                 service,
-                assignPlayerOptions.BuildFormData()
+                assignPlayerOptions.BuildFormData(teamID)
             );
         }
     }
 
     [UsedImplicitly]
-    public sealed class AssignPlayerOptions(Guid teamID, Guid playerID)
+    public sealed class AssignPlayerOptions( Guid playerID)
     {
-        private Guid TeamID { get; } = teamID;
         private Guid PlayerID { get; } = playerID;
 
-        internal Dictionary<string, string> BuildFormData()
+        internal Dictionary<string, string> BuildFormData(Guid teamID)
         {
             var formData = new Dictionary<string, string>
             {
-                { "teamID", TeamID.ToString() },
+                { "teamID", teamID.ToString() },
                 { "playerID", PlayerID.ToString() }
             };
             return formData;
