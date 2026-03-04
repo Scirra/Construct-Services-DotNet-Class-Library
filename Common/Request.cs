@@ -26,7 +26,8 @@ internal static class Request
         string relativeEndPointPath,
         BaseService service,
         Dictionary<string, string> formData,
-        Dictionary<string, ByteArrayContent> files) where T : BaseResponse
+        Dictionary<string, ByteArrayContent> files,
+        Action<string> logAction = null) where T : BaseResponse
     {
         // Get URL to query
         string apiURL;
@@ -35,6 +36,8 @@ internal static class Request
                 relativeEndPointPath = "/" + relativeEndPointPath;
             apiURL = service.APIHost + relativeEndPointPath;
         }
+
+        logAction?.Invoke("API URL: " + apiURL);
 
         string json;
         using (var formContent = new MultipartFormDataContent())
@@ -64,6 +67,8 @@ internal static class Request
                 formContent.Add(file.Value, fileName, fileName);
                 i++;
             }
+            
+            logAction?.Invoke("formContent");
 
             try
             {
@@ -75,9 +80,21 @@ internal static class Request
                         ClientCertificateOptions = ClientCertificateOption.Manual,
                         ServerCertificateCustomValidationCallback = (_, _, _, _) => true
                     };
+
+                    logAction?.Invoke("handler");
+
                     using var httpClient = new HttpClient(handler);
+
+                    
+                    logAction?.Invoke("httpClient");
+
+
                     using var response = await httpClient.PostAsync(apiURL, formContent);
+                    
+                    logAction?.Invoke("response");
                     json = await response.Content.ReadAsStringAsync();
+                    
+                    logAction?.Invoke("json: " + json);
                 }
                 else
                 {

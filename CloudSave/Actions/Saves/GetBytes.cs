@@ -15,10 +15,10 @@ public static partial class Saves
         [UsedImplicitly] 
         public byte[] GetCloudSaveBytes(Objects.CloudSave forCloudSave)
         {
-            return Request.DownloadBytes(
+            return Task.Run(() => Request.DownloadBytes(
                 new Uri(forCloudSave.DownloadURL),
                 service
-            ).GetAwaiter().GetResult();
+            )).Result;
         }
 
         /// <summary>

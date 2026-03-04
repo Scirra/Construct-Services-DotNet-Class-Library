@@ -92,6 +92,7 @@ public static class Run
                     }
                     const string testSaveKey = "my.save.key.1";
                     sw.Restart();
+
                     var saveResult = service.CreateCloudSave(new Saves.CreateCloudSaveOptions(bucket.ID, data, "my-save-1", testSaveKey));
                     results[nameof(CloudSaveTest.CreateSave)] = new TestResult(saveResult, sw);
 
@@ -103,11 +104,13 @@ public static class Run
                             var result = service.GetByID(new Saves.GetCloudSaveByIDOptions(save.ID));
                             results[nameof(CloudSaveTest.GetByID)] = new TestResult(result, sw);
                         }
+
                         {
                             sw.Restart();
                             var result = service.GetByKey(new Saves.GetCloudSaveByKeyOptions(testSaveKey, bucket.ID));
                             results[nameof(CloudSaveTest.GetByKey)] = new TestResult(result, sw);
                         }
+
                         {
                             sw.Restart();
                             var result = service.GetCloudSaveBytes(save);
@@ -120,16 +123,19 @@ public static class Run
                                 results[nameof(CloudSaveTest.GetBytes)] = new TestResult(TestResultStatus.Failed, sw);
                             }
                         }
+
                         {
                             sw.Restart();
                             var result = service.SetPicture(new Saves.SetCloudSavePictureOptions(save.ID, new PictureData(new Uri("https://construct-static.com/images/v1746/r/global/construct-3-logo_v64.png", UriKind.Absolute))));
                             results[nameof(CloudSaveTest.SetPicture)] = new TestResult(result, sw);
                         }
+
                         {
                             sw.Restart();
                             var result = service.DeletePicture(new Saves.DeleteCloudSavePictureOptions(save.ID));
                             results[nameof(CloudSaveTest.DeletePicture)] = new TestResult(result, sw);
                         }
+
                         {
                             sw.Restart();
                             var result = service.DeleteCloudSave(new Saves.DeleteCloudSaveOptions(save.ID));
@@ -139,6 +145,7 @@ public static class Run
 
                     var authService = new AuthenticationService(gameID, apiKey);
                     var playerResult = authService.ListPlayers(new Players.GetPlayersOptions(PlayerOrdering.Newest), new PaginationOptions(1, 20));
+                    
                     if (playerResult.Success)
                     {
                         var player = playerResult.Players.FirstOrDefault();
