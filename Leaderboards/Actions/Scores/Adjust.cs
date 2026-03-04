@@ -74,6 +74,10 @@ public static partial class Scores
             {
                 formData.Add("sessionKey", SessionKey);
             }
+            if (ScoreID.HasValue)
+            {
+                formData.Add("scoreID", ScoreID.Value.ToString());
+            }
             if (PlayerID.HasValue)
             {
                 formData.Add("playerID", PlayerID.Value.ToString());
