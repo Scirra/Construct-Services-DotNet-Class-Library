@@ -141,6 +141,8 @@ internal static class Request
         formData ??= new Dictionary<string, string>();
         if (service.APIKey != null)
             formData.Add("secret", service.APIKey.Key);
+        if (service.SessionKey != null)
+            formData.Add("sessionKey", service.SessionKey.Key);
         formData.Add("gameID", service.GameID.ToString());
         service.AddServiceSpecificFormData(formData);
 

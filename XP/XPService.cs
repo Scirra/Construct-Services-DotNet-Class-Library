@@ -2,7 +2,6 @@
 using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 
 namespace ConstructServices.XP;
 
@@ -10,27 +9,24 @@ namespace ConstructServices.XP;
 public class XPService : BaseService
 {
     /// <summary>
-    /// Create a new instance of the broadcast service
+    /// Create new service instance for requests that do not require any authentication
     /// </summary>
-    /// <param name="gameID">Game ID service is for</param>
-    /// <param name="aPIKey">API key</param>
-    /// <param name="requestedLanguage">ISO Alpha 2 language to return translatable strings to</param>
-    /// <param name="culture">Culture to return formatted values in</param>
-    public XPService(Guid gameID, SecretAPIKey aPIKey, string requestedLanguage = null, CultureInfo culture = null) 
-        : base(gameID, Config.APIDomain, aPIKey, requestedLanguage, culture)
-    {
-    }
-
+    /// <param name="gameID">ID of the game to run requests against</param>
+    public XPService(Guid gameID) : base(gameID, Config.APIDomain) { }
+    
     /// <summary>
-    /// Create a new instance of the broadcast service
+    /// Create a new service instance for requests authenticated with a secret API key
     /// </summary>
-    /// <param name="gameID">Game ID service is for</param>
-    /// <param name="requestedLanguage">ISO Alpha 2 language to return translatable strings to</param>
-    /// <param name="culture">Culture to return formatted values in</param>
-    public XPService(Guid gameID, string requestedLanguage = null, CultureInfo culture = null) 
-        : base(gameID, Config.APIDomain, null, requestedLanguage, culture)
-    {
-    }
+    /// <param name="gameID">ID of the game to run requests against</param>
+    /// <param name="aPIKey">Your games secret API key</param>
+    public XPService(Guid gameID, SecretAPIKey aPIKey) : base(gameID, Config.APIDomain, aPIKey) { }
+    
+    /// <summary>
+    /// Create a new service instance for requests authenticated with a players session key
+    /// </summary>
+    /// <param name="gameID">ID of the game to run requests against</param>
+    /// <param name="sessionKey">The players session key</param>
+    public XPService(Guid gameID, SessionKey sessionKey) : base(gameID, Config.APIDomain, sessionKey) { }
 
     internal override void AddServiceSpecificFormData(Dictionary<string, string> formData)
     {

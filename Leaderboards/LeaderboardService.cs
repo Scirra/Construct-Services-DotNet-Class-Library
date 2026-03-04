@@ -11,14 +11,33 @@ public sealed class LeaderboardService : BaseService
     internal Guid LeaderboardID { get; }
 
     /// <summary>
-    /// Create a new instance of leaderboard service
+    /// Create new service instance for requests that do not require any authentication
     /// </summary>
-    /// <param name="gameID">Game ID service is for</param>
-    /// <param name="leaderboardID">Leaderboard ID service is for</param>
-    /// <param name="aPIKey">Optional API key, may be required for some request types and should never be exposed client side.</param>
-    /// <param name="requestedLanguage">ISO Alpha 2 language to return translatable strings to</param>
-    public LeaderboardService(Guid gameID, Guid leaderboardID, SecretAPIKey aPIKey, string requestedLanguage = null) 
-        : base(gameID, Config.APIDomain, aPIKey, requestedLanguage)
+    /// <param name="gameID">ID of the game to run requests against</param>
+    /// <param name="leaderboardID">ID of the leaderboard to run requests against</param>
+    public LeaderboardService(Guid gameID, Guid leaderboardID) : base(gameID, Config.APIDomain)
+    {
+        LeaderboardID = leaderboardID;
+    }
+    
+    /// <summary>
+    /// Create a new service instance for requests authenticated with a secret API key
+    /// </summary>
+    /// <param name="gameID">ID of the game to run requests against</param>
+    /// <param name="leaderboardID">ID of the leaderboard to run requests against</param>
+    /// <param name="aPIKey">Your games secret API key</param>
+    public LeaderboardService(Guid gameID, Guid leaderboardID, SecretAPIKey aPIKey) : base(gameID, Config.APIDomain, aPIKey)
+    {
+        LeaderboardID = leaderboardID;
+    }
+    
+    /// <summary>
+    /// Create a new service instance for requests authenticated with a players session key
+    /// </summary>
+    /// <param name="gameID">ID of the game to run requests against</param>
+    /// <param name="leaderboardID">ID of the leaderboard to run requests against</param>
+    /// <param name="sessionKey">The players session key</param>
+    public LeaderboardService(Guid gameID, Guid leaderboardID, SessionKey sessionKey) : base(gameID, Config.APIDomain, sessionKey)
     {
         LeaderboardID = leaderboardID;
     }
