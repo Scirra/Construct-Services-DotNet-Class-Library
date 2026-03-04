@@ -41,27 +41,25 @@ public static partial class Players
     }
 
     [UsedImplicitly]
-    public sealed class CreatePlayerOptions(
-        string playerName,
-        string emailAddress,
-        string username,
-        string password,
-        TimeSpan? sessionExpiry = null)
+    public sealed class CreatePlayerOptions
     {
-        private string PlayerName { get; } = playerName;
-        private string Username { get; } = username;
-        private string Password { get; } = password;
-        private string EmailAddress { get; } = emailAddress;
-        private TimeSpan? SessionExpiry { get; } = sessionExpiry;
+        private string PlayerName { get; }
 
-        public CreatePlayerOptions(string playerName, TimeSpan? sessionExpiry = null) : this(playerName, null, null, null, null)
+        [UsedImplicitly]
+        public string Username { private get; set; }
+
+        [UsedImplicitly]
+        public string Password { private get; set; }
+
+        [UsedImplicitly]
+        public string EmailAddress { private get; set; }
+
+        [UsedImplicitly]
+        public TimeSpan? SessionExpiry { private get; set; }
+
+        public CreatePlayerOptions(string playerName)
         {
-        }
-        public CreatePlayerOptions(string playerName, string emailAddress, TimeSpan? sessionExpiry = null) : this(playerName, emailAddress, null, null, null)
-        {
-        }
-        public CreatePlayerOptions(string playerName, string username, string password, TimeSpan? sessionExpiry = null) : this(playerName, null, username, password)
-        {
+            PlayerName = playerName;
         }
 
         internal Dictionary<string, string> BuildFormData()
