@@ -18,7 +18,7 @@ public static partial class Teams
         public BaseResponse UpdateTeam(Guid teamID, UpdateTeamOptions updateTeamOptions)
         {
             return Request.ExecuteSyncRequest<BaseResponse>(
-                Config.EndPointPaths.Teams.Rename,
+                Config.EndPointPaths.Teams.Update,
                 service,
                 updateTeamOptions.BuildFormData(teamID)
             );
@@ -32,7 +32,7 @@ public static partial class Teams
         public async Task<BaseResponse> UpdateTeamAsync(Guid teamID, UpdateTeamOptions updateTeamOptions)
         {
             return await Request.ExecuteAsyncRequest<BaseResponse>(
-                Config.EndPointPaths.Teams.Rename,
+                Config.EndPointPaths.Teams.Update,
                 service,
                 updateTeamOptions.BuildFormData(teamID)
             );

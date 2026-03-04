@@ -15,7 +15,7 @@ public static partial class Teams
         /// <summary>
         /// List all Players on an existing Team
         /// </summary>
-        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/teams/team-players" />
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/teams/list-team-players" />
         [UsedImplicitly]
         public GetTeamPlayersResponse ListTeamPlayers(
             Guid teamID,
@@ -33,7 +33,7 @@ public static partial class Teams
         /// <summary>
         /// List all Players on an existing Team
         /// </summary>
-        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/teams/team-players" />
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/teams/list-team-players" />
         [UsedImplicitly]
         public async Task<GetTeamPlayersResponse> ListTeamPlayersAsync(
             Guid teamID,

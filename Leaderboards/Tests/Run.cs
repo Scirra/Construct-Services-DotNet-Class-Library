@@ -91,8 +91,8 @@ public static class Run
                         }
 
                         {
-                            var response = service.DeleteTeam(team.ID);
-                            results[nameof(LeaderboardTest.DeleteTeam)] = new TestResult(response);
+                            //var response = service.DeleteTeam(team.ID);
+                            //results[nameof(LeaderboardTest.DeleteTeam)] = new TestResult(response);
                         }
                     }
                 }

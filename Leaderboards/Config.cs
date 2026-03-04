@@ -28,13 +28,13 @@ internal static class Config
         internal static class Teams
         {
             internal const string Get = "/getteam.json";
-            internal const string AssignPlayer = "/getteam.json";
+            internal const string AssignPlayer = "/assignteamplayer.json";
             internal const string Create = "/createteam.json";
             internal const string Delete = "/deleteteam.json";
-            internal const string List = "/getteams.json";
-            internal const string ListPlayers = "/getteamplayers.json";
-            internal const string DeletePlayer = "/removeplayerfromteam.json";
-            internal const string Rename = "/renameteam.json";
+            internal const string List = "/listteams.json";
+            internal const string ListPlayers = "/listteamplayers.json";
+            internal const string DeletePlayer = "/deleteteamplayer.json";
+            internal const string Update = "/updateteam.json";
         }
     }
 }
