@@ -3,6 +3,7 @@ using ConstructServices.Common;
 using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ConstructServices.Authentication.Actions;
@@ -46,11 +47,16 @@ public static partial class Players
         [UsedImplicitly]
         public GetExpandedPlayerResponse GetExpandedPlayer(Guid playerID)
         {
-            return Request.ExecuteSyncRequest<GetExpandedPlayerResponse>(
+            var r = Request.ExecuteSyncRequest<GetPlayersResponse>(
                 Config.EndPointPaths.Players.ListPlayers,
                 service,
                 new GetPlayersOptions(playerID).BuildFormData()
             );
+            if (!r.Success)
+            {
+                return new GetExpandedPlayerResponse(r.ErrorMessage, r.ShouldRetry);
+            }
+            return new GetExpandedPlayerResponse(r.Players.SingleOrDefault());
         }
 
         /// <summary>
@@ -60,11 +66,16 @@ public static partial class Players
         [UsedImplicitly]
         public async Task<GetExpandedPlayerResponse> GetExpandedPlayerAsync(Guid playerID)
         {
-            return await Request.ExecuteAsyncRequest<GetExpandedPlayerResponse>(
+            var r = await Request.ExecuteAsyncRequest<GetPlayersResponse>(
                 Config.EndPointPaths.Players.ListPlayers,
                 service,
                 new GetPlayersOptions(playerID).BuildFormData()
             );
+            if (!r.Success)
+            {
+                return new GetExpandedPlayerResponse(r.ErrorMessage, r.ShouldRetry);
+            }
+            return new GetExpandedPlayerResponse(r.Players.SingleOrDefault());
         }
 
     }

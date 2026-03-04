@@ -81,7 +81,7 @@ public static class Run
                     var result = service.ListCloudSaves(bucket.ID, new Buckets.ListBucketSavesOptions(GetBucketCloudSaveSortMethod.NameAZ), new PaginationOptions(1, 10));
                     results[nameof(CloudSaveTest.ListBucketSaves)] = new TestResult(result, sw);
                 }
-                /*
+
                 // Saves
                 {
                     byte[] data;
@@ -150,7 +150,6 @@ public static class Run
                         }
                     }
                 }
-                */
 
                 {
                     sw.Restart();
