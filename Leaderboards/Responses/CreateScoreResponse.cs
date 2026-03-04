@@ -7,13 +7,13 @@ namespace ConstructServices.Leaderboards.Responses;
 public sealed class CreateScoreResponse : BaseResponse
 {
     [JsonProperty(PropertyName = "score")]
-    private Score Score { get; set; }
+    public Score Score { get; set; }
 
     [JsonProperty(PropertyName = "leaderboard")]
-    private Leaderboard Leaderboard { get; set; }
+    public Leaderboard Leaderboard { get; set; }
 
     [JsonProperty(PropertyName = "personalBest")]
-    private bool PersonalBest { get; set; }
+    public bool PersonalBest { get; set; }
 
     public CreateScoreResponse()
     {

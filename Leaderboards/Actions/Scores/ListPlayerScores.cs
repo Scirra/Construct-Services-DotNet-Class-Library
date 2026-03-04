@@ -17,13 +17,13 @@ public static partial class Scores{
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/scores/get-player-scores" />
         [UsedImplicitly]
         public ScoresResponse ListPlayerScores(
-            ListPlayerScoresOptions listPlayerScoresOptions,
+            Guid playerID,
             PaginationOptions paginationOptions)
         {
             return Request.ExecuteSyncRequest<ScoresResponse>(
                 Config.EndPointPaths.Scores.ListPlayerScores,
                 service,
-                listPlayerScoresOptions.BuildFormData(),
+                ListPlayerScoresOptions.BuildFormData(playerID),
                 paginationOptions
             );
         }
@@ -34,29 +34,25 @@ public static partial class Scores{
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/scores/get-player-scores" />
         [UsedImplicitly]
         public async Task<ScoresResponse> ListPlayerScoresAsync(
-            ListPlayerScoresOptions listPlayerScoresOptions,
+            Guid playerID,
             PaginationOptions paginationOptions)
         {
             return await Request.ExecuteAsyncRequest<ScoresResponse>(
                 Config.EndPointPaths.Scores.ListPlayerScores,
                 service,
-                listPlayerScoresOptions.BuildFormData(),
+                ListPlayerScoresOptions.BuildFormData(playerID),
                 paginationOptions
             );
         }
     }
 
-    
-    [UsedImplicitly]
-    public sealed class ListPlayerScoresOptions(Guid playerID)
+    private static class ListPlayerScoresOptions
     {
-        private Guid PlayerID { get; } = playerID;
-
-        internal Dictionary<string, string> BuildFormData()
+        internal static Dictionary<string, string> BuildFormData(Guid playerID)
         {
             var formData = new Dictionary<string, string>
             {
-                { "playerID", PlayerID.ToString() }
+                { "playerID", playerID.ToString() }
             };
             return formData;
         }

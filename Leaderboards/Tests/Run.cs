@@ -38,7 +38,7 @@ public static class Run
         ListScoreHistory,
         ListScoreNeighbours,
         ListScores,
-        DeleteScore,
+        DeleteScore
     }
 
     [UsedImplicitly]
@@ -157,34 +157,51 @@ public static class Run
                         }
 
                         // Scores
-                        try
                         {
-                            var response = service.CreateScore(new Scores.CreateScoreOptions(player.ID, "1.1.1.1", 1000, 1, 2, 3));
-                            results[nameof(LeaderboardTest.CreateScore)] = new TestResult(response);
-                        }
-                        catch (Exception ex)
-                        {
-                            results[nameof(LeaderboardTest.CreateScore)] = new TestResult(TestResultStatus.Failed, ex.Message);
-                        }
-                        
-                        try
-                        {
-                            var response = service.AdjustScore(new Scores.AdjustPlayersScoreOptions(player.ID)
+                            var createScoreResponse = service.CreateScore(new Scores.CreateScoreOptions(player.ID, "1.1.1.1", 1000, 1, 2, 3));
+                            results[nameof(LeaderboardTest.CreateScore)] = new TestResult(createScoreResponse);
+                            if (createScoreResponse.Success)
                             {
-                                Adjustment = 100,
-                                OptValue1 = 4
-                            });
-                            results[nameof(LeaderboardTest.AdjustScore)] = new TestResult(response);
-                        }
-                        catch (Exception ex)
-                        {
-                            results[nameof(LeaderboardTest.CreateScore)] = new TestResult(TestResultStatus.Failed, ex.Message);
+                                var score = createScoreResponse.Score;
+                                
+                                {
+                                    var response = service.AdjustScore(new Scores.AdjustScoreByIDOptions(score.ID)
+                                    {
+                                        Adjustment = 100,
+                                        OptValue1 = 4
+                                    });
+                                    results[nameof(LeaderboardTest.AdjustScore)] = new TestResult(response);
+                                }
+
+                                {
+                                    var response = service.ListNewestScores(new Scores.ListNewestScoresOptions(), new PaginationOptions(1, 20));
+                                    results[nameof(LeaderboardTest.ListNewest)] = new TestResult(response);
+                                    if (response.Success)
+                                    {
+                                        if (response.Scores.All(c => c.ID != score.ID))
+                                        {
+                                            results[nameof(LeaderboardTest.ListNewest)] = new TestResult(TestResultStatus.Failed, "Score not found in newest.");
+                                        }
+                                    }
+                                }
+
+                                {
+                                    var response = service.ListPlayerScores(player.ID, new PaginationOptions(1, 20));
+                                    results[nameof(LeaderboardTest.ListPlayerScores)] = new TestResult(response);
+                                    if (response.Success)
+                                    {
+                                        if (response.Scores.All(c => c.ID != score.ID))
+                                        {
+                                            results[nameof(LeaderboardTest.ListPlayerScores)] = new TestResult(TestResultStatus.Failed, "Score not found in newest.");
+                                        }
+                                    }
+                                }
+                            }
                         }
 
 
                         /*
-                           ListNewest,
-                           ListPlayerScores,
+                           ,
                            ListScoreHistory,
                            ListScoreNeighbours,
                            ListScores,

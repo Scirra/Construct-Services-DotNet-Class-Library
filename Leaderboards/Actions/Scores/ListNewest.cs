@@ -16,7 +16,7 @@ public static partial class Scores
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/scores/get-newest-scores" />
         [UsedImplicitly]
-        public ScoresResponse GetNewestScores(
+        public ScoresResponse ListNewestScores(
             ListNewestScoresOptions listNewestScoresOptions,
             PaginationOptions paginationOptions,
             RequestPerspective requestPerspective = null)
@@ -38,7 +38,7 @@ public static partial class Scores
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/scores/get-newest-scores" />
         [UsedImplicitly]
-        public async Task<ScoresResponse> GetNewestScoresAsync(
+        public async Task<ScoresResponse> ListNewestScoresAsync(
             ListNewestScoresOptions listNewestScoresOptions,
             PaginationOptions paginationOptions,
             RequestPerspective requestPerspective = null)

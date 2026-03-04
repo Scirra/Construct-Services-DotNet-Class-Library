@@ -39,10 +39,7 @@ public class BaseResponse
         get
         {
             if (string.IsNullOrWhiteSpace(RawJson)) return null;
-            if (RawObject_ == null)
-            {
-                RawObject_ = JsonConvert.SerializeObject(RawJson);
-            }
+            RawObject_ ??= JsonConvert.SerializeObject(RawJson);
             return RawObject_;
         }
     }

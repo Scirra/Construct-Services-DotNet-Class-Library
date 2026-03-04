@@ -47,9 +47,16 @@ public static partial class Scores
         internal Guid? ScoreID { get; set; }
         internal Guid? PlayerID { get; set; }
 
+        [UsedImplicitly]
         public long Adjustment { get; set; }
+
+        [UsedImplicitly]
         public short? OptValue1 { get; set; }
+
+        [UsedImplicitly]
         public short? OptValue2 { get; set; }
+
+        [UsedImplicitly]
         public short? OptValue3 { get; set; }
 
         internal Dictionary<string, string> BuildFormData(Guid leaderboardID)

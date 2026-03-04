@@ -7,7 +7,7 @@ namespace ConstructServices.Leaderboards.Objects;
 public sealed class Score
 {
     [JsonProperty(PropertyName = "scoreID")]
-    public Guid ScoreID { get; private set; }
+    public Guid ID { get; private set; }
 
     [JsonProperty(PropertyName = "score")]
     public long ScoreValue { get; private set; }
