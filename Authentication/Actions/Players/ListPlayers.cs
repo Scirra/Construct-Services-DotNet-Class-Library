@@ -44,16 +44,24 @@ public static partial class Players
     }
 
     [UsedImplicitly]
-    public sealed class GetPlayersOptions(List<Guid> playerIDs, PlayerOrdering? ordering = null)
+    public sealed class GetPlayersOptions
     {
-        private List<Guid> PlayerIDs { get; } = playerIDs;
-        private PlayerOrdering? Ordering { get; } = ordering;
+        private List<Guid> PlayerIDs { get; }
+        private PlayerOrdering? Ordering { get; }
         
-        public GetPlayersOptions(PlayerOrdering ordering) : this(null, ordering)
+        public GetPlayersOptions(List<Guid> playerIDs, PlayerOrdering ordering)
         {
+            PlayerIDs = playerIDs;
+            Ordering = ordering;
         }
-        internal GetPlayersOptions(Guid playerID) : this([playerID])
+        public GetPlayersOptions(PlayerOrdering ordering)
         {
+            PlayerIDs = null;
+            Ordering = ordering;
+        }
+        internal GetPlayersOptions(Guid playerID)
+        {
+            PlayerIDs = [playerID];
         }
 
         internal Dictionary<string, string> BuildFormData()

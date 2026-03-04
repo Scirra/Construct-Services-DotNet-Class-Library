@@ -11,6 +11,7 @@ public sealed class GetExpandedPlayerResponse : BaseResponse
         
     public GetExpandedPlayerResponse(ExpandedPlayer expandedPlayer)
     {
+        Player = expandedPlayer;
     }
     public GetExpandedPlayerResponse(string errorMessage, bool shouldRetry = false) : base(errorMessage, shouldRetry)
     {

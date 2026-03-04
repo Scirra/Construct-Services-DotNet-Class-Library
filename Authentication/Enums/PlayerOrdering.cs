@@ -7,5 +7,6 @@ public enum PlayerOrdering
     [UsedImplicitly] AZ,
     [UsedImplicitly] ZA,
     [UsedImplicitly] Newest,
-    [UsedImplicitly] Oldest
+    [UsedImplicitly] Oldest,
+    [UsedImplicitly] MostRecentlyActive
 }
