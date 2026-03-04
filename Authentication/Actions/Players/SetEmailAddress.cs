@@ -66,10 +66,6 @@ public static partial class Players
             {
                 formData.Add("playerID", PlayerID.Value.ToString());
             }
-            if (!string.IsNullOrWhiteSpace(SessionKey))
-            {
-                formData.Add("sessionKey", SessionKey);
-            }
             return formData;
         }
     }

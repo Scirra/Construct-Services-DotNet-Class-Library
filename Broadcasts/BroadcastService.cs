@@ -20,13 +20,6 @@ public class BroadcastService : BaseService
     /// <param name="gameID">ID of the game to run requests against</param>
     /// <param name="aPIKey">Your games secret API key</param>
     public BroadcastService(Guid gameID, SecretAPIKey aPIKey) : base(gameID, Config.APIDomain, aPIKey) { }
-    
-    /// <summary>
-    /// Create a new service instance for requests authenticated with a players session key
-    /// </summary>
-    /// <param name="gameID">ID of the game to run requests against</param>
-    /// <param name="sessionKey">The players session key</param>
-    public BroadcastService(Guid gameID, SessionKey sessionKey) : base(gameID, Config.APIDomain, sessionKey) { }
 
     internal override void AddServiceSpecificFormData(Dictionary<string, string> formData)
     {

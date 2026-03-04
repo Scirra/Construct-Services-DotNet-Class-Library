@@ -10,19 +10,11 @@ public sealed class SecretAPIKey(string key)
 {
     internal string Key { get; private set; } = key;
 }
-
-[UsedImplicitly]
-public sealed class SessionKey(string key)
-{
-    internal string Key { get; private set; } = key;
-}
-
 public abstract class BaseService
 {
     internal Guid GameID { get; private set; }
     internal string APIHost { get; private set; }
     internal SecretAPIKey APIKey { get; private set; }
-    internal SessionKey SessionKey { get; private set; }
     internal string RequestedLanguage { get; private set; }
     internal CultureInfo Culture { get; private set; }
     
@@ -42,16 +34,6 @@ public abstract class BaseService
         GameID = gameID;
         APIHost = apiHost;
         APIKey = aPiKey;
-    }
-
-    internal BaseService(
-        Guid gameID,
-        string apiHost,
-        SessionKey sessionKey)
-    {
-        GameID = gameID;
-        APIHost = apiHost;
-        SessionKey = sessionKey;
     }
 
     /// <summary>

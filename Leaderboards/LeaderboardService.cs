@@ -31,17 +31,6 @@ public sealed class LeaderboardService : BaseService
         LeaderboardID = leaderboardID;
     }
     
-    /// <summary>
-    /// Create a new service instance for requests authenticated with a players session key
-    /// </summary>
-    /// <param name="gameID">ID of the game to run requests against</param>
-    /// <param name="leaderboardID">ID of the leaderboard to run requests against</param>
-    /// <param name="sessionKey">The players session key</param>
-    public LeaderboardService(Guid gameID, Guid leaderboardID, SessionKey sessionKey) : base(gameID, Config.APIDomain, sessionKey)
-    {
-        LeaderboardID = leaderboardID;
-    }
-    
     internal static void AddRequestPerspectiveFormData(RequestPerspective perspective, Dictionary<string, string> formData)
     {
         if (perspective == null) return;
