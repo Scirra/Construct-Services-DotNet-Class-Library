@@ -16,12 +16,12 @@ public static partial class Scores
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/scores/delete-scores" />
         [UsedImplicitly]
-        public DeleteScoresResponse DeletePlayerScores(DeletePlayerScoresOptions deletePlayerScoresOptions)
+        public DeleteScoresResponse DeletePlayerScores(Guid playerID)
         {
             return Request.ExecuteSyncRequest<DeleteScoresResponse>(
                 Config.EndPointPaths.Scores.Delete,
                 service,
-                deletePlayerScoresOptions.BuildFormData()
+                DeletePlayerScoreOptions.BuildFormData(playerID)
             );
         }
         
@@ -30,12 +30,12 @@ public static partial class Scores
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/scores/delete-scores" />
         [UsedImplicitly]
-        public async Task<DeleteScoresResponse> DeletePlayerScoresAsync(DeletePlayerScoresOptions deletePlayerScoresOptions)
+        public async Task<DeleteScoresResponse> DeletePlayerScoresAsync(Guid playerID)
         {
             return await Request.ExecuteAsyncRequest<DeleteScoresResponse>(
                 Config.EndPointPaths.Scores.Delete,
                 service,
-                deletePlayerScoresOptions.BuildFormData()
+                DeletePlayerScoreOptions.BuildFormData(playerID)
             );
         }
 
@@ -44,12 +44,12 @@ public static partial class Scores
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/scores/delete-scores" />
         [UsedImplicitly]
-        public DeleteScoresResponse DeleteScore(DeleteScoreOptions deleteScoreOptions)
+        public DeleteScoresResponse DeleteScore(Guid scoreID)
         {
             return Request.ExecuteSyncRequest<DeleteScoresResponse>(
                 Config.EndPointPaths.Scores.Delete,
                 service,
-                deleteScoreOptions.BuildFormData()
+                DeleteScoreByIDOptions.BuildFormData(scoreID)
             );
         }
         
@@ -58,42 +58,32 @@ public static partial class Scores
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/scores/delete-scores" />
         [UsedImplicitly]
-        public async Task<DeleteScoresResponse> DeleteScoreByIDAsync(DeleteScoreOptions deleteScoreOptions)
+        public async Task<DeleteScoresResponse> DeleteScoreByIDAsync(Guid scoreID)
         {
             return await Request.ExecuteAsyncRequest<DeleteScoresResponse>(
                 Config.EndPointPaths.Scores.Delete,
                 service,
-                deleteScoreOptions.BuildFormData()
+                DeleteScoreByIDOptions.BuildFormData(scoreID)
             );
         }
     }
 
     
-    [UsedImplicitly]
-    public abstract class DeleteScoreBase(Guid? scoreID, Guid? playerID)
+    private static class DeletePlayerScoreOptions
     {
-        private Guid? ScoreID { get; } = scoreID;
-        private Guid? PlayerID { get; } = playerID;
-
-        internal Dictionary<string, string> BuildFormData()
+        internal static Dictionary<string, string> BuildFormData(Guid playerID)
         {
-            var formData = new Dictionary<string, string>();
-            if (ScoreID.HasValue)
-            {
-                formData.Add("scoreID", ScoreID.Value.ToString());
-            }
-            if (PlayerID.HasValue)
-            {
-                formData.Add("playerID", PlayerID.Value.ToString());
-            }
+            var formData = new Dictionary<string, string> { { "playerID", playerID.ToString() } };
             return formData;
         }
     }
-
-    [UsedImplicitly]
-    public sealed class DeleteScoreOptions(Guid scoreID) : DeleteScoreBase(scoreID, null);
-
-    [UsedImplicitly]
-    public sealed class DeletePlayerScoresOptions(Guid playerID) : DeleteScoreBase(null, playerID);
+    private static class DeleteScoreByIDOptions
+    {
+        internal static Dictionary<string, string> BuildFormData(Guid scoreID)
+        {
+            var formData = new Dictionary<string, string> { { "scoreID", scoreID.ToString() } };
+            return formData;
+        }
+    }
 
 }

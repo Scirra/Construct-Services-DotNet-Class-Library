@@ -38,9 +38,12 @@ public static class Run
         ListNewest,
         ListPlayerScores,
         ListScoreHistory,
+        ListPlayersScoreHistory,
         ListScoreNeighbours,
+        ListPlayerScoreNeighbours,
         ListScores,
-        DeleteScore
+        DeleteScore,
+        DeletePlayerScores
     }
 
     [UsedImplicitly]
@@ -228,17 +231,56 @@ public static class Run
                                         }
                                     }
                                 }
+
+                                {
+                                    sw.Restart();
+                                    var response = service.ListScoreHistory(new Scores.ListScoreHistoryOptions(score.ID));
+                                    results[nameof(LeaderboardTest.ListScoreHistory)] = new TestResult(response, sw);
+                                }
+
+                                {
+                                    sw.Restart();
+                                    var response = service.ListPlayersScoreHistory(new Scores.ListPlayerScoreHistoryOptions(player.ID));
+                                    results[nameof(LeaderboardTest.ListPlayersScoreHistory)] = new TestResult(response, sw);
+                                }
+
+                                {
+                                    sw.Restart();
+                                    var response = service.ListScoreNeighbours(score.ID, new Scores.ListScoreNeighbourOptions
+                                    {
+                                        CompareRanks = 5
+                                    });
+                                    results[nameof(LeaderboardTest.ListScoreNeighbours)] = new TestResult(response, sw);
+                                }
+
+                                {
+                                    sw.Restart();
+                                    var response = service.ListPlayersScoreNeighbours(player.ID, new Scores.ListScoreNeighbourOptions
+                                    {
+                                        Range = 5
+                                    });
+                                    results[nameof(LeaderboardTest.ListPlayerScoreNeighbours)] = new TestResult(response, sw);
+                                }
+
+                                {
+                                    sw.Restart();
+                                    var response = service.ListScores(new Scores.ListScoreOptions(), new PaginationOptions(1, 10));
+                                    results[nameof(LeaderboardTest.ListScores)] = new TestResult(response, sw);
+                                }
+
+                                {
+                                    sw.Restart();
+                                    var response = service.DeleteScore(score.ID);
+                                    results[nameof(LeaderboardTest.DeleteScore)] = new TestResult(response, sw);
+                                }
+
+                                {
+                                    sw.Restart();
+                                    var response = service.DeletePlayerScores(player.ID);
+                                    results[nameof(LeaderboardTest.DeletePlayerScores)] = new TestResult(response, sw);
+                                }
                             }
                         }
-
-
-                        /*
-                           ,
-                           ListScoreHistory,
-                           ListScoreNeighbours,
-                           ListScores,
-                           DeleteScore,
-                         */
                     }
                 }
             }
