@@ -4,7 +4,6 @@ using ConstructServices.Common;
 using ConstructServices.Common.Tests;
 using ConstructServices.Leaderboards.Actions;
 using ConstructServices.Leaderboards.Enums;
-using ConstructServices.XP.Responses;
 using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
@@ -160,7 +159,7 @@ public static class Run
                         // Scores
                         try
                         {
-                            var response = service.CreateScore(new Scores.CreateScoreOptions(player.ID, 1000, 1, 2, 3));
+                            var response = service.CreateScore(new Scores.CreateScoreOptions(player.ID, "1.1.1.1", 1000, 1, 2, 3));
                             results[nameof(LeaderboardTest.CreateScore)] = new TestResult(response);
                         }
                         catch (Exception ex)

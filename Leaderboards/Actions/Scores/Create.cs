@@ -56,6 +56,7 @@ public static partial class Scores
     public sealed class CreateScoreOptions
     {
         private string SessionKey { get; }
+        private string RequesterIP { get; }
         private Guid? PlayerID { get; }
         private long Score { get; }
         private short? OptValue1 { get; }
@@ -64,12 +65,14 @@ public static partial class Scores
         
         public CreateScoreOptions(
             Guid playerID, 
+            string requesterIP,
             long score,
             short? optValue1,
             short? optValue2,
             short? optValue3)
         {
             PlayerID = playerID;
+            RequesterIP = requesterIP;
             Score = score;
             OptValue1 = optValue1;
             OptValue2 = optValue2;
@@ -101,6 +104,10 @@ public static partial class Scores
                 { "timestamp", timestamp.ToString() },
                 { "score", Score.ToString() }
             };
+            if (!string.IsNullOrWhiteSpace(RequesterIP))
+            {
+                formData.Add("requesterIP", RequesterIP);
+            }
             if (!string.IsNullOrWhiteSpace(SessionKey))
             {
                 formData.Add("sessionKey", SessionKey);

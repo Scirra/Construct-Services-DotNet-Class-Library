@@ -1,18 +1,11 @@
 ﻿using ConstructServices.Common;
 using ConstructServices.Leaderboards.Objects;
-using JetBrains.Annotations;
 using Newtonsoft.Json;
-using System.Globalization;
 
 namespace ConstructServices.Leaderboards.Responses;
 
 public sealed class PostScoreResponse : BaseResponse
 {
-    [JsonProperty(PropertyName = "formattingCulture")]
-    private string FormattingCulture_ { get; set; }
-    [UsedImplicitly] 
-    public CultureInfo FormattingCulture => new(FormattingCulture_);
-
     [JsonProperty(PropertyName = "score")]
     private Score Score { get; set; }
 
