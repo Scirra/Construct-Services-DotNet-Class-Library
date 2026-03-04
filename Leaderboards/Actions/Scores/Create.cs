@@ -16,7 +16,7 @@ public static partial class Scores
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/scores/post-score" />
         [UsedImplicitly]
-        public PostScoreResponse CreateScore(
+        public CreateScoreResponse CreateScore(
             CreateScoreOptions createScoreOptions,
             RequestPerspective requestPerspective = null)
         {
@@ -24,7 +24,7 @@ public static partial class Scores
 
             LeaderboardService.AddRequestPerspectiveFormData(requestPerspective, formData);
 
-            return Request.ExecuteSyncRequest<PostScoreResponse>(
+            return Request.ExecuteSyncRequest<CreateScoreResponse>(
                 Config.EndPointPaths.Scores.Create,
                 service,
                 formData
@@ -36,7 +36,7 @@ public static partial class Scores
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/scores/post-score" />
         [UsedImplicitly]
-        public async Task<PostScoreResponse> CreateScoreAsync(
+        public async Task<CreateScoreResponse> CreateScoreAsync(
             CreateScoreOptions createScoreOptions,
             RequestPerspective requestPerspective = null)
         {
@@ -44,7 +44,7 @@ public static partial class Scores
 
             LeaderboardService.AddRequestPerspectiveFormData(requestPerspective, formData);
 
-            return await Request.ExecuteAsyncRequest<PostScoreResponse>(
+            return await Request.ExecuteAsyncRequest<CreateScoreResponse>(
                 Config.EndPointPaths.Scores.Create,
                 service,
                 formData

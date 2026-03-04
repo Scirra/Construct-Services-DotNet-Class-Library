@@ -16,9 +16,9 @@ public static partial class Teams
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/teams/get-team" />
         [UsedImplicitly]
-        public GetTeamResponse GetTeam(Guid teamID)
+        public TeamResponse GetTeam(Guid teamID)
         {
-            return Request.ExecuteSyncRequest<GetTeamResponse>(
+            return Request.ExecuteSyncRequest<TeamResponse>(
                 Config.EndPointPaths.Teams.Get,
                 service,
                 GetTeamOptions.BuildFormData(teamID)
@@ -30,9 +30,9 @@ public static partial class Teams
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/teams/get-team" />
         [UsedImplicitly]
-        public async Task<GetTeamResponse> GetTeamAsync(Guid teamID)
+        public async Task<TeamResponse> GetTeamAsync(Guid teamID)
         {
-            return await Request.ExecuteAsyncRequest<GetTeamResponse>(
+            return await Request.ExecuteAsyncRequest<TeamResponse>(
                 Config.EndPointPaths.Teams.Get,
                 service,
                 GetTeamOptions.BuildFormData(teamID)

@@ -15,10 +15,10 @@ namespace ConstructServices.Leaderboards.Actions
             /// </summary>
             /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/shadow-bans/list-ip-bans" />
             [UsedImplicitly]
-            public GetShadowBansResponse ListIPShadowBans(
+            public ListShadowBansResponse ListIPShadowBans(
                 PaginationOptions paginationOptions)
             {
-                return Request.ExecuteSyncRequest<GetShadowBansResponse>(
+                return Request.ExecuteSyncRequest<ListShadowBansResponse>(
                     Config.EndPointPaths.ShadowBans.ListIPBans,
                     service,
                     null,
@@ -31,10 +31,10 @@ namespace ConstructServices.Leaderboards.Actions
             /// </summary>
             /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/shadow-bans/list-ip-bans" />
             [UsedImplicitly]
-            public async Task<GetShadowBansResponse> ListIPShadowBansAsync(
+            public async Task<ListShadowBansResponse> ListIPShadowBansAsync(
                 PaginationOptions paginationOptions)
             {
-                return await Request.ExecuteAsyncRequest<GetShadowBansResponse>(
+                return await Request.ExecuteAsyncRequest<ListShadowBansResponse>(
                     Config.EndPointPaths.ShadowBans.ListIPBans,
                     service,
                     null,
@@ -47,10 +47,10 @@ namespace ConstructServices.Leaderboards.Actions
             /// </summary>
             /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/shadow-bans/list-player-bans" />
             [UsedImplicitly]
-            public GetShadowBansResponse ListPlayerShadowBans(
+            public ListShadowBansResponse ListPlayerShadowBans(
                 PaginationOptions paginationOptions)
             {
-                return Request.ExecuteSyncRequest<GetShadowBansResponse>(
+                return Request.ExecuteSyncRequest<ListShadowBansResponse>(
                     Config.EndPointPaths.ShadowBans.ListPlayerIDBans,
                     service,
                     null,
@@ -63,10 +63,10 @@ namespace ConstructServices.Leaderboards.Actions
             /// </summary>
             /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/shadow-bans/list-player-bans" />
             [UsedImplicitly]
-            public async Task<GetShadowBansResponse> ListPlayerShadowBansAsync(
+            public async Task<ListShadowBansResponse> ListPlayerShadowBansAsync(
                 PaginationOptions paginationOptions)
             {
-                return await Request.ExecuteAsyncRequest<GetShadowBansResponse>(
+                return await Request.ExecuteAsyncRequest<ListShadowBansResponse>(
                     Config.EndPointPaths.ShadowBans.ListPlayerIDBans,
                     service,
                     null,

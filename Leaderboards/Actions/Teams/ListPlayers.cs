@@ -17,12 +17,12 @@ public static partial class Teams
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/teams/list-team-players" />
         [UsedImplicitly]
-        public GetTeamPlayersResponse ListTeamPlayers(
+        public ListTeamPlayersResponse ListTeamPlayers(
             Guid teamID,
             ListTeamPlayersOptions listTeamPlayersOptions,
             PaginationOptions paginationOptions)
         {
-            return Request.ExecuteSyncRequest<GetTeamPlayersResponse>(
+            return Request.ExecuteSyncRequest<ListTeamPlayersResponse>(
                 Config.EndPointPaths.Teams.ListPlayers,
                 service,
                 listTeamPlayersOptions.BuildFormData(teamID),
@@ -35,12 +35,12 @@ public static partial class Teams
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/teams/list-team-players" />
         [UsedImplicitly]
-        public async Task<GetTeamPlayersResponse> ListTeamPlayersAsync(
+        public async Task<ListTeamPlayersResponse> ListTeamPlayersAsync(
             Guid teamID,
             ListTeamPlayersOptions listTeamPlayersOptions,
             PaginationOptions paginationOptions)
         {
-            return await Request.ExecuteAsyncRequest<GetTeamPlayersResponse>(
+            return await Request.ExecuteAsyncRequest<ListTeamPlayersResponse>(
                 Config.EndPointPaths.Teams.ListPlayers,
                 service,
                 listTeamPlayersOptions.BuildFormData(teamID),

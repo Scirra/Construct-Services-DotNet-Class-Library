@@ -16,11 +16,11 @@ public static partial class Scores{
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/scores/get-player-scores" />
         [UsedImplicitly]
-        public GetScoreResponse ListPlayerScores(
+        public ScoresResponse ListPlayerScores(
             ListPlayerScoresOptions listPlayerScoresOptions,
             PaginationOptions paginationOptions)
         {
-            return Request.ExecuteSyncRequest<GetScoreResponse>(
+            return Request.ExecuteSyncRequest<ScoresResponse>(
                 Config.EndPointPaths.Scores.ListPlayerScores,
                 service,
                 listPlayerScoresOptions.BuildFormData(),
@@ -33,11 +33,11 @@ public static partial class Scores{
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/scores/get-player-scores" />
         [UsedImplicitly]
-        public async Task<GetScoreResponse> ListPlayerScoresAsync(
+        public async Task<ScoresResponse> ListPlayerScoresAsync(
             ListPlayerScoresOptions listPlayerScoresOptions,
             PaginationOptions paginationOptions)
         {
-            return await Request.ExecuteAsyncRequest<GetScoreResponse>(
+            return await Request.ExecuteAsyncRequest<ScoresResponse>(
                 Config.EndPointPaths.Scores.ListPlayerScores,
                 service,
                 listPlayerScoresOptions.BuildFormData(),

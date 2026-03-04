@@ -16,14 +16,14 @@ public static partial class Scores
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/scores/get-score-neighbours" />
         [UsedImplicitly]
-        public GetScoreNeighboursResponse ListPlayersScoreNeighbours(
+        public ScoresResponse ListPlayersScoreNeighbours(
             ListPlayerScoreNeighboursOptions listPlayerScoreNeighboursOptions,
             RequestPerspective requestPerspective = null)
         {
             var formData = listPlayerScoreNeighboursOptions.BuildFormData();
             LeaderboardService.AddRequestPerspectiveFormData(requestPerspective, formData);
 
-            return Request.ExecuteSyncRequest<GetScoreNeighboursResponse>(
+            return Request.ExecuteSyncRequest<ScoresResponse>(
                 Config.EndPointPaths.Scores.ListScoreNeighbours,
                 service,
                 formData
@@ -35,14 +35,14 @@ public static partial class Scores
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/scores/get-score-neighbours" />
         [UsedImplicitly]
-        public async Task<GetScoreNeighboursResponse> ListPlayersScoreNeighboursAsync(
+        public async Task<ScoresResponse> ListPlayersScoreNeighboursAsync(
             ListPlayerScoreNeighboursOptions listPlayerScoreNeighboursOptions,
             RequestPerspective requestPerspective = null)
         {
             var formData = listPlayerScoreNeighboursOptions.BuildFormData();
             LeaderboardService.AddRequestPerspectiveFormData(requestPerspective, formData);
 
-            return await Request.ExecuteAsyncRequest<GetScoreNeighboursResponse>(
+            return await Request.ExecuteAsyncRequest<ScoresResponse>(
                 Config.EndPointPaths.Scores.ListScoreNeighbours,
                 service,
                 formData
@@ -54,14 +54,14 @@ public static partial class Scores
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/scores/get-score-neighbours" />
         [UsedImplicitly]
-        public GetScoreNeighboursResponse ListScoreNeighbours(
+        public ScoresResponse ListScoreNeighbours(
             ListScoreNeighboursOptions listScoreNeighboursOptions,
             RequestPerspective requestPerspective = null)
         {
             var formData = listScoreNeighboursOptions.BuildFormData();
             LeaderboardService.AddRequestPerspectiveFormData(requestPerspective, formData);
 
-            return Request.ExecuteSyncRequest<GetScoreNeighboursResponse>(
+            return Request.ExecuteSyncRequest<ScoresResponse>(
                 Config.EndPointPaths.Scores.ListScoreNeighbours,
                 service,
                 formData
@@ -73,14 +73,14 @@ public static partial class Scores
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/scores/get-score-neighbours" />
         [UsedImplicitly]
-        public async Task<GetScoreNeighboursResponse> ListScoreNeighboursAsync(
+        public async Task<ScoresResponse> ListScoreNeighboursAsync(
             ListScoreNeighboursOptions listScoreNeighboursOptions,
             RequestPerspective requestPerspective = null)
         {
             var formData = listScoreNeighboursOptions.BuildFormData();
             LeaderboardService.AddRequestPerspectiveFormData(requestPerspective, formData);
 
-            return await Request.ExecuteAsyncRequest<GetScoreNeighboursResponse>(
+            return await Request.ExecuteAsyncRequest<ScoresResponse>(
                 Config.EndPointPaths.Scores.ListScoreNeighbours,
                 service,
                 formData

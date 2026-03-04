@@ -6,7 +6,7 @@ using Pagination = ConstructServices.Leaderboards.Objects.Pagination;
 
 namespace ConstructServices.Leaderboards.Responses;
 
-public sealed class GetShadowBansResponse : BaseResponse
+public sealed class ListShadowBansResponse : BaseResponse
 {
     [JsonProperty(PropertyName = "bans")]
     public List<ShadowBan> Bans { get; set; }
@@ -14,10 +14,10 @@ public sealed class GetShadowBansResponse : BaseResponse
     [JsonProperty(PropertyName = "pagination")]
     public Pagination Pagination { get; set; }
 
-    public GetShadowBansResponse()
+    public ListShadowBansResponse()
     {
     }
-    public GetShadowBansResponse(string errorMessage, bool shouldRetry = false) : base(errorMessage, shouldRetry)
+    public ListShadowBansResponse(string errorMessage, bool shouldRetry = false) : base(errorMessage, shouldRetry)
     {
 
     }

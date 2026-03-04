@@ -16,7 +16,7 @@ public static partial class Scores
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/scores/get-scores" />
         [UsedImplicitly]
-        public GetScoreResponse ListScores(
+        public ScoresResponse ListScores(
             ListScoreOptions listScoreOptions, 
             PaginationOptions paginationOptions,
             RequestPerspective requestPerspective = null)
@@ -24,7 +24,7 @@ public static partial class Scores
             var formData = listScoreOptions.BuildFormData();
             LeaderboardService.AddRequestPerspectiveFormData(requestPerspective, formData);
 
-            return Request.ExecuteSyncRequest<GetScoreResponse>(
+            return Request.ExecuteSyncRequest<ScoresResponse>(
                 Config.EndPointPaths.Scores.ListScores,
                 service,
                 formData,
@@ -37,7 +37,7 @@ public static partial class Scores
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/scores/get-scores" />
         [UsedImplicitly]
-        public async Task<GetScoreResponse> ListScoresAsync(
+        public async Task<ScoresResponse> ListScoresAsync(
             ListScoreOptions listScoreOptions, 
             PaginationOptions paginationOptions,
             RequestPerspective requestPerspective = null)
@@ -47,7 +47,7 @@ public static partial class Scores
             
             LeaderboardService.AddRequestPerspectiveFormData(requestPerspective, formData);
 
-            return await Request.ExecuteAsyncRequest<GetScoreResponse>(
+            return await Request.ExecuteAsyncRequest<ScoresResponse>(
                 Config.EndPointPaths.Scores.ListScores,
                 service,
                 formData,

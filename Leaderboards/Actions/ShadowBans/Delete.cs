@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Net;
 using ConstructServices.Common;
-using ConstructServices.Leaderboards.Responses;
 using JetBrains.Annotations;
 using System.Threading.Tasks;
 
@@ -17,9 +16,9 @@ public static partial class ShadowBans
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/shadow-bans/delete-shadow-ban" />
         [UsedImplicitly]
-        public ShadowBanResponse DeleteShadowBan(DeleteIPShadowBanOptions deleteShadowBanOptions)
+        public BaseResponse DeleteShadowBan(DeleteIPShadowBanOptions deleteShadowBanOptions)
         {
-            return Request.ExecuteSyncRequest<ShadowBanResponse>(
+            return Request.ExecuteSyncRequest<BaseResponse>(
                 Config.EndPointPaths.ShadowBans.Delete,
                 service,
                 deleteShadowBanOptions.BuildFormData()
@@ -31,9 +30,9 @@ public static partial class ShadowBans
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/shadow-bans/delete-shadow-ban" />
         [UsedImplicitly]
-        public async Task<ShadowBanResponse> DeleteShadowBanAsync(DeleteIPShadowBanOptions deleteShadowBanOptions)
+        public async Task<BaseResponse> DeleteShadowBanAsync(DeleteIPShadowBanOptions deleteShadowBanOptions)
         {
-            return await Request.ExecuteAsyncRequest<ShadowBanResponse>(
+            return await Request.ExecuteAsyncRequest<BaseResponse>(
                 Config.EndPointPaths.ShadowBans.Delete,
                 service,
                 deleteShadowBanOptions.BuildFormData()
@@ -45,9 +44,9 @@ public static partial class ShadowBans
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/shadow-bans/delete-shadow-ban" />
         [UsedImplicitly]
-        public ShadowBanResponse DeleteShadowBan(DeletePlayerShadowBanOptions deleteShadowBanOptions)
+        public BaseResponse DeleteShadowBan(DeletePlayerShadowBanOptions deleteShadowBanOptions)
         {
-            return Request.ExecuteSyncRequest<ShadowBanResponse>(
+            return Request.ExecuteSyncRequest<BaseResponse>(
                 Config.EndPointPaths.ShadowBans.Delete,
                 service,
                 deleteShadowBanOptions.BuildFormData()
@@ -59,9 +58,9 @@ public static partial class ShadowBans
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/shadow-bans/delete-shadow-ban" />
         [UsedImplicitly]
-        public async Task<ShadowBanResponse> DeleteShadowBanAsync(DeletePlayerShadowBanOptions deleteShadowBanOptions)
+        public async Task<BaseResponse> DeleteShadowBanAsync(DeletePlayerShadowBanOptions deleteShadowBanOptions)
         {
-            return await Request.ExecuteAsyncRequest<ShadowBanResponse>(
+            return await Request.ExecuteAsyncRequest<BaseResponse>(
                 Config.EndPointPaths.ShadowBans.Delete,
                 service,
                 deleteShadowBanOptions.BuildFormData()

@@ -16,9 +16,9 @@ public static partial class Scores
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/scores/get-score-history" />
         [UsedImplicitly]
-        public GetScoreHistoryResponse ListPlayersScoreHistory(ListPlayerScoreHistoryOptions listPlayerScoreHistoryOptions)
+        public ListScoreHistoryResponse ListPlayersScoreHistory(ListPlayerScoreHistoryOptions listPlayerScoreHistoryOptions)
         {
-            return Request.ExecuteSyncRequest<GetScoreHistoryResponse>(
+            return Request.ExecuteSyncRequest<ListScoreHistoryResponse>(
                 Config.EndPointPaths.Scores.ListScoreHistory,
                 service,
                 listPlayerScoreHistoryOptions.BuildFormData()
@@ -30,9 +30,9 @@ public static partial class Scores
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/scores/get-score-history" />
         [UsedImplicitly]
-        public async Task<GetScoreHistoryResponse> ListPlayersScoreHistoryAsync(ListPlayerScoreHistoryOptions listPlayerScoreHistoryOptions)
+        public async Task<ListScoreHistoryResponse> ListPlayersScoreHistoryAsync(ListPlayerScoreHistoryOptions listPlayerScoreHistoryOptions)
         {
-            return await Request.ExecuteAsyncRequest<GetScoreHistoryResponse>(
+            return await Request.ExecuteAsyncRequest<ListScoreHistoryResponse>(
                 Config.EndPointPaths.Scores.ListScoreHistory,
                 service,
                 listPlayerScoreHistoryOptions.BuildFormData()
@@ -44,9 +44,9 @@ public static partial class Scores
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/scores/get-score-history" />
         [UsedImplicitly]
-        public GetScoreHistoryResponse ListScoreHistory(ListScoreHistoryOptions listScoreHistoryOptions)
+        public ListScoreHistoryResponse ListScoreHistory(ListScoreHistoryOptions listScoreHistoryOptions)
         {
-            return Request.ExecuteSyncRequest<GetScoreHistoryResponse>(
+            return Request.ExecuteSyncRequest<ListScoreHistoryResponse>(
                 Config.EndPointPaths.Scores.ListScoreHistory,
                 service,
                 listScoreHistoryOptions.BuildFormData()
@@ -58,9 +58,9 @@ public static partial class Scores
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/scores/get-score-history" />
         [UsedImplicitly]
-        public async Task<GetScoreHistoryResponse> ListScoreHistoryAsync(ListScoreHistoryOptions listScoreHistoryOptions)
+        public async Task<ListScoreHistoryResponse> ListScoreHistoryAsync(ListScoreHistoryOptions listScoreHistoryOptions)
         {
-            return await Request.ExecuteAsyncRequest<GetScoreHistoryResponse>(
+            return await Request.ExecuteAsyncRequest<ListScoreHistoryResponse>(
                 Config.EndPointPaths.Scores.ListScoreHistory,
                 service,
                 listScoreHistoryOptions.BuildFormData()

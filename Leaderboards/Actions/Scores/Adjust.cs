@@ -16,9 +16,9 @@ public static partial class Scores
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/scores/adjust-score" />
         [UsedImplicitly]
-        public PostScoreResponse AdjustScore(AdjustScoreBase adjustScoreOptions)
+        public CreateScoreResponse AdjustScore(AdjustScoreBase adjustScoreOptions)
         {
-            return Request.ExecuteSyncRequest<PostScoreResponse>(
+            return Request.ExecuteSyncRequest<CreateScoreResponse>(
                 Config.EndPointPaths.Scores.Adjust,
                 service,
                 adjustScoreOptions.BuildFormData(service.LeaderboardID)
@@ -30,9 +30,9 @@ public static partial class Scores
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/scores/adjust-score" />
         [UsedImplicitly]
-        public async Task<PostScoreResponse> AdjustScoreScoreAsync(AdjustScoreBase adjustScoreOptions)
+        public async Task<CreateScoreResponse> AdjustScoreScoreAsync(AdjustScoreBase adjustScoreOptions)
         {
-            return await Request.ExecuteAsyncRequest<PostScoreResponse>(
+            return await Request.ExecuteAsyncRequest<CreateScoreResponse>(
                 Config.EndPointPaths.Scores.Adjust,
                 service,
                 adjustScoreOptions.BuildFormData(service.LeaderboardID)
