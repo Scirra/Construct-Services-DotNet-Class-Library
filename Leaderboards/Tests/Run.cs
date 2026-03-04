@@ -69,7 +69,7 @@ public static class Run
                         }
 
                         {
-                            var response = service.AssignPlayerToTeam(team.ID, new Teams.AssignPlayerOptions(player.ID));
+                            var response = service.AssignPlayerToTeam(team.ID, player.ID);
                             results[nameof(LeaderboardTest.AssignPlayer)] = new TestResult(response);
                         }
 
