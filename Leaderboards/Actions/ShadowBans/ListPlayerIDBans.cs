@@ -13,9 +13,9 @@ public static partial class ShadowBans
         /// <summary>
         /// List all Player ID based Shadow Bans
         /// </summary>
-        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/shadow-bans/get-player-bans" />
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/shadow-bans/list-player-bans" />
         [UsedImplicitly]
-        public GetShadowBansResponse GetPlayerIDShadowBans(
+        public GetShadowBansResponse ListPlayerShadowBans(
             ListShadowBanOptions listShadowBanOptions, 
             PaginationOptions paginationOptions)
         {
@@ -30,9 +30,9 @@ public static partial class ShadowBans
         /// <summary>
         /// List all Player ID based Shadow Bans
         /// </summary>
-        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/shadow-bans/get-player-bans" />
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/shadow-bans/list-player-bans" />
         [UsedImplicitly]
-        public async Task<GetShadowBansResponse> GetPlayerIDShadowBansAsync(
+        public async Task<GetShadowBansResponse> ListPlayerShadowBansAsync(
             ListShadowBanOptions listShadowBanOptions, 
             PaginationOptions paginationOptions)
         {

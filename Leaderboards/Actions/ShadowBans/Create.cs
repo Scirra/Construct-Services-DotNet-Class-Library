@@ -17,7 +17,7 @@ public static partial class ShadowBans
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/shadow-bans/create-shadow-ban" />
         [UsedImplicitly]
-        public ShadowBanResponse BanIPHash(CreateShadowBanBase createShadowBanOptions)
+        public ShadowBanResponse CreateShadowBan(CreateIPShadowBanOptions createShadowBanOptions)
         {
             return Request.ExecuteSyncRequest<ShadowBanResponse>(
                 Config.EndPointPaths.ShadowBans.Create,
@@ -31,7 +31,35 @@ public static partial class ShadowBans
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/shadow-bans/create-shadow-ban" />
         [UsedImplicitly]
-        public async Task<ShadowBanResponse> BanIPHashAsync(CreateShadowBanBase createShadowBanOptions)
+        public async Task<ShadowBanResponse> CreateShadowBanAsync(CreateIPShadowBanOptions createShadowBanOptions)
+        {
+            return await Request.ExecuteAsyncRequest<ShadowBanResponse>(
+                Config.EndPointPaths.ShadowBans.Create,
+                service,
+                createShadowBanOptions.BuildFormData()
+            );
+        }
+        
+        /// <summary>
+        /// Create a new Shadow Ban
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/shadow-bans/create-shadow-ban" />
+        [UsedImplicitly]
+        public ShadowBanResponse CreateShadowBan(CreatePlayerShadowBanOptions createShadowBanOptions)
+        {
+            return Request.ExecuteSyncRequest<ShadowBanResponse>(
+                Config.EndPointPaths.ShadowBans.Create,
+                service,
+                createShadowBanOptions.BuildFormData()
+            );
+        }
+        
+        /// <summary>
+        /// Create a new Shadow Ban
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/shadow-bans/create-shadow-ban" />
+        [UsedImplicitly]
+        public async Task<ShadowBanResponse> CreateShadowBanAsync(CreatePlayerShadowBanOptions createShadowBanOptions)
         {
             return await Request.ExecuteAsyncRequest<ShadowBanResponse>(
                 Config.EndPointPaths.ShadowBans.Create,

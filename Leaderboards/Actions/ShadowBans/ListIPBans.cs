@@ -13,7 +13,7 @@ public static partial class ShadowBans
         /// <summary>
         /// List all IP based Shadow Bans
         /// </summary>
-        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/shadow-bans/get-ip-bans" />
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/shadow-bans/list-ip-bans" />
         [UsedImplicitly]
         public GetShadowBansResponse ListIPShadowBans(
             ListShadowBanOptions listShadowBanOptions, 
@@ -30,7 +30,7 @@ public static partial class ShadowBans
         /// <summary>
         /// List all IP based Shadow Bans
         /// </summary>
-        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/shadow-bans/get-ip-bans" />
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/shadow-bans/list-ip-bans" />
         [UsedImplicitly]
         public async Task<GetShadowBansResponse> ListIPShadowBansAsync(
             ListShadowBanOptions listShadowBanOptions, 

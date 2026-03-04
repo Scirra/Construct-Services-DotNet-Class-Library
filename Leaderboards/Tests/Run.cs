@@ -22,7 +22,14 @@ public static class Run
         AssignPlayer,
         ListPlayers,
         RemovePlayer,
-        DeleteTeam
+        DeleteTeam,
+
+        CreateIPBan,
+        ListIPBan,
+        DeleteIPBan,
+        CreatePlayerBan,
+        ListPlayerBan,
+        DeletePlayerBan
     }
 
     [UsedImplicitly]
@@ -93,6 +100,51 @@ public static class Run
                         {
                             var response = service.DeleteTeam(team.ID);
                             results[nameof(LeaderboardTest.DeleteTeam)] = new TestResult(response);
+                        }
+
+                        // Bans
+                        {
+                            var response = service.CreateShadowBan(new ShadowBans.CreateIPShadowBanOptions(1));
+                            results[nameof(LeaderboardTest.CreateIPBan)] = new TestResult(response);
+                        }
+
+                        {
+                            var response = service.ListIPShadowBans(new ListShadowBanOptions(), new PaginationOptions(1, 20));
+                            results[nameof(LeaderboardTest.ListIPBan)] = new TestResult(response);
+                            if (response.Success)
+                            {
+                                if (response.Bans.All(c => c.IPHash != 1))
+                                {
+                                    results[nameof(LeaderboardTest.ListIPBan)] = new TestResult(TestResultStatus.Failed, "IP ban not found.");
+                                }
+                            }
+                        }
+
+                        {
+                            var response = service.CreateShadowBan(new ShadowBans.CreatePlayerShadowBanOptions(player.ID));
+                            results[nameof(LeaderboardTest.CreatePlayerBan)] = new TestResult(response);
+                        }
+
+                        {
+                            var response = service.ListPlayerShadowBans(new ListShadowBanOptions(), new PaginationOptions(1, 20));
+                            results[nameof(LeaderboardTest.ListPlayerBan)] = new TestResult(response);
+                            if (response.Success)
+                            {
+                                if (response.Bans.All(c => c.Player.ID != player.ID))
+                                {
+                                    results[nameof(LeaderboardTest.ListPlayerBan)] = new TestResult(TestResultStatus.Failed, "Player ban not found.");
+                                }
+                            }
+                        }
+
+                        {
+                            var response = service.DeleteShadowBan(new ShadowBans.DeleteIPShadowBanOptions("1.2.3.4"));
+                            results[nameof(LeaderboardTest.DeleteIPBan)] = new TestResult(response);
+                        }
+
+                        {
+                            var response = service.DeleteShadowBan(new ShadowBans.DeletePlayerShadowBanOptions(player.ID));
+                            results[nameof(LeaderboardTest.DeletePlayerBan)] = new TestResult(response);
                         }
                     }
                 }

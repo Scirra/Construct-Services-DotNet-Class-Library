@@ -20,10 +20,10 @@ internal static class Config
         }
         internal static class ShadowBans
         {
-            internal const string Create = "/shadowban.json";
-            internal const string ListIPBans = "/getipshadowbans.json";
-            internal const string Delete = "/unshadowban.json";
-            internal const string ListPlayerIDBans = "/getplayeridshadowbans.json";
+            internal const string Create = "/createshadowban.json";
+            internal const string Delete = "/deleteshadowban.json";
+            internal const string ListIPBans = "/listipshadowbans.json";
+            internal const string ListPlayerIDBans = "/listplayershadowbans.json";
         }
         internal static class Teams
         {
