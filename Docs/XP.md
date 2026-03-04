@@ -21,12 +21,3 @@ var service = new XPService(
 );
 ```
 Services constructed with a secret key will also work for requests that don't require a secret key.
-
-# Create a new player
-
-```C#
-var service = new XPService(
-	"c59fca77-46f0-4069-9af2-8b40008906c0",
-	new SecretAPIKey("your-secret-key")
-);
-```

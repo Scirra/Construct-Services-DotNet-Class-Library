@@ -21,3 +21,39 @@ var service = new AuthenticationService(
 );
 ```
 Services constructed with a secret key will also work for requests that don't require a secret key.
+
+# Create a new player
+
+Creates a new player in your game with a specified player name and all optional parameters set.
+```C#
+    var result = service.CreatePlayer(
+        new CreatePlayerOptions("Player-1337")
+        {
+            EmailAddress = "player1337@test.com",
+            Username = "Player1337",
+            Password = "MyPassword123!",
+            SessionExpiry = TimeSpan.FromMinutes(60)
+        }
+    );
+
+    if (result.Success)
+    {
+        var player = result.Player;
+    }
+```
+
+# Change a player name
+
+Using a secret key:
+```C#
+    var result = service.ChangePlayerName(
+        new ChangePlayerNameOptions(player.ID, "NewPlayerName")
+    );
+```
+
+Or using a players session key:
+```C#
+    var result = service.ChangePlayerName(
+        new ChangePlayerNameOptions("player-session-key", "NewPlayerName")
+    );
+```
