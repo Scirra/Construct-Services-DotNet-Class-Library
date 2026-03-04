@@ -42,27 +42,27 @@ You need to create a [Construct Game Services][cgs-account] account.  From here,
 
 > Even though the service is called the Construct Game Services, it can be used outside of the gaming world for other purposes!
 
- - ### Authentication Service
+ - ## Authentication Service
    For signing in players, forgotten password emails, setting player avatars and much more.
 
    [Documentation and Examples][docs-auth]
 
- - ### Broadcast Service
+ - ## Broadcast Service
    For publishing messages to channels that can be read by your player base.  Support translations into various languages.
 
    [Documentation and Examples][docs-broadcast]
 
- - ### CloudSave Service
+ - ## CloudSave Service
    For saving data blobs.  Supports private player saves, along with public saves into buckets.  Images can be stored alongside the cloud saves, and cloud saves can be rated by the player base.
 
    [Documentation and Examples][docs-cloudsave]
 
- - ### Leaderboard Service
+ - ## Leaderboard Service
    For maintaining a list of scores for players.  Supports teams, shadow banning players or IP's.  View a players score history over time.  You can filter scores by countries as well as many other views.
 
    [Documentation and Examples][docs-leaderboards]
 
- - ### XP Service
+ - ## XP Service
    For maintaining an XP level for individual players.  Supports bonus date periods, for example you can create a "Double XP Weekend" where any XP earned during that weekend is doubled automatically.
 
    [Documentation and Examples][docs-xp]
