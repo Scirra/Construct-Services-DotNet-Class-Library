@@ -48,13 +48,14 @@ public static partial class Players
     {
         private List<Guid> PlayerIDs { get; } = playerIDs;
         private PlayerOrdering? Ordering { get; } = ordering;
-
+        
         public GetPlayersOptions(PlayerOrdering ordering) : this(null, ordering)
         {
         }
-        public GetPlayersOptions(Guid playerID) : this([playerID])
+        internal GetPlayersOptions(Guid playerID) : this([playerID])
         {
         }
+
         internal Dictionary<string, string> BuildFormData()
         {
             var formData = new Dictionary<string, string>();

@@ -1,7 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using ConstructServices.Authentication.Responses;
+﻿using ConstructServices.Authentication.Responses;
+using ConstructServices.Common;
 using JetBrains.Annotations;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ConstructServices.Authentication.Actions;
@@ -17,7 +18,7 @@ public static partial class Players
         [UsedImplicitly]
         public GetPlayerResponse GetPlayer(GetPlayerOptions getPlayerOptions)
         {
-            return Common.Request.ExecuteSyncRequest<GetPlayerResponse>(
+            return Request.ExecuteSyncRequest<GetPlayerResponse>(
                 Config.EndPointPaths.Players.GetPlayer,
                 service,
                 getPlayerOptions.BuildFormData()
@@ -31,12 +32,41 @@ public static partial class Players
         [UsedImplicitly]
         public async Task<GetPlayerResponse> GetPlayerAsync(GetPlayerOptions getPlayerOptions)
         {
-            return await Common.Request.ExecuteAsyncRequest<GetPlayerResponse>(
+            return await Request.ExecuteAsyncRequest<GetPlayerResponse>(
                 Config.EndPointPaths.Players.GetPlayer,
                 service,
                 getPlayerOptions.BuildFormData()
             );
         }
+
+        /// <summary>
+        /// Get expanded player
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/list-players" />
+        [UsedImplicitly]
+        public GetPlayersResponse GetExpandedPlayer(Guid playerID)
+        {
+            return Request.ExecuteSyncRequest<GetPlayersResponse>(
+                Config.EndPointPaths.Players.ListPlayers,
+                service,
+                new GetPlayersOptions(playerID).BuildFormData()
+            );
+        }
+
+        /// <summary>
+        /// Get expanded player
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/list-players" />
+        [UsedImplicitly]
+        public async Task<GetPlayersResponse> GetExpandedPlayerAsync(Guid playerID)
+        {
+            return await Request.ExecuteAsyncRequest<GetPlayersResponse>(
+                Config.EndPointPaths.Players.ListPlayers,
+                service,
+                new GetPlayersOptions(playerID).BuildFormData()
+            );
+        }
+
     }
 
     [UsedImplicitly]
