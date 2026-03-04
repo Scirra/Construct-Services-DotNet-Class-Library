@@ -2,7 +2,7 @@
 
 To make requests against this service, you need to first create the relevant service object.  These are cheap objects, you can create them as and when you require them.  Service objects do not need disposing.
 
-There are three ways to construct a service object:
+There are two ways to construct a service object:
 
 ### For requests where authentication is not required
 Some requests do not require a secret key or a players session key.  For these requests you can simply pass your games ID to the constructor as follows:
@@ -20,14 +20,4 @@ var service = new CloudSaveService(
 	new SecretAPIKey("your-secret-key")
 );
 ```
-
-### For requests using a players session key
-If you are making requests that require use of a players session key, pass in the game ID and a new SecretAPIKey object as follows:
-```C#
-var service = new CloudSaveService(
-	"c59fca77-46f0-4069-9af2-8b40008906c0",
-	new SessionKey("players-session-key")
-);
-```
-
-If a request doesn't require a secret key or session key, all 3 of the above constructors will work.
+Services constructed with a secret key will also work for requests that don't require a secret key.
