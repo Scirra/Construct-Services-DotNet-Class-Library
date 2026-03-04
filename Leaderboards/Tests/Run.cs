@@ -109,7 +109,7 @@ public static class Run
                         }
 
                         {
-                            var response = service.ListIPShadowBans(new ListShadowBanOptions(), new PaginationOptions(1, 20));
+                            var response = service.ListIPShadowBans(new PaginationOptions(1, 20));
                             results[nameof(LeaderboardTest.ListIPBan)] = new TestResult(response);
                             if (response.Success)
                             {
@@ -126,7 +126,7 @@ public static class Run
                         }
 
                         {
-                            var response = service.ListPlayerShadowBans(new ListShadowBanOptions(), new PaginationOptions(1, 20));
+                            var response = service.ListPlayerShadowBans(new PaginationOptions(1, 20));
                             results[nameof(LeaderboardTest.ListPlayerBan)] = new TestResult(response);
                             if (response.Success)
                             {
