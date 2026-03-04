@@ -141,7 +141,7 @@ public static class Run
         {
             // Get player
             var authService = new AuthenticationService(gameID, apiKey);
-            var player = authService.ListPlayers(new Players.GetPlayersOptions(PlayerOrdering.Newest)).Players.FirstOrDefault();
+            var player = authService.ListPlayers(new Players.GetPlayersOptions(PlayerOrdering.Newest), new PaginationOptions(1, 20)).Players.FirstOrDefault();
             if (player != null)
             {
                 sw.Restart();

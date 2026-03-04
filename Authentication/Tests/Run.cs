@@ -47,7 +47,7 @@ public static class Run
             var player = createResult.Player;
             {
                 sw.Restart();
-                var result = service.ListPlayers(new Players.GetPlayersOptions(PlayerOrdering.Newest));
+                var result = service.ListPlayers(new Players.GetPlayersOptions(PlayerOrdering.Newest), new PaginationOptions(1, 20));
                 results[nameof(AuthTest.ListPlayers)] = new TestResult(result, sw);
                 if (result.Success)
                 {

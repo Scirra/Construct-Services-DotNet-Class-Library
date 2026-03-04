@@ -17,13 +17,13 @@ public static partial class Messages
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/broadcasts/api-end-points/channels/get-messages" />
         [UsedImplicitly]
-        public MessagesResponse ListMessages(ListMessagesOptions listMessagesOptions, PaginationOptions paginationOptions = null)
+        public MessagesResponse ListMessages(ListMessagesOptions listMessagesOptions, PaginationOptions pagination)
         {
             return Request.ExecuteSyncRequest<MessagesResponse>(
                 Config.EndPointPaths.Messages.List,
                 service,
                 listMessagesOptions.BuildFormData(),
-                paginationOptions
+                pagination
             );
         }
 
@@ -32,13 +32,13 @@ public static partial class Messages
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/broadcasts/api-end-points/channels/get-messages" />
         [UsedImplicitly]
-        public async Task<MessagesResponse> ListMessagesAsync(ListMessagesOptions listMessagesOptions, PaginationOptions paginationOptions = null)
+        public async Task<MessagesResponse> ListMessagesAsync(ListMessagesOptions listMessagesOptions, PaginationOptions pagination)
         {
             return await Request.ExecuteAsyncRequest<MessagesResponse>(
                 Config.EndPointPaths.Messages.List,
                 service,
                 listMessagesOptions.BuildFormData(),
-                paginationOptions
+                pagination
             );
         }
     }

@@ -116,7 +116,7 @@ public static class Run
 
                                     {
                                         sw.Restart();
-                                        var result = service.ListMessages(new Messages.ListMessagesOptions(channel.ID));
+                                        var result = service.ListMessages(new Messages.ListMessagesOptions(channel.ID), new PaginationOptions(1, 20));
                                         results[nameof(BroadcastTest.ListMessages)] = new TestResult(result, sw);
                                         if (result.Success)
                                         {
