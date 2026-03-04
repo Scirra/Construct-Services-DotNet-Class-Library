@@ -16,9 +16,9 @@ public static partial class Players
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/register-player" />
         [UsedImplicitly]
-        public RegisterPlayerResponse CreatePlayer(CreatePlayerOptions createPlayerOptions)
+        public CreatePlayerResponse CreatePlayer(CreatePlayerOptions createPlayerOptions)
         {
-            return Request.ExecuteSyncRequest<RegisterPlayerResponse>(
+            return Request.ExecuteSyncRequest<CreatePlayerResponse>(
                 Config.EndPointPaths.Players.Register,
                 service,
                 createPlayerOptions.BuildFormData()
@@ -30,9 +30,9 @@ public static partial class Players
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/register-player" />
         [UsedImplicitly]
-        public async Task<RegisterPlayerResponse> CreatePlayerAsync(CreatePlayerOptions createPlayerOptions)
+        public async Task<CreatePlayerResponse> CreatePlayerAsync(CreatePlayerOptions createPlayerOptions)
         {
-            return await Request.ExecuteAsyncRequest<RegisterPlayerResponse>(
+            return await Request.ExecuteAsyncRequest<CreatePlayerResponse>(
                 Config.EndPointPaths.Players.Register,
                 service,
                 createPlayerOptions.BuildFormData()

@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace ConstructServices.Authentication.Responses;
 
-public sealed class RegisterPlayerResponse : BaseResponse
+public sealed class CreatePlayerResponse : BaseResponse
 {
     [JsonProperty(PropertyName = "player")]
     public Player Player { get; set; }
@@ -12,10 +12,10 @@ public sealed class RegisterPlayerResponse : BaseResponse
     [JsonProperty(PropertyName = "session")]
     public Session Session { get; set; }
 
-    public RegisterPlayerResponse()
+    public CreatePlayerResponse()
     {
     }
-    public RegisterPlayerResponse(string errorMessage, bool shouldRetry = false) : base(errorMessage, shouldRetry)
+    public CreatePlayerResponse(string errorMessage, bool shouldRetry = false) : base(errorMessage, shouldRetry)
     {
     }
 }
