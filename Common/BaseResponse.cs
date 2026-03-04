@@ -31,7 +31,7 @@ public class BaseResponse
     [UsedImplicitly]
     public string RawJson { get; private set; }
 
-    private dynamic RawObject_ { get; set; }
+    private object RawObject_ { get; set; }
 
     [UsedImplicitly]
     public dynamic RawObject
@@ -39,7 +39,7 @@ public class BaseResponse
         get
         {
             if (string.IsNullOrWhiteSpace(RawJson)) return null;
-            if (RawObject_ != null)
+            if (RawObject_ == null)
             {
                 RawObject_ = JsonConvert.SerializeObject(RawJson);
             }
