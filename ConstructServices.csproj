@@ -13,11 +13,12 @@
 	<Product>Construct Game Services</Product>
 	<Description>An API for interacting with the Construct Game Services.  Add Leaderboards, Broadcasts, Translations, XP, Authentication and Cloud Save into your games.</Description>
 	<Copyright>Scirra Ltd, 2026.  All rights reserved.</Copyright>
-	<PackageProjectUrl>https://github.com/Scirra/Construct-Services-DotNet-Class-Library</PackageProjectUrl>
+	<PackageProjectUrl>https://cgs.construct.net</PackageProjectUrl>
 	<PackageIcon>icon.png</PackageIcon>
 	<RepositoryUrl>https://github.com/Scirra/Construct-Services-DotNet-Class-Library</RepositoryUrl>
 	<RepositoryType>git</RepositoryType>
 	<PackageTags>cloudsave, cloud save, leaderboards, authentication, xp, ratings, broadcasts</PackageTags>
+	<PackageReleaseNotes>Major update to work with latest CGS API.  CGS is still in Beta, so large undocumented changes will still happen until version 2.  During this period, it is imperitive you always use the latest version of this package.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
