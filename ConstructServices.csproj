@@ -4,10 +4,20 @@
     <TargetFramework>netstandard2.0</TargetFramework>
 	<LangVersion>latest</LangVersion>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-	<Title>ConstructServices</Title>
-	<Version>1.1.0</Version>
+	<Title>Construct Game Services</Title>
 	<Company>Scirra</Company>
 	<PackageReadmeFile>README.md</PackageReadmeFile>
+	<Version>1.2.0</Version>
+	<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+	<Authors>Thomas Gullen, Scirra Ltd</Authors>
+	<Product>Construct Game Services</Product>
+	<Description>An API for interacting with the Construct Game Services.  Add Leaderboards, Broadcasts, Translations, XP, Authentication and Cloud Save into your games.</Description>
+	<Copyright>Scirra Ltd, 2026.  All rights reserved.</Copyright>
+	<PackageProjectUrl>https://github.com/Scirra/Construct-Services-DotNet-Class-Library</PackageProjectUrl>
+	<PackageIcon>icon.png</PackageIcon>
+	<RepositoryUrl>https://github.com/Scirra/Construct-Services-DotNet-Class-Library</RepositoryUrl>
+	<RepositoryType>git</RepositoryType>
+	<PackageTags>cloudsave, cloud save, leaderboards, authentication, xp, ratings, broadcasts</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,6 +34,17 @@
     <PackageReference Include="JetBrains.Annotations" Version="2025.2.4" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
 	<None Include="$(MSBuildThisFileDirectory)README.md" Pack="true" PackagePath="" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="icon.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Update="LICENSE.txt">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
