@@ -93,3 +93,31 @@ Or using a players session key:
         new ChangePasswordOptions("player-session-key", "NewPlayerName")
     );
 ```
+
+# Request forgotten password
+
+If your plan supports emails, and the player has a verified email address this will send the player an email with a link to choose a new password.
+
+```C#
+    var result = service.RequestForgottenPasswordEmail(
+        "player1337@test.com"
+    );
+```
+
+# Delete player (permanent)
+
+It's imperitive that you offer players a way to delete their account.  You can do this by calling the delete player method with the signed in players session key to allow them to delete their own account when they wish to.
+
+Using a secret key:
+```C#
+    var result = service.DeletePlayer(
+        player.ID
+    );
+```
+
+Or using a players session key:
+```C#
+    var result = service.DeletePlayer(
+        "player-session-key"
+    );
+```
