@@ -44,9 +44,9 @@ public static partial class Players
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/list-players" />
         [UsedImplicitly]
-        public GetPlayersResponse GetExpandedPlayer(Guid playerID)
+        public GetExpandedPlayerResponse GetExpandedPlayer(Guid playerID)
         {
-            return Request.ExecuteSyncRequest<GetPlayersResponse>(
+            return Request.ExecuteSyncRequest<GetExpandedPlayerResponse>(
                 Config.EndPointPaths.Players.ListPlayers,
                 service,
                 new GetPlayersOptions(playerID).BuildFormData()
@@ -58,9 +58,9 @@ public static partial class Players
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/list-players" />
         [UsedImplicitly]
-        public async Task<GetPlayersResponse> GetExpandedPlayerAsync(Guid playerID)
+        public async Task<GetExpandedPlayerResponse> GetExpandedPlayerAsync(Guid playerID)
         {
-            return await Request.ExecuteAsyncRequest<GetPlayersResponse>(
+            return await Request.ExecuteAsyncRequest<GetExpandedPlayerResponse>(
                 Config.EndPointPaths.Players.ListPlayers,
                 service,
                 new GetPlayersOptions(playerID).BuildFormData()
