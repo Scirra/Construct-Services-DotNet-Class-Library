@@ -138,7 +138,7 @@ public static class Run
                         }
 
                         {
-                            var response = service.DeleteShadowBan(new ShadowBans.DeleteIPShadowBanOptions("1.2.3.4"));
+                            var response = service.DeleteShadowBan(new ShadowBans.DeleteIPShadowBanOptions(1));
                             results[nameof(LeaderboardTest.DeleteIPBan)] = new TestResult(response);
                         }
 
