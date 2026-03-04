@@ -124,7 +124,7 @@ public static class Run
 
             {
                 sw.Restart();
-                var result = service.DeletePlayer(new Players.DeletePlayerOptions(player.ID));
+                var result = service.DeletePlayer(player.ID);
                 results[nameof(AuthTest.DeletePlayer)] = new TestResult(result, sw);
             }
         }
