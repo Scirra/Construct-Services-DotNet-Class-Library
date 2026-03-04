@@ -2,7 +2,7 @@
 
 The official Construct Services .NET library, supporting .NET Standard 2.0+.
 
-## Installation
+# Installation
 
 Using the [.NET Core command-line interface (CLI) tools][dotnet-core-cli-tools]:
 
@@ -31,47 +31,53 @@ From within Visual Studio:
 5. Click on the Stripe.net package, select the appropriate version in the
    right-tab and click _Install_.
 
-## Documentation
+# Documentation
 
-For a comprehensive list of examples, check out the [API documentation][api-docs].  The first thing you'll need to do is [create a game][create-game] in your Construct Services account.
+You can read the full [API documentation here][api-docs].  Below are links to documentation and examples for using this package.
 
 # Usage
 
-## Authentication Requests
+### Before you start
+You need to create a [Construct Game Services][cgs-account] account.  From here, you can create a new Game, and get your Game ID, which is required to make requests to these services.
 
-Create a new authentication service object, and pass in the game ID you're making requests against.
+> Even though the service is called the Construct Game Services, it can be used outside of the gaming world for other purposes!
 
-```C#
-var service = new AuthenticationService("c59fca77-46f0-4069-9af2-8b40008906c0");
-```
+ - ### Authentication Service
+   For signing in players, forgotten password emails, setting player avatars and much more.
 
-### Create a Player
+   [Documentation and Examples][docs-auth]
 
-Create a player in your game with the authentication service object.  This will return a `Player` object with a unique ID which can be used to make further requests in other services.
+ - ### Broadcast Service
+   For publishing messages to channels that can be read by your player base.  Support translations into various languages.
 
-```C#
-var result = service.CreatePlayer(new CreatePlayerOptions("Tom"));
-if (result.Success){
-	var player = result.Player;
-}
-```
+   [Documentation and Examples][docs-broadcast]
 
-### Delete a Player
+ - ### CloudSave Service
+   For saving data blobs.  Supports private player saves, along with public saves into buckets.  Images can be stored alongside the cloud saves, and cloud saves can be rated by the player base.
 
+   [Documentation and Examples][docs-cloudsave]
 
-```C#
-var playerID = Guid.Parse("1130517d-6241-4238-8a71-b20dccc514c8");
-var result = service.DeletePlayer(new DeletePlayerOptions(playerID));
-if (result.Success){
-	var player = result.Player;
-}
-```
+ - ### Leaderboard Service
+   For maintaining a list of scores for players.  Supports teams, shadow banning players or IP's.  View a players score history over time.  You can filter scores by countries as well as many other views.
 
-## Support
+   [Documentation and Examples][docs-leaderboards]
+
+ - ### XP Service
+   For maintaining an XP level for individual players.  Supports bonus date periods, for example you can create a "Double XP Weekend" where any XP earned during that weekend is doubled automatically.
+
+   [Documentation and Examples][docs-xp]
+
+# Support
 
 For any requests, bug or comments, please [open an issue][issues] or [submit a
 pull request][pulls].
 
+[cgs-account]: https://cgs.construct.net
+[docs-auth]: https://github.com/Scirra/Construct-Services-DotNet-Class-Library/blob/master/Docs/Authentication.md
+[docs-broadcast]: https://github.com/Scirra/Construct-Services-DotNet-Class-Library/blob/master/Docs/Broadcasts.md
+[docs-cloudsave]: https://github.com/Scirra/Construct-Services-DotNet-Class-Library/blob/master/Docs/CloudSaves.md
+[docs-leaderboards]: https://github.com/Scirra/Construct-Services-DotNet-Class-Library/blob/master/Docs/Leaderboards.md
+[docs-xp]: https://github.com/Scirra/Construct-Services-DotNet-Class-Library/blob/master/Docs/XP.md
 [create-game]: https://www.construct.net/en/game-services/account
 [api-docs]: https://www.construct.net/en/game-services/manuals/game-services
 [dotnet-core-cli-tools]: https://docs.microsoft.com/en-us/dotnet/core/tools/
