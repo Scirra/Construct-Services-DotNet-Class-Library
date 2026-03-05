@@ -17,6 +17,7 @@ public sealed class SessionKey(string key)
 }
 public abstract class BaseService
 {
+    internal Action<string> Logger { get; set; }
     internal Guid GameID { get; private set; }
     internal string APIHost { get; private set; }
     internal SecretAPIKey APIKey { get; private set; }

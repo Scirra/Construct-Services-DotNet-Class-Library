@@ -34,7 +34,7 @@ public static class Run
     }
 
     [UsedImplicitly]
-    public static Dictionary<string, TestResult> RunTests(Guid gameID, SecretAPIKey apiKey)
+    public static Dictionary<string, TestResult> RunTests(Guid gameID, SecretAPIKey apiKey, Action<string> logger = null)
     {
         var results = new Dictionary<string, TestResult>();
         var service = new BroadcastService(gameID, apiKey);

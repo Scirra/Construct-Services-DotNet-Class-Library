@@ -35,11 +35,13 @@ public static class Run
     }
 
     [UsedImplicitly]
-    public static Dictionary<string, TestResult> RunTests(Guid gameID, SecretAPIKey apiKey)
+    public static Dictionary<string, TestResult> RunTests(Guid gameID, SecretAPIKey apiKey, Action<string> logger = null)
     {
         var results = new Dictionary<string, TestResult>();
-        var service = new CloudSaveService(gameID, apiKey);
-
+        var service = new CloudSaveService(gameID, apiKey)
+        {
+            Logger = logger
+        };
         var sw = new Stopwatch();
         sw.Start();
 
