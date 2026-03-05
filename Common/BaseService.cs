@@ -45,7 +45,7 @@ public abstract class BaseService
         APIKey = aPiKey;
         SessionKey = sessionKey;
     }
-
+    
     /// <summary>
     /// Allows change of requested language without needing to create new service object
     /// </summary>
@@ -53,6 +53,19 @@ public abstract class BaseService
     public void SetRequestedLanguage(TargetLanguage targetLanguage)
     {
         RequestedLanguage = targetLanguage.GetAttribute<LanguageAttribute>().ISO;
+    }
+
+    /// <summary>
+    /// Allows change of requested language without needing to create new service object
+    /// </summary>
+    [UsedImplicitly]
+    public void SetRequestedLanguage(string targetLanguageISO)
+    {
+        if (!Validations.Languages.IsValidTargetLanguage(targetLanguageISO))
+        {
+            throw new Exception("Invalid target language ISO specified.");
+        }
+        RequestedLanguage = targetLanguageISO;
     }
 
     /// <summary>

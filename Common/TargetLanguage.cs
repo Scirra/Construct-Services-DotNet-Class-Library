@@ -221,6 +221,6 @@ public enum TargetLanguage
 }
 
 internal sealed class LanguageAttribute(string iso) : System.Attribute
-{
+{    
     public string ISO { get; } = iso;
 }
