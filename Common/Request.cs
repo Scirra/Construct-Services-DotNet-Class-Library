@@ -120,7 +120,7 @@ internal static class Request
     internal static T ExecuteSyncRequest<T>(
         string relativeEndPointPath,
         BaseService service,
-        Dictionary<string, string> formData,
+        Dictionary<string, string> formData = null,
         PaginationOptions paginationOptions = null) where T : BaseResponse
     {
         return Task.Run(() => ExecuteAsyncRequest<T>(
@@ -134,7 +134,7 @@ internal static class Request
     internal static async Task<T> ExecuteAsyncRequest<T>(
         string relativeEndPointPath,
         BaseService service,
-        Dictionary<string, string> formData,
+        Dictionary<string, string> formData = null,
         PaginationOptions paginationOptions = null) where T : BaseResponse
     {
         // Add form data
@@ -210,16 +210,15 @@ internal static class Request
     }
     internal static async Task<byte[]> DownloadBytes(
         Uri absolutePath,
-        BaseService service,
-        string sessionKey = null)
+        BaseService service)
     {        
         // Add form data
         var formData = new Dictionary<string, string>();
         if (service.APIKey != null)
             formData.Add("secret", service.APIKey.Key);
         formData.Add("gameID", service.GameID.ToString());
-        if (!string.IsNullOrWhiteSpace(sessionKey))
-            formData.Add("sessionKey", sessionKey);
+        if (service.SessionKey != null)
+            formData.Add("sessionKey", service.SessionKey.Key);
         service.AddServiceSpecificFormData(formData);
 
         byte[] r;

@@ -26,7 +26,7 @@ public sealed class LeaderboardService : BaseService
     /// <param name="gameID">ID of the game to run requests against</param>
     /// <param name="leaderboardID">ID of the leaderboard to run requests against</param>
     /// <param name="aPIKey">Your games secret API key</param>
-    public LeaderboardService(Guid gameID, Guid leaderboardID, SecretAPIKey aPIKey) : base(gameID, Config.APIDomain, aPIKey)
+    public LeaderboardService(Guid gameID, Guid leaderboardID, SecretAPIKey aPIKey) : base(gameID, Config.APIDomain, aPIKey, null)
     {
         LeaderboardID = leaderboardID;
     }

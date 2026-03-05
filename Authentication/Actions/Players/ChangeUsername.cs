@@ -11,66 +11,81 @@ public static partial class Players
     extension(AuthenticationService service)
     {
         /// <summary>
-        /// Change a Players username
+        /// Change a Players login username
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/set-username-password" />
         [UsedImplicitly]
-        public BaseResponse ChangeUsername(ChangeUsernameOptions changeUsernameOptions)
+        public BaseResponse ChangeUsername(Guid playerID, string newUsername)
         {
             return Request.ExecuteSyncRequest<BaseResponse>(
                 Config.EndPointPaths.Players.SetUsernamePassword,
                 service,
-                changeUsernameOptions.BuildFormData()
+                ChangeUsernameOptions.BuildFormData(playerID, newUsername)
             );
         }
 
         /// <summary>
-        /// Change a Players username
+        /// Change a Players login username
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/set-username-password" />
         [UsedImplicitly]
-        public async Task<BaseResponse> ChangeUsernameAsync(ChangeUsernameOptions changeUsernameOptions)
+        public async Task<BaseResponse> ChangeUsernameAsync(Guid playerID, string newUsername)
         {
             return await Request.ExecuteAsyncRequest<BaseResponse>(
                 Config.EndPointPaths.Players.SetUsernamePassword,
                 service,
-                changeUsernameOptions.BuildFormData()
+                ChangeUsernameOptions.BuildFormData(playerID, newUsername)
+            );
+        }
+    }
+
+    extension(PlayerAuthenticationService service)
+    {
+        /// <summary>
+        /// Change login username
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/set-username-password" />
+        [UsedImplicitly]
+        public BaseResponse ChangeUsername(string newUsername)
+        {
+            return Request.ExecuteSyncRequest<BaseResponse>(
+                Config.EndPointPaths.Players.SetUsernamePassword,
+                service,
+                ChangeUsernameOptions.BuildFormData(newUsername)
+            );
+        }
+
+        /// <summary>
+        /// Change login username
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/set-username-password" />
+        [UsedImplicitly]
+        public async Task<BaseResponse> ChangeUsernameAsync(string newUsername)
+        {
+            return await Request.ExecuteAsyncRequest<BaseResponse>(
+                Config.EndPointPaths.Players.SetUsernamePassword,
+                service,
+                ChangeUsernameOptions.BuildFormData(newUsername)
             );
         }
     }
     
-    [UsedImplicitly]
-    public sealed class ChangeUsernameOptions
+    private static class ChangeUsernameOptions
     {
-        private Guid? PlayerID { get; }
-        private string SessionKey { get; }         
-        private string NewUsername { get; }        
-        
-        public ChangeUsernameOptions(string sessionKey, string newUsername)
+        internal static Dictionary<string, string> BuildFormData(Guid playerID, string newUsername)
         {
-            SessionKey = sessionKey;
-            NewUsername = newUsername;
-        }
-        public ChangeUsernameOptions(Guid playerID, string newUsername)
-        {
-            PlayerID = playerID;
-            NewUsername = newUsername;
-        }
-        internal Dictionary<string, string> BuildFormData()
-        {
-            var formData = new Dictionary<string, string>
+            return new Dictionary<string, string>
             {
-                { "username", NewUsername }
+                { "username", newUsername },
+                { "playerID", playerID.ToString() }
             };
-            if (PlayerID.HasValue)
+        }
+        internal static Dictionary<string, string> BuildFormData(string newUsername)
+        {
+            return new Dictionary<string, string>
             {
-                formData.Add("playerID", PlayerID.Value.ToString());
-            }
-            if (!string.IsNullOrWhiteSpace(SessionKey))
-            {
-                formData.Add("sessionKey", SessionKey);
-            }
-            return formData;
+                { "username", newUsername }
+            };
         }
     }
 }

@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace ConstructServices.Authentication.Responses;
 
-public sealed class SignInPollResponse : BaseResponse
+public sealed class LoginPollResponse : BaseResponse
 {
     [JsonProperty(PropertyName = "session")]
     public Session Session { get; set; }
@@ -15,11 +15,11 @@ public sealed class SignInPollResponse : BaseResponse
     [JsonProperty(PropertyName = "signInErrorMessage")]
     public string SignInErrorMessage { get; set; }
 
-    public SignInPollResponse()
+    public LoginPollResponse()
     {
     }
 
-    public SignInPollResponse(string errorMessage, bool shouldRetry = false) : base(errorMessage, shouldRetry)
+    public LoginPollResponse(string errorMessage, bool shouldRetry = false) : base(errorMessage, shouldRetry)
     {
     }
 }

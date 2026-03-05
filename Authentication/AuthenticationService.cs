@@ -6,22 +6,29 @@ using System.Collections.Generic;
 namespace ConstructServices.Authentication;
 
 [UsedImplicitly]
-public class AuthenticationService : BaseService
+public abstract class AuthenticationServiceBase : BaseService
 {
-    /// <summary>
-    /// Create new service instance for requests that do not require any authentication
-    /// </summary>
-    /// <param name="gameID">ID of the game to run requests against</param>
-    public AuthenticationService(Guid gameID) : base(gameID, Config.APIDomain) { }
-    
-    /// <summary>
-    /// Create a new service instance for requests authenticated with a secret API key
-    /// </summary>
-    /// <param name="gameID">ID of the game to run requests against</param>
-    /// <param name="aPIKey">Your games secret API key</param>
-    public AuthenticationService(Guid gameID, SecretAPIKey aPIKey) : base(gameID, Config.APIDomain, aPIKey) { }
+    internal AuthenticationServiceBase(Guid gameID) : base(gameID, Config.APIDomain)
+    {
+    }
+    internal AuthenticationServiceBase(Guid gameID, SecretAPIKey aPiKey, SessionKey sessionKey) : base(gameID, Config.APIDomain, aPiKey, sessionKey)
+    {
+    }
 
     internal override void AddServiceSpecificFormData(Dictionary<string, string> formData)
     {
     }
+}
+
+[UsedImplicitly]
+public sealed class AuthenticationService : AuthenticationServiceBase
+{
+    public AuthenticationService(Guid gameID) : base(gameID) { }
+    public AuthenticationService(Guid gameID, SecretAPIKey aPIKey) : base(gameID, aPIKey, null) { }
+}
+
+[UsedImplicitly]
+public sealed class PlayerAuthenticationService : AuthenticationServiceBase
+{
+    public PlayerAuthenticationService(Guid gameID, SessionKey sessionKey) : base(gameID, null, sessionKey) { }
 }

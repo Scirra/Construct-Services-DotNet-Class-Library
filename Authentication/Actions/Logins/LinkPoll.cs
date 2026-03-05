@@ -6,22 +6,21 @@ using JetBrains.Annotations;
 
 namespace ConstructServices.Authentication.Actions;
 
-public static partial class SignIns
+public static partial class Logins
 {
-    
-    extension(AuthenticationService service)
+    extension(AuthenticationServiceBase service)
     {
         /// <summary>
         /// Poll a link request
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/login-providers/link-poll" />
         [UsedImplicitly]
-        public LinkPollResponse LinkPoll(LinkPollOptions linkPollOptions)
+        public LinkPollResponse LinkPoll(Guid token)
         {
             return Common.Request.ExecuteSyncRequest<LinkPollResponse>(
-                Config.EndPointPaths.SignIns.LinkPoll,
+                Config.EndPointPaths.Logins.LinkPoll,
                 service,
-                linkPollOptions.BuildFormData()
+                LinkPollOptions.BuildFormData(token)
             );
         }
 
@@ -30,27 +29,24 @@ public static partial class SignIns
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/login-providers/link-poll" />
         [UsedImplicitly]
-        public async Task<LinkPollResponse> LinkPollAsync(LinkPollOptions linkPollOptions)
+        public async Task<LinkPollResponse> LinkPollAsync(Guid token)
         {
             return await Common.Request.ExecuteAsyncRequest<LinkPollResponse>(
-                Config.EndPointPaths.SignIns.LinkPoll,
+                Config.EndPointPaths.Logins.LinkPoll,
                 service,
-                linkPollOptions.BuildFormData()
+                LinkPollOptions.BuildFormData(token)
             );
         }
     }
     
-    [UsedImplicitly]
-    public sealed class LinkPollOptions(Guid token)
+    private static class LinkPollOptions
     {
-        private Guid Token { get; } = token;
-        internal Dictionary<string, string> BuildFormData()
+        internal static Dictionary<string, string> BuildFormData(Guid token)
         {
-            var formData = new Dictionary<string, string>
+            return new Dictionary<string, string>
             {
-                { "pollToken", Token.ToString() }
+                { "pollToken", token.ToString() }
             };
-            return formData;
         }
     }
 }

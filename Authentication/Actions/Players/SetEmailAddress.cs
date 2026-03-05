@@ -15,12 +15,12 @@ public static partial class Players
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/set-email-address" />
         [UsedImplicitly]
-        public BaseResponse SetEmailAddress(SetEmailAddressOptions setEmailAddressOptions)
+        public BaseResponse SetEmailAddress(Guid playerID, string newEmailAddress)
         {
             return Request.ExecuteSyncRequest<BaseResponse>(
                 Config.EndPointPaths.Players.SetEmailAddress,
                 service,
-                setEmailAddressOptions.BuildFormData()
+                SetEmailAddressOptions.BuildFormData(playerID, newEmailAddress)
             );
         }
 
@@ -29,44 +29,63 @@ public static partial class Players
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/set-email-address" />
         [UsedImplicitly]
-        public async Task<BaseResponse> SetEmailAddressAsync(SetEmailAddressOptions setEmailAddressOptions)
+        public async Task<BaseResponse> SetEmailAddressAsync(Guid playerID, string newEmailAddress)
         {
             return await Request.ExecuteAsyncRequest<BaseResponse>(
                 Config.EndPointPaths.Players.SetEmailAddress,
                 service,
-                setEmailAddressOptions.BuildFormData()
+                SetEmailAddressOptions.BuildFormData(playerID, newEmailAddress)
             );
         }        
     }
 
-    [UsedImplicitly]
-    public sealed class SetEmailAddressOptions
+    extension(PlayerAuthenticationService service)
     {
-        private Guid? PlayerID { get; }
-        private string SessionKey { get; }         
-        private string EmailAddress { get; }        
-        
-        public SetEmailAddressOptions(string sessionKey, string emailAddress)
+        /// <summary>
+        /// Set email address
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/set-email-address" />
+        [UsedImplicitly]
+        public BaseResponse SetEmailAddress(string newEmailAddress)
         {
-            SessionKey = sessionKey;
-            EmailAddress = emailAddress;
+            return Request.ExecuteSyncRequest<BaseResponse>(
+                Config.EndPointPaths.Players.SetEmailAddress,
+                service,
+                SetEmailAddressOptions.BuildFormData(newEmailAddress)
+            );
         }
-        public SetEmailAddressOptions(Guid playerID, string emailAddress)
+
+        /// <summary>
+        /// Set email address
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/set-email-address" />
+        [UsedImplicitly]
+        public async Task<BaseResponse> SetEmailAddressAsync(string newEmailAddress)
         {
-            PlayerID = playerID;
-            EmailAddress = emailAddress;
-        }
-        internal Dictionary<string, string> BuildFormData()
+            return await Request.ExecuteAsyncRequest<BaseResponse>(
+                Config.EndPointPaths.Players.SetEmailAddress,
+                service,
+                SetEmailAddressOptions.BuildFormData(newEmailAddress)
+            );
+        }        
+    }
+
+    private static class SetEmailAddressOptions
+    {
+        internal static Dictionary<string, string> BuildFormData(Guid playerID, string newEmailAddress)
         {
-            var formData = new Dictionary<string, string>
+            return new Dictionary<string, string>
             {
-                { "emailAddress", EmailAddress }
+                { "emailAddress", newEmailAddress },
+                { "playerID", playerID.ToString() }
             };
-            if (PlayerID.HasValue)
+        }
+        internal static Dictionary<string, string> BuildFormData(string newEmailAddress)
+        {
+            return new Dictionary<string, string>
             {
-                formData.Add("playerID", PlayerID.Value.ToString());
-            }
-            return formData;
+                { "emailAddress", newEmailAddress }
+            };
         }
     }
 }

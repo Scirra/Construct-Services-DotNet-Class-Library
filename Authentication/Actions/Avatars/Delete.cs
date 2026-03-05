@@ -8,7 +8,6 @@ namespace ConstructServices.Authentication.Actions;
 
 public static partial class Avatars
 {
-
     extension(AuthenticationService service)
     {
         /// <summary>
@@ -16,12 +15,12 @@ public static partial class Avatars
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/avatars/delete-avatar" />
         [UsedImplicitly]
-        public BaseResponse DeleteAvatar(DeleteAvatarOptions deleteAvatarOptions)
+        public BaseResponse DeleteAvatar(Guid playerID)
         {
             return Request.ExecuteSyncRequest<BaseResponse>(
                 Config.EndPointPaths.Avatars.DeleteAvatar,
                 service,
-                deleteAvatarOptions.BuildFormData()
+                new Dictionary<string, string>{{"playerID", playerID.ToString()}}
             );
         }
 
@@ -30,43 +29,42 @@ public static partial class Avatars
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/avatars/delete-avatar" />
         [UsedImplicitly]
-        public async Task<BaseResponse> DeleteAvatarAsync(DeleteAvatarOptions deleteAvatarOptions)
+        public async Task<BaseResponse> DeleteAvatarAsync(Guid playerID)
         {
             return await Request.ExecuteAsyncRequest<BaseResponse>(
                 Config.EndPointPaths.Avatars.DeleteAvatar,
                 service,
-                deleteAvatarOptions.BuildFormData()
+                new Dictionary<string, string>{{"playerID", playerID.ToString()}}
             );
         }
     }
 
-    [UsedImplicitly]
-    public sealed class DeleteAvatarOptions
-    {    
-        private Guid? PlayerID { get; }
-        private string SessionKey { get; }
-        
-        public DeleteAvatarOptions(Guid playerID)
+    extension(PlayerAuthenticationService service)
+    {
+        /// <summary>
+        /// Delete avatar
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/avatars/delete-avatar" />
+        [UsedImplicitly]
+        public BaseResponse DeleteAvatar()
         {
-            PlayerID = playerID;
-        }
-        public DeleteAvatarOptions(string sessionKey)
-        {
-            SessionKey = sessionKey;
+            return Request.ExecuteSyncRequest<BaseResponse>(
+                Config.EndPointPaths.Avatars.DeleteAvatar,
+                service
+            );
         }
 
-        internal Dictionary<string, string> BuildFormData()
+        /// <summary>
+        /// Delete avatar
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/avatars/delete-avatar" />
+        [UsedImplicitly]
+        public async Task<BaseResponse> DeleteAvatarAsync(Guid playerID)
         {
-            var formData = new Dictionary<string, string>();
-            if (PlayerID.HasValue)
-            {
-                formData.Add("playerID", PlayerID.Value.ToString());
-            }
-            if (!string.IsNullOrWhiteSpace(SessionKey))
-            {
-                formData.Add("sessionKey", SessionKey);
-            }
-            return formData;
+            return await Request.ExecuteAsyncRequest<BaseResponse>(
+                Config.EndPointPaths.Avatars.DeleteAvatar,
+                service
+            );
         }
     }
 }

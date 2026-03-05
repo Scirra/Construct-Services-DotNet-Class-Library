@@ -17,12 +17,12 @@ public static partial class Players
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/set-player-restrictions" />
         [UsedImplicitly]
-        public BaseResponse SetPlayerRestrictions(SetPlayerRestrictionsOptions setPlayerRestrictionsOptions)
+        public BaseResponse SetPlayerRestrictions(Guid playerID, IEnumerable<PlayerRestriction> restrictions)
         {
             return Request.ExecuteSyncRequest<BaseResponse>(
                 Config.EndPointPaths.Players.SetRestrictions,
                 service,
-                setPlayerRestrictionsOptions.BuildFormData()
+                SetPlayerRestrictionsOptions.BuildFormData(playerID, restrictions)
             );
         }
 
@@ -31,31 +31,27 @@ public static partial class Players
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/set-player-restrictions" />
         [UsedImplicitly]
-        public async Task<BaseResponse> SetPlayerRestrictionsAsync(SetPlayerRestrictionsOptions setPlayerRestrictionsOptions)
+        public async Task<BaseResponse> SetPlayerRestrictionsAsync(Guid playerID, IEnumerable<PlayerRestriction> restrictions)
         {
             return await Request.ExecuteAsyncRequest<BaseResponse>(
                 Config.EndPointPaths.Players.SetRestrictions,
                 service,
-                setPlayerRestrictionsOptions.BuildFormData()
+                SetPlayerRestrictionsOptions.BuildFormData(playerID, restrictions)
             );
         }
     }
 
-    [UsedImplicitly]
-    public sealed class SetPlayerRestrictionsOptions(Guid playerID, List<PlayerRestriction> restrictions)
+    private static class SetPlayerRestrictionsOptions
     {
-        private Guid PlayerID { get; } = playerID;
-        private List<PlayerRestriction> Restrictions { get; } = restrictions;
-
-        internal Dictionary<string, string> BuildFormData()
+        internal static Dictionary<string, string> BuildFormData(Guid playerID, IEnumerable<PlayerRestriction> restrictions)
         {
             var formData = new Dictionary<string, string>
             {
-                { "playerID", PlayerID.ToString() }
+                { "playerID", playerID.ToString() }
             };
-            if (Restrictions != null)
+            if (restrictions != null)
             {
-                formData.Add("restrictedActions", string.Join(",", Restrictions.Select(c=> (int)c)));
+                formData.Add("restrictedActions", string.Join(",", restrictions.Distinct().Select(c=> (int)c)));
             }
             return formData;
         }

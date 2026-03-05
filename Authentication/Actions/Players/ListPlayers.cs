@@ -13,13 +13,13 @@ public static partial class Players
     extension(AuthenticationService service)
     {
         /// <summary>
-        /// Get multiple Players
+        /// List Players
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/list-players" />
         [UsedImplicitly]
-        public GetPlayersResponse ListPlayers(GetPlayersOptions getPlayersOptions, PaginationOptions pagination)
+        public ListPlayersResponse ListPlayers(ListPlayersOptions getPlayersOptions, PaginationOptions pagination)
         {
-            return Request.ExecuteSyncRequest<GetPlayersResponse>(
+            return Request.ExecuteSyncRequest<ListPlayersResponse>(
                 Config.EndPointPaths.Players.ListPlayers,
                 service,
                 getPlayersOptions.BuildFormData(),
@@ -28,13 +28,13 @@ public static partial class Players
         }
 
         /// <summary>
-        /// Get multiple Players
+        /// List Players
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/list-players" />
         [UsedImplicitly]
-        public async Task<GetPlayersResponse> ListPlayersAsync(GetPlayersOptions getPlayersOptions, PaginationOptions pagination)
+        public async Task<ListPlayersResponse> ListPlayersAsync(ListPlayersOptions getPlayersOptions, PaginationOptions pagination)
         {
-            return await Request.ExecuteAsyncRequest<GetPlayersResponse>(
+            return await Request.ExecuteAsyncRequest<ListPlayersResponse>(
                 Config.EndPointPaths.Players.ListPlayers,
                 service,
                 getPlayersOptions.BuildFormData(),
@@ -44,22 +44,22 @@ public static partial class Players
     }
 
     [UsedImplicitly]
-    public sealed class GetPlayersOptions
+    public sealed class ListPlayersOptions
     {
         private List<Guid> PlayerIDs { get; }
         private PlayerOrdering? Ordering { get; }
         
-        public GetPlayersOptions(List<Guid> playerIDs, PlayerOrdering ordering)
+        public ListPlayersOptions(List<Guid> playerIDs, PlayerOrdering ordering)
         {
             PlayerIDs = playerIDs;
             Ordering = ordering;
         }
-        public GetPlayersOptions(PlayerOrdering ordering)
+        public ListPlayersOptions(PlayerOrdering ordering)
         {
             PlayerIDs = null;
             Ordering = ordering;
         }
-        internal GetPlayersOptions(Guid playerID)
+        internal ListPlayersOptions(Guid playerID)
         {
             PlayerIDs = [playerID];
         }

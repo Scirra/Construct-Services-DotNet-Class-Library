@@ -5,7 +5,7 @@ using ConstructServices.Authentication.Objects;
 
 namespace ConstructServices.Authentication.Responses;
 
-public sealed class GetPlayersResponse : BaseResponse
+public sealed class ListPlayersResponse : BaseResponse
 {
     [JsonProperty(PropertyName = "pagination")]
     public Pagination Pagination { get; set; }
@@ -13,10 +13,10 @@ public sealed class GetPlayersResponse : BaseResponse
     [JsonProperty(PropertyName = "players")]
     public List<ExpandedPlayer> Players { get; set; }
 
-    public GetPlayersResponse()
+    public ListPlayersResponse()
     {
     }
-    public GetPlayersResponse(string errorMessage, bool shouldRetry = false) : base(errorMessage, shouldRetry)
+    public ListPlayersResponse(string errorMessage, bool shouldRetry = false) : base(errorMessage, shouldRetry)
     {
 
     }

@@ -47,10 +47,10 @@ public static partial class Players
         [UsedImplicitly]
         public GetExpandedPlayerResponse GetExpandedPlayer(Guid playerID)
         {
-            var r = Request.ExecuteSyncRequest<GetPlayersResponse>(
+            var r = Request.ExecuteSyncRequest<ListPlayersResponse>(
                 Config.EndPointPaths.Players.ListPlayers,
                 service,
-                new GetPlayersOptions(playerID).BuildFormData()
+                new ListPlayersOptions(playerID).BuildFormData()
             );
             if (!r.Success)
             {
@@ -66,10 +66,10 @@ public static partial class Players
         [UsedImplicitly]
         public async Task<GetExpandedPlayerResponse> GetExpandedPlayerAsync(Guid playerID)
         {
-            var r = await Request.ExecuteAsyncRequest<GetPlayersResponse>(
+            var r = await Request.ExecuteAsyncRequest<ListPlayersResponse>(
                 Config.EndPointPaths.Players.ListPlayers,
                 service,
-                new GetPlayersOptions(playerID).BuildFormData()
+                new ListPlayersOptions(playerID).BuildFormData()
             );
             if (!r.Success)
             {
@@ -77,7 +77,6 @@ public static partial class Players
             }
             return new GetExpandedPlayerResponse(r.Players.SingleOrDefault());
         }
-
     }
 
     [UsedImplicitly]

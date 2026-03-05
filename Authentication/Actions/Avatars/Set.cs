@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net.Http;
 using ConstructServices.Common;
 using JetBrains.Annotations;
 using System.Threading.Tasks;
@@ -16,21 +15,21 @@ public static partial class Avatars
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/avatars/set-avatar" />
         [UsedImplicitly]
-        public BaseResponse SetAvatar(SetAvatarOptions setAvatarOptions)
+        public BaseResponse SetAvatar(Guid playerID, PictureData avatar)
         {
-            if (setAvatarOptions.Picture.Bytes != null)
+            if (avatar.Bytes != null)
             {
                 return Request.ExecuteMultiPartFormSyncRequest<BaseResponse>(
                     Config.EndPointPaths.Avatars.SetAvatar,
                     service,
-                    setAvatarOptions.BuildFormData(),
-                    setAvatarOptions.BuildBinaryFormData()
+                    SetAvatarOptions.BuildFormData(playerID, avatar),
+                    PictureData.BuildBinaryFormData(avatar)
                 );
             }
             return Request.ExecuteSyncRequest<BaseResponse>(
                 Config.EndPointPaths.Avatars.SetAvatar,
                 service,
-                setAvatarOptions.BuildFormData()
+                SetAvatarOptions.BuildFormData(playerID, avatar)
             );
         }
 
@@ -39,71 +38,85 @@ public static partial class Avatars
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/avatars/set-avatar" />
         [UsedImplicitly]
-        public async Task<BaseResponse> SetAvatarAsync(SetAvatarOptions setAvatarOptions)
+        public async Task<BaseResponse> SetAvatarAsync(Guid playerID, PictureData avatar)
         {
-            if (setAvatarOptions.Picture.Bytes != null)
+            if (avatar.Bytes != null)
             {
                 return await Request.ExecuteMultiPartFormAsyncRequest<BaseResponse>(
                     Config.EndPointPaths.Avatars.SetAvatar,
                     service,
-                    setAvatarOptions.BuildFormData(),
-                    setAvatarOptions.BuildBinaryFormData()
+                    SetAvatarOptions.BuildFormData(playerID, avatar),
+                    PictureData.BuildBinaryFormData(avatar)
                 );
             }
             return await Request.ExecuteAsyncRequest<BaseResponse>(
                 Config.EndPointPaths.Avatars.SetAvatar,
                 service,
-                setAvatarOptions.BuildFormData()
+                SetAvatarOptions.BuildFormData(playerID, avatar)
+            );
+        }
+    }
+
+    extension(PlayerAuthenticationService service)
+    {
+        /// <summary>
+        /// Set avatar
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/avatars/set-avatar" />
+        [UsedImplicitly]
+        public BaseResponse SetAvatar(PictureData avatar)
+        {
+            if (avatar.Bytes != null)
+            {
+                return Request.ExecuteMultiPartFormSyncRequest<BaseResponse>(
+                    Config.EndPointPaths.Avatars.SetAvatar,
+                    service,
+                    SetAvatarOptions.BuildFormData(avatar),
+                    PictureData.BuildBinaryFormData(avatar)
+                );
+            }
+            return Request.ExecuteSyncRequest<BaseResponse>(
+                Config.EndPointPaths.Avatars.SetAvatar,
+                service,
+                SetAvatarOptions.BuildFormData(avatar)
+            );
+        }
+
+        /// <summary>
+        /// Set avatar
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/avatars/set-avatar" />
+        [UsedImplicitly]
+        public async Task<BaseResponse> SetAvatarAsync(PictureData avatar)
+        {
+            if (avatar.Bytes != null)
+            {
+                return await Request.ExecuteMultiPartFormAsyncRequest<BaseResponse>(
+                    Config.EndPointPaths.Avatars.SetAvatar,
+                    service,
+                    SetAvatarOptions.BuildFormData(avatar),
+                    PictureData.BuildBinaryFormData(avatar)
+                );
+            }
+            return await Request.ExecuteAsyncRequest<BaseResponse>(
+                Config.EndPointPaths.Avatars.SetAvatar,
+                service,
+                SetAvatarOptions.BuildFormData(avatar)
             );
         }
     }
     
-    [UsedImplicitly]
-    public sealed class SetAvatarOptions
-    {    
-        private Guid? PlayerID { get; }
-        private string SessionKey { get; }
-        internal PictureData Picture { get; }
-        
-        public SetAvatarOptions(Guid playerID, PictureData picture)
+    private static class SetAvatarOptions
+    { 
+        internal static Dictionary<string, string> BuildFormData(Guid playerID, PictureData avatar)
         {
-            PlayerID = playerID;
-            Picture = picture;
+            var formData = PictureData.BuildBaseFormData(avatar);
+            formData.Add("playerID", playerID.ToString());
+            return formData;
         }
-        public SetAvatarOptions(string sessionKey, PictureData picture)
+        internal static Dictionary<string, string> BuildFormData(PictureData avatar)
         {
-            SessionKey = sessionKey;
-            Picture = picture;
-        }
-        internal Dictionary<string, ByteArrayContent> BuildBinaryFormData()
-        {
-            var postedBinaryData = new Dictionary<string, ByteArrayContent>();
-            if (Picture?.Bytes != null)
-            {
-                postedBinaryData.Add("pictureData", new ByteArrayContent(Picture.Bytes));
-            }
-            return postedBinaryData;
-        }
-
-        internal Dictionary<string, string> BuildFormData()
-        {
-            var formData = new Dictionary<string, string>();
-            if (PlayerID.HasValue)
-            {
-                formData.Add("playerID", PlayerID.Value.ToString());
-            }
-            if (!string.IsNullOrWhiteSpace(SessionKey))
-            {
-                formData.Add("sessionKey", SessionKey);
-            }
-            if (Picture.URL != null)
-            {
-                formData.Add("avatarURL", Picture.URL.ToString());
-            }
-            else if (!string.IsNullOrWhiteSpace(Picture.Base64))
-            {
-                formData.Add("avatar", Picture.Base64);
-            }
+            var formData = PictureData.BuildBaseFormData(avatar);
             return formData;
         }
     }

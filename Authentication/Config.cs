@@ -20,10 +20,10 @@ internal static class Config
             internal const string SetUsernamePassword = "/setusernamepassword.json";
         }
 
-        internal static class SignIns
+        internal static class Logins
         {
-            internal const string SignIn = "/signin.json";
-            internal const string SignInPoll = "/signinpoll.json";
+            internal const string Login = "/signin.json";
+            internal const string LoginPoll = "/signinpoll.json";
             internal const string Link = "/link.json";
             internal const string LinkPoll = "/linkpoll.json";
             internal const string ForceLink = "/forcelink.json";

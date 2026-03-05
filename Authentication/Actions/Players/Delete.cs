@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using ConstructServices.Common;
 using JetBrains.Annotations;
 
@@ -24,18 +23,20 @@ public static partial class Players
                 DeletePlayerOptions.BuildPlayerIDFormData(playerID)
             );
         }
+    }
 
+    extension(PlayerAuthenticationService service)
+    {
         /// <summary>
-        /// Delete a Player
+        /// Delete player account
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/delete-player" />
         [UsedImplicitly]
-        public async Task<BaseResponse> DeletePlayerAsync(string sessionKey)
+        public BaseResponse DeletePlayer()
         {
-            return await Request.ExecuteAsyncRequest<BaseResponse>(
+            return Request.ExecuteSyncRequest<BaseResponse>(
                 Config.EndPointPaths.Players.DeletePlayer,
-                service,
-                DeletePlayerOptions.BuildSessionKeyFormData(sessionKey)
+                service
             );
         }
     }
@@ -45,11 +46,6 @@ public static partial class Players
         internal static Dictionary<string, string> BuildPlayerIDFormData(Guid playerID)
         {
             var formData = new Dictionary<string, string> { { "playerID", playerID.ToString() } };
-            return formData;
-        }
-        internal static Dictionary<string, string> BuildSessionKeyFormData(string sessionKey)
-        {
-            var formData = new Dictionary<string, string> { { "sessionKey", sessionKey.ToString() } };
             return formData;
         }
     }

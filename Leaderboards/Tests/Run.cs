@@ -57,7 +57,7 @@ public static class Run
 
         var sw = new Stopwatch();
 
-        var playerResponse = authService.ListPlayers(new Players.GetPlayersOptions(PlayerOrdering.Newest), new PaginationOptions(1, 20));
+        var playerResponse = authService.ListPlayers(new Players.ListPlayersOptions(PlayerOrdering.Newest), new PaginationOptions(1, 20));
         if (playerResponse.Success)
         {
             var player = playerResponse.Players.First();

@@ -144,7 +144,7 @@ public static class Run
                     }
 
                     var authService = new AuthenticationService(gameID, apiKey);
-                    var playerResult = authService.ListPlayers(new Players.GetPlayersOptions(PlayerOrdering.Newest), new PaginationOptions(1, 20));
+                    var playerResult = authService.ListPlayers(new Players.ListPlayersOptions(PlayerOrdering.Newest), new PaginationOptions(1, 20));
                     
                     if (playerResult.Success)
                     {

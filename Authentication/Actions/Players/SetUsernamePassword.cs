@@ -15,12 +15,12 @@ public static partial class Players
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/set-username-password" />
         [UsedImplicitly]
-        public BaseResponse SetUsernameAndPassword(SetUsernameAndPasswordOptions setUsernameAndPasswordOptions)
+        public BaseResponse SetUsernameAndPassword(Guid playerID, string username, string password)
         {
             return Request.ExecuteSyncRequest<BaseResponse>(
                 Config.EndPointPaths.Players.SetUsernamePassword,
                 service,
-                setUsernameAndPasswordOptions.BuildFormData()
+                SetUsernameAndPasswordOptions.BuildFormData(playerID, username, password)
             );
         }
 
@@ -29,52 +29,65 @@ public static partial class Players
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/set-username-password" />
         [UsedImplicitly]
-        public async Task<BaseResponse> SetUsernameAndPasswordAsync(SetUsernameAndPasswordOptions setUsernameAndPasswordOptions)
+        public async Task<BaseResponse> SetUsernameAndPasswordAsync(Guid playerID, string username, string password)
         {
             return await Request.ExecuteAsyncRequest<BaseResponse>(
                 Config.EndPointPaths.Players.SetUsernamePassword,
                 service,
-                setUsernameAndPasswordOptions.BuildFormData()
+                SetUsernameAndPasswordOptions.BuildFormData(playerID, username, password)
             );
         }
     }
 
-    [UsedImplicitly]
-    public sealed class SetUsernameAndPasswordOptions
+    extension(PlayerAuthenticationService service)
     {
-        private Guid? PlayerID { get; }
-        private string SessionKey { get; }         
-        private string Username { get; }      
-        private string Password { get; }       
-        
-        public SetUsernameAndPasswordOptions(string sessionKey, string username, string password)
+        /// <summary>
+        /// Set login username and password
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/set-username-password" />
+        [UsedImplicitly]
+        public BaseResponse SetUsernameAndPassword(string username, string password)
         {
-            SessionKey = sessionKey;
-            Username = username;
-            Password = password;
+            return Request.ExecuteSyncRequest<BaseResponse>(
+                Config.EndPointPaths.Players.SetUsernamePassword,
+                service,
+                SetUsernameAndPasswordOptions.BuildFormData(username, password)
+            );
         }
-        public SetUsernameAndPasswordOptions(Guid playerID, string username, string password)
+
+        /// <summary>
+        /// Sets login username and password
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/set-username-password" />
+        [UsedImplicitly]
+        public async Task<BaseResponse> SetUsernameAndPasswordAsync(string username, string password)
         {
-            PlayerID = playerID;
-            Username = username;
-            Password = password;
+            return await Request.ExecuteAsyncRequest<BaseResponse>(
+                Config.EndPointPaths.Players.SetUsernamePassword,
+                service,
+                SetUsernameAndPasswordOptions.BuildFormData(username, password)
+            );
         }
-        internal Dictionary<string, string> BuildFormData()
+    }
+
+    private static class SetUsernameAndPasswordOptions
+    {
+        internal static Dictionary<string, string> BuildFormData(Guid playerID, string username, string password)
         {
-            var formData = new Dictionary<string, string>
+            return new Dictionary<string, string>
             {
-                { "username", Username },
-                { "password", Password }
+                { "playerID", playerID.ToString() },
+                { "username", username },
+                { "password", password }
             };
-            if (PlayerID.HasValue)
+        }
+        internal static Dictionary<string, string> BuildFormData(string username, string password)
+        {
+            return new Dictionary<string, string>
             {
-                formData.Add("playerID", PlayerID.Value.ToString());
-            }
-            if (!string.IsNullOrWhiteSpace(SessionKey))
-            {
-                formData.Add("sessionKey", SessionKey);
-            }
-            return formData;
+                { "username", username },
+                { "password", password }
+            };
         }
     }
 }

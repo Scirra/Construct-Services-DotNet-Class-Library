@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Net.Http;
 using JetBrains.Annotations;
 
 namespace ConstructServices.Common;
@@ -21,5 +23,28 @@ public sealed class PictureData
     public PictureData(byte[] pictureFile)
     {
         Bytes = pictureFile;
+    }
+
+    internal static Dictionary<string, ByteArrayContent> BuildBinaryFormData(PictureData Picture)
+    {
+        var postedBinaryData = new Dictionary<string, ByteArrayContent>();
+        if (Picture?.Bytes != null)
+        {
+            postedBinaryData.Add("pictureData", new ByteArrayContent(Picture.Bytes));
+        }
+        return postedBinaryData;
+    }
+    internal static Dictionary<string, string> BuildBaseFormData(PictureData picture)
+    {
+        var formData = new Dictionary<string, string>();
+        if (picture.URL != null)
+        {
+            formData.Add("avatarURL", picture.URL.ToString());
+        }
+        else if (!string.IsNullOrWhiteSpace(picture.Base64))
+        {
+            formData.Add("avatar", picture.Base64);
+        }
+        return formData;
     }
 }

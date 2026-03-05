@@ -39,7 +39,7 @@ public static class Run
         var sw = new Stopwatch();
         sw.Start();
 
-        var createResult = service.CreatePlayer(new Players.CreatePlayerOptions("Test" + new Random().Next(0, 10000)));
+        var createResult = service.RegisterPlayer(new Players.RegisterPlayerOptions("Test" + new Random().Next(0, 10000)));
         results[nameof(AuthTest.CreatePlayer)] = new TestResult(createResult, sw);
 
         if (createResult.Success)
@@ -47,7 +47,7 @@ public static class Run
             var player = createResult.Player;
             {
                 sw.Restart();
-                var result = service.ListPlayers(new Players.GetPlayersOptions(PlayerOrdering.Newest), new PaginationOptions(1, 20));
+                var result = service.ListPlayers(new Players.ListPlayersOptions(PlayerOrdering.Newest), new PaginationOptions(1, 20));
                 results[nameof(AuthTest.ListPlayers)] = new TestResult(result, sw);
                 if (result.Success)
                 {
@@ -61,25 +61,25 @@ public static class Run
 
             {
                 sw.Restart();
-                var result = service.ChangePlayerName(new Players.ChangePlayerNameOptions(player.ID, "Test" + new Random().Next(0, 10000)));
+                var result = service.ChangePlayerName(player.ID, "Test" + new Random().Next(0, 10000));
                 results[nameof(AuthTest.ChangePlayerName)] = new TestResult(result, sw);
             }
 
             {
                 sw.Restart();
-                var result = service.SetUsernameAndPassword(new Players.SetUsernameAndPasswordOptions(player.ID, "Test" + new Random().Next(0, 10000), "abc123#AB£"));
+                var result = service.SetUsernameAndPassword(player.ID, "Test" + new Random().Next(0, 10000), "abc123#AB£");
                 results[nameof(AuthTest.SetUsernamePassword)] = new TestResult(result, sw);
             }
 
             {
                 sw.Restart();
-                var result = service.ChangePassword(new Players.ChangePasswordOptions(player.ID, "abcdEE1234###£"));
+                var result = service.ChangePassword(player.ID, "abcdEE1234###£");
                 results[nameof(AuthTest.ChangePassword)] = new TestResult(result, sw);
             }
 
             {
                 sw.Restart();
-                var result = service.ChangeUsername(new Players.ChangeUsernameOptions(player.ID, "Test" + new Random().Next(0, 10000)));
+                var result = service.ChangeUsername(player.ID, "Test" + new Random().Next(0, 10000));
                 results[nameof(AuthTest.ChangeUsername)] = new TestResult(result, sw);
             }
 
@@ -91,34 +91,34 @@ public static class Run
 
             {
                 sw.Restart();
-                var result = service.RequestForgottenPasswordEmail(new Players.ForgottenPasswordOptions("testemail@construct.ner"));
+                var result = service.RequestForgottenPasswordEmail("testemail@construct.ner");
                 results[nameof(AuthTest.ForgottenPassword)] = new TestResult(result, sw);
             }
 
             {
                 sw.Restart();
-                var result = service.SetEmailAddress(new Players.SetEmailAddressOptions(player.ID, "test+email@construct.net"));
+                var result = service.SetEmailAddress(player.ID, "test+email@construct.net");
                 results[nameof(AuthTest.SetEmailAddress)] = new TestResult(result, sw);
             }
 
             {
                 sw.Restart();
-                var result = service.SetPlayerRestrictions(new Players.SetPlayerRestrictionsOptions(player.ID, [PlayerRestriction.PlayerRateObjects]));
+                var result = service.SetPlayerRestrictions(player.ID, [PlayerRestriction.PlayerRateObjects]);
                 results[nameof(AuthTest.SetRestrictions)] = new TestResult(result, sw);
             }
 
             {
                 sw.Restart();
-                var result = service.SetAvatar(new Avatars.SetAvatarOptions(player.ID,
+                var result = service.SetAvatar(player.ID,
                     new PictureData(new Uri(
                         "https://construct-static.com/images/v1746/r/uploads/user/15844/avatar/94145/avatar_v128.jpg",
-                        UriKind.Absolute))));
+                        UriKind.Absolute)));
                 results[nameof(AuthTest.SetAvatar)] = new TestResult(result, sw);
             }
 
             {
                 sw.Restart();
-                var result = service.DeleteAvatar(new Avatars.DeleteAvatarOptions(player.ID));
+                var result = service.DeleteAvatar(player.ID);
                 results[nameof(AuthTest.DeleteAvatar)] = new TestResult(result, sw);
             }
 

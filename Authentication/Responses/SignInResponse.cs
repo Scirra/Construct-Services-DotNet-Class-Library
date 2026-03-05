@@ -4,7 +4,7 @@ using ConstructServices.Common;
 
 namespace ConstructServices.Authentication.Responses;
 
-public sealed class SignInResponse : BaseResponse
+public sealed class LoginResponse : BaseResponse
 {
     [JsonProperty(PropertyName = "redirectToURL")]
     public string RedirectToURL { get; set; }
@@ -12,10 +12,10 @@ public sealed class SignInResponse : BaseResponse
     [JsonProperty(PropertyName = "pollToken")]
     public Guid PollToken { get; set; }
         
-    public SignInResponse()
+    public LoginResponse()
     {
     }
-    public SignInResponse(string errorMessage, bool shouldRetry = false) : base(errorMessage, shouldRetry)
+    public LoginResponse(string errorMessage, bool shouldRetry = false) : base(errorMessage, shouldRetry)
     {
     }
 }

@@ -6,21 +6,21 @@ using System.Threading.Tasks;
 
 namespace ConstructServices.Authentication.Actions;
 
-public static partial class SignIns
+public static partial class Logins
 {
-    extension(AuthenticationService service)
+    extension(AuthenticationServiceBase service)
     {
         /// <summary>
         /// Force link a login provider with another Player to current Player
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/login-providers/force-link" />
         [UsedImplicitly]
-        public LinkLoginProviderResponse ForceLinkLoginProvider(ForceLinkOptions forceLinkOptions)
+        public LinkLoginProviderResponse ForceLinkLoginProvider(string code)
         {
             return Request.ExecuteSyncRequest<LinkLoginProviderResponse>(
-                Config.EndPointPaths.SignIns.ForceLink,
+                Config.EndPointPaths.Logins.ForceLink,
                 service,
-                forceLinkOptions.BuildFormData()
+                ForceLinkOptions.BuildFormData(code)
             );
         }
 
@@ -29,26 +29,23 @@ public static partial class SignIns
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/login-providers/force-link" />
         [UsedImplicitly]
-        public async Task<LinkLoginProviderResponse> ForceLinkLoginProviderAsync(ForceLinkOptions forceLinkOptions)
+        public async Task<LinkLoginProviderResponse> ForceLinkLoginProviderAsync(string code)
         {
             return await Request.ExecuteAsyncRequest<LinkLoginProviderResponse>(
-                Config.EndPointPaths.SignIns.ForceLink,
+                Config.EndPointPaths.Logins.ForceLink,
                 service,
-                forceLinkOptions.BuildFormData()
+                ForceLinkOptions.BuildFormData(code)
             );
         }
     }
     
-    [UsedImplicitly]
-    public sealed class ForceLinkOptions(string code)
+    private static class ForceLinkOptions
     {
-        private string Code { get; } = code;
-
-        internal Dictionary<string, string> BuildFormData()
+        internal static Dictionary<string, string> BuildFormData(string code)
         {
             var formData = new Dictionary<string, string>
             {
-                { "code", Code }
+                { "code", code }
             };
             return formData;
         }

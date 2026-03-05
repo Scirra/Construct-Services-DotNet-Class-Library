@@ -6,19 +6,19 @@ using JetBrains.Annotations;
 using System.Threading.Tasks;
 
 namespace ConstructServices.Authentication.Actions;
+
 public static partial class Players
 {
-
-    extension(AuthenticationService service)
+    extension(AuthenticationServiceBase service)
     {
         /// <summary>
         /// Create a new Player
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/register-player" />
         [UsedImplicitly]
-        public CreatePlayerResponse CreatePlayer(CreatePlayerOptions createPlayerOptions)
+        public RegisterPlayerResponse RegisterPlayer(RegisterPlayerOptions createPlayerOptions)
         {
-            return Request.ExecuteSyncRequest<CreatePlayerResponse>(
+            return Request.ExecuteSyncRequest<RegisterPlayerResponse>(
                 Config.EndPointPaths.Players.Register,
                 service,
                 createPlayerOptions.BuildFormData()
@@ -30,9 +30,9 @@ public static partial class Players
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/register-player" />
         [UsedImplicitly]
-        public async Task<CreatePlayerResponse> CreatePlayerAsync(CreatePlayerOptions createPlayerOptions)
+        public async Task<RegisterPlayerResponse> RegisterPlayerAsync(RegisterPlayerOptions createPlayerOptions)
         {
-            return await Request.ExecuteAsyncRequest<CreatePlayerResponse>(
+            return await Request.ExecuteAsyncRequest<RegisterPlayerResponse>(
                 Config.EndPointPaths.Players.Register,
                 service,
                 createPlayerOptions.BuildFormData()
@@ -41,9 +41,9 @@ public static partial class Players
     }
 
     [UsedImplicitly]
-    public sealed class CreatePlayerOptions
+    public sealed class RegisterPlayerOptions(string playerName)
     {
-        private string PlayerName { get; }
+        private string PlayerName { get; } = playerName;
 
         [UsedImplicitly]
         public string Username { private get; set; }
@@ -56,11 +56,6 @@ public static partial class Players
 
         [UsedImplicitly]
         public TimeSpan? SessionExpiry { private get; set; }
-
-        public CreatePlayerOptions(string playerName)
-        {
-            PlayerName = playerName;
-        }
 
         internal Dictionary<string, string> BuildFormData()
         {

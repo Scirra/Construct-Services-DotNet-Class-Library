@@ -15,12 +15,12 @@ public static partial class Players
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/change-player-name" />
         [UsedImplicitly]
-        public BaseResponse ChangePlayerName(ChangePlayerNameOptions changePlayerNameOptions)
+        public BaseResponse ChangePlayerName(Guid playerID, string playerName)
         {
             return Request.ExecuteSyncRequest<BaseResponse>(
                 Config.EndPointPaths.Players.ChangePlayerName,
                 service,
-                changePlayerNameOptions.BuildFormData()
+                ChangePlayerNameOptions.BuildFormData(playerID, playerName)
             );
         }
 
@@ -29,48 +29,63 @@ public static partial class Players
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/change-player-name" />
         [UsedImplicitly]
-        public async Task<BaseResponse> ChangePlayerNameAsync(ChangePlayerNameOptions changePlayerNameOptions)
+        public async Task<BaseResponse> ChangePlayerNameAsync(Guid playerID, string playerName)
         {
             return await Request.ExecuteAsyncRequest<BaseResponse>(
                 Config.EndPointPaths.Players.ChangePlayerName,
                 service,
-                changePlayerNameOptions.BuildFormData()
+                ChangePlayerNameOptions.BuildFormData(playerID, playerName)
             );
         }
     }
 
-    [UsedImplicitly]
-    public sealed class ChangePlayerNameOptions
+    extension(PlayerAuthenticationService service)
     {
-        private Guid? PlayerID { get; }
-        private string SessionKey { get; }         
-        private string Name { get; }        
-        
-        public ChangePlayerNameOptions(string sessionKey, string name)
+        /// <summary>
+        /// Change player name
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/change-player-name" />
+        [UsedImplicitly]
+        public BaseResponse ChangePlayerName(string playerName)
         {
-            SessionKey = sessionKey;
-            Name = name;
+            return Request.ExecuteSyncRequest<BaseResponse>(
+                Config.EndPointPaths.Players.ChangePlayerName,
+                service,
+                ChangePlayerNameOptions.BuildFormData(playerName)
+            );
         }
-        public ChangePlayerNameOptions(Guid playerID, string name)
+
+        /// <summary>
+        /// Change player name
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/change-player-name" />
+        [UsedImplicitly]
+        public async Task<BaseResponse> ChangePlayerNameAsync(string playerName)
         {
-            PlayerID = playerID;
-            Name = name;
+            return await Request.ExecuteAsyncRequest<BaseResponse>(
+                Config.EndPointPaths.Players.ChangePlayerName,
+                service,
+                ChangePlayerNameOptions.BuildFormData(playerName)
+            );
         }
-        internal Dictionary<string, string> BuildFormData()
+    }
+
+    private static class ChangePlayerNameOptions
+    {
+        internal static Dictionary<string, string> BuildFormData(Guid playerID, string playerName)
         {
-            var formData = new Dictionary<string, string>
+            return new Dictionary<string, string>
             {
-                { "playerName", Name }
+                { "playerName", playerName },
+                { "playerID", playerID.ToString() }
             };
-            if (PlayerID.HasValue)
+        }
+        internal static Dictionary<string, string> BuildFormData(string playerName)
+        {
+            return new Dictionary<string, string>
             {
-                formData.Add("playerID", PlayerID.Value.ToString());
-            }
-            if (!string.IsNullOrWhiteSpace(SessionKey))
-            {
-                formData.Add("sessionKey", SessionKey);
-            }
-            return formData;
+                { "playerName", playerName }
+            };
         }
     }
 }

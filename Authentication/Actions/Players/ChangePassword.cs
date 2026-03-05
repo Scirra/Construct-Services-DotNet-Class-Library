@@ -16,12 +16,12 @@ public static partial class Players
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/set-username-password" />
         [UsedImplicitly]
-        public BaseResponse ChangePassword(ChangePasswordOptions changePasswordOptions)
+        public BaseResponse ChangePassword(Guid playerID, string newPassword)
         {
             return Request.ExecuteSyncRequest<BaseResponse>(
                 Config.EndPointPaths.Players.SetUsernamePassword,
                 service,
-                changePasswordOptions.BuildFormData()
+                ChangePasswordOptions.BuildFormData(playerID, newPassword)
             );
         }
 
@@ -30,47 +30,64 @@ public static partial class Players
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/set-username-password" />
         [UsedImplicitly]
-        public async Task<BaseResponse> ChangePasswordAsync(ChangePasswordOptions changePasswordOptions)
+        public async Task<BaseResponse> ChangePasswordAsync(Guid playerID, string newPassword)
         {
             return await Request.ExecuteAsyncRequest<BaseResponse>(
                 Config.EndPointPaths.Players.SetUsernamePassword,
                 service,
-                changePasswordOptions.BuildFormData()
+                ChangePasswordOptions.BuildFormData(playerID, newPassword)
             );
         }
     }
 
-    [UsedImplicitly]
-    public sealed class ChangePasswordOptions
+    extension(PlayerAuthenticationService service)
     {
-        private Guid? PlayerID { get; }
-        private string SessionKey { get; }         
-        private string NewPassword { get; }        
-        
-        public ChangePasswordOptions(string sessionKey, string newPassword)
+        /// <summary>
+        /// Change password
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/set-username-password" />
+        [UsedImplicitly]
+        public BaseResponse ChangePassword(string newPassword)
         {
-            SessionKey = sessionKey;
-            NewPassword = newPassword;
+            return Request.ExecuteSyncRequest<BaseResponse>(
+                Config.EndPointPaths.Players.SetUsernamePassword,
+                service,
+                ChangePasswordOptions.BuildFormData(newPassword)
+            );
         }
-        public ChangePasswordOptions(Guid playerID, string newPassword)
+
+        /// <summary>
+        /// Change password
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/set-username-password" />
+        [UsedImplicitly]
+        public async Task<BaseResponse> ChangePasswordAsync(string newPassword)
         {
-            PlayerID = playerID;
-            NewPassword = newPassword;
+            return await Request.ExecuteAsyncRequest<BaseResponse>(
+                Config.EndPointPaths.Players.SetUsernamePassword,
+                service,
+                ChangePasswordOptions.BuildFormData(newPassword)
+            );
         }
-        internal Dictionary<string, string> BuildFormData()
+    }
+
+    private static class ChangePasswordOptions
+    {
+        internal static Dictionary<string, string> BuildFormData(Guid playerID, string newPassword)
         {
             var formData = new Dictionary<string, string>
             {
-                { "password", NewPassword }
+                { "password", newPassword },
+                { "playerID", playerID.ToString() }
             };
-            if (PlayerID.HasValue)
+            return formData;
+        }
+        internal static Dictionary<string, string> BuildFormData(string password)
+        {
+            var formData = new Dictionary<string, string>
             {
-                formData.Add("playerID", PlayerID.Value.ToString());
-            }
-            if (!string.IsNullOrWhiteSpace(SessionKey))
-            {
-                formData.Add("sessionKey", SessionKey);
-            }
+                { "password", password }
+            };
             return formData;
         }
     }
