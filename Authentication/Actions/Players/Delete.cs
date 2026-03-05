@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using ConstructServices.Common;
 using JetBrains.Annotations;
 
@@ -17,7 +18,24 @@ public static partial class Players
         [UsedImplicitly]
         public BaseResponse DeletePlayer(Guid playerID)
         {
+            if (!playerID.IsValidGuid()) return new BaseResponse(Validations.InvalidGuidError);
+
             return Request.ExecuteSyncRequest<BaseResponse>(
+                Config.EndPointPaths.Players.DeletePlayer,
+                service,
+                DeletePlayerOptions.BuildPlayerIDFormData(playerID)
+            );
+        }
+        /// <summary>
+        /// Delete a Player
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/delete-player" />
+        [UsedImplicitly]
+        public async Task<BaseResponse> DeletePlayerAsync(Guid playerID)
+        {
+            if (!playerID.IsValidGuid()) return new BaseResponse(Validations.InvalidGuidError);
+
+            return await Request.ExecuteAsyncRequest<BaseResponse>(
                 Config.EndPointPaths.Players.DeletePlayer,
                 service,
                 DeletePlayerOptions.BuildPlayerIDFormData(playerID)
@@ -35,6 +53,18 @@ public static partial class Players
         public BaseResponse DeletePlayer()
         {
             return Request.ExecuteSyncRequest<BaseResponse>(
+                Config.EndPointPaths.Players.DeletePlayer,
+                service
+            );
+        }
+        /// <summary>
+        /// Delete player account
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/delete-player" />
+        [UsedImplicitly]
+        public async Task<BaseResponse> DeletePlayerAsync()
+        {
+            return await Request.ExecuteAsyncRequest<BaseResponse>(
                 Config.EndPointPaths.Players.DeletePlayer,
                 service
             );

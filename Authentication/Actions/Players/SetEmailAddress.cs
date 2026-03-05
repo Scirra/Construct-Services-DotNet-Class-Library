@@ -17,6 +17,11 @@ public static partial class Players
         [UsedImplicitly]
         public BaseResponse SetEmailAddress(Guid playerID, string newEmailAddress)
         {
+            if (!playerID.IsValidGuid()) return new BaseResponse(Validations.InvalidGuidError);
+
+            var emailValidation = Validations.IsEmailAddressValid(newEmailAddress);
+            if (!emailValidation.Valid) return new BaseResponse(emailValidation.ErrorMessage);
+
             return Request.ExecuteSyncRequest<BaseResponse>(
                 Config.EndPointPaths.Players.SetEmailAddress,
                 service,
@@ -31,6 +36,11 @@ public static partial class Players
         [UsedImplicitly]
         public async Task<BaseResponse> SetEmailAddressAsync(Guid playerID, string newEmailAddress)
         {
+            if (!playerID.IsValidGuid()) return new BaseResponse(Validations.InvalidGuidError);
+
+            var emailValidation = Validations.IsEmailAddressValid(newEmailAddress);
+            if (!emailValidation.Valid) return new BaseResponse(emailValidation.ErrorMessage);
+
             return await Request.ExecuteAsyncRequest<BaseResponse>(
                 Config.EndPointPaths.Players.SetEmailAddress,
                 service,
@@ -48,6 +58,9 @@ public static partial class Players
         [UsedImplicitly]
         public BaseResponse SetEmailAddress(string newEmailAddress)
         {
+            var emailValidation = Validations.IsEmailAddressValid(newEmailAddress);
+            if (!emailValidation.Valid) return new BaseResponse(emailValidation.ErrorMessage);
+
             return Request.ExecuteSyncRequest<BaseResponse>(
                 Config.EndPointPaths.Players.SetEmailAddress,
                 service,
@@ -62,6 +75,9 @@ public static partial class Players
         [UsedImplicitly]
         public async Task<BaseResponse> SetEmailAddressAsync(string newEmailAddress)
         {
+            var emailValidation = Validations.IsEmailAddressValid(newEmailAddress);
+            if (!emailValidation.Valid) return new BaseResponse(emailValidation.ErrorMessage);
+
             return await Request.ExecuteAsyncRequest<BaseResponse>(
                 Config.EndPointPaths.Players.SetEmailAddress,
                 service,

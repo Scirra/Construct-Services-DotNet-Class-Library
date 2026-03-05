@@ -16,7 +16,12 @@ public static partial class Players
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/set-username-password" />
         [UsedImplicitly]
         public BaseResponse ChangeUsername(Guid playerID, string newUsername)
-        {
+        {            
+            if (!playerID.IsValidGuid()) return new BaseResponse(Validations.InvalidGuidError);
+
+            var usernameValidation = Validations.IsPlayerNameValid(newUsername);
+            if (!usernameValidation.Valid) return new BaseResponse(usernameValidation.ErrorMessage);
+
             return Request.ExecuteSyncRequest<BaseResponse>(
                 Config.EndPointPaths.Players.SetUsernamePassword,
                 service,
@@ -31,6 +36,11 @@ public static partial class Players
         [UsedImplicitly]
         public async Task<BaseResponse> ChangeUsernameAsync(Guid playerID, string newUsername)
         {
+            if (!playerID.IsValidGuid()) return new BaseResponse(Validations.InvalidGuidError);
+
+            var usernameValidation = Validations.IsPlayerNameValid(newUsername);
+            if (!usernameValidation.Valid) return new BaseResponse(usernameValidation.ErrorMessage);
+
             return await Request.ExecuteAsyncRequest<BaseResponse>(
                 Config.EndPointPaths.Players.SetUsernamePassword,
                 service,
@@ -48,6 +58,9 @@ public static partial class Players
         [UsedImplicitly]
         public BaseResponse ChangeUsername(string newUsername)
         {
+            var usernameValidation = Validations.IsPlayerNameValid(newUsername);
+            if (!usernameValidation.Valid) return new BaseResponse(usernameValidation.ErrorMessage);
+
             return Request.ExecuteSyncRequest<BaseResponse>(
                 Config.EndPointPaths.Players.SetUsernamePassword,
                 service,
@@ -62,6 +75,9 @@ public static partial class Players
         [UsedImplicitly]
         public async Task<BaseResponse> ChangeUsernameAsync(string newUsername)
         {
+            var usernameValidation = Validations.IsPlayerNameValid(newUsername);
+            if (!usernameValidation.Valid) return new BaseResponse(usernameValidation.ErrorMessage);
+
             return await Request.ExecuteAsyncRequest<BaseResponse>(
                 Config.EndPointPaths.Players.SetUsernamePassword,
                 service,

@@ -19,6 +19,9 @@ public static partial class Players
         [UsedImplicitly]
         public GetPlayerResponse GetPlayer(string playerName)
         {
+            var playerNameValidation = Validations.IsPlayerNameValid(playerName);
+            if (!playerNameValidation.Valid) return new GetPlayerResponse(playerNameValidation.ErrorMessage);
+
             return Request.ExecuteSyncRequest<GetPlayerResponse>(
                 Config.EndPointPaths.Players.GetPlayer,
                 service,
@@ -33,6 +36,9 @@ public static partial class Players
         [UsedImplicitly]
         public async Task<GetPlayerResponse> GetPlayerAsync(string playerName)
         {
+            var playerNameValidation = Validations.IsPlayerNameValid(playerName);
+            if (!playerNameValidation.Valid) return new GetPlayerResponse(playerNameValidation.ErrorMessage);
+
             return await Request.ExecuteAsyncRequest<GetPlayerResponse>(
                 Config.EndPointPaths.Players.GetPlayer,
                 service,
@@ -47,6 +53,8 @@ public static partial class Players
         [UsedImplicitly]
         public GetPlayerResponse GetPlayer(Guid playerID)
         {
+            if (!playerID.IsValidGuid()) return new GetPlayerResponse(Validations.InvalidGuidError);
+
             return Request.ExecuteSyncRequest<GetPlayerResponse>(
                 Config.EndPointPaths.Players.GetPlayer,
                 service,
@@ -61,6 +69,8 @@ public static partial class Players
         [UsedImplicitly]
         public async Task<GetPlayerResponse> GetPlayerAsync(Guid playerID)
         {
+            if (!playerID.IsValidGuid()) return new GetPlayerResponse(Validations.InvalidGuidError);
+
             return await Request.ExecuteAsyncRequest<GetPlayerResponse>(
                 Config.EndPointPaths.Players.GetPlayer,
                 service,
@@ -75,6 +85,8 @@ public static partial class Players
         [UsedImplicitly]
         public GetExpandedPlayerResponse GetExpandedPlayer(Guid playerID)
         {
+            if (!playerID.IsValidGuid()) return new GetExpandedPlayerResponse(Validations.InvalidGuidError);
+
             var r = Request.ExecuteSyncRequest<ListPlayersResponse>(
                 Config.EndPointPaths.Players.ListPlayers,
                 service,
@@ -94,6 +106,8 @@ public static partial class Players
         [UsedImplicitly]
         public async Task<GetExpandedPlayerResponse> GetExpandedPlayerAsync(Guid playerID)
         {
+            if (!playerID.IsValidGuid()) return new GetExpandedPlayerResponse(Validations.InvalidGuidError);
+
             var r = await Request.ExecuteAsyncRequest<ListPlayersResponse>(
                 Config.EndPointPaths.Players.ListPlayers,
                 service,

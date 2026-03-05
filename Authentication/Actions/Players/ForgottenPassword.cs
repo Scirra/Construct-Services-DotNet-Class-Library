@@ -16,6 +16,9 @@ public static partial class Players
         [UsedImplicitly]
         public BaseResponse RequestForgottenPasswordEmail(string emailAddress)
         {
+            var emailValidation = Validations.IsEmailAddressValid(emailAddress);
+            if (!emailValidation.Valid) return new BaseResponse(emailValidation.ErrorMessage);
+
             return Request.ExecuteSyncRequest<LinkLoginProviderResponse>(
                 Config.EndPointPaths.Players.ForgottenPassword,
                 service,

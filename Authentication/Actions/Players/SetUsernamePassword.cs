@@ -17,6 +17,14 @@ public static partial class Players
         [UsedImplicitly]
         public BaseResponse SetUsernameAndPassword(Guid playerID, string username, string password)
         {
+            if (!playerID.IsValidGuid()) return new BaseResponse(Validations.InvalidGuidError);
+            
+            var usernameValidation = Validations.IsUsernameValid(username);
+            if (!usernameValidation.Valid) return new BaseResponse(usernameValidation.ErrorMessage);
+
+            var passwordValidation = Validations.IsPasswordValid(password);
+            if (!passwordValidation.Valid) return new BaseResponse(passwordValidation.ErrorMessage);
+
             return Request.ExecuteSyncRequest<BaseResponse>(
                 Config.EndPointPaths.Players.SetUsernamePassword,
                 service,
@@ -31,6 +39,14 @@ public static partial class Players
         [UsedImplicitly]
         public async Task<BaseResponse> SetUsernameAndPasswordAsync(Guid playerID, string username, string password)
         {
+            if (!playerID.IsValidGuid()) return new BaseResponse(Validations.InvalidGuidError);
+            
+            var usernameValidation = Validations.IsUsernameValid(username);
+            if (!usernameValidation.Valid) return new BaseResponse(usernameValidation.ErrorMessage);
+
+            var passwordValidation = Validations.IsPasswordValid(password);
+            if (!passwordValidation.Valid) return new BaseResponse(passwordValidation.ErrorMessage);
+
             return await Request.ExecuteAsyncRequest<BaseResponse>(
                 Config.EndPointPaths.Players.SetUsernamePassword,
                 service,
@@ -48,6 +64,12 @@ public static partial class Players
         [UsedImplicitly]
         public BaseResponse SetUsernameAndPassword(string username, string password)
         {
+            var usernameValidation = Validations.IsUsernameValid(username);
+            if (!usernameValidation.Valid) return new BaseResponse(usernameValidation.ErrorMessage);
+
+            var passwordValidation = Validations.IsPasswordValid(password);
+            if (!passwordValidation.Valid) return new BaseResponse(passwordValidation.ErrorMessage);
+
             return Request.ExecuteSyncRequest<BaseResponse>(
                 Config.EndPointPaths.Players.SetUsernamePassword,
                 service,
@@ -62,6 +84,12 @@ public static partial class Players
         [UsedImplicitly]
         public async Task<BaseResponse> SetUsernameAndPasswordAsync(string username, string password)
         {
+            var usernameValidation = Validations.IsUsernameValid(username);
+            if (!usernameValidation.Valid) return new BaseResponse(usernameValidation.ErrorMessage);
+
+            var passwordValidation = Validations.IsPasswordValid(password);
+            if (!passwordValidation.Valid) return new BaseResponse(passwordValidation.ErrorMessage);
+
             return await Request.ExecuteAsyncRequest<BaseResponse>(
                 Config.EndPointPaths.Players.SetUsernamePassword,
                 service,

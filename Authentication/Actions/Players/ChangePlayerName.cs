@@ -17,6 +17,11 @@ public static partial class Players
         [UsedImplicitly]
         public BaseResponse ChangePlayerName(Guid playerID, string playerName)
         {
+            if (!playerID.IsValidGuid()) return new BaseResponse(Validations.InvalidGuidError);
+
+            var playerNameValidation = Validations.IsPlayerNameValid(playerName);
+            if (!playerNameValidation.Valid) return new BaseResponse(playerNameValidation.ErrorMessage);
+
             return Request.ExecuteSyncRequest<BaseResponse>(
                 Config.EndPointPaths.Players.ChangePlayerName,
                 service,
@@ -31,6 +36,11 @@ public static partial class Players
         [UsedImplicitly]
         public async Task<BaseResponse> ChangePlayerNameAsync(Guid playerID, string playerName)
         {
+            if (!playerID.IsValidGuid()) return new BaseResponse(Validations.InvalidGuidError);
+
+            var playerNameValidation = Validations.IsPlayerNameValid(playerName);
+            if (!playerNameValidation.Valid) return new BaseResponse(playerNameValidation.ErrorMessage);
+
             return await Request.ExecuteAsyncRequest<BaseResponse>(
                 Config.EndPointPaths.Players.ChangePlayerName,
                 service,
@@ -48,6 +58,9 @@ public static partial class Players
         [UsedImplicitly]
         public BaseResponse ChangePlayerName(string playerName)
         {
+            var playerNameValidation = Validations.IsPlayerNameValid(playerName);
+            if (!playerNameValidation.Valid) return new BaseResponse(playerNameValidation.ErrorMessage);
+
             return Request.ExecuteSyncRequest<BaseResponse>(
                 Config.EndPointPaths.Players.ChangePlayerName,
                 service,
@@ -62,6 +75,9 @@ public static partial class Players
         [UsedImplicitly]
         public async Task<BaseResponse> ChangePlayerNameAsync(string playerName)
         {
+            var playerNameValidation = Validations.IsPlayerNameValid(playerName);
+            if (!playerNameValidation.Valid) return new BaseResponse(playerNameValidation.ErrorMessage);
+
             return await Request.ExecuteAsyncRequest<BaseResponse>(
                 Config.EndPointPaths.Players.ChangePlayerName,
                 service,
