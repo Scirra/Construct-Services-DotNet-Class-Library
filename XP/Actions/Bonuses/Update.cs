@@ -46,16 +46,16 @@ public static partial class Bonuses
     public sealed class UpdateXPBonusOptions
     {
         [UsedImplicitly]
-        public DateTime? Start { get; set; }
+        public DateTime? Start { private get; set; }
 
         [UsedImplicitly]
-        public DateTime? End { get; set; }
+        public DateTime? End { private get; set; }
 
         [UsedImplicitly]
-        public string Title { get; set; }
+        public string Title { private get; set; }
 
         [UsedImplicitly]
-        public string Description { get; set; }
+        public string Description { private get; set; }
 
         [UsedImplicitly]
         public string LanguageISO {
@@ -74,7 +74,7 @@ public static partial class Bonuses
         }
 
         [UsedImplicitly]
-        public decimal? Modifier { get; set; }
+        public decimal? Modifier { private get; set; }
     
         internal Dictionary<string, string> BuildFormData(Guid bonusID)
         {

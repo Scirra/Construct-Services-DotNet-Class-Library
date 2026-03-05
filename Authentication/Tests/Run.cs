@@ -39,7 +39,10 @@ public static class Run
         var sw = new Stopwatch();
         sw.Start();
 
-        var createResult = service.RegisterPlayer(new Players.RegisterPlayerOptions("Test" + new Random().Next(0, 10000)));
+        var createResult = service.RegisterPlayer(new Players.RegisterPlayerOptions
+        {
+            PlayerName = "Test" + new Random().Next(0, 10000)
+        });
         results[nameof(AuthTest.CreatePlayer)] = new TestResult(createResult, sw);
 
         if (createResult.Success)
@@ -47,7 +50,10 @@ public static class Run
             var player = createResult.Player;
             {
                 sw.Restart();
-                var result = service.ListPlayers(new Players.ListPlayersOptions(PlayerOrdering.Newest), new PaginationOptions(1, 20));
+                var result = service.ListPlayers(new Players.ListPlayersOptions
+                {
+                    Ordering = PlayerOrdering.Newest
+                }, new PaginationOptions(1, 20));
                 results[nameof(AuthTest.ListPlayers)] = new TestResult(result, sw);
                 if (result.Success)
                 {
@@ -85,7 +91,7 @@ public static class Run
 
             {
                 sw.Restart();
-                var result = service.GetPlayer(new Players.GetPlayerOptions(player.ID));
+                var result = service.GetPlayer(player.ID);
                 results[nameof(AuthTest.GetPlayer)] = new TestResult(result, sw);
             }
 

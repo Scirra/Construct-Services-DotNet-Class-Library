@@ -48,8 +48,11 @@ public static partial class Saves
     [UsedImplicitly]
     public sealed class CreateCloudSaveOptions
     {    
-        private string Key { get; }
-        private ByteArrayContent Data { get; }
+        [UsedImplicitly]
+        public string Key { private get; set; }
+
+        [UsedImplicitly]
+        public byte[] Data { private get; set; }
 
         [UsedImplicitly]
         public Guid? BucketID { private get; set; }
@@ -59,18 +62,6 @@ public static partial class Saves
 
         [UsedImplicitly]
         public PictureData Picture { private get; set; }
-        
-        public CreateCloudSaveOptions(Guid bucketID, string key, byte[] data)
-        {
-            BucketID = bucketID;
-            Key = key;   
-            Data = new ByteArrayContent(data);
-        }
-        public CreateCloudSaveOptions(string key, byte[] data)
-        {
-            Key = key;   
-            Data = new ByteArrayContent(data);
-        }
 
         internal Dictionary<string, string> BuildFormData()
         {
@@ -101,7 +92,7 @@ public static partial class Saves
         {
             var postedBinaryData = new Dictionary<string, ByteArrayContent>
             {
-                { "data", Data }
+                { "data", new ByteArrayContent(Data) }
             };
             if (Picture?.Bytes != null)
             {

@@ -56,19 +56,19 @@ public static partial class Scores
 
     
     [UsedImplicitly]
-    public sealed class ListScoreOptions()
+    public sealed class ListScoreOptions
     {
         [UsedImplicitly]
-        public string CountryISO { get; set; }
+        public string CountryISO { private get; set; }
 
         [UsedImplicitly]
-        public short? CompareRanks { get; set; }
+        public short? CompareRanks { private get; set; }
 
         [UsedImplicitly]
-        public ScoreRange? Range { get; set; }
+        public ScoreRange? Range { private get; set; }
 
         [UsedImplicitly]
-        public short? RangeOffset { get; set; }
+        public short? RangeOffset { private get; set; }
 
         internal Dictionary<string, string> BuildFormData()
         {

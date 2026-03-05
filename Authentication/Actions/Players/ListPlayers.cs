@@ -46,19 +46,13 @@ public static partial class Players
     [UsedImplicitly]
     public sealed class ListPlayersOptions
     {
-        private List<Guid> PlayerIDs { get; }
-        private PlayerOrdering? Ordering { get; }
-        
-        public ListPlayersOptions(List<Guid> playerIDs, PlayerOrdering ordering)
-        {
-            PlayerIDs = playerIDs;
-            Ordering = ordering;
-        }
-        public ListPlayersOptions(PlayerOrdering ordering)
-        {
-            PlayerIDs = null;
-            Ordering = ordering;
-        }
+        [UsedImplicitly]
+        public List<Guid> PlayerIDs { private get; set; }
+
+        [UsedImplicitly]
+        public PlayerOrdering? Ordering { private get; set; }
+
+        internal ListPlayersOptions() { }
         internal ListPlayersOptions(Guid playerID)
         {
             PlayerIDs = [playerID];

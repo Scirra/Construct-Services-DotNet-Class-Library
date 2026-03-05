@@ -52,15 +52,8 @@ public static partial class Teams
     [UsedImplicitly]
     public sealed class ListTeamPlayersOptions
     {
-        private TeamPlayersOrdering? Ordering { get; }
-    
-        public ListTeamPlayersOptions(TeamPlayersOrdering ordering)
-        {
-            Ordering = ordering;
-        } 
-        public ListTeamPlayersOptions()
-        {
-        } 
+        [UsedImplicitly]
+        public TeamPlayersOrdering? Ordering { private get; set; }
 
         internal Dictionary<string, string> BuildFormData(Guid teamID)
         {

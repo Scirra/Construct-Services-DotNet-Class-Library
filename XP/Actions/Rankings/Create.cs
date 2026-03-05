@@ -40,9 +40,10 @@ public static partial class Rankings
     }
 
     [UsedImplicitly]
-    public sealed class CreateXPRankOptions(long strAtXp, string title)
+    public sealed class CreateXPRankOptions
     {    
-        private string Title { get; } = title;
+        [UsedImplicitly]
+        public string Title { private get; set; }
 
         [UsedImplicitly]
         public string Description { private get; set; }
@@ -64,7 +65,7 @@ public static partial class Rankings
         }
 
         [UsedImplicitly]
-        public long AtXP { private get; set; } = strAtXp;
+        public long AtXP { private get; set; }
 
         internal Dictionary<string, string> BuildFormData()
         {

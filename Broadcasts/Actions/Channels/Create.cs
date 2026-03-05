@@ -41,9 +41,10 @@ public static partial class Channels
     }
 
     [UsedImplicitly]
-    public sealed class CreateChannelOptions(string name)
+    public sealed class CreateChannelOptions
     {
-        private string Name { get; } = name;
+        [UsedImplicitly]
+        public string Name { private get; set; }
 
         [UsedImplicitly]
         public string Description { private get; set; }

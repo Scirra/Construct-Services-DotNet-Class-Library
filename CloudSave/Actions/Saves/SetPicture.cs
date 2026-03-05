@@ -64,7 +64,6 @@ public static partial class Saves
     {
         private const string pictureURLParamName = "pictureURL";
         private const string pictureBase64ParamName = "picture";
-
         internal static Dictionary<string, string> BuildFormData(Guid cloudSaveID, PictureData picture)
         {
             var formData = PictureData.BuildBaseFormData(picture, pictureURLParamName, pictureBase64ParamName);

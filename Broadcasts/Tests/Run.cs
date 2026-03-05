@@ -45,8 +45,9 @@ public static class Run
 
         // Channels
         {
-            var createResult = service.CreateChannel(new Channels.CreateChannelOptions("Test")
+            var createResult = service.CreateChannel(new Channels.CreateChannelOptions
             {
+                Name = "Test",
                 Description = "Test description",
                 LanguageISO = "de",
                 AllowRatings = true
@@ -117,8 +118,10 @@ public static class Run
                         {
                             {
                                 sw.Restart();
-                                var createMessageResult =  service.CreateMessage(new Messages.CreateMessageOptions(channel.ID, "Test")
+                                var createMessageResult =  service.CreateMessage(new Messages.CreateMessageOptions
                                 {
+                                    ChannelID = channel.ID,
+                                    Text = "Test message",
                                     Title = "My title"
                                 });
                                 results[nameof(BroadcastTest.CreateMessage)] = new TestResult(createMessageResult, sw);

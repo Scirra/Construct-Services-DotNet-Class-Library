@@ -45,10 +45,10 @@ public static partial class Channels
     public sealed class UpdateChannelOptions
     {    
         [UsedImplicitly]
-        public string Name { private get; [UsedImplicitly] set; }
+        public string Name { private get; set; }
 
         [UsedImplicitly]
-        public string Description { private get; [UsedImplicitly] set; }
+        public string Description { private get; set; }
 
         [UsedImplicitly]
         public string LanguageISO {
@@ -67,7 +67,7 @@ public static partial class Channels
         }
 
         [UsedImplicitly]
-        public bool? AllowRatings { private get; [UsedImplicitly] set; }
+        public bool? AllowRatings { private get; set; }
     
         internal Dictionary<string, string> BuildFormData(Guid channelID)
         {        

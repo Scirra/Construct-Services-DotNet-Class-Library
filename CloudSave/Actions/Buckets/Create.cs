@@ -41,14 +41,16 @@ public static partial class Buckets
     }
     
     [UsedImplicitly]
-    public sealed class CreateBucketOptions(
-        string name,
-        CloudSaveBucketAccessMode accessMode,
-        bool allowRatings = true)
+    public sealed class CreateBucketOptions
     { 
-        private string Name { get; } = name;
-        private CloudSaveBucketAccessMode AccessMode { get; } = accessMode;
-        private bool AllowRatings { get; } = allowRatings;
+        [UsedImplicitly]
+        public string Name { private get; set; } 
+
+        [UsedImplicitly]
+        public CloudSaveBucketAccessMode AccessMode { private get; set; } 
+
+        [UsedImplicitly]
+        public bool AllowRatings { private get; set; } 
 
         [UsedImplicitly]
         public uint? MaxSaves { private get; set; } 

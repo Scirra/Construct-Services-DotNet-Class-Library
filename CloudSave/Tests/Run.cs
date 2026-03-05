@@ -46,7 +46,11 @@ public static class Run
         sw.Start();
 
         {
-            var createResult = service.CreateBucket(new Buckets.CreateBucketOptions("test", CloudSaveBucketAccessMode.PublicReadWrite));
+            var createResult = service.CreateBucket(new Buckets.CreateBucketOptions
+            {
+                AccessMode = CloudSaveBucketAccessMode.PublicReadWrite,
+                Name = "Test Bucket"
+            });
             results[nameof(CloudSaveTest.CreateBucket)] = new TestResult(createResult, sw);
 
             if (createResult.Success)
@@ -61,7 +65,10 @@ public static class Run
 
                 {
                     sw.Restart();
-                    var result = service.ListBuckets(new Buckets.ListBucketOptions(GetBucketsSortMethod.LeastBlobs), new PaginationOptions(1, 50));
+                    var result = service.ListBuckets(new Buckets.ListBucketOptions
+                    {
+                        SortBy = GetBucketsSortMethod.LeastBlobs
+                    }, new PaginationOptions(1, 50));
                     results[nameof(CloudSaveTest.ListBuckets)] = new TestResult(result, sw);
                     if (result.Success)
                     {
@@ -80,7 +87,10 @@ public static class Run
 
                 {
                     sw.Restart();
-                    var result = service.ListCloudSaves(bucket.ID, new Buckets.ListBucketSavesOptions(ListBucketCloudSaveSortMethod.NameAZ), new PaginationOptions(1, 10));
+                    var result = service.ListCloudSaves(bucket.ID, new Buckets.ListBucketSavesOptions
+                    {
+                        SortBy = ListBucketCloudSaveSortMethod.NameAZ
+                    }, new PaginationOptions(1, 10));
                     results[nameof(CloudSaveTest.ListBucketSaves)] = new TestResult(result, sw);
                 }
 
@@ -95,7 +105,12 @@ public static class Run
                     const string testSaveKey = "my.save.key.1";
                     sw.Restart();
 
-                    var saveResult = service.CreateCloudSave(new Saves.CreateCloudSaveOptions(bucket.ID, testSaveKey, data));
+                    var saveResult = service.CreateCloudSave(new Saves.CreateCloudSaveOptions
+                    {
+                        BucketID = bucket.ID,
+                        Key = testSaveKey,
+                        Data = data
+                    });
                     results[nameof(CloudSaveTest.CreateSave)] = new TestResult(saveResult, sw);
 
                     if (saveResult.Success)
@@ -146,7 +161,10 @@ public static class Run
                     }
 
                     var authService = new AuthenticationService(gameID, apiKey);
-                    var playerResult = authService.ListPlayers(new Players.ListPlayersOptions(PlayerOrdering.Newest), new PaginationOptions(1, 20));
+                    var playerResult = authService.ListPlayers(new Players.ListPlayersOptions
+                    {
+                        Ordering = PlayerOrdering.Newest
+                    }, new PaginationOptions(1, 20));
                     
                     if (playerResult.Success)
                     {
@@ -154,7 +172,10 @@ public static class Run
                         if (player != null)
                         {
                             sw.Restart();
-                            var result = service.ListPlayersCloudSaves(new Saves.ListPlayersSavesOptions(player.ID), new PaginationOptions(1, 10));
+                            var result = service.ListPlayersCloudSaves(new Saves.ListPlayersSavesOptions
+                            {
+                                PlayerID = player.ID
+                            }, new PaginationOptions(1, 10));
                             results[nameof(CloudSaveTest.ListPlayerSaves)] = new TestResult(result, sw);
                         }
                     }

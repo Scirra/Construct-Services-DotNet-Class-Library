@@ -37,22 +37,24 @@ public static partial class Bonuses
     }
     
     [UsedImplicitly]
-    public sealed class ListBonusesOptions(DateTime from, DateTime to)
+    public sealed class ListBonusesOptions
     {
-        private DateTime Start { get; } = from;
-        private DateTime End { get; } = to;
-
-        public ListBonusesOptions(DateTime to) : this(DateTime.UtcNow, to)
-        {
-        }
+        [UsedImplicitly]
+        public DateTime? Start { private get; set; }
+        
+        [UsedImplicitly]
+        public DateTime End { private get; set; }
 
         internal Dictionary<string, string> BuildFormData()
         {
             var formData = new Dictionary<string, string>
             {
-                { "start", new DateTimeOffset(Start).ToUnixTimeSeconds().ToString() },
                 { "end", new DateTimeOffset(End).ToUnixTimeSeconds().ToString() }
             };
+            if (Start.HasValue)
+            {
+                formData.Add("start", new DateTimeOffset(Start.Value).ToUnixTimeSeconds().ToString());
+            }
             return formData;
         }
     }

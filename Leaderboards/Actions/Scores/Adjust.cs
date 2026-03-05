@@ -102,20 +102,20 @@ public static partial class Scores
     [UsedImplicitly]
     public abstract class AdjustScoreBase
     {
-        internal Guid? ScoreID { get; set; }
-        internal Guid? PlayerID { get; set; }
+        internal Guid? ScoreID { private get; set; }
+        internal Guid? PlayerID { private get; set; }
 
         [UsedImplicitly]
-        public long Adjustment { get; set; }
+        public long Adjustment { private get; set; }
 
         [UsedImplicitly]
-        public short? OptValue1 { get; set; }
+        public short? OptValue1 { private get; set; }
 
         [UsedImplicitly]
-        public short? OptValue2 { get; set; }
+        public short? OptValue2 { private get; set; }
 
         [UsedImplicitly]
-        public short? OptValue3 { get; set; }
+        public short? OptValue3 { private get; set; }
 
         internal Dictionary<string, string> BuildFormData(Guid leaderboardID)
         {            

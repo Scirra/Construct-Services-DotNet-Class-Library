@@ -96,10 +96,10 @@ public static partial class Scores
     public class ListScoreNeighbourOptions
     {
         [UsedImplicitly]
-        public short? Range { get; set; }
+        public short? Range { private get; set; }
 
         [UsedImplicitly]
-        public short? CompareRanks { get; set; }
+        public short? CompareRanks { private get; set; }
 
         internal Dictionary<string, string> BuildPlayerFormData(Guid playerID)
         {

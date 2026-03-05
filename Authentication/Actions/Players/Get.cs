@@ -17,12 +17,12 @@ public static partial class Players
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/get-player" />
         [UsedImplicitly]
-        public GetPlayerResponse GetPlayer(GetPlayerOptions getPlayerOptions)
+        public GetPlayerResponse GetPlayer(string playerName)
         {
             return Request.ExecuteSyncRequest<GetPlayerResponse>(
                 Config.EndPointPaths.Players.GetPlayer,
                 service,
-                getPlayerOptions.BuildFormData()
+                GetPlayerOptions.BuildFormData(playerName)
             );
         }
 
@@ -31,12 +31,40 @@ public static partial class Players
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/get-player" />
         [UsedImplicitly]
-        public async Task<GetPlayerResponse> GetPlayerAsync(GetPlayerOptions getPlayerOptions)
+        public async Task<GetPlayerResponse> GetPlayerAsync(string playerName)
         {
             return await Request.ExecuteAsyncRequest<GetPlayerResponse>(
                 Config.EndPointPaths.Players.GetPlayer,
                 service,
-                getPlayerOptions.BuildFormData()
+                GetPlayerOptions.BuildFormData(playerName)
+            );
+        }
+
+        /// <summary>
+        /// Get a Player
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/get-player" />
+        [UsedImplicitly]
+        public GetPlayerResponse GetPlayer(Guid playerID)
+        {
+            return Request.ExecuteSyncRequest<GetPlayerResponse>(
+                Config.EndPointPaths.Players.GetPlayer,
+                service,
+                GetPlayerOptions.BuildFormData(playerID)
+            );
+        }
+
+        /// <summary>
+        /// Get a Player
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/players/get-player" />
+        [UsedImplicitly]
+        public async Task<GetPlayerResponse> GetPlayerAsync(Guid playerID)
+        {
+            return await Request.ExecuteAsyncRequest<GetPlayerResponse>(
+                Config.EndPointPaths.Players.GetPlayer,
+                service,
+                GetPlayerOptions.BuildFormData(playerID)
             );
         }
 
@@ -79,32 +107,15 @@ public static partial class Players
         }
     }
 
-    [UsedImplicitly]
-    public sealed class GetPlayerOptions
+    internal static class GetPlayerOptions
     {
-        private Guid? PlayerID { get; }
-        private string PlayerName { get; }       
-        
-        public GetPlayerOptions(string playerName)
+        internal static Dictionary<string, string> BuildFormData(Guid playerID)
         {
-            PlayerName = playerName;
+            return new Dictionary<string, string> { { "playerID", playerID.ToString() } };
         }
-        public GetPlayerOptions(Guid playerID)
+        internal static Dictionary<string, string> BuildFormData(string playerName)
         {
-            PlayerID = playerID;
-        }
-        internal Dictionary<string, string> BuildFormData()
-        {
-            var formData = new Dictionary<string, string>();
-            if (PlayerID.HasValue)
-            {
-                formData.Add("playerID", PlayerID.Value.ToString());
-            }
-            if (!string.IsNullOrWhiteSpace(PlayerName))
-            {
-                formData.Add("playerName", PlayerName);
-            }
-            return formData;
+            return new Dictionary<string, string> { { "playerName", playerName } };
         }
     }
 }

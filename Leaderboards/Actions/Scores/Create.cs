@@ -94,26 +94,22 @@ public static partial class Scores
     }
     
     [UsedImplicitly]
-    public sealed class CreateScoreOptions(
-        string requesterIP,
-        long score,
-        short? optValue1,
-        short? optValue2,
-        short? optValue3)
+    public sealed class CreateScoreOptions
     {
-        private string RequesterIP { get; } = requesterIP;
-        private long Score { get; } = score;
-        private short? OptValue1 { get; } = optValue1;
-        private short? OptValue2 { get; } = optValue2;
-        private short? OptValue3 { get; } = optValue3;
+        [UsedImplicitly]
+        public string RequesterIP { private get; set; }
 
-        public CreateScoreOptions(
-            long score,
-            short? optValue1,
-            short? optValue2,
-            short? optValue3) : this(null, score, optValue1, optValue2, optValue3)
-        {
-        }
+        [UsedImplicitly]
+        public long Score { private get; set; }
+
+        [UsedImplicitly]
+        public short? OptValue1 { private get; set; }
+
+        [UsedImplicitly]
+        public short? OptValue2 { private get; set; }
+
+        [UsedImplicitly]
+        public short? OptValue3 { private get; set; }
 
         internal Dictionary<string, string> BuildFormData(Guid leaderboardID, Guid? playerID = null)
         {            

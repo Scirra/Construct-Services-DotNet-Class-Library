@@ -57,7 +57,10 @@ public static class Run
 
         var sw = new Stopwatch();
 
-        var playerResponse = authService.ListPlayers(new Players.ListPlayersOptions(PlayerOrdering.Newest), new PaginationOptions(1, 20));
+        var playerResponse = authService.ListPlayers(new Players.ListPlayersOptions
+        {
+            Ordering = PlayerOrdering.Newest
+        }, new PaginationOptions(1, 20));
         if (playerResponse.Success)
         {
             var player = playerResponse.Players.First();
@@ -73,7 +76,10 @@ public static class Run
 
                         {
                             sw.Restart();
-                            var response = service.ListTeams(new Teams.ListTeamOptions(GetTeamsOrdering.Newest), new PaginationOptions(1, 20));
+                            var response = service.ListTeams(new Teams.ListTeamOptions
+                            {
+                                Ordering = GetTeamsOrdering.Newest
+                            }, new PaginationOptions(1, 20));
                             results[nameof(LeaderboardTest.ListTeams)] = new TestResult(response, sw);
                             if (response.Success)
                             {
@@ -104,7 +110,10 @@ public static class Run
 
                         {
                             sw.Restart();
-                            var response = service.ListTeamPlayers(team.ID, new Teams.ListTeamPlayersOptions(TeamPlayersOrdering.PlayerName), new PaginationOptions(1, 20));
+                            var response = service.ListTeamPlayers(team.ID, new Teams.ListTeamPlayersOptions
+                            {
+                                Ordering = TeamPlayersOrdering.PlayerName
+                            }, new PaginationOptions(1, 20));
                             results[nameof(LeaderboardTest.ListPlayers)] = new TestResult(response, sw);
                             if (response.Success)
                             {
@@ -181,7 +190,14 @@ public static class Run
                         // Scores
                         {
                             sw.Restart();
-                            var createScoreResponse = service.CreateScore(player.ID, new Scores.CreateScoreOptions("1.1.1.1", 1000, 1, 2, 3));
+                            var createScoreResponse = service.CreateScore(player.ID, new Scores.CreateScoreOptions
+                            {
+                                RequesterIP = "1.2.3.4",
+                                Score = 1000,
+                                OptValue1 = 1,
+                                OptValue2 = 5,
+                                OptValue3 = 10
+                            });
                             results[nameof(LeaderboardTest.CreateScore)] = new TestResult(createScoreResponse, sw);
                             if (createScoreResponse.Success)
                             {

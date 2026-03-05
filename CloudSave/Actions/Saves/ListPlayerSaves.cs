@@ -79,18 +79,20 @@ public static partial class Saves
             );
         }
     }
-    public abstract class ListPlayerSaveOptions(
-        bool returnPrivateSaves,
-        Guid playerID,
-        Enums.GetPlayerCloudSaveSortMethod? sortBy = null,
-        ListPlayerCloudSaveFilters filters = null)
+    public abstract class ListPlayerSaveOptions(bool returnPrivateSaves)
     {
         private bool ReturnPrivateSaves { get; } = returnPrivateSaves;
-        private Guid PlayerID { get; } = playerID;
-        private Enums.GetPlayerCloudSaveSortMethod? SortBy { get; } = sortBy;
-        private ListPlayerCloudSaveFilters Filters { get; } = filters;
 
-        protected Dictionary<string, string> BuildBaseFormData()
+        [UsedImplicitly]
+        public Guid PlayerID { private get; set; }
+
+        [UsedImplicitly]
+        public Enums.GetPlayerCloudSaveSortMethod? SortBy { private get; set; }
+
+        [UsedImplicitly]
+        public ListPlayerCloudSaveFilters Filters { private get; set; }
+
+        internal Dictionary<string, string> BuildBaseFormData()
         {
             var formData = new Dictionary<string, string>
             {
@@ -119,11 +121,8 @@ public static partial class Saves
     }
 
     [UsedImplicitly]
-    public sealed class ListPlayersPrivateSavesOptions(
-        Guid playerID,
-        Enums.GetPlayerCloudSaveSortMethod? sortBy = null,
-        ListPlayerCloudSaveFilters filters = null)
-        : ListPlayerSaveOptions(true, playerID, sortBy, filters)
+    public sealed class ListPlayersPrivateSavesOptions()
+        : ListPlayerSaveOptions(true)
     {
         internal Dictionary<string, string> BuildFormData()
         {
@@ -133,11 +132,8 @@ public static partial class Saves
     }
 
     [UsedImplicitly]
-    public sealed class ListPlayersSavesOptions(
-        Guid playerID,
-        Enums.GetPlayerCloudSaveSortMethod? sortBy = null,
-        ListPlayerCloudSaveFilters filters = null)
-        : ListPlayerSaveOptions(false, playerID, sortBy, filters)
+    public sealed class ListPlayersSavesOptions()
+        : ListPlayerSaveOptions(false)
     {
         internal Dictionary<string, string> BuildFormData()
         {

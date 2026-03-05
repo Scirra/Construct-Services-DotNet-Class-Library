@@ -41,9 +41,10 @@ public static partial class Players
     }
 
     [UsedImplicitly]
-    public sealed class RegisterPlayerOptions(string playerName)
+    public sealed class RegisterPlayerOptions
     {
-        private string PlayerName { get; } = playerName;
+        [UsedImplicitly]
+        public string PlayerName { private get; set; }
 
         [UsedImplicitly]
         public string Username { private get; set; }

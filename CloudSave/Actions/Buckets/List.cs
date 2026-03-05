@@ -49,15 +49,8 @@ public static partial class Buckets
     [UsedImplicitly]
     public sealed class ListBucketOptions
     {
-        private GetBucketsSortMethod? SortBy { get; }
-    
-        public ListBucketOptions(GetBucketsSortMethod sortBy)
-        {
-            SortBy = sortBy;
-        }
-        public ListBucketOptions()
-        {
-        }
+        [UsedImplicitly]
+        public GetBucketsSortMethod? SortBy { private get; set; }
 
         internal Dictionary<string, string> BuildFormData()
         {

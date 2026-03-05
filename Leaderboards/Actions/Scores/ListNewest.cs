@@ -57,9 +57,10 @@ public static partial class Scores
     
 
     [UsedImplicitly]
-    public sealed class ListNewestScoresOptions(string countryISO = null)
+    public sealed class ListNewestScoresOptions
     {
-        private string CountryISO { get; } = countryISO;
+        [UsedImplicitly]
+        public string CountryISO { private get; set; }
 
         internal Dictionary<string, string> BuildFormData()
         {

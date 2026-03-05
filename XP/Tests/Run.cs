@@ -47,11 +47,11 @@ public static class Run
         // Create bonus
         {
             var createResult = service.CreateBonus(
-                new Bonuses.CreateXPBonusOptions(
-                    DateTime.UtcNow.AddDays(1),
-                    DateTime.UtcNow.AddDays(7),
-                    (decimal)2.5)
+                new Bonuses.CreateXPBonusOptions
                 {
+                    Start = DateTime.UtcNow.AddDays(1),
+                    End = DateTime.UtcNow.AddDays(7),
+                    Modifier = (decimal)2.5,
                     Title = "Test Bonus",
                     Description = "Test Description"
                 }
@@ -91,7 +91,11 @@ public static class Run
         // List bonuses
         {
             sw.Restart();
-            var listResult = service.ListBonuses(new Bonuses.ListBonusesOptions(DateTime.UtcNow, DateTime.UtcNow.AddDays(30)));
+            var listResult = service.ListBonuses(new Bonuses.ListBonusesOptions
+            {
+                Start = null,
+                End = DateTime.UtcNow.AddDays(30)
+            });
             results[nameof(XPTest.ListBonuses)] = new TestResult(listResult, sw);
         }
         
@@ -106,8 +110,10 @@ public static class Run
         {
             sw.Restart();
             var atXp = new Random().Next(0, int.MaxValue);
-            var createResult = service.CreateRank(new Rankings.CreateXPRankOptions(atXp, "Test")
+            var createResult = service.CreateRank(new Rankings.CreateXPRankOptions
             {
+                Title = "Test",
+                AtXP = atXp,
                 Description = "My test description"
             });
             results[nameof(XPTest.CreateRank)] = new TestResult(createResult, sw);
@@ -146,7 +152,10 @@ public static class Run
         {
             // Get player
             var authService = new AuthenticationService(gameID, apiKey);
-            var player = authService.ListPlayers(new Players.ListPlayersOptions(PlayerOrdering.Newest), new PaginationOptions(1, 20)).Players.FirstOrDefault();
+            var player = authService.ListPlayers(new Players.ListPlayersOptions
+            {
+                Ordering = PlayerOrdering.Newest
+            }, new PaginationOptions(1, 20)).Players.FirstOrDefault();
             if (player != null)
             {
                 sw.Restart();

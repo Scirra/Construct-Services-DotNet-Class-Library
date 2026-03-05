@@ -40,10 +40,10 @@ public static partial class Teams
     }
 
     [UsedImplicitly]
-    public sealed class UpdateTeamOptions()
+    public sealed class UpdateTeamOptions
     {
         [UsedImplicitly]
-        public string Name { get; set; }
+        public string Name { private get; set; }
 
         internal Dictionary<string, string> BuildFormData(Guid teamID)
         {

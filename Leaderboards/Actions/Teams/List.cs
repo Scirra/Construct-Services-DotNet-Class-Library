@@ -49,16 +49,9 @@ public static partial class Teams
     [UsedImplicitly]
     public sealed class ListTeamOptions
     {
-        private GetTeamsOrdering? Ordering { get; }
+        [UsedImplicitly]
+        public GetTeamsOrdering? Ordering { private get; set; }
     
-        public ListTeamOptions(GetTeamsOrdering ordering)
-        {
-            Ordering = ordering;
-        } 
-        public ListTeamOptions()
-        {
-        }
-
         internal Dictionary<string, string> BuildFormData()
         {
             var formData = new Dictionary<string, string>();

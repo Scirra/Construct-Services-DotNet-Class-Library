@@ -103,9 +103,10 @@ public static partial class Logins
     }
     
     [UsedImplicitly]
-    public class LoginOptions(TimeSpan? sessionExpiry = null)
+    public class LoginOptions
     {
-        private TimeSpan? SessionExpiry { get; } = sessionExpiry;
+        [UsedImplicitly]
+        public TimeSpan? SessionExpiry { private get; set; }
         
         internal static Dictionary<string, string> BuildFormData(LoginProvider provider, LoginOptions options)
         {

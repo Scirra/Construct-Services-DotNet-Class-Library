@@ -45,10 +45,10 @@ public static partial class Messages
     public sealed class UpdateMessageOptions
     {
         [UsedImplicitly]
-        public string Title { get; set; }
+        public string Title { private get; set; }
 
         [UsedImplicitly]
-        public string Text { get; set; }
+        public string Text { private get; set; }
 
         [UsedImplicitly]
         public string LanguageISO {
@@ -65,6 +65,7 @@ public static partial class Messages
         public SourceLanguage Language {
             set => LanguageISO = value.ISO();
         }
+
         internal Dictionary<string, string> BuildFormData(Guid messageID)
         {
             var formData = new Dictionary<string, string>

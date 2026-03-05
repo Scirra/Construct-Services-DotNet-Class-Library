@@ -43,14 +43,16 @@ public static partial class Bonuses
     }
     
     [UsedImplicitly]
-    public sealed class CreateXPBonusOptions(
-        DateTime startDate,
-        DateTime endDate,
-        decimal modifier)
+    public sealed class CreateXPBonusOptions
     {
-        private DateTime Start { get;} = startDate;
-        private DateTime End { get; } = endDate;
-        private decimal Modifier { get; } = modifier;
+        [UsedImplicitly]
+        public DateTime Start { private get; set; } 
+
+        [UsedImplicitly]
+        public DateTime End { private get; set; } 
+
+        [UsedImplicitly]
+        public decimal Modifier { private get; set; } 
 
         [UsedImplicitly]
         public string Title { private get; set; }
