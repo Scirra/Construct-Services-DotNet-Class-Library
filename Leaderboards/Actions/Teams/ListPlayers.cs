@@ -10,7 +10,7 @@ namespace ConstructServices.Leaderboards.Actions;
 
 public static partial class Teams
 {
-    extension(LeaderboardService service)
+    extension(LeaderboardServiceBase service)
     {
         /// <summary>
         /// List all Players on an existing Team

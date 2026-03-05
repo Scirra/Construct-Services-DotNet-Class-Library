@@ -8,8 +8,7 @@ namespace ConstructServices.Leaderboards.Actions;
 
 public static partial class Scores
 {
-    
-    extension(LeaderboardService service)
+    extension(LeaderboardServiceBase service)
     {
         /// <summary>
         /// List the newest Scores in a Leaderboard
@@ -72,5 +71,4 @@ public static partial class Scores
             return formData;
         }
     }
-
 }

@@ -67,7 +67,6 @@ public static partial class Scores
             );
         }
     }
-
     
     private static class DeletePlayerScoreOptions
     {

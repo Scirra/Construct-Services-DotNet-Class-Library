@@ -9,19 +9,19 @@ namespace ConstructServices.Leaderboards.Actions;
 
 public static partial class Scores
 {
-    extension(LeaderboardService service)
+    extension(LeaderboardServiceBase service)
     {
         /// <summary>
         /// Lists a Players Score history
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/scores/get-score-history" />
         [UsedImplicitly]
-        public ListScoreHistoryResponse ListPlayersScoreHistory(ListPlayerScoreHistoryOptions listPlayerScoreHistoryOptions)
+        public ListScoreHistoryResponse ListPlayersScoreHistory(Guid playerID)
         {
             return Request.ExecuteSyncRequest<ListScoreHistoryResponse>(
                 Config.EndPointPaths.Scores.ListScoreHistory,
                 service,
-                listPlayerScoreHistoryOptions.BuildFormData()
+                ListScoreHistoryBase.BuildFormData(null, playerID)
             );
         }
 
@@ -30,12 +30,12 @@ public static partial class Scores
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/scores/get-score-history" />
         [UsedImplicitly]
-        public async Task<ListScoreHistoryResponse> ListPlayersScoreHistoryAsync(ListPlayerScoreHistoryOptions listPlayerScoreHistoryOptions)
+        public async Task<ListScoreHistoryResponse> ListPlayersScoreHistoryAsync(Guid playerID)
         {
             return await Request.ExecuteAsyncRequest<ListScoreHistoryResponse>(
                 Config.EndPointPaths.Scores.ListScoreHistory,
                 service,
-                listPlayerScoreHistoryOptions.BuildFormData()
+                ListScoreHistoryBase.BuildFormData(null, playerID)
             );
         }
 
@@ -44,12 +44,12 @@ public static partial class Scores
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/scores/get-score-history" />
         [UsedImplicitly]
-        public ListScoreHistoryResponse ListScoreHistory(ListScoreHistoryOptions listScoreHistoryOptions)
+        public ListScoreHistoryResponse ListScoreHistory(Guid scoreID)
         {
             return Request.ExecuteSyncRequest<ListScoreHistoryResponse>(
                 Config.EndPointPaths.Scores.ListScoreHistory,
                 service,
-                listScoreHistoryOptions.BuildFormData()
+                ListScoreHistoryBase.BuildFormData(scoreID, null)
             );
         }
 
@@ -58,45 +58,30 @@ public static partial class Scores
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/scores/get-score-history" />
         [UsedImplicitly]
-        public async Task<ListScoreHistoryResponse> ListScoreHistoryAsync(ListScoreHistoryOptions listScoreHistoryOptions)
+        public async Task<ListScoreHistoryResponse> ListScoreHistoryAsync(Guid scoreID)
         {
             return await Request.ExecuteAsyncRequest<ListScoreHistoryResponse>(
                 Config.EndPointPaths.Scores.ListScoreHistory,
                 service,
-                listScoreHistoryOptions.BuildFormData()
+                ListScoreHistoryBase.BuildFormData(scoreID, null)
             );
         }
     }
-
     
-    [UsedImplicitly]
-    public abstract class ListScoreHistoryBase(Guid? playerID, Guid? scoreID)
+    private static class ListScoreHistoryBase
     {
-        private Guid? PlayerID { get; } = playerID;
-        private Guid? ScoreID { get; } = scoreID;
-
-        internal Dictionary<string, string> BuildFormData()
+        internal static Dictionary<string, string> BuildFormData(Guid? scoreID, Guid? playerID)
         {
             var formData = new Dictionary<string, string>();
-            if (PlayerID.HasValue)
+            if (playerID.HasValue)
             {
-                formData.Add("playerID", PlayerID.ToString());
+                formData.Add("playerID", playerID.ToString());
             }
-            if (ScoreID.HasValue)
+            if (scoreID.HasValue)
             {
-                formData.Add("scoreID", ScoreID.ToString());
+                formData.Add("scoreID", scoreID.ToString());
             }
             return formData;
         }
     }
-
-    [UsedImplicitly]
-    public sealed class ListPlayerScoreHistoryOptions(Guid playerID)
-        : ListScoreHistoryBase(playerID, null);
-
-    [UsedImplicitly]
-    public sealed class ListScoreHistoryOptions(Guid scoreID)
-        : ListScoreHistoryBase(null, scoreID);
-
-
 }

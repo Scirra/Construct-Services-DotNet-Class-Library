@@ -9,7 +9,7 @@ namespace ConstructServices.Leaderboards.Actions;
 
 public static partial class Scores{
     
-    extension(LeaderboardService service)
+    extension(LeaderboardServiceBase service)
     {
         /// <summary>
         /// List a Players Scores

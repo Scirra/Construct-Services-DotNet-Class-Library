@@ -65,7 +65,7 @@ public static class Run
             {
                 {
                     sw.Start();
-                    var createTeamResponse = service.CreateTeam(new Teams.CreateTeamOptions("Test Team"));
+                    var createTeamResponse = service.CreateTeam("Test Team");
                     results[nameof(LeaderboardTest.CreateTeam)] = new TestResult(createTeamResponse, sw);
                     if (createTeamResponse.Success)
                     {
@@ -181,7 +181,7 @@ public static class Run
                         // Scores
                         {
                             sw.Restart();
-                            var createScoreResponse = service.CreateScore(new Scores.CreateScoreOptions(player.ID, "1.1.1.1", 1000, 1, 2, 3));
+                            var createScoreResponse = service.CreateScore(player.ID, new Scores.CreateScoreOptions("1.1.1.1", 1000, 1, 2, 3));
                             results[nameof(LeaderboardTest.CreateScore)] = new TestResult(createScoreResponse, sw);
                             if (createScoreResponse.Success)
                             {
@@ -234,13 +234,13 @@ public static class Run
 
                                 {
                                     sw.Restart();
-                                    var response = service.ListScoreHistory(new Scores.ListScoreHistoryOptions(score.ID));
+                                    var response = service.ListScoreHistory(score.ID);
                                     results[nameof(LeaderboardTest.ListScoreHistory)] = new TestResult(response, sw);
                                 }
 
                                 {
                                     sw.Restart();
-                                    var response = service.ListPlayersScoreHistory(new Scores.ListPlayerScoreHistoryOptions(player.ID));
+                                    var response = service.ListPlayersScoreHistory(player.ID);
                                     results[nameof(LeaderboardTest.ListPlayersScoreHistory)] = new TestResult(response, sw);
                                 }
 

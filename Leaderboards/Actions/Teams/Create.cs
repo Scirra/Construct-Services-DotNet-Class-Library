@@ -15,12 +15,12 @@ public static partial class Teams
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/teams/create-team" />
         [UsedImplicitly]
-        public TeamResponse CreateTeam(CreateTeamOptions createTeamOptions)
+        public TeamResponse CreateTeam(string teamName)
         {
             return Request.ExecuteSyncRequest<TeamResponse>(
                 Config.EndPointPaths.Teams.Create,
                 service,
-                createTeamOptions.BuildFormData()
+                CreateTeamOptions.BuildFormData(teamName)
             );
         }
 
@@ -29,26 +29,23 @@ public static partial class Teams
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/teams/create-team" />
         [UsedImplicitly]
-        public async Task<TeamResponse> CreateTeamAsync(CreateTeamOptions createTeamOptions)
+        public async Task<TeamResponse> CreateTeamAsync(string teamName)
         {
             return await Request.ExecuteAsyncRequest<TeamResponse>(
                 Config.EndPointPaths.Teams.Create,
                 service,
-                createTeamOptions.BuildFormData()
+                CreateTeamOptions.BuildFormData(teamName)
             );
         }
     }
 
-    [UsedImplicitly]
-    public sealed class CreateTeamOptions(string name)
+    private static class CreateTeamOptions
     {
-        private string Name { get; } = name;
-
-        internal Dictionary<string, string> BuildFormData()
+        internal static Dictionary<string, string> BuildFormData(string teamName)
         {
             var formData = new Dictionary<string, string>
             {
-                { "teamName", Name }
+                { "teamName", teamName }
             };
             return formData;
         }

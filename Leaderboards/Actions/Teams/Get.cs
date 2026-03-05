@@ -9,7 +9,7 @@ namespace ConstructServices.Leaderboards.Actions;
 
 public static partial class Teams
 {
-    extension(LeaderboardService service)
+    extension(LeaderboardServiceBase service)
     {
         /// <summary>
         /// Get an existing Team
