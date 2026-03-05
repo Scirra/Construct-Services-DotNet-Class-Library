@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using ConstructServices.Authentication.Responses;
 using System.Threading.Tasks;
+using ConstructServices.Common;
 using JetBrains.Annotations;
 
 namespace ConstructServices.Authentication.Actions;
@@ -17,7 +18,9 @@ public static partial class Logins
         [UsedImplicitly]
         public LoginPollResponse LoginPoll(Guid token)
         {
-            return Common.Request.ExecuteSyncRequest<LoginPollResponse>(
+            if (!token.IsValidGuid()) return new LoginPollResponse(Validations.InvalidGuidError);
+
+            return Request.ExecuteSyncRequest<LoginPollResponse>(
                 Config.EndPointPaths.Logins.LoginPoll,
                 service,
                 LoginPollOptions.BuildFormData(token)
@@ -31,7 +34,9 @@ public static partial class Logins
         [UsedImplicitly]
         public async Task<LoginPollResponse> LoginPollAsync(Guid token)
         {
-            return await Common.Request.ExecuteAsyncRequest<LoginPollResponse>(
+            if (!token.IsValidGuid()) return new LoginPollResponse(Validations.InvalidGuidError);
+
+            return await Request.ExecuteAsyncRequest<LoginPollResponse>(
                 Config.EndPointPaths.Logins.LoginPoll,
                 service,
                 LoginPollOptions.BuildFormData(token)
