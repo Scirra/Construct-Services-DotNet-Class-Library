@@ -22,7 +22,7 @@ public static partial class Scores
             RequestPerspective requestPerspective = null)
         {
             var formData = createScoreOptions.BuildFormData(service.LeaderboardID, playerID);
-            service.AddRequestPerspectiveFormData(requestPerspective, formData);
+            LeaderboardServiceBase.AddRequestPerspectiveFormData(requestPerspective, formData);
 
             return Request.ExecuteSyncRequest<CreateScoreResponse>(
                 Config.EndPointPaths.Scores.Create,
@@ -42,7 +42,7 @@ public static partial class Scores
             RequestPerspective requestPerspective = null)
         {
             var formData = createScoreOptions.BuildFormData(service.LeaderboardID, playerID);
-            service.AddRequestPerspectiveFormData(requestPerspective, formData);
+            LeaderboardServiceBase.AddRequestPerspectiveFormData(requestPerspective, formData);
 
             return await Request.ExecuteAsyncRequest<CreateScoreResponse>(
                 Config.EndPointPaths.Scores.Create,
@@ -64,7 +64,7 @@ public static partial class Scores
             RequestPerspective requestPerspective = null)
         {
             var formData = createScoreOptions.BuildFormData(service.LeaderboardID);
-            service.AddRequestPerspectiveFormData(requestPerspective, formData);
+            LeaderboardServiceBase.AddRequestPerspectiveFormData(requestPerspective, formData);
 
             return Request.ExecuteSyncRequest<CreateScoreResponse>(
                 Config.EndPointPaths.Scores.Create,
@@ -83,7 +83,7 @@ public static partial class Scores
             RequestPerspective requestPerspective = null)
         {
             var formData = createScoreOptions.BuildFormData(service.LeaderboardID);
-            service.AddRequestPerspectiveFormData(requestPerspective, formData);
+            LeaderboardServiceBase.AddRequestPerspectiveFormData(requestPerspective, formData);
 
             return await Request.ExecuteAsyncRequest<CreateScoreResponse>(
                 Config.EndPointPaths.Scores.Create,
@@ -94,37 +94,25 @@ public static partial class Scores
     }
     
     [UsedImplicitly]
-    public sealed class CreateScoreOptions
+    public sealed class CreateScoreOptions(
+        string requesterIP,
+        long score,
+        short? optValue1,
+        short? optValue2,
+        short? optValue3)
     {
-        private string RequesterIP { get; }
-        private long Score { get; }
-        private short? OptValue1 { get; }
-        private short? OptValue2 { get; }
-        private short? OptValue3 { get; }
-        
-        public CreateScoreOptions(
-            string requesterIP,
-            long score,
-            short? optValue1,
-            short? optValue2,
-            short? optValue3)
-        {
-            RequesterIP = requesterIP;
-            Score = score;
-            OptValue1 = optValue1;
-            OptValue2 = optValue2;
-            OptValue3 = optValue3;
-        }
+        private string RequesterIP { get; } = requesterIP;
+        private long Score { get; } = score;
+        private short? OptValue1 { get; } = optValue1;
+        private short? OptValue2 { get; } = optValue2;
+        private short? OptValue3 { get; } = optValue3;
+
         public CreateScoreOptions(
             long score,
             short? optValue1,
             short? optValue2,
-            short? optValue3)
+            short? optValue3) : this(null, score, optValue1, optValue2, optValue3)
         {
-            Score = score;
-            OptValue1 = optValue1;
-            OptValue2 = optValue2;
-            OptValue3 = optValue3;
         }
 
         internal Dictionary<string, string> BuildFormData(Guid leaderboardID, Guid? playerID = null)

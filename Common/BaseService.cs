@@ -10,6 +10,7 @@ public sealed class SecretAPIKey(string key)
 {
     internal string Key { get; private set; } = key;
 }
+
 [UsedImplicitly]
 public sealed class SessionKey(string key)
 {
@@ -49,9 +50,9 @@ public abstract class BaseService
     /// Allows change of requested language without needing to create new service object
     /// </summary>
     [UsedImplicitly]
-    public void SetRequestedLanguage(string requestedLanguage)
+    public void SetRequestedLanguage(TargetLanguage targetLanguage)
     {
-        RequestedLanguage = requestedLanguage;
+        RequestedLanguage = targetLanguage.GetAttribute<LanguageAttribute>().ISO;
     }
 
     /// <summary>

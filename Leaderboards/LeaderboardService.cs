@@ -25,7 +25,7 @@ public abstract class LeaderboardServiceBase : BaseService
             formData.Add("leaderboardID", LeaderboardID.ToString());
         }
     }
-    internal void AddRequestPerspectiveFormData(RequestPerspective perspective, Dictionary<string, string> formData)
+    internal static void AddRequestPerspectiveFormData(RequestPerspective perspective, Dictionary<string, string> formData)
     {
         if (perspective == null) return;
         formData.Add("requesterIP", perspective.RequesterIP);
