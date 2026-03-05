@@ -45,6 +45,8 @@ internal static class Request
             // Add form data
             if (service.APIKey != null)
                 formContent.Add(new StringContent(service.APIKey.Key), "secret");
+            if (service.SessionKey != null)
+                formContent.Add(new StringContent(service.SessionKey.Key), "sessionKey");
             formContent.Add(new StringContent(service.GameID.ToString()), "gameID");
             if (formData != null)
             {
