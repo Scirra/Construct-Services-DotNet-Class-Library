@@ -53,7 +53,7 @@ internal static class Request
             foreach (var kvp in formData)
             {
                 // Null values can't be added here
-                formContent.Add(new StringContent(kvp.Value), kvp.Key ?? string.Empty);
+                formContent.Add(new StringContent(kvp.Value ?? string.Empty), kvp.Key);
             }
             
             var i = 0;
