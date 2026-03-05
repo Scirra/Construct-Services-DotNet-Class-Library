@@ -12,7 +12,7 @@ public sealed class ExpandedPlayer
 {
     [JsonProperty(PropertyName = "id")]
     public Guid ID { get; set; }
-        
+
     [JsonProperty(PropertyName = "playerName")]
     public string PlayerName { get; set; }
         
