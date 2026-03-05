@@ -20,15 +20,12 @@ public abstract class XPServiceBase : BaseService
     }
 }
 
-[UsedImplicitly]
 public sealed class XPService : XPServiceBase
 {
+    [UsedImplicitly]
     public XPService(Guid gameID) : base(gameID) { }
     public XPService(Guid gameID, SecretAPIKey aPIKey) : base(gameID, aPIKey, null) { }
 }
 
 [UsedImplicitly]
-public sealed class PlayerXPService : XPServiceBase
-{
-    public PlayerXPService(Guid gameID, SessionKey sessionKey) : base(gameID, null, sessionKey) { }
-}
+public sealed class PlayerXPService(Guid gameID, SessionKey sessionKey) : XPServiceBase(gameID, null, sessionKey);

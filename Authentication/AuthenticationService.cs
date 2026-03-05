@@ -18,15 +18,13 @@ public abstract class AuthenticationServiceBase : BaseService
     }
 }
 
-[UsedImplicitly]
 public sealed class AuthenticationService : AuthenticationServiceBase
 {
+    [UsedImplicitly]
     public AuthenticationService(Guid gameID) : base(gameID) { }
     public AuthenticationService(Guid gameID, SecretAPIKey aPIKey) : base(gameID, aPIKey, null) { }
 }
 
-[UsedImplicitly]
-public sealed class PlayerAuthenticationService : AuthenticationServiceBase
-{
-    public PlayerAuthenticationService(Guid gameID, SessionKey sessionKey) : base(gameID, null, sessionKey) { }
-}
+[method: UsedImplicitly]
+public sealed class PlayerAuthenticationService(Guid gameID, SessionKey sessionKey)
+    : AuthenticationServiceBase(gameID, null, sessionKey);

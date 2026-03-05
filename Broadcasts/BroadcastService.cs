@@ -19,15 +19,13 @@ public abstract class BroadcastServiceBase : BaseService
     }
 }
 
-[UsedImplicitly]
-public class BroadcastService : BroadcastServiceBase
+public sealed class BroadcastService : BroadcastServiceBase
 {
     public BroadcastService(Guid gameID) : base(gameID) { }
+
+    [UsedImplicitly]
     public BroadcastService(Guid gameID, SecretAPIKey aPIKey) : base(gameID, aPIKey, null) { }
 }
 
-[UsedImplicitly]
-public class PlayerBroadcastService : BroadcastServiceBase
-{
-    public PlayerBroadcastService(Guid gameID, SessionKey sessionKey) : base(gameID, null, sessionKey) { }
-}
+[method: UsedImplicitly]
+public sealed class PlayerBroadcastService(Guid gameID, SessionKey sessionKey) : BroadcastServiceBase(gameID, null, sessionKey);
