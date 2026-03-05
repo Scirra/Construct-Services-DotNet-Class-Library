@@ -109,7 +109,7 @@ public static class Run
 
                         {
                             sw.Restart();
-                            var result = service.GetByKey(bucket.ID, testSaveKey);
+                            var result = service.GetBucketSaveByKey(bucket.ID, testSaveKey);
                             results[nameof(CloudSaveTest.GetByKey)] = new TestResult(result, sw);
                         }
 
