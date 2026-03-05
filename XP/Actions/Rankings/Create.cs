@@ -67,6 +67,12 @@ public static partial class Rankings
         public long AtXP { private get; set; }
         internal Common.Validations.Responses.ValidationResponseBase Validate()
         {
+            var titleValidation = Common.Validations.XP.Functions.IsRankTitleValid(Title);
+            if (!titleValidation.Valid) return titleValidation;
+
+            var descriptionValidation = Common.Validations.XP.Functions.IsRankTitleValid(Description);
+            if (!descriptionValidation.Valid) return descriptionValidation;
+
             var languageValidation = Functions.IsSourceLanguageISOValid(LanguageISO, true);
             if (!languageValidation.Valid) return languageValidation;
 
