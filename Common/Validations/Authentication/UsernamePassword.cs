@@ -6,7 +6,7 @@ internal static partial class Functions
         const int MinUsernameLength = 3;
         const int MaxUsernameLength = 32;
         
-        var length = username.Trim().Length;
+        var length = (username ?? string.Empty).Trim().Length;
         if (length is < MinUsernameLength or > MaxUsernameLength)
         {
             return new Responses.FailedValidation(
@@ -21,7 +21,7 @@ internal static partial class Functions
         const int MinPasswordLength = 8;
         const int MaxPasswordLength = 32;
         
-        var length = password.Trim().Length;
+        var length = (password ?? string.Empty).Trim().Length;
         if (length is < MinPasswordLength or > MaxPasswordLength)
         {
             return new Responses.FailedValidation(

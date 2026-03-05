@@ -6,7 +6,7 @@ internal static partial class Functions
         const int MinEmailLength = 4;
         const int MaxEmailLength = 128;
 
-        var length = emailAddress.Trim().Length;
+        var length = (emailAddress ?? string.Empty).Trim().Length;
         if (length is < MinEmailLength or > MaxEmailLength)
         {
             return new Responses.FailedValidation($"Email address should be between {MinEmailLength} and {MaxEmailLength} characters in length.");

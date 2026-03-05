@@ -77,6 +77,22 @@ public static partial class Bonuses
         [UsedImplicitly]
         public decimal? Modifier { private get; set; }
     
+        internal Common.Validations.Responses.ValidationResponseBase Validate()
+        {
+            if (Modifier.HasValue)
+            {
+                var modifierValidation = Common.Validations.XP.Functions.IsBonusModifierValid(Modifier.Value);
+                if (!modifierValidation.Valid) return modifierValidation;
+            }
+
+            var titleValidation = Common.Validations.XP.Functions.IsBonusTitleValid(Title);
+            if (!titleValidation.Valid) return titleValidation;
+
+            var descriptionValidation = Common.Validations.XP.Functions.IsBonusDescriptionValid(Title);
+            if (!descriptionValidation.Valid) return descriptionValidation;
+
+            return new Common.Validations.Responses.SuccessfullValidation();
+        }
         internal Dictionary<string, string> BuildFormData(Guid bonusID)
         {
             var formData = new Dictionary<string, string>

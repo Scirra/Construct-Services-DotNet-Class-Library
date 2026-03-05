@@ -6,7 +6,7 @@ internal static partial class Functions
         const int MinLength = 1;
         const int MaxLength = 64;
         
-        var length = name.Trim().Length;
+        var length = (name ?? string.Empty).Trim().Length;
         if (length is < MinLength or > MaxLength)
         {
             return new Responses.FailedValidation($"Channel name must be between {MinLength} and {MaxLength} characters in length.");

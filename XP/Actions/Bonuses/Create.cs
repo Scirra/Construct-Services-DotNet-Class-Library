@@ -21,6 +21,9 @@ public static partial class Bonuses
         [UsedImplicitly]
         public BonusResponse CreateBonus(CreateXPBonusOptions createXPBonusOptions)
         {
+            var validation = createXPBonusOptions.Validate();
+            if (!validation.Valid) return new BonusResponse(validation.ErrorMessage);
+
             return Request.ExecuteSyncRequest<BonusResponse>(
                 Config.EndPointPaths.Bonuses.Create,
                 xpService,
@@ -35,6 +38,9 @@ public static partial class Bonuses
         [UsedImplicitly]
         public async Task<BonusResponse> CreateBonusAsync(CreateXPBonusOptions createXPBonusOptions)
         {
+            var validation = createXPBonusOptions.Validate();
+            if (!validation.Valid) return new BonusResponse(validation.ErrorMessage);
+
             return await Request.ExecuteAsyncRequest<BonusResponse>(
                 Config.EndPointPaths.Bonuses.Create,
                 xpService,
@@ -76,6 +82,21 @@ public static partial class Bonuses
         public SourceLanguage Language {
             set => LanguageISO = value.ISO();
         }
+
+        internal Common.Validations.Responses.ValidationResponseBase Validate()
+        {
+            var modifierValidation = Common.Validations.XP.Functions.IsBonusModifierValid(Modifier);
+            if (!modifierValidation.Valid) return modifierValidation;
+
+            var titleValidation = Common.Validations.XP.Functions.IsBonusTitleValid(Title);
+            if (!titleValidation.Valid) return titleValidation;
+
+            var descriptionValidation = Common.Validations.XP.Functions.IsBonusDescriptionValid(Title);
+            if (!descriptionValidation.Valid) return descriptionValidation;
+
+            return new Common.Validations.Responses.SuccessfullValidation();
+        }
+
         internal Dictionary<string, string> BuildFormData()
         {
             var formData = new Dictionary<string, string>
