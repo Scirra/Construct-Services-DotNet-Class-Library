@@ -64,40 +64,40 @@ public static partial class Players
         [UsedImplicitly]
         public TimeSpan? SessionExpiry { private get; set; }
 
-        internal Validations.ValidationResponseBase Validate()
+        internal Common.Validations.Responses.ValidationResponseBase Validate()
         {
-            var playerNameValidation = Validations.IsPlayerNameValid(PlayerName);
+            var playerNameValidation = Common.Validations.Authentication.Functions.IsPlayerNameValid(PlayerName);
             if (!playerNameValidation.Valid) return playerNameValidation;
             
             if (!string.IsNullOrWhiteSpace(Username))
             {
-                var usernameValidation = Validations.IsUsernameValid(Username);
+                var usernameValidation = Common.Validations.Authentication.Functions.IsUsernameValid(Username);
                 if (!usernameValidation.Valid) return usernameValidation;
             }
 
             if (!string.IsNullOrWhiteSpace(Password))
             {
-                var passwordValidation = Validations.IsPasswordValid(Password);
+                var passwordValidation = Common.Validations.Authentication.Functions.IsPasswordValid(Password);
                 if (!passwordValidation.Valid) return passwordValidation;
             }
             
             if (!string.IsNullOrWhiteSpace(Password) && string.IsNullOrWhiteSpace(Username))
             {
-                return new Validations.FailedValidation("If password specified, username is required.");
+                return new Common.Validations.Responses.FailedValidation("If password specified, username is required.");
             }
 
             if (!string.IsNullOrWhiteSpace(Username) && string.IsNullOrWhiteSpace(Password))
             {
-                return new Validations.FailedValidation("If username specified, password is required.");
+                return new Common.Validations.Responses.FailedValidation("If username specified, password is required.");
             }
 
             if (!string.IsNullOrWhiteSpace(EmailAddress))
             {
-                var emailValidation = Validations.IsEmailAddressValid(EmailAddress);
+                var emailValidation = Common.Validations.Authentication.Functions.IsEmailAddressValid(EmailAddress);
                 if (!emailValidation.Valid) return emailValidation;
             }
             
-            return new Validations.SuccessfullValidation();
+            return new Common.Validations.Responses.SuccessfullValidation();
         }
 
         internal Dictionary<string, string> BuildFormData()

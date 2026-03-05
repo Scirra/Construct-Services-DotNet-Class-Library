@@ -17,9 +17,7 @@ public static partial class Players
         [UsedImplicitly]
         public BaseResponse ChangeUsername(Guid playerID, string newUsername)
         {            
-            if (!playerID.IsValidGuid()) return new BaseResponse(Validations.InvalidGuidError);
-
-            var usernameValidation = Validations.IsPlayerNameValid(newUsername);
+            var usernameValidation = Common.Validations.Authentication.Functions.IsPlayerNameValid(newUsername);
             if (!usernameValidation.Valid) return new BaseResponse(usernameValidation.ErrorMessage);
 
             return Request.ExecuteSyncRequest<BaseResponse>(
@@ -36,9 +34,7 @@ public static partial class Players
         [UsedImplicitly]
         public async Task<BaseResponse> ChangeUsernameAsync(Guid playerID, string newUsername)
         {
-            if (!playerID.IsValidGuid()) return new BaseResponse(Validations.InvalidGuidError);
-
-            var usernameValidation = Validations.IsPlayerNameValid(newUsername);
+            var usernameValidation = Common.Validations.Authentication.Functions.IsPlayerNameValid(newUsername);
             if (!usernameValidation.Valid) return new BaseResponse(usernameValidation.ErrorMessage);
 
             return await Request.ExecuteAsyncRequest<BaseResponse>(
@@ -58,7 +54,7 @@ public static partial class Players
         [UsedImplicitly]
         public BaseResponse ChangeUsername(string newUsername)
         {
-            var usernameValidation = Validations.IsPlayerNameValid(newUsername);
+            var usernameValidation = Common.Validations.Authentication.Functions.IsPlayerNameValid(newUsername);
             if (!usernameValidation.Valid) return new BaseResponse(usernameValidation.ErrorMessage);
 
             return Request.ExecuteSyncRequest<BaseResponse>(
@@ -75,7 +71,7 @@ public static partial class Players
         [UsedImplicitly]
         public async Task<BaseResponse> ChangeUsernameAsync(string newUsername)
         {
-            var usernameValidation = Validations.IsPlayerNameValid(newUsername);
+            var usernameValidation = Common.Validations.Authentication.Functions.IsPlayerNameValid(newUsername);
             if (!usernameValidation.Valid) return new BaseResponse(usernameValidation.ErrorMessage);
 
             return await Request.ExecuteAsyncRequest<BaseResponse>(

@@ -1,10 +1,9 @@
 ﻿using System;
 
-namespace ConstructServices.Common;
-
-internal static partial class Validations
+namespace ConstructServices.Common.Validations.Common;
+internal static partial class Functions
 {
-    internal static ValidationResponseBase IsPictureValid(this PictureData picture)
+    internal static Responses.ValidationResponseBase IsPictureValid(this PictureData picture)
     {
         var count = 0;
         if (!string.IsNullOrWhiteSpace(picture.Base64)) count++;
@@ -15,9 +14,9 @@ internal static partial class Validations
 
         return count switch
         {
-            0 => new FailedValidation("Must specify a picture in this request."),
-            > 1 => new FailedValidation("Must specify only one picture in this request."),
-            _ => new SuccessfullValidation()
+            0 => new Responses.FailedValidation("Must specify a picture in this request."),
+            > 1 => new Responses.FailedValidation("Must specify only one picture in this request."),
+            _ => new Responses.SuccessfullValidation()
         };
     }
 }

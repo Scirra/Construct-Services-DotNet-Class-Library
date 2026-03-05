@@ -62,7 +62,7 @@ public abstract class BaseService
     [UsedImplicitly]
     public void SetRequestedLanguage(string targetLanguageISO)
     {
-        if (!Validations.IsValidTargetLanguage(targetLanguageISO))
+        if (!Validations.Common.Functions.IsValidTargetLanguage(targetLanguageISO))
         {
             throw new InvalidTargetLanguageException();
         }

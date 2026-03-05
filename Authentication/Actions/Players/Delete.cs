@@ -18,8 +18,6 @@ public static partial class Players
         [UsedImplicitly]
         public BaseResponse DeletePlayer(Guid playerID)
         {
-            if (!playerID.IsValidGuid()) return new BaseResponse(Validations.InvalidGuidError);
-
             return Request.ExecuteSyncRequest<BaseResponse>(
                 Config.EndPointPaths.Players.DeletePlayer,
                 service,
@@ -33,8 +31,6 @@ public static partial class Players
         [UsedImplicitly]
         public async Task<BaseResponse> DeletePlayerAsync(Guid playerID)
         {
-            if (!playerID.IsValidGuid()) return new BaseResponse(Validations.InvalidGuidError);
-
             return await Request.ExecuteAsyncRequest<BaseResponse>(
                 Config.EndPointPaths.Players.DeletePlayer,
                 service,

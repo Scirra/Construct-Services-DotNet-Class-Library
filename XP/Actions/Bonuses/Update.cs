@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Threading.Tasks;
+using Functions = ConstructServices.Common.Validations.Common.Functions;
 
 namespace ConstructServices.XP.Actions;
 public static partial class Bonuses
@@ -62,7 +63,7 @@ public static partial class Bonuses
             private get;
             set
             {
-                if (!Validations.IsValidSourceLanguage(value))
+                if (!Functions.IsValidSourceLanguage(value))
                     throw new InvalidSourceLanguageException();
                 field = value;
             }

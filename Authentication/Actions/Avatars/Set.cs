@@ -3,6 +3,7 @@ using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ConstructServices.Common.Validations.Common;
 
 namespace ConstructServices.Authentication.Actions;
 
@@ -19,8 +20,6 @@ public static partial class Avatars
         [UsedImplicitly]
         public BaseResponse SetAvatar(Guid playerID, PictureData avatar)
         {
-            if (!playerID.IsValidGuid()) return new BaseResponse(Validations.InvalidGuidError);
-
             var pictureValidation = avatar.IsPictureValid();
             if (!pictureValidation.Valid) return new BaseResponse(pictureValidation.ErrorMessage);
 
@@ -47,8 +46,6 @@ public static partial class Avatars
         [UsedImplicitly]
         public async Task<BaseResponse> SetAvatarAsync(Guid playerID, PictureData avatar)
         {
-            if (!playerID.IsValidGuid()) return new BaseResponse(Validations.InvalidGuidError);
-
             var pictureValidation = avatar.IsPictureValid();
             if (!pictureValidation.Valid) return new BaseResponse(pictureValidation.ErrorMessage);
 

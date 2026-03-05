@@ -39,7 +39,6 @@ public static partial class Channels
             );
         }
     }
-    
     private static class GetChannelOptions
     {
         internal static Dictionary<string, string> BuildFormData(Guid channelID)

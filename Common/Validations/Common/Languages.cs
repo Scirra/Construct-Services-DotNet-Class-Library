@@ -2,8 +2,8 @@
 using System.Linq;
 using ConstructServices.Common.Languages;
 
-namespace ConstructServices.Common;
-internal static partial class Validations
+namespace ConstructServices.Common.Validations.Common;
+internal static partial class Functions
 {
     internal static bool IsValidTargetLanguage(string iso)
     {

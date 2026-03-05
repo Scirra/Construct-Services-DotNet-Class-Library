@@ -5,6 +5,7 @@ using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Functions = ConstructServices.Common.Validations.Common.Functions;
 
 namespace ConstructServices.Broadcasts.Actions;
 
@@ -19,6 +20,9 @@ public static partial class Channels
         [UsedImplicitly]
         public ChannelResponse UpdateChannel(Guid channelID, UpdateChannelOptions updateChannelOptions)
         {
+            var validation = updateChannelOptions.Validate();
+            if(!validation.Valid) return new ChannelResponse(validation.ErrorMessage);
+
             return Request.ExecuteSyncRequest<ChannelResponse>(
                 Config.EndPointPaths.Channels.Update,
                 service,
@@ -33,6 +37,9 @@ public static partial class Channels
         [UsedImplicitly]
         public async Task<ChannelResponse> UpdateChannelAsync(Guid channelID, UpdateChannelOptions updateChannelOptions)
         {
+            var validation = updateChannelOptions.Validate();
+            if(!validation.Valid) return new ChannelResponse(validation.ErrorMessage);
+
             return await Request.ExecuteAsyncRequest<ChannelResponse>(
                 Config.EndPointPaths.Channels.Update,
                 service,
@@ -43,7 +50,7 @@ public static partial class Channels
     
     [UsedImplicitly]
     public sealed class UpdateChannelOptions
-    {    
+    {
         [UsedImplicitly]
         public string Name { private get; set; }
 
@@ -51,11 +58,12 @@ public static partial class Channels
         public string Description { private get; set; }
 
         [UsedImplicitly]
-        public string LanguageISO {
-            private get;
+        public string LanguageISO
+        {
+            get;
             set
             {
-                if (!Validations.IsValidSourceLanguage(value))
+                if (!Functions.IsValidSourceLanguage(value))
                     throw new InvalidSourceLanguageException();
                 field = value;
             }
@@ -69,6 +77,14 @@ public static partial class Channels
         [UsedImplicitly]
         public bool? AllowRatings { private get; set; }
     
+        internal Common.Validations.Responses.ValidationResponseBase Validate()
+        {
+            var nameValidation = Common.Validations.Broadcasts.Functions.IsChannelNameValid(Name);
+            if (!nameValidation.Valid) return nameValidation;
+
+            return new Common.Validations.Responses.SuccessfullValidation();
+        }
+
         internal Dictionary<string, string> BuildFormData(Guid channelID)
         {        
             var formData = new Dictionary<string, string>

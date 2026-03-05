@@ -18,9 +18,7 @@ public static partial class Players
         [UsedImplicitly]
         public BaseResponse ChangePassword(Guid playerID, string newPassword)
         {
-            if (!playerID.IsValidGuid()) return new BaseResponse(Validations.InvalidGuidError);
-
-            var passwordValidation = Validations.IsPasswordValid(newPassword);
+            var passwordValidation = Common.Validations.Authentication.Functions.IsPasswordValid(newPassword);
             if (!passwordValidation.Valid) return new BaseResponse(passwordValidation.ErrorMessage);
 
             return Request.ExecuteSyncRequest<BaseResponse>(
@@ -37,9 +35,7 @@ public static partial class Players
         [UsedImplicitly]
         public async Task<BaseResponse> ChangePasswordAsync(Guid playerID, string newPassword)
         {
-            if (!playerID.IsValidGuid()) return new BaseResponse(Validations.InvalidGuidError);
-
-            var passwordValidation = Validations.IsPasswordValid(newPassword);
+            var passwordValidation = Common.Validations.Authentication.Functions.IsPasswordValid(newPassword);
             if (!passwordValidation.Valid) return new BaseResponse(passwordValidation.ErrorMessage);
 
             return await Request.ExecuteAsyncRequest<BaseResponse>(
@@ -59,7 +55,7 @@ public static partial class Players
         [UsedImplicitly]
         public BaseResponse ChangePassword(string newPassword)
         {
-            var passwordValidation = Validations.IsPasswordValid(newPassword);
+            var passwordValidation = Common.Validations.Authentication.Functions.IsPasswordValid(newPassword);
             if (!passwordValidation.Valid) return new BaseResponse(passwordValidation.ErrorMessage);
 
             return Request.ExecuteSyncRequest<BaseResponse>(
@@ -76,7 +72,7 @@ public static partial class Players
         [UsedImplicitly]
         public async Task<BaseResponse> ChangePasswordAsync(string newPassword)
         {
-            var passwordValidation = Validations.IsPasswordValid(newPassword);
+            var passwordValidation = Common.Validations.Authentication.Functions.IsPasswordValid(newPassword);
             if (!passwordValidation.Valid) return new BaseResponse(passwordValidation.ErrorMessage);
 
             return await Request.ExecuteAsyncRequest<BaseResponse>(
@@ -91,20 +87,18 @@ public static partial class Players
     {
         internal static Dictionary<string, string> BuildFormData(Guid playerID, string newPassword)
         {
-            var formData = new Dictionary<string, string>
+            return new Dictionary<string, string>
             {
                 { "password", newPassword },
                 { "playerID", playerID.ToString() }
             };
-            return formData;
         }
         internal static Dictionary<string, string> BuildFormData(string password)
         {
-            var formData = new Dictionary<string, string>
+            return new Dictionary<string, string>
             {
                 { "password", password }
             };
-            return formData;
         }
     }
 }

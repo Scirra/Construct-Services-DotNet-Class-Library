@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using ConstructServices.Broadcasts.Responses;
+﻿using ConstructServices.Broadcasts.Responses;
 using ConstructServices.Common;
-using JetBrains.Annotations;
-using System.Threading.Tasks;
 using ConstructServices.Common.Languages;
+using JetBrains.Annotations;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Functions = ConstructServices.Common.Validations.Common.Functions;
 
 namespace ConstructServices.Broadcasts.Actions;
 
@@ -19,6 +20,9 @@ public static partial class Messages
         [UsedImplicitly]
         public MessageResponse CreateMessage(CreateMessageOptions createMessageOptions)
         {
+            var validation = createMessageOptions.Validate();
+            if (!validation.Valid) return new MessageResponse(validation.ErrorMessage);
+
             return Request.ExecuteSyncRequest<MessageResponse>(
                 Config.EndPointPaths.Messages.Create,
                 service,
@@ -33,6 +37,9 @@ public static partial class Messages
         [UsedImplicitly]
         public async Task<MessageResponse> CreateMessageAsync(CreateMessageOptions createMessageOptions)
         {
+            var validation = createMessageOptions.Validate();
+            if (!validation.Valid) return new MessageResponse(validation.ErrorMessage);
+
             return await Request.ExecuteAsyncRequest<MessageResponse>(
                 Config.EndPointPaths.Messages.Create,
                 service,
@@ -58,7 +65,7 @@ public static partial class Messages
             private get;
             set
             {
-                if (!Validations.IsValidSourceLanguage(value))
+                if (!Functions.IsValidSourceLanguage(value))
                     throw new InvalidSourceLanguageException();
                 field = value;
             }
@@ -68,6 +75,15 @@ public static partial class Messages
         public SourceLanguage Language {
             set => LanguageISO = value.ISO();
         }
+    
+        internal Common.Validations.Responses.ValidationResponseBase Validate()
+        {
+            var textValidation = Common.Validations.Broadcasts.Functions.IsMessageTextValid(Text);
+            if (!textValidation.Valid) return textValidation;
+
+            return new Common.Validations.Responses.SuccessfullValidation();
+        }
+
         internal Dictionary<string, string> BuildFormData()
         {
             var formData = new Dictionary<string, string>

@@ -1,15 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace ConstructServices.Common;
-
-internal static partial class Validations
+namespace ConstructServices.Common.Validations.Authentication;
+internal static partial class Functions
 {    
     private static readonly HashSet<char> UnpermittedPlayerNameCharacters = [
         '<', '>', ';', '\'', '"'
     ];
 
-    internal static ValidationResponseBase IsPlayerNameValid(string playerName)
+    internal static Responses.ValidationResponseBase IsPlayerNameValid(string playerName)
     {
         const int MinPlayerNameLength = 1;
         const int MaxPlayerNameLength = 50;
@@ -17,33 +16,30 @@ internal static partial class Validations
         var length = playerName.Trim().Length;
         if (length is < MinPlayerNameLength or > MaxPlayerNameLength)
         {
-            return new FailedValidation(
+            return new Responses.FailedValidation(
                 $"Player name should be between {MinPlayerNameLength} and {MaxPlayerNameLength} characters long.");
         }
 
         if (IsValidEmailForm(playerName))
         {
-            return new FailedValidation("Cannot use an email address as a player name.");
+            return new Responses.FailedValidation("Cannot use an email address as a player name.");
         }        
         
         // Unpermitted characters
         {
             var found = new HashSet<char>();
-            foreach (var c in playerName)
+            foreach (var c in playerName.Where(c => UnpermittedPlayerNameCharacters.Contains(c)))
             {
-                if (UnpermittedPlayerNameCharacters.Contains(c))
-                {
-                    found.Add(c);
-                }
+                found.Add(c);
             }
             if (found.Any())
             {
-                return new FailedValidation(
+                return new Responses.FailedValidation(
                     "The characters [" + string.Join(", ", found.Select(c => c.ToString())) + "] are not permitted in player names."
                 );
             }
         }
         
-        return new SuccessfullValidation();
+        return new Responses.SuccessfullValidation();
     }
 }

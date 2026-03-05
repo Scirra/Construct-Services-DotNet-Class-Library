@@ -53,10 +53,10 @@ public static partial class Logins
         [UsedImplicitly]
         public LoginResponse Login(string username, string password, LoginOptions loginOptions = null)
         {
-            var usernameValidation = Validations.IsPasswordValid(username);
+            var usernameValidation = Common.Validations.Authentication.Functions.IsPasswordValid(username);
             if (!usernameValidation.Valid) return new LoginResponse(usernameValidation.ErrorMessage);
 
-            var passwordValidation = Validations.IsPasswordValid(password);
+            var passwordValidation = Common.Validations.Authentication.Functions.IsPasswordValid(password);
             if (!passwordValidation.Valid) return new LoginResponse(passwordValidation.ErrorMessage);
 
             return Request.ExecuteSyncRequest<LoginResponse>(
@@ -73,10 +73,10 @@ public static partial class Logins
         [UsedImplicitly]
         public async Task<LoginResponse> LoginAsync(string username, string password, LoginOptions loginOptions = null)
         {
-            var usernameValidation = Validations.IsPasswordValid(username);
+            var usernameValidation = Common.Validations.Authentication.Functions.IsPasswordValid(username);
             if (!usernameValidation.Valid) return new LoginResponse(usernameValidation.ErrorMessage);
 
-            var passwordValidation = Validations.IsPasswordValid(password);
+            var passwordValidation = Common.Validations.Authentication.Functions.IsPasswordValid(password);
             if (!passwordValidation.Valid) return new LoginResponse(passwordValidation.ErrorMessage);
 
             return await Request.ExecuteAsyncRequest<LoginResponse>(
@@ -93,7 +93,7 @@ public static partial class Logins
         [UsedImplicitly]
         public LoginResponse Login(string emailAddress, LoginOptions loginOptions = null)
         {
-            var emailValidation = Validations.IsEmailAddressValid(emailAddress);
+            var emailValidation = Common.Validations.Authentication.Functions.IsEmailAddressValid(emailAddress);
             if (!emailValidation.Valid) return new LoginResponse(emailValidation.ErrorMessage);
 
             return Request.ExecuteSyncRequest<LoginResponse>(
@@ -110,7 +110,7 @@ public static partial class Logins
         [UsedImplicitly]
         public async Task<LoginResponse> LoginAsync(string emailAddress, LoginOptions loginOptions = null)
         {
-            var emailValidation = Validations.IsEmailAddressValid(emailAddress);
+            var emailValidation = Common.Validations.Authentication.Functions.IsEmailAddressValid(emailAddress);
             if (!emailValidation.Valid) return new LoginResponse(emailValidation.ErrorMessage);
 
             return await Request.ExecuteAsyncRequest<LoginResponse>(

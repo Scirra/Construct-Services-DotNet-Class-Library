@@ -1,5 +1,5 @@
-﻿namespace ConstructServices.Common;
-internal static partial class Validations
+﻿namespace ConstructServices.Common.Validations;
+internal static class Responses
 {
     internal abstract class ValidationResponseBase
     {
@@ -15,6 +15,6 @@ internal static partial class Validations
             ErrorMessage = errorMessage;
         }
     }
-    internal class SuccessfullValidation : ValidationResponseBase;
-    internal class FailedValidation(string errorMessage) : ValidationResponseBase(errorMessage);
+    internal sealed class SuccessfullValidation : ValidationResponseBase;
+    internal sealed class FailedValidation(string errorMessage) : ValidationResponseBase(errorMessage);
 }

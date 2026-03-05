@@ -1,9 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System;
 
-namespace ConstructServices.Common;
-internal static partial class Validations
+namespace ConstructServices.Common.Validations.Common;
+internal static partial class Functions
 {
     internal static bool IsValidJson(this string strValue)
     {

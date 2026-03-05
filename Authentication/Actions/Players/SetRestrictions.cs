@@ -19,8 +19,6 @@ public static partial class Players
         [UsedImplicitly]
         public BaseResponse SetPlayerRestrictions(Guid playerID, IEnumerable<PlayerRestriction> restrictions)
         {
-            if (!playerID.IsValidGuid()) return new BaseResponse(Validations.InvalidGuidError);
-
             return Request.ExecuteSyncRequest<BaseResponse>(
                 Config.EndPointPaths.Players.SetRestrictions,
                 service,
@@ -35,8 +33,6 @@ public static partial class Players
         [UsedImplicitly]
         public async Task<BaseResponse> SetPlayerRestrictionsAsync(Guid playerID, IEnumerable<PlayerRestriction> restrictions)
         {
-            if (!playerID.IsValidGuid()) return new BaseResponse(Validations.InvalidGuidError);
-
             return await Request.ExecuteAsyncRequest<BaseResponse>(
                 Config.EndPointPaths.Players.SetRestrictions,
                 service,

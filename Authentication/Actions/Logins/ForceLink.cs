@@ -18,8 +18,6 @@ public static partial class Logins
         [UsedImplicitly]
         public LinkLoginProviderResponse ForceLinkLoginProvider(Guid code)
         {
-            if (!code.IsValidGuid()) return new LinkLoginProviderResponse(Validations.InvalidGuidError);
-
             return Request.ExecuteSyncRequest<LinkLoginProviderResponse>(
                 Config.EndPointPaths.Logins.ForceLink,
                 service,
@@ -34,8 +32,6 @@ public static partial class Logins
         [UsedImplicitly]
         public async Task<LinkLoginProviderResponse> ForceLinkLoginProviderAsync(Guid code)
         {
-            if (!code.IsValidGuid()) return new LinkLoginProviderResponse(Validations.InvalidGuidError);
-
             return await Request.ExecuteAsyncRequest<LinkLoginProviderResponse>(
                 Config.EndPointPaths.Logins.ForceLink,
                 service,

@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ConstructServices.Common.Languages;
+using Functions = ConstructServices.Common.Validations.Common.Functions;
 
 namespace ConstructServices.Ratings.Actions;
 
@@ -60,7 +61,7 @@ public static partial class Dimensions
             private get;
             set
             {
-                if (!Validations.IsValidSourceLanguage(value))
+                if (!Functions.IsValidSourceLanguage(value))
                     throw new InvalidSourceLanguageException();
                 field = value;
             }

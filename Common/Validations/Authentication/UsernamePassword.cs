@@ -1,8 +1,7 @@
-﻿namespace ConstructServices.Common;
-
-internal static partial class Validations
+﻿namespace ConstructServices.Common.Validations.Authentication;
+internal static partial class Functions
 {
-    internal static ValidationResponseBase IsUsernameValid(string username)
+    internal static Responses.ValidationResponseBase IsUsernameValid(string username)
     {
         const int MinUsernameLength = 3;
         const int MaxUsernameLength = 32;
@@ -10,14 +9,14 @@ internal static partial class Validations
         var length = username.Trim().Length;
         if (length is < MinUsernameLength or > MaxUsernameLength)
         {
-            return new FailedValidation(
+            return new Responses.FailedValidation(
                 $"Username should be between {MinUsernameLength} and {MaxUsernameLength} characters long.");
         }
 
-        return new SuccessfullValidation();
+        return new Responses.SuccessfullValidation();
     }
 
-    internal static ValidationResponseBase IsPasswordValid(string password)
+    internal static Responses.ValidationResponseBase IsPasswordValid(string password)
     { 
         const int MinPasswordLength = 8;
         const int MaxPasswordLength = 32;
@@ -25,10 +24,10 @@ internal static partial class Validations
         var length = password.Trim().Length;
         if (length is < MinPasswordLength or > MaxPasswordLength)
         {
-            return new FailedValidation(
+            return new Responses.FailedValidation(
                 $"Password should be between {MinPasswordLength} and {MaxPasswordLength} characters long.");
         }
 
-        return new SuccessfullValidation();
+        return new Responses.SuccessfullValidation();
     }
 }

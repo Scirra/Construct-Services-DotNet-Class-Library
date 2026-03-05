@@ -5,6 +5,7 @@ using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Functions = ConstructServices.Common.Validations.Common.Functions;
 
 namespace ConstructServices.XP.Actions;
 
@@ -59,7 +60,7 @@ public static partial class Rankings
             private get;
             set
             {
-                if (!Validations.IsValidSourceLanguage(value))
+                if (!Functions.IsValidSourceLanguage(value))
                     throw new InvalidSourceLanguageException();
                 field = value;
             }

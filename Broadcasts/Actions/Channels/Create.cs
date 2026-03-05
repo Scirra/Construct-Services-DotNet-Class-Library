@@ -4,6 +4,7 @@ using ConstructServices.Broadcasts.Responses;
 using ConstructServices.Common;
 using ConstructServices.Common.Languages;
 using JetBrains.Annotations;
+using Functions = ConstructServices.Common.Validations.Common.Functions;
 
 namespace ConstructServices.Broadcasts.Actions;
 
@@ -18,6 +19,9 @@ public static partial class Channels
         [UsedImplicitly]
         public ChannelResponse CreateChannel(CreateChannelOptions createChannelOptions)
         {
+            var validation = createChannelOptions.Validate();
+            if (!validation.Valid) return new ChannelResponse(validation.ErrorMessage);
+
             return Request.ExecuteSyncRequest<ChannelResponse>(
                 Config.EndPointPaths.Channels.Create,
                 service,
@@ -32,6 +36,9 @@ public static partial class Channels
         [UsedImplicitly]
         public async Task<ChannelResponse> CreateChannelAsync(CreateChannelOptions createChannelOptions)
         {
+            var validation = createChannelOptions.Validate();
+            if (!validation.Valid) return new ChannelResponse(validation.ErrorMessage);
+
             return await Request.ExecuteAsyncRequest<ChannelResponse>(
                 Config.EndPointPaths.Channels.Create,
                 service,
@@ -54,7 +61,7 @@ public static partial class Channels
             private get;
             set
             {
-                if (!Validations.IsValidSourceLanguage(value))
+                if (!Functions.IsValidSourceLanguage(value))
                     throw new InvalidSourceLanguageException();
                 field = value;
             }
@@ -67,6 +74,14 @@ public static partial class Channels
 
         [UsedImplicitly]
         public bool AllowRatings { private get; set; }
+
+        internal Common.Validations.Responses.ValidationResponseBase Validate()
+        {
+            var nameValidation = Common.Validations.Broadcasts.Functions.IsChannelNameValid(Name);
+            if (!nameValidation.Valid) return nameValidation;
+
+            return new Common.Validations.Responses.SuccessfullValidation();
+        }
 
         internal Dictionary<string, string> BuildFormData()
         {

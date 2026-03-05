@@ -18,8 +18,6 @@ public static partial class Logins
         [UsedImplicitly]
         public LinkPollResponse LinkPoll(Guid token)
         {
-            if (!token.IsValidGuid()) return new LinkPollResponse(Validations.InvalidGuidError);
-
             return Request.ExecuteSyncRequest<LinkPollResponse>(
                 Config.EndPointPaths.Logins.LinkPoll,
                 service,
@@ -34,8 +32,6 @@ public static partial class Logins
         [UsedImplicitly]
         public async Task<LinkPollResponse> LinkPollAsync(Guid token)
         {
-            if (!token.IsValidGuid()) return new LinkPollResponse(Validations.InvalidGuidError);
-
             return await Request.ExecuteAsyncRequest<LinkPollResponse>(
                 Config.EndPointPaths.Logins.LinkPoll,
                 service,
