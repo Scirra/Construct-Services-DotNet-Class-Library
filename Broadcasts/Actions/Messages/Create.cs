@@ -41,34 +41,25 @@ public static partial class Messages
     }
     
     [UsedImplicitly]
-    public sealed class CreateMessageOptions
+    public sealed class CreateMessageOptions(
+        Guid channelID,
+        string title,
+        string text)
     {    
-        private Guid ChannelID { get; }
-        private string Text { get;  }
+        private Guid ChannelID { get; } = channelID;
+        private string Text { get;  } = text;
 
         [UsedImplicitly]
-        public string Title { private get; set; }
+        public string Title { private get; set; } = title;
 
         [UsedImplicitly]
         public string LanguageISO { private get; set; }
     
         public CreateMessageOptions(
             Guid channelID,
-            string text)
+            string text) : this(channelID, null, text)
         {
-            ChannelID = channelID;
-            Text = text;
         }
-        public CreateMessageOptions(
-            Guid channelID,
-            string title,
-            string text)
-        {
-            ChannelID = channelID;
-            Title = title;
-            Text = text;
-        }
-
         internal Dictionary<string, string> BuildFormData()
         {
             var formData = new Dictionary<string, string>

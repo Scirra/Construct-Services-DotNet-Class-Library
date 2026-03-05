@@ -39,29 +39,16 @@ public static partial class Rankings
     }
 
     [UsedImplicitly]
-    public sealed class CreateXPRankOptions
+    public sealed class CreateXPRankOptions(long strAtXp, string title, string description = null, string languageISO = null)
     {    
-        private string Title { get; }
-        private string Description { get; }
+        private string Title { get; } = title;
+        private string Description { get; } = description;
 
         [UsedImplicitly]
-        public string LanguageISO { private get; set; }
+        public string LanguageISO { private get; set; } = languageISO;
 
         [UsedImplicitly]
-        public long AtXP { private get; set; }
-    
-        public CreateXPRankOptions(long atXP, string title)
-        {
-            AtXP = atXP;
-            Title = title;
-        }
-        public CreateXPRankOptions(long strAtXP, string title, string description, string languageISO = null)
-        {
-            AtXP = strAtXP;
-            Title = title;
-            Description = description;
-            LanguageISO = languageISO;
-        }
+        public long AtXP { private get; set; } = strAtXp;
 
         internal Dictionary<string, string> BuildFormData()
         {

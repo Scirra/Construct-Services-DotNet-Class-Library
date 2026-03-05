@@ -8,9 +8,9 @@ namespace ConstructServices.Common;
 [UsedImplicitly]
 public sealed class PictureData
 {
-    internal string Base64 { get; private set; }
-    internal Uri URL { get; private set; }
-    internal byte[] Bytes { get; private set; }
+    internal string Base64 { get; }
+    internal Uri URL { get; }
+    internal byte[] Bytes { get; }
 
     public PictureData(string base64Data)
     {

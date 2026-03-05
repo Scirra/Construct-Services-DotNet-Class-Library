@@ -16,8 +16,7 @@ public static partial class Bonuses
         {              
             return Request.ExecuteSyncRequest<BonusesResponse>(
                 Config.EndPointPaths.Bonuses.ListActive,
-                xpService,
-                null
+                xpService
             );
         }        
         
@@ -28,8 +27,7 @@ public static partial class Bonuses
         {                    
             return await Request.ExecuteAsyncRequest<BonusesResponse>(
                 Config.EndPointPaths.Bonuses.ListActive,
-                xpService,
-                null
+                xpService
             );
         }
     }
