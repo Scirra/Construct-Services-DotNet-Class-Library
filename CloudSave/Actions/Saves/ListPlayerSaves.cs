@@ -79,6 +79,7 @@ public static partial class Saves
             );
         }
     }
+
     public abstract class ListPlayerSaveOptions(bool returnPrivateSaves)
     {
         private bool ReturnPrivateSaves { get; } = returnPrivateSaves;
