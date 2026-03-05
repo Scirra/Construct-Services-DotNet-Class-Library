@@ -5,7 +5,6 @@ using JetBrains.Annotations;
 using System.Threading.Tasks;
 
 namespace ConstructServices.Broadcasts.Actions;
-
 public static partial class Channels
 {
     extension(BroadcastService service)
@@ -43,11 +42,10 @@ public static partial class Channels
     { 
         internal static Dictionary<string, string> BuildFormData(Guid channelID)
         {
-            var formData = new Dictionary<string, string>
+            return new Dictionary<string, string>
             {
                 { "channelID", channelID.ToString() }
             };
-            return formData;
         }
     }
 }

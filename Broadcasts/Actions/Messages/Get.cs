@@ -9,19 +9,19 @@ namespace ConstructServices.Broadcasts.Actions;
 
 public static partial class Messages
 {
-    extension(BroadcastService service)
+    extension(BroadcastServiceBase service)
     {
         /// <summary>
         /// Get an existing Broadcast Message
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/broadcasts/api-end-points/messages/get-message" />
         [UsedImplicitly]
-        public MessageResponse GetMessage(GetMessageOptions getMessageOptions)
+        public MessageResponse GetMessage(Guid messageID)
         {
             return Request.ExecuteSyncRequest<MessageResponse>(
                 Config.EndPointPaths.Messages.Get,
                 service,
-                getMessageOptions.BuildFormData()
+                GetMessageOptions.BuildFormData(messageID)
             );
         }
 
@@ -30,39 +30,24 @@ public static partial class Messages
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/broadcasts/api-end-points/messages/get-message" />
         [UsedImplicitly]
-        public async Task<MessageResponse> GetMessageAsync(GetMessageOptions getMessageOptions)
+        public async Task<MessageResponse> GetMessageAsync(Guid messageID)
         {
             return await Request.ExecuteAsyncRequest<MessageResponse>(
                 Config.EndPointPaths.Messages.Get,
                 service,
-                getMessageOptions.BuildFormData()
+                GetMessageOptions.BuildFormData(messageID)
             );
         }
     }
-
     
-    [UsedImplicitly]
-    public sealed class GetMessageOptions(string sessionKey, Guid messageID)
+    private static class GetMessageOptions
     {
-        private string SessionKey { get; } = sessionKey;
-
-        private Guid MessageID { get; } = messageID;
-
-        public GetMessageOptions(Guid messageID) : this(null, messageID)
+        internal static Dictionary<string, string> BuildFormData(Guid messageID)
         {
-        }
-
-        internal Dictionary<string, string> BuildFormData()
-        {
-            var formData = new Dictionary<string, string>
+            return new Dictionary<string, string>
             {
-                { "messageID", MessageID.ToString() }
+                { "messageID", messageID.ToString() }
             };
-            if (!string.IsNullOrWhiteSpace(SessionKey))
-            {
-                formData.Add("sessionKey", SessionKey);
-            }
-            return formData;
         }
     }
 }

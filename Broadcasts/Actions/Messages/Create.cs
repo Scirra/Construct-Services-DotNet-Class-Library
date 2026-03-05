@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using ConstructServices.Broadcasts.Objects;
 using ConstructServices.Broadcasts.Responses;
 using ConstructServices.Common;
 using JetBrains.Annotations;
@@ -44,43 +43,30 @@ public static partial class Messages
     [UsedImplicitly]
     public sealed class CreateMessageOptions
     {    
-        private string Title { get; }
-        private string Text { get;  }
-        private string LanguageISO { get; }
         private Guid ChannelID { get; }
+        private string Text { get;  }
+
+        [UsedImplicitly]
+        public string Title { private get; set; }
+
+        [UsedImplicitly]
+        public string LanguageISO { private get; set; }
     
         public CreateMessageOptions(
             Guid channelID,
+            string text)
+        {
+            ChannelID = channelID;
+            Text = text;
+        }
+        public CreateMessageOptions(
+            Guid channelID,
             string title,
-            string text,
-            string languageISO = null)
+            string text)
         {
             ChannelID = channelID;
             Title = title;
             Text = text;
-            LanguageISO = languageISO;
-        }
-        public CreateMessageOptions(
-            string strChannelID,
-            string title,
-            string text,
-            string languageISO = null)
-        {
-            ChannelID = Guid.Parse(strChannelID);
-            Title = title;
-            Text = text;
-            LanguageISO = languageISO;
-        }
-        public CreateMessageOptions(
-            Channel channel,
-            string title,
-            string text,
-            string languageISO = null)
-        {
-            ChannelID = channel.ID;
-            Title = title;
-            Text = text;
-            LanguageISO = languageISO;
         }
 
         internal Dictionary<string, string> BuildFormData()

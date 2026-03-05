@@ -40,16 +40,18 @@ public static partial class Channels
     }
 
     [UsedImplicitly]
-    public sealed class CreateChannelOptions(
-        string name,
-        string description,
-        bool allowRatings,
-        string languageISO = null)
+    public sealed class CreateChannelOptions(string name)
     {    
         private string Name { get; } = name;
-        private string Description { get; } = description;
-        private string LanguageISO { get; } = languageISO;
-        private bool AllowRatings { get; } = allowRatings;
+
+        [UsedImplicitly]
+        public string Description { private get; set; }
+
+        [UsedImplicitly]
+        public string LanguageISO { private get; set; }
+
+        [UsedImplicitly]
+        public bool AllowRatings { private get; set; }
 
         internal Dictionary<string, string> BuildFormData()
         {

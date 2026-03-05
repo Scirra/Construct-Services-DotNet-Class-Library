@@ -8,7 +8,7 @@ namespace ConstructServices.Broadcasts.Actions;
 
 public static partial class Channels
 {
-    extension(BroadcastService service)
+    extension(BroadcastServiceBase service)
     {
         /// <summary>
         /// List all Broadcast Channels
@@ -17,11 +17,9 @@ public static partial class Channels
         [UsedImplicitly]
         public ChannelsResponse ListChannels()
         {
-            var formData = new Dictionary<string, string>();
             return Request.ExecuteSyncRequest<ChannelsResponse>(
                 Config.EndPointPaths.Channels.List,
-                service,
-                formData
+                service
             );
         }
 
@@ -32,11 +30,9 @@ public static partial class Channels
         [UsedImplicitly]
         public async Task<ChannelsResponse> ListChannelsAsync()
         {
-            var formData = new Dictionary<string, string>();
             return await Request.ExecuteAsyncRequest<ChannelsResponse>(
                 Config.EndPointPaths.Channels.List,
-                service,
-                formData
+                service
             );
         }
     }

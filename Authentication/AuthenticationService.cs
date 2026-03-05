@@ -5,7 +5,6 @@ using System.Collections.Generic;
 
 namespace ConstructServices.Authentication;
 
-[UsedImplicitly]
 public abstract class AuthenticationServiceBase : BaseService
 {
     internal AuthenticationServiceBase(Guid gameID) : base(gameID, Config.APIDomain)

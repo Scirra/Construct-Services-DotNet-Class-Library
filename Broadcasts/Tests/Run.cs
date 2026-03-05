@@ -44,7 +44,12 @@ public static class Run
 
         // Channels
         {
-            var createResult = service.CreateChannel(new Channels.CreateChannelOptions("Test", "My test channel", true));
+            var createResult = service.CreateChannel(new Channels.CreateChannelOptions("Test")
+            {
+                Description = "Test description",
+                LanguageISO = "de",
+                AllowRatings = true
+            });
             results[nameof(BroadcastTest.CreateChannel)] = new TestResult(createResult, sw);
             if (createResult.Success)
             {
@@ -62,7 +67,7 @@ public static class Run
 
                 {
                     sw.Restart();
-                    var result = service.GetChannel(new Channels.GetChannelOptions(channel.ID));
+                    var result = service.GetChannel(channel.ID);
                     results[nameof(BroadcastTest.GetChannel)] = new TestResult(result, sw);
                 }
 
@@ -107,7 +112,10 @@ public static class Run
                         {
                             {
                                 sw.Restart();
-                                var createMessageResult =  service.CreateMessage(new Messages.CreateMessageOptions(channel, "Test", "My test message"));
+                                var createMessageResult =  service.CreateMessage(new Messages.CreateMessageOptions(channel.ID, "Test")
+                                {
+                                    Title = "My title"
+                                });
                                 results[nameof(BroadcastTest.CreateMessage)] = new TestResult(createMessageResult, sw);
 
                                 if (createMessageResult.Success)
@@ -116,7 +124,7 @@ public static class Run
 
                                     {
                                         sw.Restart();
-                                        var result = service.ListMessages(new Messages.ListMessagesOptions(channel.ID), new PaginationOptions(1, 20));
+                                        var result = service.ListMessages(channel.ID, new PaginationOptions(1, 20));
                                         results[nameof(BroadcastTest.ListMessages)] = new TestResult(result, sw);
                                         if (result.Success)
                                         {
@@ -129,7 +137,7 @@ public static class Run
 
                                     {
                                         sw.Restart();
-                                        var result = service.GetMessage(new Messages.GetMessageOptions(message.ID));
+                                        var result = service.GetMessage(message.ID);
                                         results[nameof(BroadcastTest.GetMessage)] = new TestResult(result, sw);
                                     }
                                     

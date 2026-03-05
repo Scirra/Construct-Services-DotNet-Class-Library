@@ -9,19 +9,19 @@ namespace ConstructServices.Broadcasts.Actions;
 
 public static partial class Channels
 {    
-    extension(BroadcastService service)
+    extension(BroadcastServiceBase service)
     {
         /// <summary>
         /// Get an existing Broadcast Channel
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/broadcasts/api-end-points/channels/get-channel" />
         [UsedImplicitly]
-        public ChannelResponse GetChannel(GetChannelOptions getChannelOptions)
+        public ChannelResponse GetChannel(Guid channelID)
         {
             return Request.ExecuteSyncRequest<ChannelResponse>(
                 Config.EndPointPaths.Channels.Get,
                 service,
-                getChannelOptions.BuildFormData()
+                GetChannelOptions.BuildFormData(channelID)
             );
         }
 
@@ -30,37 +30,24 @@ public static partial class Channels
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/broadcasts/api-end-points/channels/get-channel" />
         [UsedImplicitly]
-        public async Task<ChannelResponse> GetChannelAsync(GetChannelOptions getChannelOptions)
+        public async Task<ChannelResponse> GetChannelAsync(Guid channelID)
         {
             return await Request.ExecuteAsyncRequest<ChannelResponse>(
                 Config.EndPointPaths.Channels.Get,
                 service,
-                getChannelOptions.BuildFormData()
+                GetChannelOptions.BuildFormData(channelID)
             );
         }
     }
     
-    [UsedImplicitly]
-    public sealed class GetChannelOptions(string sessionKey, Guid channelID)
+    private static class GetChannelOptions
     {
-        private string SessionKey { get; } = sessionKey;
-        private Guid ChannelID { get; } = channelID;
-
-        public GetChannelOptions(Guid channelID) : this(null, channelID)
+        internal static Dictionary<string, string> BuildFormData(Guid channelID)
         {
-        }
-
-        internal Dictionary<string, string> BuildFormData()
-        {
-            var formData = new Dictionary<string, string>
+            return new Dictionary<string, string>
             {
-                { "channelID", ChannelID.ToString() }
+                { "channelID", channelID.ToString() }
             };
-            if (!string.IsNullOrWhiteSpace(SessionKey))
-            {
-                formData.Add("sessionKey", SessionKey);
-            }
-            return formData;
         }
     }
 }

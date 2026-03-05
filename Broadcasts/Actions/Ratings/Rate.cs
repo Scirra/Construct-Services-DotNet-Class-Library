@@ -7,10 +7,10 @@ namespace ConstructServices.Broadcasts.Actions;
 
 public static partial class Ratings
 {
-    extension(BroadcastService service)
+    extension(PlayerBroadcastService service)
     {
         /// <summary>
-        /// Rate a Broadcast Message object
+        /// Rate a Broadcast Message
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/broadcasts/api-end-points/ratings/rate-message" />
         [UsedImplicitly]
@@ -20,7 +20,7 @@ public static partial class Ratings
         }
 
         /// <summary>
-        /// Rate a Broadcast Message object
+        /// Rate a Broadcast Message
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/broadcasts/api-end-points/ratings/rate-message" />
         [UsedImplicitly]

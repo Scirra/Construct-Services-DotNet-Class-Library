@@ -7,7 +7,7 @@ namespace ConstructServices.Broadcasts.Actions;
 
 public static partial class Ratings
 {
-    extension(BroadcastService service)
+    extension(BroadcastServiceBase service)
     {        
         /// <summary>
         /// List all Rating Dimension on a Broadcast Channel

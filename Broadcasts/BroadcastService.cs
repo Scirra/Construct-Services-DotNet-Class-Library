@@ -5,23 +5,29 @@ using System.Collections.Generic;
 
 namespace ConstructServices.Broadcasts;
 
-[UsedImplicitly]
-public class BroadcastService : BaseService
+public abstract class BroadcastServiceBase : BaseService
 {
-    /// <summary>
-    /// Create new service instance for requests that do not require any authentication
-    /// </summary>
-    /// <param name="gameID">ID of the game to run requests against</param>
-    public BroadcastService(Guid gameID) : base(gameID, Config.APIDomain) { }
-    
-    /// <summary>
-    /// Create a new service instance for requests authenticated with a secret API key
-    /// </summary>
-    /// <param name="gameID">ID of the game to run requests against</param>
-    /// <param name="aPIKey">Your games secret API key</param>
-    public BroadcastService(Guid gameID, SecretAPIKey aPIKey) : base(gameID, Config.APIDomain, aPIKey, null) { }
+    internal BroadcastServiceBase(Guid gameID) : base(gameID, Config.APIDomain)
+    {
+    }
+    internal BroadcastServiceBase(Guid gameID, SecretAPIKey aPiKey, SessionKey sessionKey) : base(gameID, Config.APIDomain, aPiKey, sessionKey)
+    {
+    }
 
     internal override void AddServiceSpecificFormData(Dictionary<string, string> formData)
     {
     }
+}
+
+[UsedImplicitly]
+public class BroadcastService : BroadcastServiceBase
+{
+    public BroadcastService(Guid gameID) : base(gameID) { }
+    public BroadcastService(Guid gameID, SecretAPIKey aPIKey) : base(gameID, aPIKey, null) { }
+}
+
+[UsedImplicitly]
+public class PlayerBroadcastService : BroadcastServiceBase
+{
+    public PlayerBroadcastService(Guid gameID, SessionKey sessionKey) : base(gameID, null, sessionKey) { }
 }
