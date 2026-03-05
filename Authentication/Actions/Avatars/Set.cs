@@ -20,6 +20,7 @@ public static partial class Avatars
         public BaseResponse SetAvatar(Guid playerID, PictureData avatar)
         {
             if (!playerID.IsValidGuid()) return new BaseResponse(Validations.InvalidGuidError);
+
             var pictureValidation = avatar.IsPictureValid();
             if (!pictureValidation.Valid) return new BaseResponse(pictureValidation.ErrorMessage);
 
@@ -47,6 +48,7 @@ public static partial class Avatars
         public async Task<BaseResponse> SetAvatarAsync(Guid playerID, PictureData avatar)
         {
             if (!playerID.IsValidGuid()) return new BaseResponse(Validations.InvalidGuidError);
+
             var pictureValidation = avatar.IsPictureValid();
             if (!pictureValidation.Valid) return new BaseResponse(pictureValidation.ErrorMessage);
 

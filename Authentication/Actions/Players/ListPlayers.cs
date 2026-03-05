@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using ConstructServices.Authentication.Responses;
 using ConstructServices.Common;
 using JetBrains.Annotations;
@@ -63,7 +64,7 @@ public static partial class Players
             var formData = new Dictionary<string, string>();
             if (PlayerIDs != null)
             {
-                formData.Add("playerIDs", string.Join(",", PlayerIDs));
+                formData.Add("playerIDs", string.Join(",", PlayerIDs.Distinct().Where(c=> c.IsValidGuid())));
             }
             if (Ordering.HasValue)
             {

@@ -18,6 +18,9 @@ public static partial class Players
         [UsedImplicitly]
         public RegisterPlayerResponse RegisterPlayer(RegisterPlayerOptions createPlayerOptions)
         {
+            var validation = createPlayerOptions.Validate();
+            if (!validation.Valid) return new RegisterPlayerResponse(validation.ErrorMessage);
+
             return Request.ExecuteSyncRequest<RegisterPlayerResponse>(
                 Config.EndPointPaths.Players.Register,
                 service,
@@ -32,6 +35,9 @@ public static partial class Players
         [UsedImplicitly]
         public async Task<RegisterPlayerResponse> RegisterPlayerAsync(RegisterPlayerOptions createPlayerOptions)
         {
+            var validation = createPlayerOptions.Validate();
+            if (!validation.Valid) return new RegisterPlayerResponse(validation.ErrorMessage);
+
             return await Request.ExecuteAsyncRequest<RegisterPlayerResponse>(
                 Config.EndPointPaths.Players.Register,
                 service,
@@ -57,6 +63,42 @@ public static partial class Players
 
         [UsedImplicitly]
         public TimeSpan? SessionExpiry { private get; set; }
+
+        internal Validations.ValidationResponseBase Validate()
+        {
+            var playerNameValidation = Validations.IsPlayerNameValid(PlayerName);
+            if (!playerNameValidation.Valid) return playerNameValidation;
+            
+            if (!string.IsNullOrWhiteSpace(Username))
+            {
+                var usernameValidation = Validations.IsUsernameValid(Username);
+                if (!usernameValidation.Valid) return usernameValidation;
+            }
+
+            if (!string.IsNullOrWhiteSpace(Password))
+            {
+                var passwordValidation = Validations.IsPasswordValid(Password);
+                if (!passwordValidation.Valid) return passwordValidation;
+            }
+            
+            if (!string.IsNullOrWhiteSpace(Password) && string.IsNullOrWhiteSpace(Username))
+            {
+                return new Validations.FailedValidation("If password specified, username is required.");
+            }
+
+            if (!string.IsNullOrWhiteSpace(Username) && string.IsNullOrWhiteSpace(Password))
+            {
+                return new Validations.FailedValidation("If username specified, password is required.");
+            }
+
+            if (!string.IsNullOrWhiteSpace(EmailAddress))
+            {
+                var emailValidation = Validations.IsEmailAddressValid(EmailAddress);
+                if (!emailValidation.Valid) return emailValidation;
+            }
+            
+            return new Validations.SuccessfullValidation();
+        }
 
         internal Dictionary<string, string> BuildFormData()
         {
