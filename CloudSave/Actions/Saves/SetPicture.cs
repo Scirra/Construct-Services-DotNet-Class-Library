@@ -62,8 +62,8 @@ public static partial class Saves
     
     private static class SetCloudSavePictureOptions
     {
-        private const string pictureURLParamName = "avatarURL";
-        private const string pictureBase64ParamName = "avatar";
+        private const string pictureURLParamName = "pictureURL";
+        private const string pictureBase64ParamName = "picture";
 
         internal static Dictionary<string, string> BuildFormData(Guid cloudSaveID, PictureData picture)
         {
