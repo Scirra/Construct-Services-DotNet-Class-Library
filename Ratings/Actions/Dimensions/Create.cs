@@ -37,11 +37,14 @@ public static partial class Dimensions
     }
 
     [UsedImplicitly]
-    public abstract class CreateRatingDimensionOptions
+    public abstract class CreateRatingDimensionOptions(
+        Thing forThing,
+        Guid forThingID,
+        byte maxRating)
     {
-        private Thing ForThing { get; }
-        private Guid ForThingID { get; }
-        private byte MaxRating { get; }
+        private Thing ForThing { get; } = forThing;
+        private Guid ForThingID { get; } = forThingID;
+        private byte MaxRating { get; } = maxRating;
 
         [UsedImplicitly]
         public string ID { private get; set; }
@@ -57,7 +60,7 @@ public static partial class Dimensions
             private get;
             set
             {
-                if (!Common.Validations.Languages.IsValidSourceLanguage(value))
+                if (!Validations.IsValidSourceLanguage(value))
                     throw new InvalidSourceLanguageException();
                 field = value;
             }
@@ -66,16 +69,6 @@ public static partial class Dimensions
         [UsedImplicitly]
         public SourceLanguage Language {
             set => LanguageISO = value.ISO();
-        }
-
-        protected CreateRatingDimensionOptions(
-            Thing forThing,
-            Guid forThingID,
-            byte maxRating)
-        {
-            ForThing = forThing;
-            ForThingID = forThingID;
-            MaxRating = maxRating;
         }
 
         protected internal Dictionary<string, string> BuildFormData()

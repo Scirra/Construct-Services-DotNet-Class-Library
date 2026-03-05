@@ -55,7 +55,7 @@ public static partial class Messages
             private get;
             set
             {
-                if (!Common.Validations.Languages.IsValidSourceLanguage(value))
+                if (!Validations.IsValidSourceLanguage(value))
                     throw new InvalidSourceLanguageException();
                 field = value;
             }

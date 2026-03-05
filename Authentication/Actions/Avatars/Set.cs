@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using ConstructServices.Common;
+﻿using ConstructServices.Common;
 using JetBrains.Annotations;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ConstructServices.Authentication.Actions;
@@ -19,6 +19,8 @@ public static partial class Avatars
         [UsedImplicitly]
         public BaseResponse SetAvatar(Guid playerID, PictureData avatar)
         {
+            if (!playerID.IsValidGuid()) return Validations.InvalidGuidResponse;
+
             if (avatar.Bytes != null)
             {
                 return Request.ExecuteMultiPartFormSyncRequest<BaseResponse>(
@@ -42,6 +44,8 @@ public static partial class Avatars
         [UsedImplicitly]
         public async Task<BaseResponse> SetAvatarAsync(Guid playerID, PictureData avatar)
         {
+            if (!playerID.IsValidGuid()) return Validations.InvalidGuidResponse;
+
             if (avatar.Bytes != null)
             {
                 return await Request.ExecuteMultiPartFormAsyncRequest<BaseResponse>(

@@ -19,7 +19,7 @@ public sealed class SessionKey(string key)
 }
 public abstract class BaseService
 {
-    internal Action<string> Logger { get; set; }
+    internal Action<string> Logger { [UsedImplicitly] get; set; }
     internal Guid GameID { get; private set; }
     internal string APIHost { get; private set; }
     internal SecretAPIKey APIKey { get; private set; }
@@ -62,7 +62,7 @@ public abstract class BaseService
     [UsedImplicitly]
     public void SetRequestedLanguage(string targetLanguageISO)
     {
-        if (!Validations.Languages.IsValidTargetLanguage(targetLanguageISO))
+        if (!Validations.IsValidTargetLanguage(targetLanguageISO))
         {
             throw new InvalidTargetLanguageException();
         }
