@@ -20,6 +20,7 @@ public static partial class Avatars
         public BaseResponse SetAvatar(Guid playerID, PictureData avatar)
         {
             if (!playerID.IsValidGuid()) return Validations.InvalidGuidResponse;
+            if (!avatar.HasOnePicture()) return Validations.NoPictureResponse;
 
             if (avatar.Bytes != null)
             {
@@ -45,6 +46,7 @@ public static partial class Avatars
         public async Task<BaseResponse> SetAvatarAsync(Guid playerID, PictureData avatar)
         {
             if (!playerID.IsValidGuid()) return Validations.InvalidGuidResponse;
+            if (!avatar.HasOnePicture()) return Validations.NoPictureResponse;
 
             if (avatar.Bytes != null)
             {
@@ -72,6 +74,8 @@ public static partial class Avatars
         [UsedImplicitly]
         public BaseResponse SetAvatar(PictureData avatar)
         {
+            if (!avatar.HasOnePicture()) return Validations.NoPictureResponse;
+
             if (avatar.Bytes != null)
             {
                 return Request.ExecuteMultiPartFormSyncRequest<BaseResponse>(
@@ -95,6 +99,8 @@ public static partial class Avatars
         [UsedImplicitly]
         public async Task<BaseResponse> SetAvatarAsync(PictureData avatar)
         {
+            if (!avatar.HasOnePicture()) return Validations.NoPictureResponse;
+
             if (avatar.Bytes != null)
             {
                 return await Request.ExecuteMultiPartFormAsyncRequest<BaseResponse>(
