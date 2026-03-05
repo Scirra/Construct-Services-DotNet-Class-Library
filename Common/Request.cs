@@ -26,9 +26,10 @@ internal static class Request
         string relativeEndPointPath,
         BaseService service,
         Dictionary<string, string> formData,
-        Dictionary<string, ByteArrayContent> files,
-        Action<string> logAction = null) where T : BaseResponse
+        Dictionary<string, ByteArrayContent> files) where T : BaseResponse
     {
+        formData ??= new Dictionary<string, string>();
+
         // Get URL to query
         string apiURL;
         {
@@ -36,8 +37,6 @@ internal static class Request
                 relativeEndPointPath = "/" + relativeEndPointPath;
             apiURL = service.APIHost + relativeEndPointPath;
         }
-
-        logAction?.Invoke("API URL: " + apiURL);
 
         string json;
         using (var formContent = new MultipartFormDataContent())
@@ -48,15 +47,15 @@ internal static class Request
             if (service.SessionKey != null)
                 formContent.Add(new StringContent(service.SessionKey.Key), "sessionKey");
             formContent.Add(new StringContent(service.GameID.ToString()), "gameID");
-            if (formData != null)
-            {
-                service.AddServiceSpecificFormData(formData);
-                foreach (var kvp in formData)
-                {
-                    formContent.Add(new StringContent(kvp.Value), kvp.Key);
-                }
-            }
 
+            service.AddServiceSpecificFormData(formData);
+
+            foreach (var kvp in formData)
+            {
+                // Null values can't be added here
+                formContent.Add(new StringContent(kvp.Value), kvp.Key ?? string.Empty);
+            }
+            
             var i = 0;
             foreach (var file in files)
             {
@@ -70,8 +69,6 @@ internal static class Request
                 i++;
             }
             
-            logAction?.Invoke("formContent");
-
             try
             {
                 // Accept self-signed
@@ -83,20 +80,9 @@ internal static class Request
                         ServerCertificateCustomValidationCallback = (_, _, _, _) => true
                     };
 
-                    logAction?.Invoke("handler");
-
                     using var httpClient = new HttpClient(handler);
-
-                    
-                    logAction?.Invoke("httpClient");
-
-
                     using var response = await httpClient.PostAsync(apiURL, formContent);
-                    
-                    logAction?.Invoke("response");
                     json = await response.Content.ReadAsStringAsync();
-                    
-                    logAction?.Invoke("json: " + json);
                 }
                 else
                 {
