@@ -8,7 +8,6 @@ namespace ConstructServices.XP.Actions;
 
 public static partial class Bonuses
 {
-
     extension(XPService xpService)
     {        
         /// <summary>Deletes an existing XP Bonus object</summary>
@@ -35,7 +34,6 @@ public static partial class Bonuses
             );
         }
     }
-
     private static class DeleteXPBonusOptions
     {
         internal static Dictionary<string, string> BuildFormData(Guid bonusID)

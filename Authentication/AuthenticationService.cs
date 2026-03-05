@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 
 namespace ConstructServices.Authentication;
-
 public abstract class AuthenticationServiceBase : BaseService
 {
     internal AuthenticationServiceBase(Guid gameID) : base(gameID, Config.APIDomain)

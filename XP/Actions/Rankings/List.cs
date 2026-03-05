@@ -6,7 +6,7 @@ using JetBrains.Annotations;
 namespace ConstructServices.XP.Actions;
 public static partial class Rankings
 {        
-    extension(XPService xpService)
+    extension(XPServiceBase xpService)
     {
         /// <summary>
         /// List all existing XP Rank objects

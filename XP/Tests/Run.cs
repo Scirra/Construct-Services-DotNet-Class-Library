@@ -50,9 +50,11 @@ public static class Run
                 new Bonuses.CreateXPBonusOptions(
                     DateTime.UtcNow.AddDays(1),
                     DateTime.UtcNow.AddDays(7),
-                    (decimal)2.5,
-                    "Test Bonus",
-                    "Test bonus description")
+                    (decimal)2.5)
+                {
+                    Title = "Test Bonus",
+                    Description = "Test Description"
+                }
             );
             results[nameof(XPTest.CreateBonus)] = new TestResult(createResult, sw);
             

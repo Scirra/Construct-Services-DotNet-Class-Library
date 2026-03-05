@@ -39,6 +39,35 @@ public static partial class XP
             );
         }
     }
+
+    extension(PlayerXPService xpService)
+    {
+        /// <summary>
+        /// Get XP value, current rank and next rank
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/xp/get-xp" />
+        [UsedImplicitly]
+        public XPResponse GetXP()
+        {
+            return Request.ExecuteSyncRequest<XPResponse>(
+                Config.EndPointPaths.XP.Get,
+                xpService
+            );
+        }
+
+        /// <summary>
+        /// Get XP value, current rank and next rank
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/xp/get-xp" />
+        [UsedImplicitly]
+        public async Task<XPResponse> GetXPAsync()
+        {
+            return await Request.ExecuteAsyncRequest<XPResponse>(
+                Config.EndPointPaths.XP.Get,
+                xpService
+            );
+        }
+    }
     
     private static class GetXPOptions
     { 

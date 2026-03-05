@@ -7,7 +7,7 @@ namespace ConstructServices.XP.Actions;
 
 public static partial class Bonuses
 {
-    extension(XPService xpService)
+    extension(XPServiceBase xpService)
     {
         /// <summary>Retrieve all active XP bonuses</summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/bonuses/list-active" />

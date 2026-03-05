@@ -5,23 +5,30 @@ using System.Collections.Generic;
 
 namespace ConstructServices.XP;
 
-[UsedImplicitly]
-public class XPService : BaseService
+
+public abstract class XPServiceBase : BaseService
 {
-    /// <summary>
-    /// Create new service instance for requests that do not require any authentication
-    /// </summary>
-    /// <param name="gameID">ID of the game to run requests against</param>
-    public XPService(Guid gameID) : base(gameID, Config.APIDomain) { }
-    
-    /// <summary>
-    /// Create a new service instance for requests authenticated with a secret API key
-    /// </summary>
-    /// <param name="gameID">ID of the game to run requests against</param>
-    /// <param name="aPIKey">Your games secret API key</param>
-    public XPService(Guid gameID, SecretAPIKey aPIKey) : base(gameID, Config.APIDomain, aPIKey, null) { }
+    internal XPServiceBase(Guid gameID) : base(gameID, Config.APIDomain)
+    {
+    }
+    internal XPServiceBase(Guid gameID, SecretAPIKey aPiKey, SessionKey sessionKey) : base(gameID, Config.APIDomain, aPiKey, sessionKey)
+    {
+    }
 
     internal override void AddServiceSpecificFormData(Dictionary<string, string> formData)
     {
     }
+}
+
+[UsedImplicitly]
+public sealed class XPService : XPServiceBase
+{
+    public XPService(Guid gameID) : base(gameID) { }
+    public XPService(Guid gameID, SecretAPIKey aPIKey) : base(gameID, aPIKey, null) { }
+}
+
+[UsedImplicitly]
+public sealed class PlayerXPService : XPServiceBase
+{
+    public PlayerXPService(Guid gameID, SessionKey sessionKey) : base(gameID, null, sessionKey) { }
 }

@@ -45,17 +45,20 @@ public static partial class Bonuses
     public sealed class CreateXPBonusOptions(
         DateTime startDate,
         DateTime endDate,
-        decimal modifier,
-        string title,
-        string description,
-        string languageISO = null)
+        decimal modifier)
     {
         private DateTime Start { get;} = startDate;
         private DateTime End { get; } = endDate;
-        private string Title { get;  } = title;
-        private string Description { get; } = description;
-        private string LanguageISO { get; } = languageISO;
         private decimal Modifier { get; } = modifier;
+
+        [UsedImplicitly]
+        public string Title { private get; set; }
+
+        [UsedImplicitly]
+        public string Description { private get; set; }
+
+        [UsedImplicitly]
+        public string LanguageISO { private get; set; }
 
         internal Dictionary<string, string> BuildFormData()
         {

@@ -45,16 +45,16 @@ public static partial class Rankings
     {
 
         [UsedImplicitly]
-        public long? AtXP { get; set; }
+        public long? AtXP { private get; set; }
 
         [UsedImplicitly]
-        public string Title { get; set; }
+        public string Title { private get; set; }
 
         [UsedImplicitly]
-        public string Description { get; set; }
+        public string Description { private get; set; }
 
         [UsedImplicitly]
-        public string LanguageISO { get; set; }
+        public string LanguageISO { private get; set; }
 
         internal Dictionary<string, string> BuildFormData(Guid rankID)
         {

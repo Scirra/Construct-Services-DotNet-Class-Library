@@ -43,15 +43,17 @@ public static partial class Rankings
     {    
         private string Title { get; }
         private string Description { get; }
-        private string LanguageISO { get; }
-        private long AtXP { get; }
+
+        [UsedImplicitly]
+        public string LanguageISO { private get; set; }
+
+        [UsedImplicitly]
+        public long AtXP { private get; set; }
     
-        public CreateXPRankOptions(long atXP, string title, string description, string languageISO = null)
+        public CreateXPRankOptions(long atXP, string title)
         {
             AtXP = atXP;
             Title = title;
-            Description = description;
-            LanguageISO = languageISO;
         }
         public CreateXPRankOptions(string strAtXP, string title, string description, string languageISO = null)
         {
