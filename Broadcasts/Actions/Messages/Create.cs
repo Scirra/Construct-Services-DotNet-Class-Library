@@ -4,6 +4,7 @@ using ConstructServices.Broadcasts.Responses;
 using ConstructServices.Common;
 using JetBrains.Annotations;
 using System.Threading.Tasks;
+using ConstructServices.Common.Languages;
 
 namespace ConstructServices.Broadcasts.Actions;
 
@@ -53,8 +54,20 @@ public static partial class Messages
         public string Title { private get; set; } = title;
 
         [UsedImplicitly]
-        public string LanguageISO { private get; set; }
-    
+        public string LanguageISO {
+            private get;
+            set
+            {
+                if (!Common.Validations.Languages.IsValidSourceLanguage(value))
+                    throw new InvalidSourceLanguageException();
+                field = value;
+            }
+        }
+
+        [UsedImplicitly]
+        public SourceLanguage Language {
+            set => LanguageISO = value.ISO();
+        }
         public CreateMessageOptions(
             Guid channelID,
             string text) : this(channelID, null, text)

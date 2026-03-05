@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
-using ConstructServices.Common;
+﻿using ConstructServices.Common;
+using ConstructServices.Common.Languages;
 using ConstructServices.XP.Responses;
 using JetBrains.Annotations;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ConstructServices.XP.Actions;
@@ -39,13 +40,28 @@ public static partial class Rankings
     }
 
     [UsedImplicitly]
-    public sealed class CreateXPRankOptions(long strAtXp, string title, string description = null, string languageISO = null)
+    public sealed class CreateXPRankOptions(long strAtXp, string title)
     {    
         private string Title { get; } = title;
-        private string Description { get; } = description;
 
         [UsedImplicitly]
-        public string LanguageISO { private get; set; } = languageISO;
+        public string Description { private get; set; }
+
+        [UsedImplicitly]
+        public string LanguageISO {
+            private get;
+            set
+            {
+                if (!Common.Validations.Languages.IsValidSourceLanguage(value))
+                    throw new InvalidSourceLanguageException();
+                field = value;
+            }
+        }
+
+        [UsedImplicitly]
+        public SourceLanguage Language {
+            set => LanguageISO = value.ISO();
+        }
 
         [UsedImplicitly]
         public long AtXP { private get; set; } = strAtXp;

@@ -1,9 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using ConstructServices.Common;
+﻿using ConstructServices.Common;
+using ConstructServices.Common.Languages;
 using ConstructServices.XP.Responses;
 using JetBrains.Annotations;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Threading.Tasks;
 
 namespace ConstructServices.XP.Actions;
@@ -58,8 +59,20 @@ public static partial class Bonuses
         public string Description { private get; set; }
 
         [UsedImplicitly]
-        public string LanguageISO { private get; set; }
+        public string LanguageISO {
+            private get;
+            set
+            {
+                if (!Common.Validations.Languages.IsValidSourceLanguage(value))
+                    throw new InvalidSourceLanguageException();
+                field = value;
+            }
+        }
 
+        [UsedImplicitly]
+        public SourceLanguage Language {
+            set => LanguageISO = value.ISO();
+        }
         internal Dictionary<string, string> BuildFormData()
         {
             var formData = new Dictionary<string, string>

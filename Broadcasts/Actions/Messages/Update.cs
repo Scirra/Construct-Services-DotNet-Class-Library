@@ -4,6 +4,7 @@ using ConstructServices.Broadcasts.Responses;
 using JetBrains.Annotations;
 using System.Threading.Tasks;
 using ConstructServices.Common;
+using ConstructServices.Common.Languages;
 
 namespace ConstructServices.Broadcasts.Actions;
 
@@ -50,8 +51,20 @@ public static partial class Messages
         public string Text { get; set; }
 
         [UsedImplicitly]
-        public string LanguageISO { get; set; }
-    
+        public string LanguageISO {
+            private get;
+            set
+            {
+                if (!Common.Validations.Languages.IsValidSourceLanguage(value))
+                    throw new InvalidSourceLanguageException();
+                field = value;
+            }
+        }
+
+        [UsedImplicitly]
+        public SourceLanguage Language {
+            set => LanguageISO = value.ISO();
+        }
         internal Dictionary<string, string> BuildFormData(Guid messageID)
         {
             var formData = new Dictionary<string, string>

@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using ConstructServices.Common.Languages;
 
 namespace ConstructServices.Broadcasts.Tests;
 
@@ -80,8 +81,12 @@ public static class Run
                 {
                     sw.Restart();
                     var createDimensionResult = service.CreateRatingDimension(
-                        new Dimensions.CreateBroadcastChannelRatingDimensionOptions(channel.ID, 100, "dimension",
-                            "Title", "Description"));
+                        new Dimensions.CreateBroadcastChannelRatingDimensionOptions(channel.ID, 100)
+                        {
+                            ID = "testdimension",
+                            Language = SourceLanguage.Arabic,
+                            Title = "Test Title"
+                        });
                     results[nameof(BroadcastTest.CreateRatingDimension)] = new TestResult(createDimensionResult, sw);
 
                     if (createDimensionResult.Success)

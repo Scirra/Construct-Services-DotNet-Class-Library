@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using ConstructServices.Broadcasts.Responses;
 using ConstructServices.Common;
+using ConstructServices.Common.Languages;
 using JetBrains.Annotations;
 
 namespace ConstructServices.Broadcasts.Actions;
@@ -41,14 +42,27 @@ public static partial class Channels
 
     [UsedImplicitly]
     public sealed class CreateChannelOptions(string name)
-    {    
+    {
         private string Name { get; } = name;
 
         [UsedImplicitly]
         public string Description { private get; set; }
+        
+        [UsedImplicitly]
+        public string LanguageISO {
+            private get;
+            set
+            {
+                if (!Common.Validations.Languages.IsValidSourceLanguage(value))
+                    throw new InvalidSourceLanguageException();
+                field = value;
+            }
+        }
 
         [UsedImplicitly]
-        public string LanguageISO { private get; set; }
+        public SourceLanguage Language {
+            set => LanguageISO = value.ISO();
+        }
 
         [UsedImplicitly]
         public bool AllowRatings { private get; set; }

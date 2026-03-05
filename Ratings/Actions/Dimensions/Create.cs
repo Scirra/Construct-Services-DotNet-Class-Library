@@ -6,6 +6,7 @@ using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ConstructServices.Common.Languages;
 
 namespace ConstructServices.Ratings.Actions;
 
@@ -41,44 +42,40 @@ public static partial class Dimensions
         private Thing ForThing { get; }
         private Guid ForThingID { get; }
         private byte MaxRating { get; }
-        private string ID { get;  }
-        private string Title { get; }
-        private string Description { get; }
-        private string LanguageISO { get; }
+
+        [UsedImplicitly]
+        public string ID { private get; set; }
+        
+        [UsedImplicitly]
+        public string Title { private get; set; }
+
+        [UsedImplicitly]
+        public string Description { private get; set; }
+
+        [UsedImplicitly]
+        public string LanguageISO {
+            private get;
+            set
+            {
+                if (!Common.Validations.Languages.IsValidSourceLanguage(value))
+                    throw new InvalidSourceLanguageException();
+                field = value;
+            }
+        }
+
+        [UsedImplicitly]
+        public SourceLanguage Language {
+            set => LanguageISO = value.ISO();
+        }
 
         protected CreateRatingDimensionOptions(
             Thing forThing,
             Guid forThingID,
-            byte maxRating,
-            string id,
-            string title,
-            string description,
-            string languageISO = null)
+            byte maxRating)
         {
             ForThing = forThing;
             ForThingID = forThingID;
             MaxRating = maxRating;
-            ID = id;
-            Title = title;
-            Description = description;
-            LanguageISO = languageISO;
-        }
-        protected CreateRatingDimensionOptions(
-            Thing forThing,
-            string strForThingID,
-            byte maxRating,
-            string id,
-            string title,
-            string description,
-            string languageISO = null)
-        {
-            ForThing = forThing;
-            ForThingID = Guid.Parse(strForThingID);
-            MaxRating = maxRating;
-            ID = id;
-            Title = title;
-            Description = description;
-            LanguageISO = languageISO;
         }
 
         protected internal Dictionary<string, string> BuildFormData()
@@ -102,36 +99,16 @@ public static partial class Dimensions
         [UsedImplicitly]
         public CreateBroadcastChannelRatingDimensionOptions(
             Channel channel,
-            byte maxRating,
-            string id,
-            string title,
-            string description,
-            string languageISO = null) 
-            : base(Thing.BroadcastChannel, channel.ID, maxRating, id, title, description, languageISO)
+            byte maxRating) 
+            : base(Thing.BroadcastChannel, channel.ID, maxRating)
         {
         }
 
         [UsedImplicitly]
         public CreateBroadcastChannelRatingDimensionOptions(
             Guid channelID,
-            byte maxRating,
-            string id,
-            string title,
-            string description,
-            string languageISO = null) 
-            : base(Thing.BroadcastChannel, channelID, maxRating, id, title, description, languageISO)
-        {
-        }
-
-        [UsedImplicitly]
-        public CreateBroadcastChannelRatingDimensionOptions(
-            string channelID,
-            byte maxRating,
-            string id,
-            string title,
-            string description,
-            string languageISO = null) 
-            : base(Thing.BroadcastChannel, channelID, maxRating, id, title, description, languageISO)
+            byte maxRating) 
+            : base(Thing.BroadcastChannel, channelID, maxRating)
         {
         }
     }
@@ -140,36 +117,16 @@ public static partial class Dimensions
         [UsedImplicitly]
         public CreateCloudSaveBucketRatingDimensionOptions(
             Bucket bucket,
-            byte maxRating,
-            string id,
-            string title,
-            string description,
-            string languageISO = null) 
-            : base(Thing.BroadcastChannel, bucket.ID, maxRating, id, title, description, languageISO)
+            byte maxRating) 
+            : base(Thing.BroadcastChannel, bucket.ID, maxRating)
         {
         }
 
         [UsedImplicitly]
         public CreateCloudSaveBucketRatingDimensionOptions(
             Guid bucketID,
-            byte maxRating,
-            string id,
-            string title,
-            string description,
-            string languageISO = null) 
-            : base(Thing.BroadcastChannel, bucketID, maxRating, id, title, description, languageISO)
-        {
-        }
-
-        [UsedImplicitly]
-        public CreateCloudSaveBucketRatingDimensionOptions(
-            string bucketID,
-            byte maxRating,
-            string id,
-            string title,
-            string description,
-            string languageISO = null) 
-            : base(Thing.BroadcastChannel, bucketID, maxRating, id, title, description, languageISO)
+            byte maxRating) 
+            : base(Thing.BroadcastChannel, bucketID, maxRating)
         {
         }
     }

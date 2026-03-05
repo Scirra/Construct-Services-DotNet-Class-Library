@@ -1,8 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using ConstructServices.Broadcasts.Responses;
+﻿using ConstructServices.Broadcasts.Responses;
 using ConstructServices.Common;
+using ConstructServices.Common.Languages;
 using JetBrains.Annotations;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ConstructServices.Broadcasts.Actions;
@@ -50,7 +51,20 @@ public static partial class Channels
         public string Description { private get; [UsedImplicitly] set; }
 
         [UsedImplicitly]
-        public string LanguageISO { private get; [UsedImplicitly] set; }
+        public string LanguageISO {
+            private get;
+            set
+            {
+                if (!Common.Validations.Languages.IsValidSourceLanguage(value))
+                    throw new InvalidSourceLanguageException();
+                field = value;
+            }
+        }
+
+        [UsedImplicitly]
+        public SourceLanguage Language {
+            set => LanguageISO = value.ISO();
+        }
 
         [UsedImplicitly]
         public bool? AllowRatings { private get; [UsedImplicitly] set; }

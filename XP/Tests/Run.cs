@@ -106,7 +106,10 @@ public static class Run
         {
             sw.Restart();
             var atXp = new Random().Next(0, int.MaxValue);
-            var createResult = service.CreateRank(new Rankings.CreateXPRankOptions(atXp, "Test", "My rank"));
+            var createResult = service.CreateRank(new Rankings.CreateXPRankOptions(atXp, "Test")
+            {
+                Description = "My test description"
+            });
             results[nameof(XPTest.CreateRank)] = new TestResult(createResult, sw);
 
             if (createResult.Success)

@@ -1,4 +1,5 @@
 ﻿using ConstructServices.Common;
+using ConstructServices.Common.Languages;
 using ConstructServices.Ratings.Responses;
 using JetBrains.Annotations;
 using System;
@@ -43,16 +44,29 @@ public static partial class Dimensions
         private Thing ForThing { get; }
         
         [UsedImplicitly]
-        public byte? MaxRating { get; set; }
+        public byte? MaxRating { private get; set; }
         
         [UsedImplicitly]
-        public string Title { get; set; }
+        public string Title { private get; set; }
 
         [UsedImplicitly]
-        public string Description { get; set; }
+        public string Description { private get; set; }
 
         [UsedImplicitly]
-        public string LanguageISO { get; set; }
+        public string LanguageISO {
+            private get;
+            set
+            {
+                if (!Common.Validations.Languages.IsValidSourceLanguage(value))
+                    throw new InvalidSourceLanguageException();
+                field = value;
+            }
+        }
+
+        [UsedImplicitly]
+        public SourceLanguage Language {
+            set => LanguageISO = value.ISO();
+        }
 
         internal UpdateRatingDimensionBase(Thing forThing)
         {
