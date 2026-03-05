@@ -55,9 +55,9 @@ public static partial class Rankings
             AtXP = atXP;
             Title = title;
         }
-        public CreateXPRankOptions(string strAtXP, string title, string description, string languageISO = null)
+        public CreateXPRankOptions(long strAtXP, string title, string description, string languageISO = null)
         {
-            AtXP = long.Parse(strAtXP);
+            AtXP = strAtXP;
             Title = title;
             Description = description;
             LanguageISO = languageISO;
