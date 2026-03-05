@@ -52,7 +52,7 @@ public static partial class Players
         [UsedImplicitly]
         public PlayerOrdering? Ordering { private get; set; }
 
-        internal ListPlayersOptions() { }
+        public ListPlayersOptions() { }
         internal ListPlayersOptions(Guid playerID)
         {
             PlayerIDs = [playerID];
