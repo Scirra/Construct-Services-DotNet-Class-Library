@@ -22,7 +22,7 @@ public static partial class Scores
         {
             var formData = createScoreOptions.BuildFormData(service.LeaderboardID);
 
-            LeaderboardService.AddRequestPerspectiveFormData(requestPerspective, formData);
+            service.AddRequestPerspectiveFormData(requestPerspective, formData);
 
             return Request.ExecuteSyncRequest<CreateScoreResponse>(
                 Config.EndPointPaths.Scores.Create,
@@ -42,7 +42,7 @@ public static partial class Scores
         {
             var formData = createScoreOptions.BuildFormData(service.LeaderboardID);
 
-            LeaderboardService.AddRequestPerspectiveFormData(requestPerspective, formData);
+            service.AddRequestPerspectiveFormData(requestPerspective, formData);
 
             return await Request.ExecuteAsyncRequest<CreateScoreResponse>(
                 Config.EndPointPaths.Scores.Create,

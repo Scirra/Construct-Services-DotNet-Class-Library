@@ -22,7 +22,7 @@ public static partial class Scores
             RequestPerspective requestPerspective = null)
         {
             var formData = listPlayerScoreNeighboursOptions.BuildPlayerFormData(playerID);
-            LeaderboardService.AddRequestPerspectiveFormData(requestPerspective, formData);
+            service.AddRequestPerspectiveFormData(requestPerspective, formData);
 
             return Request.ExecuteSyncRequest<ScoresResponse>(
                 Config.EndPointPaths.Scores.ListScoreNeighbours,
@@ -42,7 +42,7 @@ public static partial class Scores
             RequestPerspective requestPerspective = null)
         {
             var formData = listPlayerScoreNeighboursOptions.BuildPlayerFormData(playerID);
-            LeaderboardService.AddRequestPerspectiveFormData(requestPerspective, formData);
+            service.AddRequestPerspectiveFormData(requestPerspective, formData);
 
             return await Request.ExecuteAsyncRequest<ScoresResponse>(
                 Config.EndPointPaths.Scores.ListScoreNeighbours,
@@ -62,7 +62,7 @@ public static partial class Scores
             RequestPerspective requestPerspective = null)
         {
             var formData = listScoreNeighboursOptions.BuildScoreIDFormData(scoreID);
-            LeaderboardService.AddRequestPerspectiveFormData(requestPerspective, formData);
+            service.AddRequestPerspectiveFormData(requestPerspective, formData);
 
             return Request.ExecuteSyncRequest<ScoresResponse>(
                 Config.EndPointPaths.Scores.ListScoreNeighbours,
@@ -82,7 +82,7 @@ public static partial class Scores
             RequestPerspective requestPerspective = null)
         {
             var formData = listScoreNeighboursOptions.BuildScoreIDFormData(scoreID);
-            LeaderboardService.AddRequestPerspectiveFormData(requestPerspective, formData);
+            service.AddRequestPerspectiveFormData(requestPerspective, formData);
 
             return await Request.ExecuteAsyncRequest<ScoresResponse>(
                 Config.EndPointPaths.Scores.ListScoreNeighbours,
