@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace ConstructServices.CloudSave.Actions;
 
-public sealed class GetBucketCloudSaveFilters
+public sealed class ListBucketCloudSaveFilters
 {
     public string Name { get; [UsedImplicitly] set; }
     public string Key { get; [UsedImplicitly] set; }

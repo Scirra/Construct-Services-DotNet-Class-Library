@@ -9,7 +9,7 @@ namespace ConstructServices.CloudSave.Actions;
 
 public static partial class Buckets
 {
-    extension(CloudSaveService service)
+    extension(CloudSaveServiceBase service)
     {
         /// <summary>
         /// List all CloudSave Buckets

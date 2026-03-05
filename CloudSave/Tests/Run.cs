@@ -78,7 +78,7 @@ public static class Run
 
                 {
                     sw.Restart();
-                    var result = service.ListCloudSaves(bucket.ID, new Buckets.ListBucketSavesOptions(GetBucketCloudSaveSortMethod.NameAZ), new PaginationOptions(1, 10));
+                    var result = service.ListCloudSaves(bucket.ID, new Buckets.ListBucketSavesOptions(ListBucketCloudSaveSortMethod.NameAZ), new PaginationOptions(1, 10));
                     results[nameof(CloudSaveTest.ListBucketSaves)] = new TestResult(result, sw);
                 }
 
@@ -93,7 +93,7 @@ public static class Run
                     const string testSaveKey = "my.save.key.1";
                     sw.Restart();
 
-                    var saveResult = service.CreateCloudSave(new Saves.CreateCloudSaveOptions(bucket.ID, data, "my-save-1", testSaveKey));
+                    var saveResult = service.CreateCloudSave(new Saves.CreateCloudSaveOptions(bucket.ID, testSaveKey, data));
                     results[nameof(CloudSaveTest.CreateSave)] = new TestResult(saveResult, sw);
 
                     if (saveResult.Success)
@@ -101,13 +101,13 @@ public static class Run
                         var save = saveResult.Blob;
                         {
                             sw.Restart();
-                            var result = service.GetByID(new Saves.GetCloudSaveByIDOptions(save.ID));
+                            var result = service.GetByID(save.ID);
                             results[nameof(CloudSaveTest.GetByID)] = new TestResult(result, sw);
                         }
 
                         {
                             sw.Restart();
-                            var result = service.GetByKey(new Saves.GetCloudSaveByKeyOptions(testSaveKey, bucket.ID));
+                            var result = service.GetByKey(bucket.ID, testSaveKey);
                             results[nameof(CloudSaveTest.GetByKey)] = new TestResult(result, sw);
                         }
 
@@ -126,19 +126,19 @@ public static class Run
 
                         {
                             sw.Restart();
-                            var result = service.SetPicture(new Saves.SetCloudSavePictureOptions(save.ID, new PictureData(new Uri("https://construct-static.com/images/v1746/r/global/construct-3-logo_v64.png", UriKind.Absolute))));
+                            var result = service.SetPicture(save.ID, new PictureData(new Uri("https://construct-static.com/images/v1746/r/global/construct-3-logo_v64.png", UriKind.Absolute)));
                             results[nameof(CloudSaveTest.SetPicture)] = new TestResult(result, sw);
                         }
 
                         {
                             sw.Restart();
-                            var result = service.DeletePicture(new Saves.DeleteCloudSavePictureOptions(save.ID));
+                            var result = service.DeletePicture(save.ID);
                             results[nameof(CloudSaveTest.DeletePicture)] = new TestResult(result, sw);
                         }
 
                         {
                             sw.Restart();
-                            var result = service.DeleteCloudSave(new Saves.DeleteCloudSaveOptions(save.ID));
+                            var result = service.DeleteCloudSave(save.ID);
                             results[nameof(CloudSaveTest.DeleteSave)] = new TestResult(result, sw);
                         }
                     }

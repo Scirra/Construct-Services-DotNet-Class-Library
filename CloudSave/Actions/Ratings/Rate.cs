@@ -7,7 +7,7 @@ namespace ConstructServices.CloudSave.Actions;
 
 public static partial class Ratings
 {
-    extension(CloudSaveService service)
+    extension(PlayerCloudSaveService service)
     {
         /// <summary>
         /// Rate a CloudSave

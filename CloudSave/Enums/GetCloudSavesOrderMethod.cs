@@ -11,7 +11,7 @@ public enum GetPlayerCloudSaveSortMethod
     [UsedImplicitly] Newest,
     [UsedImplicitly] Oldest
 }
-public enum GetBucketCloudSaveSortMethod
+public enum ListBucketCloudSaveSortMethod
 {
     [UsedImplicitly] NameAZ,
     [UsedImplicitly] NameZA,

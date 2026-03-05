@@ -11,7 +11,7 @@ namespace ConstructServices.CloudSave.Actions;
 
 public static partial class Buckets
 {
-    extension(CloudSaveService service)
+    extension(CloudSaveServiceBase service)
     {        
         /// <summary>
         /// List all Saves in a CloudSave Bucket
@@ -52,11 +52,11 @@ public static partial class Buckets
     
     [UsedImplicitly]
     public sealed class ListBucketSavesOptions(
-        GetBucketCloudSaveSortMethod sortBy,
-        GetBucketCloudSaveFilters filters = null)
+        ListBucketCloudSaveSortMethod sortBy,
+        ListBucketCloudSaveFilters filters = null)
     {
-        private GetBucketCloudSaveSortMethod? SortBy { get; } = sortBy;
-        private GetBucketCloudSaveFilters Filters { get; } = filters;
+        private ListBucketCloudSaveSortMethod? SortBy { get; } = sortBy;
+        private ListBucketCloudSaveFilters Filters { get; } = filters;
 
         internal Dictionary<string, string> BuildFormData(Guid bucketID)
         {

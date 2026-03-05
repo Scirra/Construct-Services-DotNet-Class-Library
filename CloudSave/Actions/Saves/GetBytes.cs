@@ -7,7 +7,7 @@ namespace ConstructServices.CloudSave.Actions;
 
 public static partial class Saves
 {
-    extension(CloudSaveService service)
+    extension(CloudSaveServiceBase service)
     {        
         /// <summary>
         /// Get an existing Cloud Saves data

@@ -7,7 +7,7 @@ namespace ConstructServices.CloudSave.Actions;
 
 public static partial class Ratings
 {
-    extension(CloudSaveService service)
+    extension(CloudSaveServiceBase service)
     {
         /// <summary>
         /// List all Rating Dimensions on a CloudSave Bucket

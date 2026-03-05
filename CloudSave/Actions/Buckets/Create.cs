@@ -44,17 +44,20 @@ public static partial class Buckets
     public sealed class CreateBucketOptions(
         string name,
         CloudSaveBucketAccessMode accessMode,
-        bool allowRatings = true,
-        uint? maxSaves = null,
-        uint? maxSaveSizeBytes = null,
-        uint? maxSavesPerPlayer = null)
+        bool allowRatings = true)
     { 
         private string Name { get; } = name;
         private CloudSaveBucketAccessMode AccessMode { get; } = accessMode;
         private bool AllowRatings { get; } = allowRatings;
-        private uint? MaxSaves { get; } = maxSaves;
-        private uint? MaxSaveSizeBytes { get; } = maxSaveSizeBytes;
-        private uint? MaxSavesPerPlayer { get; } = maxSavesPerPlayer;
+
+        [UsedImplicitly]
+        public uint? MaxSaves { private get; set; } 
+
+        [UsedImplicitly]
+        public uint? MaxSaveSizeBytes { private get; set; }
+
+        [UsedImplicitly]
+        public uint? MaxSavesPerPlayer { private get; set; }
 
         internal Dictionary<string, string> BuildFormData()
         {

@@ -44,22 +44,22 @@ public static partial class Buckets
     public sealed class UpdateBucketOptions
     {    
         [UsedImplicitly]
-        public string Name { get; set; }
+        public string Name { private get; set; }
 
         [UsedImplicitly]
-        public CloudSaveBucketAccessMode AccessMode { get; set; }
+        public CloudSaveBucketAccessMode AccessMode { private get; set; }
 
         [UsedImplicitly]
-        public bool AllowRatings { get; set; }
+        public bool AllowRatings { private get; set; }
 
         [UsedImplicitly]
-        public uint? MaxSaves { get; set; }
+        public uint? MaxSaves { private get; set; }
 
         [UsedImplicitly]
-        public uint? MaxSaveSizeBytes { get; set; }
+        public uint? MaxSaveSizeBytes { private get; set; }
 
         [UsedImplicitly]
-        public uint? MaxSavesPerPlayer { get; set; }
+        public uint? MaxSavesPerPlayer { private get; set; }
         
         internal Dictionary<string, string> BuildFormData(Guid bucketID)
         {

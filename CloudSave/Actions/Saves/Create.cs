@@ -1,5 +1,4 @@
-﻿using ConstructServices.CloudSave.Objects;
-using ConstructServices.CloudSave.Responses;
+﻿using ConstructServices.CloudSave.Responses;
 using ConstructServices.Common;
 using JetBrains.Annotations;
 using System;
@@ -11,7 +10,7 @@ namespace ConstructServices.CloudSave.Actions;
 
 public static partial class Saves
 {
-    extension(CloudSaveService service)
+    extension(CloudSaveServiceBase service)
     {        
         /// <summary>
         /// Creates a new Cloud Save
@@ -49,101 +48,29 @@ public static partial class Saves
     [UsedImplicitly]
     public sealed class CreateCloudSaveOptions
     {    
-        private Guid? BucketID { get; }
-        private string SessionKey { get; }
-        private string Name { get; }
         private string Key { get; }
         private ByteArrayContent Data { get; }
-        private PictureData Picture { get; }
+
+        [UsedImplicitly]
+        public Guid? BucketID { private get; set; }
+
+        [UsedImplicitly]
+        public string Name { private get; set; }
+
+        [UsedImplicitly]
+        public PictureData Picture { private get; set; }
         
-        /// <summary>
-        /// Create a save in an existing bucket with no player association
-        /// </summary>
-        public CreateCloudSaveOptions(
-            Guid bucketID,
-            byte[] data,
-            string name,
-            string key,
-            PictureData picture = null)
+        public CreateCloudSaveOptions(Guid bucketID, string key, byte[] data)
         {
             BucketID = bucketID;
+            Key = key;   
             Data = new ByteArrayContent(data);
-            Name = name;
-            Key = key;
-            Picture = picture;
-        }    
-
-        /// <summary>
-        /// Create a save in an existing bucket with no player association
-        /// </summary>
-        public CreateCloudSaveOptions(
-            Bucket bucket,
-            byte[] data,
-            string name,
-            string key,
-            PictureData picture = null)
-        {
-            BucketID = bucket.ID;
-            Data = new ByteArrayContent(data);
-            Name = name;
-            Key = key;
-            Picture = picture;
-        }    
-
-        /// <summary>
-        /// Create a player save in an existing bucket
-        /// </summary>
-        public CreateCloudSaveOptions(
-            string sessionKey,
-            Guid bucketID,
-            byte[] data,
-            string name,
-            string key,
-            PictureData picture = null)
-        {
-            SessionKey = sessionKey;
-            BucketID = bucketID;
-            Data = new ByteArrayContent(data);
-            Name = name;
-            Key = key;
-            Picture = picture;
-        }    
-
-        /// <summary>
-        /// Create a player save in an existing bucket
-        /// </summary>
-        public CreateCloudSaveOptions(
-            string sessionKey,
-            string strBucketID,
-            byte[] data,
-            string name,
-            string key,
-            PictureData picture = null)
-        {
-            SessionKey = sessionKey;
-            BucketID = Guid.Parse(strBucketID);
-            Data = new ByteArrayContent(data);
-            Name = name;
-            Key = key;
-            Picture = picture;
         }
-
-        /// <summary>
-        /// Create a private save in a players account
-        /// </summary>
-        public CreateCloudSaveOptions(
-            string sessionKey,
-            byte[] data,
-            string name,
-            string key,
-            PictureData picture = null)
+        public CreateCloudSaveOptions(string key, byte[] data)
         {
-            SessionKey = sessionKey;
+            Key = key;   
             Data = new ByteArrayContent(data);
-            Name = name;
-            Key = key;
-            Picture = picture;
-        }    
+        }
 
         internal Dictionary<string, string> BuildFormData()
         {
@@ -155,10 +82,6 @@ public static partial class Saves
             if (BucketID.HasValue)
             {
                 formData.Add("bucketID", BucketID.Value.ToString());
-            }
-            if (!string.IsNullOrWhiteSpace(SessionKey))
-            {
-                formData.Add("sessionKey", SessionKey);
             }
             if (Picture != null)
             {
