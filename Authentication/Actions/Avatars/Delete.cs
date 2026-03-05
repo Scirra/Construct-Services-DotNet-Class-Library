@@ -17,7 +17,7 @@ public static partial class Avatars
         [UsedImplicitly]
         public BaseResponse DeleteAvatar(Guid playerID)
         {
-            if (!playerID.IsValidGuid()) return Validations.InvalidGuidResponse;
+            if (!playerID.IsValidGuid()) return new BaseResponse(Validations.InvalidGuidError);
 
             return Request.ExecuteSyncRequest<BaseResponse>(
                 Config.EndPointPaths.Avatars.DeleteAvatar,
@@ -33,7 +33,7 @@ public static partial class Avatars
         [UsedImplicitly]
         public async Task<BaseResponse> DeleteAvatarAsync(Guid playerID)
         {
-            if (!playerID.IsValidGuid()) return Validations.InvalidGuidResponse;
+            if (!playerID.IsValidGuid()) return new BaseResponse(Validations.InvalidGuidError);
 
             return await Request.ExecuteAsyncRequest<BaseResponse>(
                 Config.EndPointPaths.Avatars.DeleteAvatar,

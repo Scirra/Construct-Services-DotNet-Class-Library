@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using ConstructServices.Authentication.Objects;
 using ConstructServices.Authentication.Responses;
 using System.Threading.Tasks;
+using ConstructServices.Common;
 using JetBrains.Annotations;
 
 namespace ConstructServices.Authentication.Actions;
@@ -23,7 +24,7 @@ public static partial class Logins
                 LoginProvider.UsernamePassword =>
                     throw new Exception("Call Login(username, password) method instead."),
                 LoginProvider.Email => throw new Exception("Call Login(emailAddress) method instead."),
-                _ => Common.Request.ExecuteSyncRequest<LoginResponse>(Config.EndPointPaths.Logins.Login, service,
+                _ => Request.ExecuteSyncRequest<LoginResponse>(Config.EndPointPaths.Logins.Login, service,
                     LoginOptions.BuildFormData(provider, loginOptions))
             };
         }
@@ -40,7 +41,7 @@ public static partial class Logins
                 LoginProvider.UsernamePassword =>
                     throw new Exception("Call Login(username, password) method instead."),
                 LoginProvider.Email => throw new Exception("Call Login(emailAddress) method instead."),
-                _ => await Common.Request.ExecuteAsyncRequest<LoginResponse>(Config.EndPointPaths.Logins.Login,
+                _ => await Request.ExecuteAsyncRequest<LoginResponse>(Config.EndPointPaths.Logins.Login,
                     service, LoginOptions.BuildFormData(provider, loginOptions))
             };
         }
@@ -52,7 +53,13 @@ public static partial class Logins
         [UsedImplicitly]
         public LoginResponse Login(string username, string password, LoginOptions loginOptions = null)
         {
-            return Common.Request.ExecuteSyncRequest<LoginResponse>(
+            var usernameValidation = Validations.IsPasswordValid(username);
+            if (!usernameValidation.Valid) return new LoginResponse(usernameValidation.ErrorMessage);
+
+            var passwordValidation = Validations.IsPasswordValid(password);
+            if (!passwordValidation.Valid) return new LoginResponse(passwordValidation.ErrorMessage);
+
+            return Request.ExecuteSyncRequest<LoginResponse>(
                 Config.EndPointPaths.Logins.Login,
                 service,
                 LoginOptions.BuildFormData(username, password, loginOptions)
@@ -66,7 +73,13 @@ public static partial class Logins
         [UsedImplicitly]
         public async Task<LoginResponse> LoginAsync(string username, string password, LoginOptions loginOptions = null)
         {
-            return await Common.Request.ExecuteAsyncRequest<LoginResponse>(
+            var usernameValidation = Validations.IsPasswordValid(username);
+            if (!usernameValidation.Valid) return new LoginResponse(usernameValidation.ErrorMessage);
+
+            var passwordValidation = Validations.IsPasswordValid(password);
+            if (!passwordValidation.Valid) return new LoginResponse(passwordValidation.ErrorMessage);
+
+            return await Request.ExecuteAsyncRequest<LoginResponse>(
                 Config.EndPointPaths.Logins.Login,
                 service,
                 LoginOptions.BuildFormData(username, password, loginOptions)
@@ -80,7 +93,10 @@ public static partial class Logins
         [UsedImplicitly]
         public LoginResponse Login(string emailAddress, LoginOptions loginOptions = null)
         {
-            return Common.Request.ExecuteSyncRequest<LoginResponse>(
+            var emailValidation = Validations.IsEmailAddressValid(emailAddress);
+            if (!emailValidation.Valid) return new LoginResponse(emailValidation.ErrorMessage);
+
+            return Request.ExecuteSyncRequest<LoginResponse>(
                 Config.EndPointPaths.Logins.Login,
                 service,
                 LoginOptions.BuildFormData(emailAddress, loginOptions)
@@ -94,7 +110,10 @@ public static partial class Logins
         [UsedImplicitly]
         public async Task<LoginResponse> LoginAsync(string emailAddress, LoginOptions loginOptions = null)
         {
-            return await Common.Request.ExecuteAsyncRequest<LoginResponse>(
+            var emailValidation = Validations.IsEmailAddressValid(emailAddress);
+            if (!emailValidation.Valid) return new LoginResponse(emailValidation.ErrorMessage);
+
+            return await Request.ExecuteAsyncRequest<LoginResponse>(
                 Config.EndPointPaths.Logins.Login,
                 service,
                 LoginOptions.BuildFormData(emailAddress, loginOptions)

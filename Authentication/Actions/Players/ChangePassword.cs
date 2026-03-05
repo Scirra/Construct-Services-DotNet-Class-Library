@@ -18,6 +18,11 @@ public static partial class Players
         [UsedImplicitly]
         public BaseResponse ChangePassword(Guid playerID, string newPassword)
         {
+            if (!playerID.IsValidGuid()) return new BaseResponse(Validations.InvalidGuidError);
+
+            var passwordValidation = Validations.IsPasswordValid(newPassword);
+            if (!passwordValidation.Valid) return new BaseResponse(passwordValidation.ErrorMessage);
+
             return Request.ExecuteSyncRequest<BaseResponse>(
                 Config.EndPointPaths.Players.SetUsernamePassword,
                 service,
@@ -32,6 +37,11 @@ public static partial class Players
         [UsedImplicitly]
         public async Task<BaseResponse> ChangePasswordAsync(Guid playerID, string newPassword)
         {
+            if (!playerID.IsValidGuid()) return new BaseResponse(Validations.InvalidGuidError);
+
+            var passwordValidation = Validations.IsPasswordValid(newPassword);
+            if (!passwordValidation.Valid) return new BaseResponse(passwordValidation.ErrorMessage);
+
             return await Request.ExecuteAsyncRequest<BaseResponse>(
                 Config.EndPointPaths.Players.SetUsernamePassword,
                 service,
@@ -49,6 +59,9 @@ public static partial class Players
         [UsedImplicitly]
         public BaseResponse ChangePassword(string newPassword)
         {
+            var passwordValidation = Validations.IsPasswordValid(newPassword);
+            if (!passwordValidation.Valid) return new BaseResponse(passwordValidation.ErrorMessage);
+
             return Request.ExecuteSyncRequest<BaseResponse>(
                 Config.EndPointPaths.Players.SetUsernamePassword,
                 service,
@@ -63,6 +76,9 @@ public static partial class Players
         [UsedImplicitly]
         public async Task<BaseResponse> ChangePasswordAsync(string newPassword)
         {
+            var passwordValidation = Validations.IsPasswordValid(newPassword);
+            if (!passwordValidation.Valid) return new BaseResponse(passwordValidation.ErrorMessage);
+
             return await Request.ExecuteAsyncRequest<BaseResponse>(
                 Config.EndPointPaths.Players.SetUsernamePassword,
                 service,

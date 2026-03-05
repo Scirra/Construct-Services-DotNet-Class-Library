@@ -19,8 +19,9 @@ public static partial class Avatars
         [UsedImplicitly]
         public BaseResponse SetAvatar(Guid playerID, PictureData avatar)
         {
-            if (!playerID.IsValidGuid()) return Validations.InvalidGuidResponse;
-            if (!avatar.HasOnePicture()) return Validations.NoPictureResponse;
+            if (!playerID.IsValidGuid()) return new BaseResponse(Validations.InvalidGuidError);
+            var pictureValidation = avatar.IsPictureValid();
+            if (!pictureValidation.Valid) return new BaseResponse(pictureValidation.ErrorMessage);
 
             if (avatar.Bytes != null)
             {
@@ -45,8 +46,9 @@ public static partial class Avatars
         [UsedImplicitly]
         public async Task<BaseResponse> SetAvatarAsync(Guid playerID, PictureData avatar)
         {
-            if (!playerID.IsValidGuid()) return Validations.InvalidGuidResponse;
-            if (!avatar.HasOnePicture()) return Validations.NoPictureResponse;
+            if (!playerID.IsValidGuid()) return new BaseResponse(Validations.InvalidGuidError);
+            var pictureValidation = avatar.IsPictureValid();
+            if (!pictureValidation.Valid) return new BaseResponse(pictureValidation.ErrorMessage);
 
             if (avatar.Bytes != null)
             {
@@ -74,7 +76,8 @@ public static partial class Avatars
         [UsedImplicitly]
         public BaseResponse SetAvatar(PictureData avatar)
         {
-            if (!avatar.HasOnePicture()) return Validations.NoPictureResponse;
+            var pictureValidation = avatar.IsPictureValid();
+            if (!pictureValidation.Valid) return new BaseResponse(pictureValidation.ErrorMessage);
 
             if (avatar.Bytes != null)
             {
@@ -99,7 +102,8 @@ public static partial class Avatars
         [UsedImplicitly]
         public async Task<BaseResponse> SetAvatarAsync(PictureData avatar)
         {
-            if (!avatar.HasOnePicture()) return Validations.NoPictureResponse;
+            var pictureValidation = avatar.IsPictureValid();
+            if (!pictureValidation.Valid) return new BaseResponse(pictureValidation.ErrorMessage);
 
             if (avatar.Bytes != null)
             {

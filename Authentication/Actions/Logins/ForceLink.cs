@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using ConstructServices.Authentication.Responses;
 using ConstructServices.Common;
 using JetBrains.Annotations;
@@ -15,8 +16,10 @@ public static partial class Logins
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/login-providers/force-link" />
         [UsedImplicitly]
-        public LinkLoginProviderResponse ForceLinkLoginProvider(string code)
+        public LinkLoginProviderResponse ForceLinkLoginProvider(Guid code)
         {
+            if (!code.IsValidGuid()) return new LinkLoginProviderResponse(Validations.InvalidGuidError);
+
             return Request.ExecuteSyncRequest<LinkLoginProviderResponse>(
                 Config.EndPointPaths.Logins.ForceLink,
                 service,
@@ -29,8 +32,10 @@ public static partial class Logins
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/login-providers/force-link" />
         [UsedImplicitly]
-        public async Task<LinkLoginProviderResponse> ForceLinkLoginProviderAsync(string code)
+        public async Task<LinkLoginProviderResponse> ForceLinkLoginProviderAsync(Guid code)
         {
+            if (!code.IsValidGuid()) return new LinkLoginProviderResponse(Validations.InvalidGuidError);
+
             return await Request.ExecuteAsyncRequest<LinkLoginProviderResponse>(
                 Config.EndPointPaths.Logins.ForceLink,
                 service,
@@ -41,11 +46,11 @@ public static partial class Logins
     
     private static class ForceLinkOptions
     {
-        internal static Dictionary<string, string> BuildFormData(string code)
+        internal static Dictionary<string, string> BuildFormData(Guid code)
         {
             var formData = new Dictionary<string, string>
             {
-                { "code", code }
+                { "code", code.ToString() }
             };
             return formData;
         }

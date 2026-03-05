@@ -1,8 +1,9 @@
-﻿using System;
+﻿using ConstructServices.Authentication.Responses;
+using ConstructServices.Common;
+using JetBrains.Annotations;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using ConstructServices.Authentication.Responses;
-using JetBrains.Annotations;
 
 namespace ConstructServices.Authentication.Actions;
 
@@ -17,7 +18,9 @@ public static partial class Logins
         [UsedImplicitly]
         public LinkPollResponse LinkPoll(Guid token)
         {
-            return Common.Request.ExecuteSyncRequest<LinkPollResponse>(
+            if (!token.IsValidGuid()) return new LinkPollResponse(Validations.InvalidGuidError);
+
+            return Request.ExecuteSyncRequest<LinkPollResponse>(
                 Config.EndPointPaths.Logins.LinkPoll,
                 service,
                 LinkPollOptions.BuildFormData(token)
@@ -31,7 +34,9 @@ public static partial class Logins
         [UsedImplicitly]
         public async Task<LinkPollResponse> LinkPollAsync(Guid token)
         {
-            return await Common.Request.ExecuteAsyncRequest<LinkPollResponse>(
+            if (!token.IsValidGuid()) return new LinkPollResponse(Validations.InvalidGuidError);
+
+            return await Request.ExecuteAsyncRequest<LinkPollResponse>(
                 Config.EndPointPaths.Logins.LinkPoll,
                 service,
                 LinkPollOptions.BuildFormData(token)
