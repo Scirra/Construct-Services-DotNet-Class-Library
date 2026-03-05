@@ -64,7 +64,7 @@ public abstract class BaseService
     {
         if (!Validations.Languages.IsValidTargetLanguage(targetLanguageISO))
         {
-            throw new Exception("Invalid target language ISO specified.");
+            throw new InvalidTargetLanguageException();
         }
         RequestedLanguage = targetLanguageISO;
     }
