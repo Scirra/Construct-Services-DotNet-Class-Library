@@ -5,7 +5,7 @@ internal static partial class Functions
     internal static Responses.ValidationResponseBase IsBonusModifierValid(decimal modifier)
     {
         const decimal Min = (decimal)1.1;
-        const decimal Max= (decimal)100;
+        const decimal Max = 100;
 
         if (modifier is < Min or > Max)
         {

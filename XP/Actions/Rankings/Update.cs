@@ -20,6 +20,9 @@ public static partial class Rankings
         [UsedImplicitly]
         public RankResponse UpdateRank(Guid rankID, UpdateXPRankOptions updateOptions)
         {
+            var validation = updateOptions.Validate();
+            if (!validation.Valid) return new RankResponse(validation.ErrorMessage);
+
             return Request.ExecuteSyncRequest<RankResponse>(
                 Config.EndPointPaths.Rankings.Update,
                 xpService,
@@ -34,6 +37,9 @@ public static partial class Rankings
         [UsedImplicitly]
         public async Task<RankResponse> UpdateRankAsync(Guid rankID, UpdateXPRankOptions updateOptions)
         {
+            var validation = updateOptions.Validate();
+            if (!validation.Valid) return new RankResponse(validation.ErrorMessage);
+
             return await Request.ExecuteAsyncRequest<RankResponse>(
                 Config.EndPointPaths.Rankings.Update,
                 xpService,
@@ -45,7 +51,6 @@ public static partial class Rankings
     [UsedImplicitly]
     public sealed class UpdateXPRankOptions
     {
-
         [UsedImplicitly]
         public long? AtXP { private get; set; }
 
@@ -54,21 +59,20 @@ public static partial class Rankings
 
         [UsedImplicitly]
         public string Description { private get; set; }
-
+        
         [UsedImplicitly]
-        public string LanguageISO {
-            private get;
-            set
-            {
-                if (!Functions.IsValidSourceLanguage(value))
-                    throw new InvalidSourceLanguageException();
-                field = value;
-            }
-        }
+        public string LanguageISO { private get; set; }
 
         [UsedImplicitly]
         public SourceLanguage Language {
             set => LanguageISO = value.ISO();
+        }
+        internal Common.Validations.Responses.ValidationResponseBase Validate()
+        {
+            var languageValidation = Functions.IsSourceLanguageISOValid(LanguageISO, true);
+            if (!languageValidation.Valid) return languageValidation;
+
+            return new Common.Validations.Responses.SuccessfullValidation();
         }
 
         internal Dictionary<string, string> BuildFormData(Guid rankID)

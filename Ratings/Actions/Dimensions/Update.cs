@@ -19,6 +19,9 @@ public static partial class Dimensions
             string dimensionID,
             UpdateRatingDimensionBase updateRatingDimensionBase)
         {
+            var validation = updateRatingDimensionBase.Validate();
+            if (!validation.Valid) return new DimensionResponse(validation.ErrorMessage);
+
             return Request.ExecuteSyncRequest<DimensionResponse>(
                 apiEndPointPath,
                 service,
@@ -32,6 +35,9 @@ public static partial class Dimensions
             string dimensionID,
             UpdateRatingDimensionBase updateRatingDimensionBase)
         {
+            var validation = updateRatingDimensionBase.Validate();
+            if (!validation.Valid) return new DimensionResponse(validation.ErrorMessage);
+
             return await Request.ExecuteAsyncRequest<DimensionResponse>(
                 apiEndPointPath,
                 service,
@@ -52,17 +58,9 @@ public static partial class Dimensions
 
         [UsedImplicitly]
         public string Description { private get; set; }
-
+        
         [UsedImplicitly]
-        public string LanguageISO {
-            private get;
-            set
-            {
-                if (!Functions.IsValidSourceLanguage(value))
-                    throw new InvalidSourceLanguageException();
-                field = value;
-            }
-        }
+        public string LanguageISO { private get; set; }
 
         [UsedImplicitly]
         public SourceLanguage Language {
@@ -72,6 +70,13 @@ public static partial class Dimensions
         internal UpdateRatingDimensionBase(Thing forThing)
         {
             ForThing = forThing;
+        }
+        internal Common.Validations.Responses.ValidationResponseBase Validate()
+        {
+            var languageValidation = Functions.IsSourceLanguageISOValid(LanguageISO, true);
+            if (!languageValidation.Valid) return languageValidation;
+
+            return new Common.Validations.Responses.SuccessfullValidation();
         }
 
         internal Dictionary<string, string> BuildFormData(Guid thingID, string dimensionID)

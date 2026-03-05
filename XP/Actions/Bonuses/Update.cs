@@ -57,17 +57,9 @@ public static partial class Bonuses
 
         [UsedImplicitly]
         public string Description { private get; set; }
-
+        
         [UsedImplicitly]
-        public string LanguageISO {
-            private get;
-            set
-            {
-                if (!Functions.IsValidSourceLanguage(value))
-                    throw new InvalidSourceLanguageException();
-                field = value;
-            }
-        }
+        public string LanguageISO { private get; set; }
 
         [UsedImplicitly]
         public SourceLanguage Language {
@@ -90,6 +82,9 @@ public static partial class Bonuses
 
             var descriptionValidation = Common.Validations.XP.Functions.IsBonusDescriptionValid(Title);
             if (!descriptionValidation.Valid) return descriptionValidation;
+
+            var languageValidation = Functions.IsSourceLanguageISOValid(LanguageISO, true);
+            if (!languageValidation.Valid) return languageValidation;
 
             return new Common.Validations.Responses.SuccessfullValidation();
         }

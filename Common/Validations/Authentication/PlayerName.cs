@@ -12,8 +12,10 @@ internal static partial class Functions
     {
         const int MinPlayerNameLength = 1;
         const int MaxPlayerNameLength = 50;
-        
-        var length = (playerName ?? string.Empty).Trim().Length;
+
+        playerName = (playerName ?? string.Empty).Trim();
+
+        var length = playerName.Length;
         if (length is < MinPlayerNameLength or > MaxPlayerNameLength)
         {
             return new Responses.FailedValidation(

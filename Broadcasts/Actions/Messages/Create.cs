@@ -59,17 +59,9 @@ public static partial class Messages
 
         [UsedImplicitly]
         public string Title { private get; set; }
-
+        
         [UsedImplicitly]
-        public string LanguageISO {
-            private get;
-            set
-            {
-                if (!Functions.IsValidSourceLanguage(value))
-                    throw new InvalidSourceLanguageException();
-                field = value;
-            }
-        }
+        public string LanguageISO { private get; set; }
 
         [UsedImplicitly]
         public SourceLanguage Language {
@@ -80,6 +72,9 @@ public static partial class Messages
         {
             var textValidation = Common.Validations.Broadcasts.Functions.IsMessageTextValid(Text);
             if (!textValidation.Valid) return textValidation;
+
+            var languageValidation = Functions.IsSourceLanguageISOValid(LanguageISO, true);
+            if (!languageValidation.Valid) return languageValidation;
 
             return new Common.Validations.Responses.SuccessfullValidation();
         }

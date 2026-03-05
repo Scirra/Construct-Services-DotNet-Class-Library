@@ -1,12 +1,12 @@
 ﻿using ConstructServices.Broadcasts.Objects;
 using ConstructServices.CloudSave.Objects;
 using ConstructServices.Common;
+using ConstructServices.Common.Languages;
 using ConstructServices.Ratings.Responses;
 using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using ConstructServices.Common.Languages;
 using Functions = ConstructServices.Common.Validations.Common.Functions;
 
 namespace ConstructServices.Ratings.Actions;
@@ -19,6 +19,9 @@ public static partial class Dimensions
             string apiEndPointPath,
             CreateRatingDimensionOptions createRatingDimensionOptions)
         {
+            var validation = createRatingDimensionOptions.Validate();
+            if (!validation.Valid) return new DimensionResponse(validation.ErrorMessage);
+
             return Request.ExecuteSyncRequest<DimensionResponse>(
                 apiEndPointPath,
                 service,
@@ -29,6 +32,9 @@ public static partial class Dimensions
             string apiEndPointPath,
             CreateRatingDimensionOptions createRatingDimensionOptions)
         {
+            var validation = createRatingDimensionOptions.Validate();
+            if (!validation.Valid) return new DimensionResponse(validation.ErrorMessage);
+
             return await Request.ExecuteAsyncRequest<DimensionResponse>(
                 apiEndPointPath,
                 service,
@@ -55,21 +61,21 @@ public static partial class Dimensions
 
         [UsedImplicitly]
         public string Description { private get; set; }
-
+        
         [UsedImplicitly]
-        public string LanguageISO {
-            private get;
-            set
-            {
-                if (!Functions.IsValidSourceLanguage(value))
-                    throw new InvalidSourceLanguageException();
-                field = value;
-            }
-        }
+        public string LanguageISO { private get; set; }
 
         [UsedImplicitly]
         public SourceLanguage Language {
             set => LanguageISO = value.ISO();
+        }
+        
+        internal Common.Validations.Responses.ValidationResponseBase Validate()
+        {
+            var languageValidation = Functions.IsSourceLanguageISOValid(LanguageISO, true);
+            if (!languageValidation.Valid) return languageValidation;
+
+            return new Common.Validations.Responses.SuccessfullValidation();
         }
 
         protected internal Dictionary<string, string> BuildFormData()

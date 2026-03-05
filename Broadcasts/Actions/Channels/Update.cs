@@ -21,7 +21,7 @@ public static partial class Channels
         public ChannelResponse UpdateChannel(Guid channelID, UpdateChannelOptions updateChannelOptions)
         {
             var validation = updateChannelOptions.Validate();
-            if(!validation.Valid) return new ChannelResponse(validation.ErrorMessage);
+            if (!validation.Valid) return new ChannelResponse(validation.ErrorMessage);
 
             return Request.ExecuteSyncRequest<ChannelResponse>(
                 Config.EndPointPaths.Channels.Update,
@@ -58,16 +58,7 @@ public static partial class Channels
         public string Description { private get; set; }
 
         [UsedImplicitly]
-        public string LanguageISO
-        {
-            get;
-            set
-            {
-                if (!Functions.IsValidSourceLanguage(value))
-                    throw new InvalidSourceLanguageException();
-                field = value;
-            }
-        }
+        public string LanguageISO { private get; set; }
 
         [UsedImplicitly]
         public SourceLanguage Language {
@@ -81,6 +72,9 @@ public static partial class Channels
         {
             var nameValidation = Common.Validations.Broadcasts.Functions.IsChannelNameValid(Name);
             if (!nameValidation.Valid) return nameValidation;
+
+            var languageValidation = Functions.IsSourceLanguageISOValid(LanguageISO, true);
+            if (!languageValidation.Valid) return languageValidation;
 
             return new Common.Validations.Responses.SuccessfullValidation();
         }
