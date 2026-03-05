@@ -25,25 +25,25 @@ public sealed class PictureData
         Bytes = pictureFile;
     }
 
-    internal static Dictionary<string, ByteArrayContent> BuildBinaryFormData(PictureData Picture)
+    internal static Dictionary<string, ByteArrayContent> BuildBinaryFormData(PictureData Picture, string dataParamName)
     {
         var postedBinaryData = new Dictionary<string, ByteArrayContent>();
         if (Picture?.Bytes != null)
         {
-            postedBinaryData.Add("pictureData", new ByteArrayContent(Picture.Bytes));
+            postedBinaryData.Add(dataParamName, new ByteArrayContent(Picture.Bytes));
         }
         return postedBinaryData;
     }
-    internal static Dictionary<string, string> BuildBaseFormData(PictureData picture)
+    internal static Dictionary<string, string> BuildBaseFormData(PictureData picture, string urlParamName, string base64ParamName)
     {
         var formData = new Dictionary<string, string>();
         if (picture.URL != null)
         {
-            formData.Add("avatarURL", picture.URL.ToString());
+            formData.Add(urlParamName, picture.URL.ToString());
         }
         else if (!string.IsNullOrWhiteSpace(picture.Base64))
         {
-            formData.Add("avatar", picture.Base64);
+            formData.Add(base64ParamName, picture.Base64);
         }
         return formData;
     }

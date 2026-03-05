@@ -9,6 +9,8 @@ namespace ConstructServices.CloudSave.Actions;
 
 public static partial class Saves
 {
+    private const string pictureBinaryParamName = "pictureData";
+
     extension(CloudSaveServiceBase service)
     {
         /// <summary>
@@ -24,7 +26,7 @@ public static partial class Saves
                     Config.EndPointPaths.Saves.SetPicture,
                     service,
                     SetCloudSavePictureOptions.BuildFormData(cloudSaveID, picture),
-                    PictureData.BuildBinaryFormData(picture)
+                    PictureData.BuildBinaryFormData(picture, pictureBinaryParamName)
                 );
             }
             return Request.ExecuteSyncRequest<CloudSaveResponse>(
@@ -47,7 +49,7 @@ public static partial class Saves
                     Config.EndPointPaths.Saves.SetPicture,
                     service,
                     SetCloudSavePictureOptions.BuildFormData(cloudSaveID, picture),
-                    PictureData.BuildBinaryFormData(picture)
+                    PictureData.BuildBinaryFormData(picture, pictureBinaryParamName)
                 );
             }
             return await Request.ExecuteAsyncRequest<CloudSaveResponse>(
@@ -60,9 +62,12 @@ public static partial class Saves
     
     private static class SetCloudSavePictureOptions
     {
+        private const string pictureURLParamName = "avatarURL";
+        private const string pictureBase64ParamName = "avatar";
+
         internal static Dictionary<string, string> BuildFormData(Guid cloudSaveID, PictureData picture)
         {
-            var formData = PictureData.BuildBaseFormData(picture);
+            var formData = PictureData.BuildBaseFormData(picture, pictureURLParamName, pictureBase64ParamName);
             formData.Add("blobID", cloudSaveID.ToString());
             return formData;
         }
