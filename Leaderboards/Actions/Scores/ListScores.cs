@@ -21,6 +21,9 @@ public static partial class Scores
             PaginationOptions paginationOptions,
             RequestPerspective requestPerspective = null)
         {
+            var validation = listScoreOptions.Validate();
+            if (!validation.Valid) return new ScoresResponse(validation.ErrorMessage);
+
             var formData = listScoreOptions.BuildFormData();
             LeaderboardServiceBase.AddRequestPerspectiveFormData(requestPerspective, formData);
 
@@ -42,6 +45,9 @@ public static partial class Scores
             PaginationOptions paginationOptions,
             RequestPerspective requestPerspective = null)
         {
+            var validation = listScoreOptions.Validate();
+            if (!validation.Valid) return new ScoresResponse(validation.ErrorMessage);
+
             var formData = listScoreOptions.BuildFormData();
             LeaderboardServiceBase.AddRequestPerspectiveFormData(requestPerspective, formData);
 
@@ -69,6 +75,16 @@ public static partial class Scores
 
         [UsedImplicitly]
         public short? RangeOffset { private get; set; }
+        
+        internal Common.Validations.Responses.ValidationResponseBase Validate()
+        {
+            if (!string.IsNullOrWhiteSpace(CountryISO))
+            {
+                var countryValidation = Common.Validations.Common.Functions.IsCountryISOAlpha2Valid(CountryISO);
+                if (!countryValidation.Valid) return countryValidation;
+            }
+            return new Common.Validations.Responses.SuccessfullValidation();
+        }
 
         internal Dictionary<string, string> BuildFormData()
         {

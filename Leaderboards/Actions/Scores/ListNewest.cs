@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
-using ConstructServices.Common;
+﻿using ConstructServices.Common;
 using ConstructServices.Leaderboards.Responses;
 using JetBrains.Annotations;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace ConstructServices.Leaderboards.Actions;
 
@@ -20,6 +21,9 @@ public static partial class Scores
             PaginationOptions paginationOptions,
             RequestPerspective requestPerspective = null)
         {
+            var validation = listNewestScoresOptions.Validate();
+            if (!validation.Valid) return new ScoresResponse(validation.ErrorMessage);
+
             var formData = listNewestScoresOptions.BuildFormData();
 
             LeaderboardServiceBase.AddRequestPerspectiveFormData(requestPerspective, formData);
@@ -42,6 +46,9 @@ public static partial class Scores
             PaginationOptions paginationOptions,
             RequestPerspective requestPerspective = null)
         {
+            var validation = listNewestScoresOptions.Validate();
+            if (!validation.Valid) return new ScoresResponse(validation.ErrorMessage);
+
             var formData = listNewestScoresOptions.BuildFormData();
 
             LeaderboardServiceBase.AddRequestPerspectiveFormData(requestPerspective, formData);
@@ -61,6 +68,16 @@ public static partial class Scores
     {
         [UsedImplicitly]
         public string CountryISO { private get; set; }
+        
+        internal Common.Validations.Responses.ValidationResponseBase Validate()
+        {
+            if (!string.IsNullOrWhiteSpace(CountryISO))
+            {
+                var countryValidation = Common.Validations.Common.Functions.IsCountryISOAlpha2Valid(CountryISO);
+                if (!countryValidation.Valid) return countryValidation;
+            }
+            return new Common.Validations.Responses.SuccessfullValidation();
+        }
 
         internal Dictionary<string, string> BuildFormData()
         {
