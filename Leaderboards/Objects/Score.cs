@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
 using System;
 using ConstructServices.Authentication.Objects;
+using ConstructServices.Common.Countries;
+using JetBrains.Annotations;
 
 namespace ConstructServices.Leaderboards.Objects;
 
@@ -25,7 +27,11 @@ public sealed class Score
     public string FormattedRank { get; private set; }
 
     [JsonProperty(PropertyName = "country")]
-    public string Country { get; private set; }
+    public string CountryISOAlpha2 { get; private set; }
+    
+    [UsedImplicitly]
+    public Country Country()
+        => Functions.GetFromISOAlpha2(CountryISOAlpha2);
 
     [JsonProperty(PropertyName = "countryRank")]
     public int? CountryRank { get; private set; }

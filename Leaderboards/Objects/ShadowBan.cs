@@ -1,6 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿using ConstructServices.Authentication.Objects;
+using ConstructServices.Common.Countries;
+using JetBrains.Annotations;
+using Newtonsoft.Json;
 using System;
-using ConstructServices.Authentication.Objects;
 
 namespace ConstructServices.Leaderboards.Objects;
 
@@ -13,7 +15,11 @@ public sealed class ShadowBan
     public int IPHash { get; private set; }
 
     [JsonProperty(PropertyName = "country")]
-    public string ISOAlpha2 { get; private set; }
+    public string CountryISOAlpha2 { get; private set; }    
+    
+    [UsedImplicitly]
+    public Country Country()
+        => Functions.GetFromISOAlpha2(CountryISOAlpha2);
 
     [JsonProperty(PropertyName = "player")]
     public Player Player { get; private set; }
