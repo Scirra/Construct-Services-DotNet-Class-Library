@@ -1,5 +1,8 @@
-﻿namespace ConstructServices.Common.Validations.Common;
+﻿using System;
+using System.Linq;
+using ConstructServices.Common.Countries;
 
+namespace ConstructServices.Common.Validations.Common;
 internal static partial class Functions
 {
     internal static Responses.ValidationResponseBase IsCountryISOAlpha2Valid(string iso)
@@ -13,6 +16,13 @@ internal static partial class Functions
         if (iso.Length != 2)
         {
             return new Responses.FailedValidation("Country ISO must be 2 characters long.");
+        }
+
+        var valid = Extensions.ToList<Countries.Country>().Any(c =>
+            c.GetAttribute<CountryAttribute>().ISOAlpha2.Equals(iso, StringComparison.CurrentCultureIgnoreCase));
+        if (!valid)
+        {
+            return new Responses.FailedValidation("Country ISO doesn't exist.");
         }
 
         return new Responses.SuccessfullValidation();

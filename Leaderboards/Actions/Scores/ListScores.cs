@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
-using ConstructServices.Leaderboards.Responses;
-using System.Threading.Tasks;
-using ConstructServices.Common;
+﻿using ConstructServices.Common;
+using ConstructServices.Common.Countries;
 using ConstructServices.Leaderboards.Enums;
+using ConstructServices.Leaderboards.Responses;
 using JetBrains.Annotations;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ConstructServices.Leaderboards.Actions;
 
@@ -66,6 +67,11 @@ public static partial class Scores
     {
         [UsedImplicitly]
         public string CountryISO { private get; set; }
+        
+        [UsedImplicitly]
+        public Country Country {
+            set => CountryISO = value.ISOAlpha2();
+        }
 
         [UsedImplicitly]
         public short? CompareRanks { private get; set; }

@@ -1,9 +1,10 @@
 ﻿using ConstructServices.Common;
+using ConstructServices.Common.Languages;
 using ConstructServices.Leaderboards.Responses;
 using JetBrains.Annotations;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Xml.Linq;
+using ConstructServices.Common.Countries;
 
 namespace ConstructServices.Leaderboards.Actions;
 
@@ -68,6 +69,11 @@ public static partial class Scores
     {
         [UsedImplicitly]
         public string CountryISO { private get; set; }
+
+        [UsedImplicitly]
+        public Country Country {
+            set => CountryISO = value.ISOAlpha2();
+        }
         
         internal Common.Validations.Responses.ValidationResponseBase Validate()
         {
