@@ -4,6 +4,7 @@ using ConstructServices.CloudSave.Responses;
 using ConstructServices.Common;
 using JetBrains.Annotations;
 using System.Threading.Tasks;
+using ConstructServices.Common.Validations.Common;
 
 namespace ConstructServices.CloudSave.Actions;
 
@@ -20,6 +21,9 @@ public static partial class Saves
         [UsedImplicitly]
         public BaseResponse SetPicture(Guid cloudSaveID, PictureData picture)
         {
+            var pictureValidator = picture.IsPictureValid();
+            if (!pictureValidator.Valid) return new BaseResponse(pictureValidator.ErrorMessage);
+
             if (picture.Bytes != null)
             {
                 return Request.ExecuteMultiPartFormSyncRequest<BaseResponse>(
@@ -43,6 +47,9 @@ public static partial class Saves
         [UsedImplicitly]
         public async Task<BaseResponse> SetPictureAsync(Guid cloudSaveID, PictureData picture)
         {
+            var pictureValidator = picture.IsPictureValid();
+            if (!pictureValidator.Valid) return new BaseResponse(pictureValidator.ErrorMessage);
+
             if (picture.Bytes != null)
             {
                 return await Request.ExecuteMultiPartFormAsyncRequest<BaseResponse>(
