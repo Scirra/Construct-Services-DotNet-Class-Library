@@ -17,4 +17,6 @@ internal static class Extensions
     }
     internal static List<T> ToList<T>() where T : Enum
         => Enum.GetValues(typeof(T)).Cast<T>().ToList();
+    internal static bool IsAlphaNumeric(this char c)
+        => char.IsLetter(c) || char.IsNumber(c);
 }

@@ -61,6 +61,17 @@ public static partial class Buckets
         [UsedImplicitly]
         public uint? MaxSavesPerPlayer { private get; set; }
         
+        internal Common.Validations.Responses.ValidationResponseBase Validate()
+        {
+            if (!string.IsNullOrWhiteSpace(Name))
+            {
+                var nameValidation = Common.Validations.CloudSave.Functions.IsBucketNameValid(Name);
+                if (!nameValidation.Valid) return nameValidation;
+            }
+
+            return new Common.Validations.Responses.SuccessfullValidation();
+        }
+
         internal Dictionary<string, string> BuildFormData(Guid bucketID)
         {
             var formData = new Dictionary<string, string>

@@ -18,6 +18,9 @@ public static partial class Buckets
         [UsedImplicitly]
         public BucketResponse CreateBucket(CreateBucketOptions createBucketOptions)
         {
+            var validation = createBucketOptions.Validate();
+            if (!validation.Valid) return new BucketResponse(validation.ErrorMessage);
+
             return Request.ExecuteSyncRequest<BucketResponse>(
                 Config.EndPointPaths.Buckets.Create,
                 service,
@@ -32,6 +35,9 @@ public static partial class Buckets
         [UsedImplicitly]
         public async Task<BucketResponse> CreateBucketAsync(CreateBucketOptions createBucketOptions)
         {
+            var validation = createBucketOptions.Validate();
+            if (!validation.Valid) return new BucketResponse(validation.ErrorMessage);
+
             return await Request.ExecuteAsyncRequest<BucketResponse>(
                 Config.EndPointPaths.Buckets.Create,
                 service,
@@ -60,6 +66,14 @@ public static partial class Buckets
 
         [UsedImplicitly]
         public uint? MaxSavesPerPlayer { private get; set; }
+        
+        internal Common.Validations.Responses.ValidationResponseBase Validate()
+        {
+            var nameValidation = Common.Validations.CloudSave.Functions.IsBucketNameValid(Name);
+            if (!nameValidation.Valid) return nameValidation;
+
+            return new Common.Validations.Responses.SuccessfullValidation();
+        }
 
         internal Dictionary<string, string> BuildFormData()
         {

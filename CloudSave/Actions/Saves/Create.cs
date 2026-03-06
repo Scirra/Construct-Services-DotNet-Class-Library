@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using ConstructServices.Common.Validations.Common;
 
 namespace ConstructServices.CloudSave.Actions;
 
@@ -20,6 +21,9 @@ public static partial class Saves
         public CloudSaveResponse CreateCloudSave(
             CreateCloudSaveOptions createCloudSaveOptions)
         {
+            var validation = createCloudSaveOptions.Validate();
+            if (!validation.Valid) return new CloudSaveResponse(validation.ErrorMessage);
+
             return Request.ExecuteMultiPartFormSyncRequest<CloudSaveResponse>(
                 Config.EndPointPaths.Saves.Create,
                 service,
@@ -36,6 +40,9 @@ public static partial class Saves
         public async Task<CloudSaveResponse> CreateCloudSaveAsync(
             CreateCloudSaveOptions createCloudSaveOptions)
         {
+            var validation = createCloudSaveOptions.Validate();
+            if (!validation.Valid) return new CloudSaveResponse(validation.ErrorMessage);
+
             return await Request.ExecuteMultiPartFormAsyncRequest<CloudSaveResponse>(
                 Config.EndPointPaths.Saves.Create,
                 service,
@@ -62,6 +69,29 @@ public static partial class Saves
 
         [UsedImplicitly]
         public PictureData Picture { private get; set; }
+        
+        internal Common.Validations.Responses.ValidationResponseBase Validate()
+        {
+            var keyValidation = Common.Validations.CloudSave.Functions.IsCloudSaveKeyValid(Key);
+            if (!keyValidation.Valid) return keyValidation;
+
+            if (!string.IsNullOrWhiteSpace(Name))
+            {
+                var nameValidation = Common.Validations.CloudSave.Functions.IsCloudSaveNameValid(Name);
+                if (!nameValidation.Valid) return nameValidation;
+            }
+
+            var dataValidation = Common.Validations.Common.Functions.IsDataValid(Data);
+            if (!dataValidation.Valid) return dataValidation;
+
+            if (Picture != null)
+            {
+                var pictureValidation = Picture.IsPictureValid();
+                if (!pictureValidation.Valid) return pictureValidation;
+            }
+
+            return new Common.Validations.Responses.SuccessfullValidation();
+        }
 
         internal Dictionary<string, string> BuildFormData()
         {
