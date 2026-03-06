@@ -63,16 +63,133 @@ else
 }
 ```
 
+## Get Players XP, Rank + Next Rank
+```C#
+service.GetXP(playerID);
+```
+
+## Add XP to a player
+> [!TIP]
+> The passed XP value is automatically multipled if any bonuses are active.
+```C#
+service.AddXP(
+    playerID,
+    new ModifyXPOptions(100)
+);
+```
+
+## Remove XP from a player
+> [!TIP]
+> The passed XP value is unaffacted by any active bonuses.
+```C#
+service.RemoveXP(
+    playerID,
+    new ModifyXPOptions(100)
+);
+```
+
+## Set a Players XP
+> [!TIP]
+> This sets the players XP to the specified amount.  The passed XP value is unaffacted by any active bonuses.
+```C#
+service.SetXP(
+    playerID,
+    new ModifyXPOptions(500)
+);
+```
+
 ## Create a New XP Bonus
 
 ```C#
-service.RegisterPlayer(new RegisterPlayerOptions
+service.CreateBonus(new CreateXPBonusOptions
 {
-    PlayerName = "Battle Pig",
-    Username = "BattlePig86",
-    Password = "MySecurePassword123!",
-    EmailAddress = "test@test.com"
+    Title = "2.5x XP Weekend",
+    Description = "Earn two and a half times XP this weekend!",
+    Modifier = (decimal)2.5,
+    Start = DateTime.UtcNow.AddDays(7),
+    End = DateTime.UtcNow.AddDays(9)
 });
+```
+
+## Update an XP Bonus
+
+```C#
+service.UpdateBonus(
+    bonusID,
+    new Bonuses.UpdateXPBonusOptions
+    {
+        Title = "Triple XP Weekend",
+        Description = "Earn 3 times XP this weekend!",
+        Modifier = (decimal)3,
+        Start = DateTime.UtcNow.AddDays(7),
+        End = DateTime.UtcNow.AddDays(9)
+    }
+);
+```
+
+## Get an XP Bonus
+
+```C#
+service.GetBonus(bonusID);
+```
+
+## List XP Bonuses
+
+```C#
+// List all XP bonuses in the next 7 days
+service.ListBonuses(new Bonuses.ListBonusesOptions
+{
+    Start = DateTime.UtcNow,
+    End = DateTime.UtcNow.AddDays(7)
+});
+```
+## List Active XP Bonuses
+
+```C#
+service.ListActiveBonuses();
+```
+
+## Delete an XP Bonus
+
+```C#
+service.DeleteBonus(bonusID);
+```
+
+## Create an XP Rank
+
+```C#
+service.CreateRank(new CreateXPRankOptions
+{
+    Title = "Gold Pig",
+    Description = "For seasoned verterans of the game",
+    AtXP = 1000000
+});
+```
+
+## Update an XP Rank
+
+```C#
+service.UpdateRank(
+    rankID,
+    new Rankings.UpdateXPRankOptions
+    {
+        Title = "Golden Pig",
+        Description = "For overly seasoned verterans of the game",
+        AtXP = 5000000
+    }
+);
+```
+
+## Delete an XP Rank
+
+```C#
+service.DeleteRank(rankID);
+```
+
+## List all XP Ranks
+
+```C#
+service.ListAllRanks();
 ```
 
 [cgs-account]: https://cgs.construct.net

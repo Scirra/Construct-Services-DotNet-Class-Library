@@ -144,6 +144,23 @@ var totalRecords = result.Pagination.TotalRecords;
 
 Using these properties you can make further requests to fetch results on other pages.
 
+### Update Requests
+
+A request to update something might look like this:
+
+```C#
+service.UpdateObject(
+    objectID,
+    new UpdateOptions
+    {
+        Title = "New Title",
+        Description = "New description"
+    }
+);
+```
+
+When making these requests, you only need to specify the properties you wish to change.  Any unspecified properties in the update options will not be updated.
+
 # The Services
 
  - ## Authentication Service
