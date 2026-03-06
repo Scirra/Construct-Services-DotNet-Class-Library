@@ -18,7 +18,7 @@ internal static partial class Functions
             return new Responses.FailedValidation("Country ISO must be 2 characters long.");
         }
 
-        var valid = Extensions.ToList<Countries.Country>().Any(c =>
+        var valid = Extensions.ToList<Country>().Any(c =>
             c.GetAttribute<CountryAttribute>().ISOAlpha2.Equals(iso, StringComparison.CurrentCultureIgnoreCase));
         if (!valid)
         {
