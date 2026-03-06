@@ -67,6 +67,25 @@ else
 }
 ```
 
+## Register New Player
+
+```C#
+service.RegisterPlayer(new RegisterPlayerOptions
+{
+    PlayerName = "Battle Pig",
+    Username = "BattlePig86",
+    Password = "MySecurePassword123!",
+    EmailAddress = "test@test.com"
+});
+```
+
+## Delete Player
+> [!WARNING]
+> This is a permanent and irreversible action.  It is important for data privacy to always allow logged in players the ability to delete their account.
+```C#
+service.DeletePlayer();
+```
+
 ## Set Players avatar
 
 ```C#
@@ -86,6 +105,11 @@ service.SetAvatar(new PictureData(data));
 service.DeleteAvatar();
 ```
 
+## Change Player Name
+```C#
+service.ChangePlayerName("Gamer Pig");
+```
+
 ## Set Username & Password
 ```C#
 service.SetUsernameAndPassword("Username", "P455w0rD");
@@ -99,11 +123,6 @@ service.ChangePassword("P455w0rD2");
 ## Change Username
 ```C#
 service.ChangeUsername("NewUsername");
-```
-
-## Change Player Name
-```C#
-service.ChangePlayerName("Gamer Pig");
 ```
 
 ## Set Email Address
@@ -120,13 +139,6 @@ service.SetEmailAddress("test@test.com");
 service.SetEmailAddress("test@test.com");
 ```
 
-## Delete Player
-> [!WARNING]
-> This is a permanent and irreversible action.  It is important for data privacy to always allow logged in players the ability to delete their account.
-```C#
-service.DeletePlayer();
-```
-
 ## Get a Player
 ```C#
 // By player ID
@@ -134,7 +146,85 @@ service.GetPlayer(playerID);
 
 // By player name
 service.GetPlayer("Gamer Pig");
+
+// Get expanded player (contains more properties in results)
+service.GetExpandedPlayer(playerID);
+```
+
+## List Players
+```C#
+service.ListPlayers(
+    new ListPlayersOptions {
+        Ordering = PlayerOrdering.MostRecentlyActive
+    }, 
+    new PaginationOptions(1, 20)
+);
+
+// Get specific player IDs
+service.ListPlayers(
+    new ListPlayersOptions {
+        PlayerIDs = new[]
+        {
+            PlayerID1,
+            PlayerID2
+        },
+    }, 
+    new PaginationOptions(1, 20)
+);
+```
+
+## Login Player
+> [!NOTE]
+> This returns a poll token and a redirect URL.  See the [sign in flow documentation][sign-in-flow] for instructions on how to use the returned properties.
+```C#
+service.Login(LoginProvider.Discord);
+```
+
+## Login Poll
+> [!NOTE]
+> Periodically call this method with the poll token provided from the login request.  When the player completes the sign in process, a session key will be returned.
+```C#
+var response = service.LoginPoll(pollToken);
+if (response.Session != null)
+{
+    var sessionKey = r.Session.Key;
+}
+```
+
+## Refresh Session
+> [!NOTE]
+> Call periodically with a Player to keep their session alive.
+```C#
+service.RefreshSession();
+```
+
+## End Session
+```C#
+service.EndSession();
+```
+
+## Link Login Provider
+> [!NOTE]
+> Call this with a signed in player to add another login method to their Player account.  This method returns a poll token and a redirect URL.
+```C#
+service.LinkLoginProvider(LoginProvider.Github);
+```
+
+## Link Poll
+> [!NOTE]
+> Periodically call this method with the poll token provided from the link request.  Read the [link poll documentatio][link-poll-docs] for how to handle the response.
+```C#
+var response = service.LinkPoll(pollToken);
+```
+
+## Disconnect Login Provider
+> [!NOTE]
+> Prevents the Player from being able to login with this login provider in the future.
+```C#
+service.DisconnectLoginProvider(LoginProvider.Discord);
 ```
 
 [cgs-account]: https://cgs.construct.net
 [cgs-docs]: https://www.construct.net/en/game-services/manuals/game-services/authentication/concepts
+[sign-in-flow]: https://www.construct.net/en/game-services/manuals/game-services/authentication/sign-in-flow
+[link-poll-docs]: https://www.construct.net/en/game-services/manuals/game-services/authentication/api-end-points/login-providers/link-poll

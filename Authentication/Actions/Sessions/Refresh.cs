@@ -6,7 +6,7 @@ namespace ConstructServices.Authentication.Actions;
 
 public static partial class Sessions
 {
-    extension(AuthenticationService service)
+    extension(PlayerAuthenticationService service)
     {
         /// <summary>
         /// Refresh current session
