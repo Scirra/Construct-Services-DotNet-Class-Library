@@ -46,16 +46,18 @@ You need to create a [Construct Game Services][cgs-account] account.  From here,
 ### Translated content
 When text content is returned from a service, it is returned in the original language it was written in.  The object is returned with properties such as:
 ```C#
-obj.title = "My Test Title";
-obj.text = "Example test string";
-obj.originalLanguage = { 
-	iso = "EN", 
-	englishName = "English"
-};
-obj.responseLanguage =  { 
-	iso = "EN", 
-	englishName = "English"
-};
+{
+	title: "My Test Title",
+	text: "Example test string",
+	originalLanguage { 
+		iso: "EN", 
+		englishName: "English"
+	}
+	responseLanguage { 
+		iso: "EN", 
+		englishName: "English"
+	}
+}
 ```
 
 By setting a requested language before making the request, the text will be returned in the requested language if your plan supports the translation.  For example, setting:
@@ -68,40 +70,46 @@ service.SetRequestedLanguage(TargetLanguage.German);
 Could return the above example object as:
 
 ```C#
-obj.title = "Mein Testtitel";
-obj.text = "Beispieltestzeichenkette";
-obj.originalLanguage = { 
-	iso = "EN", 
-	englishName = "English"
-};
-obj.responseLanguage =  { 
-	iso = "DE", 
-	englishName = "German"
-};
+{
+	title: "Mein Testtitel",
+	text: "Beispieltestzeichenkette",
+	originalLanguage { 
+		iso: "EN", 
+		englishName: "English"
+	}
+	responseLanguage { 
+		iso: "DE", 
+		englishName: "German"
+	}
+}
 ```
 
 If the translation cannot be served (typically because your plan doesn't support it) the request will fail gracefully, and simply return the original untranslated string:
 
 ```C#
-obj.title = "My Test Title";
-obj.text = "Example test string";
-obj.originalLanguage = { 
-	iso = "EN", 
-	englishName = "English"
-};
-obj.responseLanguage =  { 
-	iso = "EN", 
-	englishName = "English"
-};
+{
+	title: "My Test Title",
+	text: "Example test string",
+	originalLanguage: { 
+		iso: "EN", 
+		englishName: "English"
+	}
+	responseLanguage { 
+		iso: "EN", 
+		englishName:"English"
+	}
+}
 ```
 
 ### Culture formatting
 When an object is returned from a service, a lot of the times it will contain properties such as:
 ```C#
-obj.value = 1000;
-obj.formattedValue = "1,000";
-obj.date = DateTime;
-obj.formattedDate = "06/03/2026 15:18:42";
+{
+	count: 1000,
+	formattedCount = "1,000",
+	date = "06/03/2026 15:18:42",
+	formattedDate = "06/03/2026 15:18:42",
+}
 ```
 
 By setting the service culture before making the request, the formatted versions of the properties will be returned in the specified culture.  For example, setting:
@@ -114,10 +122,12 @@ service.SetCulture(new CultureInfo("de-DE"));
 Would return the above example object as:
 
 ```C#
-obj.value = 1000;
-obj.formattedValue = "1.000";
-obj.date = DateTime;
-obj.formattedDate = "06.03.2026 15:18:42";
+{
+	count: 1000,
+	formattedCount = "1.000",
+	date = "06/03/2026 15:18:42",
+	formattedDate = "06.03.2026 15:18:42"
+}
 ```
 
 ### Pagination
