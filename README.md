@@ -40,32 +40,62 @@ You can read the full [API documentation here][api-docs].  Below are links to do
 ### Before you start
 You need to create a [Construct Game Services][cgs-account] account.  From here, you can create a new Game, and get your Game ID, which is required to make requests to these services.
 
-> Even though the service is called the Construct Game Services, it can be used outside of the gaming world for other purposes!
+> Even though the service is called the Construct Game Services, it can be used outside of the gaming world for other purpos
+
+# The Services
 
  - ## Authentication Service
-   For signing in players, forgotten password emails, setting player avatars and much more.
+   Allow players to sign in to your game/application with username & password, Apple, BattleNet, Discord, Email magic links, Facebook, Github, Google, ItchIO, Microsoft, Patreon, Reddit, Steam, X and Yandex.
 
-   [Documentation and Examples][docs-auth]
+   Once a player is signed in, they can also:
+
+	- Change their player name (displayed to other users)
+	- Set an avatar
+	- Link their account to other login providers allowing for multiple sign in optionsh
+	- Delete their account
+    - Set an email address for their account
+    - Request a forgotten password
+
+   See the [Examples][docs-auth] or read the [full API documentation][docs-auth-api]
 
  - ## Broadcast Service
-   For publishing messages to channels that can be read by your player base.  Support translations into various languages.
+   Allows you to create Broadcast Channels, and from these channels create Broadcast Messages that are accessible to all players in your game/application. For example, you might create a channel "New Features" and publish messages into this channel describing new features you have introduced when you update your game.
 
-   [Documentation and Examples][docs-broadcast]
+   Messages can be translated into multiple languages to cater to international audiences.  If enabled, players can also rate Broadcast Messages.
+   
+   See the [Examples][docs-broadcast] or read the [full API documentation][docs-broadcast-api]
 
  - ## CloudSave Service
-   For saving data blobs.  Supports private player saves, along with public saves into buckets.  Images can be stored alongside the cloud saves, and cloud saves can be rated by the player base.
+   Allow players to save blobs of data into the cloud for retrieval at a later date. The most useful and simple applciation for this is allowing players to save their game progress. You can also save a picture alongside a cloud save to represent the data more visually - for example a screenshot of the game where the save game was created.
+   
+	You can also create public Game Buckets that players can save data into - for example if your game allows you to create custom levels, you could create a public bucket for these levels and allow players to share their creations with other players. These data blobs can also be rated with multiple dimensions, and returned to players sorted by the ratings.
 
-   [Documentation and Examples][docs-cloudsave]
+   See the [Examples][docs-cloudsave] or read the [full API documentation][docs-cloudsave-api]
 
  - ## Leaderboard Service
-   For maintaining a list of scores for players.  Supports teams, shadow banning players or IP's.  View a players score history over time.  You can filter scores by countries as well as many other views.
+   Unlike other services, CGS leaderboards automatically track scores by country allowing you to see how players from different countries are performing for specific leaderboards.
+   
+	CGS leaderboards boast a large array of advanced features built in:
 
-   [Documentation and Examples][docs-leaderboards]
+	- Format scores for all types of values, time, money, points etc.
+	- Group players into Tiers/Divisions
+	- Assign players to teams and customise how teams are ranked
+	- Show daily, weekly, monthly or annual leaderboards
+	- Track players historic performance showing how their rank is improving over time
+	- Shadow ban players to prevent cheaters from spoiling the experience of legitimate players
+	- Set up thresholds that automatically reject scores if they fall outside of expected ranges
+	- Store additional values with scores to provide extra context when viewing leaderboards (for example, how many gold coins were collected)
+	
+   See the [Examples][docs-leaderboards] or read the [full API documentation][docs-leaderboards-api]
 
  - ## XP Service
-   For maintaining an XP level for individual players.  Supports bonus date periods, for example you can create a "Double XP Weekend" where any XP earned during that weekend is doubled automatically.
+	Tracks player XP. The XP service allows you to:
 
-   [Documentation and Examples][docs-xp]
+	 - Add, remove or set a players XP
+	 - Define ranks for XP, unlocked by players when they reach certain XP levels.
+	 - Define periods where XP earnt is multiplied by a custom amount (EG a 3x XP bonus weekend)
+	
+   See the [Examples][docs-xp] or read the [full API documentation][docs-xp-api]
 
 # Support
 
@@ -74,10 +104,15 @@ pull request][pulls].
 
 [cgs-account]: https://cgs.construct.net
 [docs-auth]: https://github.com/Scirra/Construct-Services-DotNet-Class-Library/blob/master/Docs/Authentication.md
+[docs-auth-api]: https://www.construct.net/en/game-services/manuals/game-services/authentication/concepts
 [docs-broadcast]: https://github.com/Scirra/Construct-Services-DotNet-Class-Library/blob/master/Docs/Broadcasts.md
+[docs-broadcast-api]: https://www.construct.net/en/game-services/manuals/game-services/broadcasts/concepts
 [docs-cloudsave]: https://github.com/Scirra/Construct-Services-DotNet-Class-Library/blob/master/Docs/CloudSaves.md
+[docs-cloudsave-api]: https://www.construct.net/en/game-services/manuals/game-services/cloud-save/concepts
 [docs-leaderboards]: https://github.com/Scirra/Construct-Services-DotNet-Class-Library/blob/master/Docs/Leaderboards.md
+[docs-leaderboards-api]: https://www.construct.net/en/game-services/manuals/game-services/leaderboards/getting-started
 [docs-xp]: https://github.com/Scirra/Construct-Services-DotNet-Class-Library/blob/master/Docs/XP.md
+[docs-xp-api]: https://www.construct.net/en/game-services/manuals/game-services/xp/concepts
 [create-game]: https://www.construct.net/en/game-services/account
 [api-docs]: https://www.construct.net/en/game-services/manuals/game-services
 [dotnet-core-cli-tools]: https://docs.microsoft.com/en-us/dotnet/core/tools/
