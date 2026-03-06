@@ -2,122 +2,48 @@
 
 To make requests against this service, you need to first create the relevant service object.  These are cheap objects, you can create them as and when you require them.  Service objects do not need disposing.
 
-There are two ways to construct a service object:
+There are a few ways to construct a service object depending on your intentions:
 
-### For requests where authentication is not required
-Some requests do not require a secret key or a players session key.  For these requests you can simply pass your games ID to the constructor as follows:
+## Requests where a secret API key is required
+
+Pass in your game ID as a Guid, and your secret API key.  You can create API keys from your [CGS account][cgs-account].
+
 ```C#
 var service = new AuthenticationService(
-	"c59fca77-46f0-4069-9af2-8b40008906c0"
+    yourGameID, 
+    new SecretAPIKey("your-secret-key")
 );
 ```
 
-### For requests using your secret key
-If you are making requests that require use of your games secret key, pass in the game ID and a new SecretAPIKey object as follows:
+## Requests as a logged in player
+
+If you are making requests on behalf of a logged in player, create a new Player service object passing in the players session key as follows:
+
 ```C#
-var service = new AuthenticationService(
-	"c59fca77-46f0-4069-9af2-8b40008906c0",
-	new SecretAPIKey("your-secret-key")
+var service = new PlayerAuthenticationService(
+    yourGameID,
+    new SessionKey("players-session-key")
 );
 ```
-Services constructed with a secret key will also work for requests that don't require a secret key.
 
-# Player names and Usernames
+## Requests where no authentication is required
+
+Some requests do not require a secret key, or a player to be logged in.  You probably don't need to use this method, as the above two service objects can still call the end points that do not need authentication.
+
+```C#
+var service = new AuthenticationService(
+    yourGameID
+);
+```
+
+# A note on Player Names and Usernames
 
 A player name is one that is shown to other players.  A username is optional, and is used for signing in.
 
-# Create a new player
+# Example Code
 
-Creates a new player in your game with a specified player name and all optional parameters set.
-```C#
-    var result = service.CreatePlayer(
-        new CreatePlayerOptions("Player-1337")
-        {
-            EmailAddress = "player1337@test.com",
-            Username = "Player1337",
-            Password = "MyPassword123!",
-            SessionExpiry = TimeSpan.FromMinutes(60)
-        }
-    );
+For full documentation, please refer to the [full Construct Game Services docs][cgs-docs].  Please note, this library may contain some overload methods for convenience that do not have specific listed end points in the documentation.
 
-    if (result.Success)
-    {
-        var player = result.Player;
-    }
-```
 
-# Change a player name
-
-Using a secret key:
-```C#
-    var result = service.ChangePlayerName(
-        new ChangePlayerNameOptions(player.ID, "NewPlayerName")
-    );
-```
-
-Or using a players session key:
-```C#
-    var result = service.ChangePlayerName(
-        new ChangePlayerNameOptions("player-session-key", "NewPlayerName")
-    );
-```
-
-# Change a players login username
-
-Using a secret key:
-```C#
-    var result = service.ChangeUsername(
-        new ChangeUsernameOptions(player.ID, "NewPlayerName")
-    );
-```
-
-Or using a players session key:
-```C#
-    var result = service.ChangeUsername(
-        new ChangeUsernameOptions("player-session-key", "NewPlayerName")
-    );
-```
-
-# Change a players password
-
-Using a secret key:
-```C#
-    var result = service.ChangePassword(
-        new ChangePasswordOptions(player.ID, "NewPlayerName")
-    );
-```
-
-Or using a players session key:
-```C#
-    var result = service.ChangePassword(
-        new ChangePasswordOptions("player-session-key", "NewPlayerName")
-    );
-```
-
-# Request forgotten password
-
-If your plan supports emails, and the player has a verified email address this will send the player an email with a link to choose a new password.
-
-```C#
-    var result = service.RequestForgottenPasswordEmail(
-        "player1337@test.com"
-    );
-```
-
-# Delete player (permanent)
-
-It's imperitive that you offer players a way to delete their account.  You can do this by calling the delete player method with the signed in players session key to allow them to delete their own account when they wish to.
-
-Using a secret key:
-```C#
-    var result = service.DeletePlayer(
-        player.ID
-    );
-```
-
-Or using a players session key:
-```C#
-    var result = service.DeletePlayer(
-        "player-session-key"
-    );
-```
+[cgs-account]: https://cgs.construct.net
+[cgs-docs]: https://www.construct.net/en/game-services/manuals/game-services/authentication/concepts

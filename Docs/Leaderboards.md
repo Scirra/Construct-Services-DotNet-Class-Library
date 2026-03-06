@@ -1,23 +1,45 @@
-﻿## Leaderboard Requests
+﻿# Leaderboard Requests
 
 To make requests against this service, you need to first create the relevant service object.  These are cheap objects, you can create them as and when you require them.  Service objects do not need disposing.
 
-There are two ways to construct a service object:
+There are a few ways to construct a service object depending on your intentions:
 
-### For requests where authentication is not required
-Some requests do not require a secret key or a players session key.  For these requests you can simply pass your games ID to the constructor as follows:
+## Requests where a secret API key is required
+
+Pass in your game ID as a Guid, and your secret API key.  You can create API keys from your [CGS account][cgs-account].
+
 ```C#
 var service = new LeaderboardService(
-	"c59fca77-46f0-4069-9af2-8b40008906c0"
+    yourGameID, 
+    new SecretAPIKey("your-secret-key")
 );
 ```
 
-### For requests using your secret key
-If you are making requests that require use of your games secret key, pass in the game ID and a new SecretAPIKey object as follows:
+## Requests as a logged in player
+
+If you are making requests on behalf of a logged in player, create a new Player service object passing in the players session key as follows:
+
 ```C#
-var service = new LeaderboardService(
-	"c59fca77-46f0-4069-9af2-8b40008906c0",
-	new SecretAPIKey("your-secret-key")
+var service = new PlayerLeaderboardService(
+    yourGameID,
+    new SessionKey("players-session-key")
 );
 ```
-Services constructed with a secret key will also work for requests that don't require a secret key.
+
+## Requests where no authentication is required
+
+Some requests do not require a secret key, or a player to be logged in.  You probably don't need to use this method, as the above two service objects can still call the end points that do not need authentication.
+
+```C#
+var service = new LeaderboardService(
+    yourGameID
+);
+```
+
+# Example Code
+
+For full documentation, please refer to the [full Construct Game Services docs][cgs-docs].  Please note, this library may contain some overload methods for convenience that do not have specific listed end points in the documentation.
+
+
+[cgs-account]: https://cgs.construct.net
+[cgs-docs]: https://www.construct.net/en/game-services/manuals/game-services/leaderboards/getting-started
