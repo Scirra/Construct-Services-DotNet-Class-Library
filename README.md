@@ -56,7 +56,15 @@ var result = service.ListPlayers(new ListPlayersOptions {
 );
 ```
 
-This then returns
+This then returns:
+
+```C#
+var hasMore = result.Pagination.HasMore;
+var totalPages = result.Pagination.TotalPages;
+var totalRecords = result.Pagination.TotalRecords;
+```
+
+Using these properties you can make further requests to fetch results on other pages.
 
 # The Services
 
