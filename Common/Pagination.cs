@@ -16,6 +16,9 @@ public class Pagination
     [JsonProperty(PropertyName = "totalRecords")]
     public int TotalRecords { get; private set; }
         
+    [JsonProperty(PropertyName = "hasMore")]
+    public bool HasMore => RequestedPage < TotalPages;
+
     [JsonProperty(PropertyName = "nextPage")]
     public int NextPage => RequestedPage + 1;
     public bool ShouldSerializeNextPage() => NextPage <= TotalPages;

@@ -42,6 +42,22 @@ You need to create a [Construct Game Services][cgs-account] account.  From here,
 
 > Even though the service is called the Construct Game Services, it can be used outside of the gaming world for other purpos
 
+# Pagination
+
+Some requests return results in paginated form.  For these requests, you'll need to pass in a new PaginationOptions object:
+```C#
+var requestedPage = 1;
+var recordsPerPage = 20;
+
+var result = service.ListPlayers(new ListPlayersOptions {
+        Ordering = PlayerOrdering.Newest
+    },
+    new PaginationOptions(requestedPage, recordsPerPage)
+);
+```
+
+This then returns
+
 # The Services
 
  - ## Authentication Service
