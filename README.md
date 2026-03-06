@@ -40,9 +40,87 @@ You can read the full [API documentation here][api-docs].  Below are links to do
 ### Before you start
 You need to create a [Construct Game Services][cgs-account] account.  From here, you can create a new Game, and get your Game ID, which is required to make requests to these services.
 
+> [!TIP]
 > Even though the service is called the Construct Game Services, it can be used outside of the gaming world for other purpos
 
-# Pagination
+### Translated content
+When text content is returned from a service, it is returned in the original language it was written in.  The object is returned with properties such as:
+```C#
+obj.title = "My Test Title";
+obj.text = "Example test string";
+obj.originalLanguage = { 
+	iso = "EN", 
+	englishName = "English"
+};
+obj.responseLanguage =  { 
+	iso = "EN", 
+	englishName = "English"
+};
+```
+
+By setting a requested language before making the request, the text will be returned in the requested language if your plan supports the translation.  For example, setting:
+
+```C#
+// Returns all translatable text content in response objects to German
+service.SetRequestedLanguage(TargetLanguage.German);
+```
+
+Could return the above example object as:
+
+```C#
+obj.title = "Mein Testtitel";
+obj.text = "Beispieltestzeichenkette";
+obj.originalLanguage = { 
+	iso = "EN", 
+	englishName = "English"
+};
+obj.responseLanguage =  { 
+	iso = "DE", 
+	englishName = "German"
+};
+```
+
+If the translation cannot be served (typically because your plan doesn't support it) the request will fail gracefully, and simply return the original untranslated string:
+
+```C#
+obj.title = "My Test Title";
+obj.text = "Example test string";
+obj.originalLanguage = { 
+	iso = "EN", 
+	englishName = "English"
+};
+obj.responseLanguage =  { 
+	iso = "EN", 
+	englishName = "English"
+};
+```
+
+### Culture formatting
+When an object is returned from a service, a lot of the times it will contain properties such as:
+```C#
+obj.value = 1000;
+obj.formattedValue = "1,000";
+obj.date = DateTime;
+obj.formattedDate = "06/03/2026 15:18:42";
+```
+
+By setting the service culture before making the request, the formatted versions of the properties will be returned in the specified culture.  For example, setting:
+
+```C#
+// Returns all dates, numbers formatted to German culture
+service.SetCulture(new CultureInfo("de-DE"));
+```
+
+Would return the above example object as:
+
+```C#
+obj.value = 1000;
+obj.formattedValue = "1.000";
+obj.date = DateTime;
+obj.formattedDate = "06.03.2026 15:18:42";
+```
+
+### Pagination
 
 Some requests return results in paginated form.  For these requests, you'll need to pass in a new PaginationOptions object:
 ```C#

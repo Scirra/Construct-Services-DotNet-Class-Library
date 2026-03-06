@@ -63,6 +63,17 @@ else
 }
 ```
 
+## Create a New XP Bonus
+
+```C#
+service.RegisterPlayer(new RegisterPlayerOptions
+{
+    PlayerName = "Battle Pig",
+    Username = "BattlePig86",
+    Password = "MySecurePassword123!",
+    EmailAddress = "test@test.com"
+});
+```
 
 [cgs-account]: https://cgs.construct.net
 [cgs-docs]: https://www.construct.net/en/game-services/manuals/game-services/xp/concepts
