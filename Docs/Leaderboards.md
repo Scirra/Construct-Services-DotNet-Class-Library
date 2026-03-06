@@ -6,6 +6,9 @@ There are a few ways to construct a service object depending on your intentions:
 
 ## Requests where a secret API key is required
 
+> [!WARNING]
+> **Never** use the following code client side.  You are doing something wrong and potentially dangerous if you do this.
+
 Pass in your game ID as a Guid, and your secret API key.  You can create API keys from your [CGS account][cgs-account].
 
 ```C#
@@ -16,6 +19,9 @@ var service = new LeaderboardService(
 ```
 
 ## Requests as a logged in player
+
+> [!TIP]
+> This is safe to use client side as well as server side.
 
 If you are making requests on behalf of a logged in player, create a new Player service object passing in the players session key as follows:
 
