@@ -50,6 +50,91 @@ A player name is one that is shown to other players.  A username is optional, an
 
 For full documentation, please refer to the [full Construct Game Services docs][cgs-docs].  Please note, this library may contain some overload methods for convenience that do not have specific listed end points in the documentation.
 
+> [!NOTE]
+> A lot of these examples can be called from both an API key authenticated service, or player authenticated service.  The method call for each service may require additional parameters (for example, most requests authenticated with an API key require a player ID parameter).  In the interests of being concise, we have not given code examples for both types of services.
+
+All methods are available as synchronous calls, and asynchronous calls.  All methods return an object that lets you know if the request succeeded or not.  If you're requesting data, the requested data will also be returned in this object.  A typically pattern when using this API would be:
+```C#
+var result = service.GetSomething();
+if (!result.Success)
+{
+    var errorMessage = result.ErrorMessage;    
+    // Retry or handle the error
+}
+else
+{
+    var thing = result.Thing;
+}
+```
+
+## Set Players avatar
+
+```C#
+// Set from image URL
+service.SetAvatar(new PictureData(new Uri("https://www.example.com/picture.png")));
+
+// Set from base-64 encoded image data
+service.SetAvatar(new PictureData(base64String));
+
+// Set from binary picture data
+byte[] data = getData();
+service.SetAvatar(new PictureData(data));
+```
+
+## Delete Players Avatar
+```C#
+service.DeleteAvatar();
+```
+
+## Set Username & Password
+```C#
+service.SetUsernameAndPassword("Username", "P455w0rD");
+```
+
+## Change Password
+```C#
+service.ChangePassword("P455w0rD2");
+```
+
+## Change Username
+```C#
+service.ChangeUsername("NewUsername");
+```
+
+## Change Player Name
+```C#
+service.ChangePlayerName("Gamer Pig");
+```
+
+## Set Email Address
+> [!TIP]
+> This will send the player an email asking them to verify their email address
+```C#
+service.SetEmailAddress("test@test.com");
+```
+
+## Request Forgotten Password
+> [!TIP]
+> This will only send an email to the player if they have previously verified their email address
+```C#
+service.SetEmailAddress("test@test.com");
+```
+
+## Delete Player
+> [!WARNING]
+> This is a permanent and irreversible action.  It is important for data privacy to always allow logged in players the ability to delete their account.
+```C#
+service.DeletePlayer();
+```
+
+## Get a Player
+```C#
+// By player ID
+service.GetPlayer(playerID);
+
+// By player name
+service.GetPlayer("Gamer Pig");
+```
 
 [cgs-account]: https://cgs.construct.net
 [cgs-docs]: https://www.construct.net/en/game-services/manuals/game-services/authentication/concepts

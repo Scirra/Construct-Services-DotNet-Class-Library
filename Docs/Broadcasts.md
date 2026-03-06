@@ -46,6 +46,23 @@ var service = new BroadcastService(
 
 For full documentation, please refer to the [full Construct Game Services docs][cgs-docs].  Please note, this library may contain some overload methods for convenience that do not have specific listed end points in the documentation.
 
+> [!NOTE]
+> A lot of these examples can be called from both an API key authenticated service, or player authenticated service.  The method call for each service may require additional parameters (for example, most requests authenticated with an API key require a player ID parameter).  In the interests of being concise, we have not given code examples for both types of services.
+
+All methods are available as synchronous calls, and asynchronous calls.  All methods return an object that lets you know if the request succeeded or not.  If you're requesting data, the requested data will also be returned in this object.  A typically pattern when using this API would be:
+```C#
+var result = service.GetSomething();
+if (!result.Success)
+{
+    var errorMessage = result.ErrorMessage;    
+    // Retry or handle the error
+}
+else
+{
+    var thing = result.Thing;
+}
+```
+
 
 [cgs-account]: https://cgs.construct.net
 [cgs-docs]: https://www.construct.net/en/game-services/manuals/game-services/broadcasts/concepts
