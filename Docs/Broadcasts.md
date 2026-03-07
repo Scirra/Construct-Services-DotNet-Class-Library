@@ -145,5 +145,43 @@ service.ListMessages(
 service.DeleteMessage(messageID);
 ```
 
+## Create a Broadcast Channel Rating Dimension
+```C#
+service.CreateRatingDimension(
+    channelID,
+    new Dimensions.CreateRatingDimensionOptions
+    {
+        ID = "mydimension",
+        Title = "Positivity",
+        Description = "How do you rate the positivity of this message on a scale 1-5?",
+        MaxRating = 4
+    }
+);
+```
+
+## Update a Broadcast Channel Rating Dimension
+```C#
+service.UpdateRatingDimension(
+    channelID,
+    "mydimension",
+    new Dimensions.UpdateRatingDimensionOptions
+    {
+        Title = "New title",
+        MaxRating = 100
+    }
+);
+```
+
+## List all Broadcast Channels Rating Dimension
+```C#
+service.ListRatingDimensions(channelID);
+```
+
+## Delete a Broadcast Channel Rating Dimension
+```C#
+service.DeleteRatingDimension(channelID, "mydimension");
+```
+
+
 [cgs-account]: https://cgs.construct.net
 [cgs-docs]: https://www.construct.net/en/game-services/manuals/game-services/broadcasts/concepts
