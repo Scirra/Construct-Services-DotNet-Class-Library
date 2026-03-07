@@ -45,14 +45,27 @@ public static class Rating
         }
     }
 
+    [UsedImplicitly]
+    public class PlayerRating
+    {
+        [UsedImplicitly]
+        public string DimensionID { internal get; set; }
+
+        [UsedImplicitly]
+        public byte Rating { internal get; set; }
+    }
+
     public class RateObjectOptions
     {
         [UsedImplicitly]
-        public Dictionary<string, byte> Ratings { private get; set; }
+        public byte? DimensionlessRating { private get; set; }
+
+        [UsedImplicitly]
+        public List<PlayerRating> DimensionRatings { private get; set; }
         
         internal Common.Validations.Responses.ValidationResponseBase Validate()
         {
-            if (Ratings == null || !Ratings.Any())
+            if ((DimensionRatings == null || !DimensionRatings.Any()) && !DimensionlessRating.HasValue)
             {
                 return new Common.Validations.Responses.FailedValidation("No ratings were passed in the request.");
             }
@@ -65,9 +78,22 @@ public static class Rating
                 { "thingTypeID", ((byte)forThing).ToString()},
                 { "thingID", forThingID.ToString()}
             };
-            if (Ratings != null)
+
+            // Add dimensionless rating
+            if (DimensionlessRating.HasValue)
             {
-                formData.Add("value", string.Join(",", Ratings.Select(c=> c.Key + "=" + c.Value)));
+                DimensionRatings ??= [];
+                DimensionRatings.Add(new PlayerRating
+                {
+                    DimensionID = string.Empty,
+                    Rating = DimensionlessRating.Value
+                });
+            }
+
+            // Add form data
+            if (DimensionRatings != null)
+            {
+                formData.Add("value", string.Join(",", DimensionRatings.Select(c=> c.DimensionID + "=" + c.Rating)));
             }
             return formData;
         }
