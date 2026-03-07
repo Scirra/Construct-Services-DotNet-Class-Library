@@ -14,42 +14,42 @@ public static partial class Dimensions
     extension(BaseService service)
     {
         internal DimensionResponse UpdateDimension(
-            string apiEndPointPath,            
-            Guid forThingID,
+            Thing forThing,
+            Guid forThingID,    
             string dimensionID,
-            UpdateRatingDimensionBase updateRatingDimensionBase)
+            string apiEndPointPath,        
+            UpdateRatingDimensionOptions updateRatingDimensionOptions)
         {
-            var validation = updateRatingDimensionBase.Validate();
+            var validation = updateRatingDimensionOptions.Validate();
             if (!validation.Valid) return new DimensionResponse(validation.ErrorMessage);
 
             return Request.ExecuteSyncRequest<DimensionResponse>(
                 apiEndPointPath,
                 service,
-                updateRatingDimensionBase.BuildFormData(forThingID, dimensionID)
+                updateRatingDimensionOptions.BuildFormData(forThing, forThingID, dimensionID)
             );
         }
 
         internal async Task<DimensionResponse> UpdateDimensionAsync(
-            string apiEndPointPath,    
-            Guid forThingID,
+            Thing forThing,
+            Guid forThingID,    
             string dimensionID,
-            UpdateRatingDimensionBase updateRatingDimensionBase)
+            string apiEndPointPath,        
+            UpdateRatingDimensionOptions updateRatingDimensionOptions)
         {
-            var validation = updateRatingDimensionBase.Validate();
+            var validation = updateRatingDimensionOptions.Validate();
             if (!validation.Valid) return new DimensionResponse(validation.ErrorMessage);
 
             return await Request.ExecuteAsyncRequest<DimensionResponse>(
                 apiEndPointPath,
                 service,
-                updateRatingDimensionBase.BuildFormData(forThingID, dimensionID)
+                updateRatingDimensionOptions.BuildFormData(forThing, forThingID, dimensionID)
             );
         }
     }
 
-    public abstract class UpdateRatingDimensionBase
+    public sealed class UpdateRatingDimensionOptions
     {
-        private Thing ForThing { get; }
-        
         [UsedImplicitly]
         public byte? MaxRating { private get; set; }
         
@@ -67,10 +67,6 @@ public static partial class Dimensions
             set => LanguageISO = value.ISO();
         }
 
-        internal UpdateRatingDimensionBase(Thing forThing)
-        {
-            ForThing = forThing;
-        }
         internal Common.Validations.Responses.ValidationResponseBase Validate()
         {
             var languageValidation = Functions.IsSourceLanguageISOValid(LanguageISO, true);
@@ -79,7 +75,7 @@ public static partial class Dimensions
             return new Common.Validations.Responses.SuccessfullValidation();
         }
 
-        internal Dictionary<string, string> BuildFormData(Guid thingID, string dimensionID)
+        internal Dictionary<string, string> BuildFormData(Thing forThing, Guid thingID, string dimensionID)
         {
             var formData = new Dictionary<string, string>
             {
@@ -87,17 +83,11 @@ public static partial class Dimensions
                 { "title", Title },
                 { "description", Description },
                 { "language", LanguageISO },
-                { "thingTypeID", ((byte)ForThing).ToString() },
+                { "thingTypeID", ((byte)forThing).ToString() },
                 { "thingID", thingID.ToString() }
             };
             if(MaxRating.HasValue) formData.Add("maxRating", MaxRating.ToString());
             return formData;
         }
     }    
-    
-    [UsedImplicitly]
-    public sealed class UpdateChannelRatingDimensionOptions() : UpdateRatingDimensionBase(Thing.BroadcastChannel);
-    
-    [UsedImplicitly]
-    public sealed class UpdateCloudSaveBucketRatingDimensionOptions() : UpdateRatingDimensionBase(Thing.CloudSaveBucket);
 }

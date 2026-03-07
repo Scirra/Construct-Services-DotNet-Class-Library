@@ -82,12 +82,14 @@ public static class Run
                 {
                     sw.Restart();
                     var createDimensionResult = service.CreateRatingDimension(
-                        new Dimensions.CreateBroadcastChannelRatingDimensionOptions(channel.ID, 100)
+                        channel.ID,
+                        new Dimensions.CreateRatingDimensionOptions
                         {
                             ID = "testdimension",
                             Language = SourceLanguage.Arabic,
                             Title = "Test Title"
-                        });
+                        }
+                    );
                     results[nameof(BroadcastTest.CreateRatingDimension)] = new TestResult(createDimensionResult, sw);
 
                     if (createDimensionResult.Success)
@@ -96,15 +98,18 @@ public static class Run
                         const string testLangCode = "RU";
                         {
                             sw.Restart();
-                            var result = service.UpdateRatingDimension(channel.ID, dimension.ID,
-                                new Dimensions.UpdateChannelRatingDimensionOptions
-                                    { Description = "Longer description", LanguageISO = testLangCode});
+                            var result = service.UpdateRatingDimension(
+                                channel.ID, dimension.ID, new Dimensions.UpdateRatingDimensionOptions
+                                {
+                                    Description = "New dimension description",
+                                    Title = "My new title"
+                                });
                             results[nameof(BroadcastTest.EditRatingDimension)] = new TestResult(result, sw);
                         }
 
                         {
                             sw.Restart();
-                            var result = service.ListRatingDimensions(new Dimensions.ListBroadcastChannelDimensionOptions(channel.ID));
+                            var result = service.ListRatingDimensions(channel.ID);
                             results[nameof(BroadcastTest.GetRatingDimensions)] = new TestResult(result, sw);
 
                             var d = result.Dimensions.FirstOrDefault(d => d.ID == dimension.ID);
@@ -168,7 +173,7 @@ public static class Run
                         }
                         {
                             sw.Restart();
-                            var result = service.DeleteRatingDimension(new Dimensions.DeleteBroadcastChannelRatingDimensionOptions(channel.ID, dimension.ID));
+                            var result = service.DeleteRatingDimension(channel.ID, dimension.ID);
                             results[nameof(BroadcastTest.DeleteRatingDimension)] = new TestResult(result, sw);
                         }
                     }

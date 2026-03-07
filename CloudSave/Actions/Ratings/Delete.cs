@@ -1,7 +1,8 @@
 ﻿using ConstructServices.Common;
-using JetBrains.Annotations;
-using System.Threading.Tasks;
 using ConstructServices.Ratings.Actions;
+using JetBrains.Annotations;
+using System;
+using System.Threading.Tasks;
 
 namespace ConstructServices.CloudSave.Actions;
 
@@ -14,17 +15,15 @@ public static partial class Ratings
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/cloud-save/api-end-points/ratings/delete-dimension" />
         [UsedImplicitly]
-        public BaseResponse DeleteRatingDimension(
-            Dimensions.DeleteCloudSaveBucketRatingDimensionOptions deleteCloudSaveBucketRatingDimensionOptions)
-            => service.DeleteDimension(Config.EndPointPaths.Ratings.DeleteDimension, deleteCloudSaveBucketRatingDimensionOptions);
+        public BaseResponse DeleteRatingDimension(Guid bucketID, string dimensionID)
+            => service.DeleteDimension(Thing.CloudSaveBucket, bucketID, dimensionID, Config.EndPointPaths.Ratings.DeleteDimension);
 
         /// <summary>
         /// Delete an existing Rating Dimension on a CloudSave Bucket
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/cloud-save/api-end-points/ratings/delete-dimension" />
         [UsedImplicitly]
-        public async Task<BaseResponse> DeleteRatingDimensionAsync(
-            Dimensions.DeleteCloudSaveBucketRatingDimensionOptions deleteCloudSaveBucketRatingDimensionOptions)
-            => await service.DeleteDimensionAsync(Config.EndPointPaths.Ratings.DeleteDimension, deleteCloudSaveBucketRatingDimensionOptions);
+        public async Task<BaseResponse> DeleteRatingDimensionAsync(Guid bucketID, string dimensionID)
+            => await service.DeleteDimensionAsync(Thing.CloudSaveBucket, bucketID, dimensionID, Config.EndPointPaths.Ratings.DeleteDimension);
     }
 }

@@ -1,6 +1,8 @@
-﻿using ConstructServices.Ratings.Responses;
+﻿using System;
+using ConstructServices.Ratings.Responses;
 using JetBrains.Annotations;
 using System.Threading.Tasks;
+using ConstructServices.Common;
 using ConstructServices.Ratings.Actions;
 
 namespace ConstructServices.CloudSave.Actions;
@@ -14,9 +16,9 @@ public static partial class Ratings
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/cloud-save/api-end-points/ratings/get-dimensions" />
         [UsedImplicitly]
-        public DimensionsResponse GetRatingDimensions(Dimensions.ListCloudSaveBucketDimensionOptions listCloudSaveBucketDimensionOptions)
+        public DimensionsResponse GetRatingDimensions(Guid bucketID)
         {
-            return service.ListDimensions(Config.EndPointPaths.Ratings.ListDimensions, listCloudSaveBucketDimensionOptions);
+            return service.ListDimensions(Thing.CloudSaveBucket, bucketID, Config.EndPointPaths.Ratings.ListDimensions);
         }
 
         /// <summary>
@@ -24,9 +26,9 @@ public static partial class Ratings
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/cloud-save/api-end-points/ratings/get-dimensions" />
         [UsedImplicitly]
-        public async Task<DimensionsResponse> GetRatingDimensionsAsync(Dimensions.ListCloudSaveBucketDimensionOptions listCloudSaveBucketDimensionOptions)
+        public async Task<DimensionsResponse> GetRatingDimensionsAsync(Guid bucketID)
         {
-            return await service.ListDimensionsAsync(Config.EndPointPaths.Ratings.ListDimensions, listCloudSaveBucketDimensionOptions);
+            return await service.ListDimensionsAsync(Thing.CloudSaveBucket, bucketID, Config.EndPointPaths.Ratings.ListDimensions);
         }
     }
 }

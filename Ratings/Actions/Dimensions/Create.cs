@@ -1,6 +1,4 @@
-﻿using ConstructServices.Broadcasts.Objects;
-using ConstructServices.CloudSave.Objects;
-using ConstructServices.Common;
+﻿using ConstructServices.Common;
 using ConstructServices.Common.Languages;
 using ConstructServices.Ratings.Responses;
 using JetBrains.Annotations;
@@ -16,6 +14,8 @@ public static partial class Dimensions
     extension(BaseService service)
     {
         internal DimensionResponse CreateDimension(
+            Thing forThing,
+            Guid forThingID,
             string apiEndPointPath,
             CreateRatingDimensionOptions createRatingDimensionOptions)
         {
@@ -25,10 +25,12 @@ public static partial class Dimensions
             return Request.ExecuteSyncRequest<DimensionResponse>(
                 apiEndPointPath,
                 service,
-                createRatingDimensionOptions.BuildFormData()
+                createRatingDimensionOptions.BuildFormData(forThing, forThingID)
             );
         }
         internal async Task<DimensionResponse> CreateDimensionAsync(
+            Thing forThing,
+            Guid forThingID,
             string apiEndPointPath,
             CreateRatingDimensionOptions createRatingDimensionOptions)
         {
@@ -38,20 +40,16 @@ public static partial class Dimensions
             return await Request.ExecuteAsyncRequest<DimensionResponse>(
                 apiEndPointPath,
                 service,
-                createRatingDimensionOptions.BuildFormData()
+                createRatingDimensionOptions.BuildFormData(forThing, forThingID)
             );
         }
     }
 
     [UsedImplicitly]
-    public abstract class CreateRatingDimensionOptions(
-        Thing forThing,
-        Guid forThingID,
-        byte maxRating)
+    public sealed class CreateRatingDimensionOptions
     {
-        private Thing ForThing { get; } = forThing;
-        private Guid ForThingID { get; } = forThingID;
-        private byte MaxRating { get; } = maxRating;
+        [UsedImplicitly]
+        public byte MaxRating { private get; set; }
 
         [UsedImplicitly]
         public string ID { private get; set; }
@@ -78,7 +76,7 @@ public static partial class Dimensions
             return new Common.Validations.Responses.SuccessfullValidation();
         }
 
-        protected internal Dictionary<string, string> BuildFormData()
+        internal Dictionary<string, string> BuildFormData(Thing forThing, Guid forThingID)
         {
             var formData = new Dictionary<string, string>
             {
@@ -86,48 +84,11 @@ public static partial class Dimensions
                 { "title", Title },
                 { "description", Description },
                 { "language", LanguageISO },
-                { "thingTypeID", ((byte)ForThing).ToString() },
-                { "thingID", ForThingID.ToString() },
+                { "thingTypeID", ((byte)forThing).ToString() },
+                { "thingID", forThingID.ToString() },
                 { "maxRating", MaxRating.ToString() }
             };
             return formData;
-        }
-    }
-
-    public sealed class CreateBroadcastChannelRatingDimensionOptions : CreateRatingDimensionOptions
-    {    
-        [UsedImplicitly]
-        public CreateBroadcastChannelRatingDimensionOptions(
-            Channel channel,
-            byte maxRating) 
-            : base(Thing.BroadcastChannel, channel.ID, maxRating)
-        {
-        }
-
-        [UsedImplicitly]
-        public CreateBroadcastChannelRatingDimensionOptions(
-            Guid channelID,
-            byte maxRating) 
-            : base(Thing.BroadcastChannel, channelID, maxRating)
-        {
-        }
-    }
-    public sealed class CreateCloudSaveBucketRatingDimensionOptions : CreateRatingDimensionOptions
-    {
-        [UsedImplicitly]
-        public CreateCloudSaveBucketRatingDimensionOptions(
-            Bucket bucket,
-            byte maxRating) 
-            : base(Thing.BroadcastChannel, bucket.ID, maxRating)
-        {
-        }
-
-        [UsedImplicitly]
-        public CreateCloudSaveBucketRatingDimensionOptions(
-            Guid bucketID,
-            byte maxRating) 
-            : base(Thing.BroadcastChannel, bucketID, maxRating)
-        {
         }
     }
 }

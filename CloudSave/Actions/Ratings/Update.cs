@@ -1,8 +1,10 @@
-﻿using System;
+﻿using ConstructServices.Ratings.Actions;
 using ConstructServices.Ratings.Responses;
 using JetBrains.Annotations;
+using System;
 using System.Threading.Tasks;
-using ConstructServices.Ratings.Actions;
+using ConstructServices.Common;
+using static ConstructServices.Ratings.Actions.Dimensions;
 
 namespace ConstructServices.CloudSave.Actions;
 
@@ -18,12 +20,13 @@ public static partial class Ratings
         public DimensionResponse UpdateRatingDimension(
             Guid bucketID,
             string dimensionID,
-            Dimensions.UpdateCloudSaveBucketRatingDimensionOptions updateRatingDimensionOptions)
+            UpdateRatingDimensionOptions updateRatingDimensionOptions)
         {
             return service.UpdateDimension(
-                Config.EndPointPaths.Ratings.UpdateDimension, 
+                Thing.CloudSaveBucket,
                 bucketID,
                 dimensionID,
+                Config.EndPointPaths.Ratings.UpdateDimension, 
                 updateRatingDimensionOptions);
         }
 
@@ -35,12 +38,13 @@ public static partial class Ratings
         public async Task<DimensionResponse> UpdateRatingDimensionAsync(
             Guid bucketID,
             string dimensionID,
-            Dimensions.UpdateCloudSaveBucketRatingDimensionOptions updateRatingDimensionOptions)
+            UpdateRatingDimensionOptions updateRatingDimensionOptions)
         {
             return await service.UpdateDimensionAsync(
-                Config.EndPointPaths.Ratings.UpdateDimension, 
+                Thing.CloudSaveBucket,
                 bucketID,
                 dimensionID,
+                Config.EndPointPaths.Ratings.UpdateDimension, 
                 updateRatingDimensionOptions);
         }
     }

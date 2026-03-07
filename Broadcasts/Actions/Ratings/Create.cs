@@ -1,6 +1,8 @@
-﻿using ConstructServices.Ratings.Responses;
+﻿using System;
+using ConstructServices.Ratings.Responses;
 using JetBrains.Annotations;
 using System.Threading.Tasks;
+using ConstructServices.Common;
 using ConstructServices.Ratings.Actions;
 
 namespace ConstructServices.Broadcasts.Actions;
@@ -15,10 +17,14 @@ public static partial class Ratings
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/broadcasts/api-end-points/ratings/create-dimension" />
         [UsedImplicitly]
         public DimensionResponse CreateRatingDimension(
-            Dimensions.CreateBroadcastChannelRatingDimensionOptions createBroadcastChannelRatingDimensionOptions)
+            Guid channelID,
+            Dimensions.CreateRatingDimensionOptions createRatingDimensionOptions)
         {
-            return service.CreateDimension(Config.EndPointPaths.Ratings.CreateDimension,
-                createBroadcastChannelRatingDimensionOptions
+            return service.CreateDimension(
+                Thing.BroadcastChannel,
+                channelID,
+                Config.EndPointPaths.Ratings.CreateDimension,
+                createRatingDimensionOptions
             );
         }
 
@@ -28,10 +34,14 @@ public static partial class Ratings
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/broadcasts/api-end-points/ratings/create-dimension" />
         [UsedImplicitly]
         public async Task<DimensionResponse> CreateRatingDimensionAsync(
-            Dimensions.CreateBroadcastChannelRatingDimensionOptions createBroadcastChannelRatingDimensionOptions)
+            Guid channelID,
+            Dimensions.CreateRatingDimensionOptions createRatingDimensionOptions)
         {
-            return await service.CreateDimensionAsync(Config.EndPointPaths.Ratings.CreateDimension,
-                createBroadcastChannelRatingDimensionOptions);
+            return await service.CreateDimensionAsync(
+                Thing.BroadcastChannel,
+                channelID,
+                Config.EndPointPaths.Ratings.CreateDimension,
+                createRatingDimensionOptions);
         }
     }
 }

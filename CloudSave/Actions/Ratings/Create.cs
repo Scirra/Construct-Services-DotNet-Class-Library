@@ -1,7 +1,10 @@
-﻿using ConstructServices.Ratings.Responses;
+﻿using ConstructServices.Ratings.Actions;
+using ConstructServices.Ratings.Responses;
 using JetBrains.Annotations;
+using System;
 using System.Threading.Tasks;
-using ConstructServices.Ratings.Actions;
+using ConstructServices.Common;
+using static ConstructServices.Ratings.Actions.Dimensions;
 
 namespace ConstructServices.CloudSave.Actions;
 
@@ -15,10 +18,14 @@ public static partial class Ratings
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/cloud-save/api-end-points/ratings/create-dimension" />
         [UsedImplicitly]
         public DimensionResponse CreateRatingDimension(
-            Dimensions.CreateCloudSaveBucketRatingDimensionOptions createCloudSaveBucketRatingDimensionOptions)
+            Guid bucketID,
+            CreateRatingDimensionOptions createRatingDimensionOptions)
         {
-            return service.CreateDimension(Config.EndPointPaths.Ratings.CreateDimension,
-                createCloudSaveBucketRatingDimensionOptions);
+            return service.CreateDimension(
+                Thing.CloudSaveBucket,
+                bucketID,
+                Config.EndPointPaths.Ratings.CreateDimension,
+                createRatingDimensionOptions);
         }
 
         /// <summary>
@@ -27,10 +34,14 @@ public static partial class Ratings
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/cloud-save/api-end-points/ratings/create-dimension" />
         [UsedImplicitly]
         public async Task<DimensionResponse> CreateRatingDimensionAsync(
-            Dimensions.CreateCloudSaveBucketRatingDimensionOptions createCloudSaveBucketRatingDimensionOptions)
+            Guid bucketID,
+            CreateRatingDimensionOptions createRatingDimensionOptions)
         {
-            return await service.CreateDimensionAsync(Config.EndPointPaths.Ratings.CreateDimension,
-                createCloudSaveBucketRatingDimensionOptions);
+            return await service.CreateDimensionAsync(
+                Thing.CloudSaveBucket,
+                bucketID,
+                Config.EndPointPaths.Ratings.CreateDimension,
+                createRatingDimensionOptions);
         }
     }
 }

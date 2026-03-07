@@ -3,6 +3,7 @@ using ConstructServices.Ratings.Responses;
 using JetBrains.Annotations;
 using System;
 using System.Threading.Tasks;
+using ConstructServices.Common;
 using static ConstructServices.Ratings.Actions.Dimensions;
 
 namespace ConstructServices.Broadcasts.Actions;
@@ -18,12 +19,13 @@ public static partial class Ratings
         public DimensionResponse UpdateRatingDimension(
             Guid channelID,
             string dimensionID,
-            UpdateChannelRatingDimensionOptions updateRatingDimensionOptions)
+            UpdateRatingDimensionOptions updateRatingDimensionOptions)
         {
             return service.UpdateDimension(
-                Config.EndPointPaths.Ratings.UpdateDimension,
+                Thing.BroadcastChannel,
                 channelID,
                 dimensionID,
+                Config.EndPointPaths.Ratings.UpdateDimension,
                 updateRatingDimensionOptions
             );
         }        
@@ -36,12 +38,13 @@ public static partial class Ratings
         public async Task<DimensionResponse> UpdateRatingDimensionAsync(
             Guid channelID,
             string dimensionID,
-            UpdateChannelRatingDimensionOptions updateRatingDimensionOptions)
+            UpdateRatingDimensionOptions updateRatingDimensionOptions)
         {
             return await service.UpdateDimensionAsync(
-                Config.EndPointPaths.Ratings.UpdateDimension, 
+                Thing.BroadcastChannel,
                 channelID,
                 dimensionID,
+                Config.EndPointPaths.Ratings.UpdateDimension,
                 updateRatingDimensionOptions
             );
         }
