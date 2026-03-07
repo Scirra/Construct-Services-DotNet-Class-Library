@@ -63,6 +63,87 @@ else
 }
 ```
 
+## Create a Broadcast Channel
+```C#
+service.CreateChannel(new CreateChannelOptions
+{
+    Name = "Game Updates and News",
+    Description = "For game updates and news!",
+    AllowRatings = true
+});
+```
+
+## Update a Broadcast Channel
+```C#
+service.UpdateChannel(
+    channelID,
+    new Channels.UpdateChannelOptions
+    {
+        Name = "Game Updates & News",
+        Description = "For the latest game updates and news!",
+        AllowRatings = true
+    }
+);
+```
+
+## Get a Broadcast Channel
+```C#
+service.GetChannel(channelID);
+```
+
+## List all Broadcast Channels
+```C#
+service.ListChannels();
+```
+
+## Delete a Broadcast Channel
+> [!WARNING]
+> This is a permanent and irreversible action.  Any messages in the channel are also deleted permamently.
+```C#
+service.DeleteChannel(channelID);
+```
+
+## Create a Broadcast Message
+```C#
+service.CreateMessage(new CreateMessageOptions
+{
+    ChannelID = channelID,
+    Title = "New Feature Added",
+    Text = "We're excited to introduce the following new features into the game..."
+});
+```
+
+## Update a Broadcast Message
+```C#
+service.UpdateMessage(
+    messageID,
+    new Messages.UpdateMessageOptions(
+    {
+        Title = "A New Feature Added",
+        Text = "We're introducing the following new features into the game..."
+    }
+);
+
+```
+## Get a Broadcast Message
+```C#
+service.GetMessage(messageID);
+```
+
+## List Broadcast Messages
+> [!NOTE]
+> Always returns the messages newest first
+```C#
+service.ListMessages(
+    channelID, 
+    new PaginationOptions(1, 20)
+);
+```
+
+## Delete a Broadcast Message
+```C#
+service.DeleteMessage(messageID);
+```
 
 [cgs-account]: https://cgs.construct.net
 [cgs-docs]: https://www.construct.net/en/game-services/manuals/game-services/broadcasts/concepts
