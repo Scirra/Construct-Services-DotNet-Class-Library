@@ -177,6 +177,22 @@ service.UpdateRatingDimension(
 service.ListRatingDimensions(channelID);
 ```
 
+## Rate a Broadcast Message
+```C#
+service.Rate(messageID, new RateObjectOptions
+{
+    DimensionlessRating = 5,
+    DimensionRatings =
+    [
+        new PlayerRating
+        {
+            DimensionID = "mydimension",
+            Rating = 4
+        }
+    ]
+});
+```
+
 ## Delete a Broadcast Channel Rating Dimension
 ```C#
 service.DeleteRatingDimension(channelID, "mydimension");
