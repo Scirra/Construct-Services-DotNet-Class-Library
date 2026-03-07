@@ -66,7 +66,6 @@ public static partial class Dimensions
         public SourceLanguage Language {
             set => LanguageISO = value.ISO();
         }
-
         internal Common.Validations.Responses.ValidationResponseBase Validate()
         {
             var languageValidation = Functions.IsSourceLanguageISOValid(LanguageISO, true);
@@ -74,7 +73,6 @@ public static partial class Dimensions
 
             return new Common.Validations.Responses.SuccessfullValidation();
         }
-
         internal Dictionary<string, string> BuildFormData(Thing forThing, Guid thingID, string dimensionID)
         {
             var formData = new Dictionary<string, string>

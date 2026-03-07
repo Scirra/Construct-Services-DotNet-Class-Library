@@ -16,12 +16,15 @@ public static class Rating
             Thing forThing,
             Guid thingID,
             string apiEndPointPath,
-            RateObjectOptions rateObjectBase)
+            RateObjectOptions rateObjectOptions)
         {
+            var validation = rateObjectOptions.Validate();
+            if (!validation.Valid) return new RateResponse(validation.ErrorMessage);
+
             return Request.ExecuteSyncRequest<RateResponse>(
                 apiEndPointPath,
                 service,
-                rateObjectBase.BuildFormData(forThing, thingID)
+                rateObjectOptions.BuildFormData(forThing, thingID)
             );
         }
 
@@ -29,12 +32,15 @@ public static class Rating
             Thing forThing,
             Guid thingID,
             string apiEndPointPath,
-            RateObjectOptions rateObjectBase)
+            RateObjectOptions rateObjectOptions)
         {
+            var validation = rateObjectOptions.Validate();
+            if (!validation.Valid) return new RateResponse(validation.ErrorMessage);
+
             return await Request.ExecuteAsyncRequest<RateResponse>(
                 apiEndPointPath,
                 service,
-                rateObjectBase.BuildFormData(forThing, thingID)
+                rateObjectOptions.BuildFormData(forThing, thingID)
             );
         }
     }
@@ -43,7 +49,15 @@ public static class Rating
     {
         [UsedImplicitly]
         public Dictionary<string, byte> Ratings { private get; set; }
-
+        
+        internal Common.Validations.Responses.ValidationResponseBase Validate()
+        {
+            if (Ratings == null || !Ratings.Any())
+            {
+                return new Common.Validations.Responses.FailedValidation("No ratings were passed in the request.");
+            }
+            return new Common.Validations.Responses.SuccessfullValidation();
+        }
         internal Dictionary<string, string> BuildFormData(Thing forThing, Guid forThingID)
         {
             var formData = new Dictionary<string, string>
