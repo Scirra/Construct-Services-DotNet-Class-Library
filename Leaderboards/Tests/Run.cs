@@ -205,7 +205,7 @@ public static class Run
                                 
                                 {
                                     sw.Restart();
-                                    var response = service.AdjustScore(new Scores.AdjustScoreByIDOptions(score.ID)
+                                    var response = service.AdjustScore(score.ID, new Scores.AdjustScoreOptions
                                     {
                                         Adjustment = 100,
                                         OptValue1 = 4
@@ -214,7 +214,7 @@ public static class Run
                                 }
                                 {
                                     sw.Restart();
-                                    var response = service.AdjustScore(new Scores.AdjustPlayersScoreOptions(player.ID)
+                                    var response = service.AdjustBestScore(player.ID, new Scores.AdjustScoreOptions
                                     {
                                         Adjustment = 100,
                                         OptValue2 = 4

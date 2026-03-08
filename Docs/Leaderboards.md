@@ -14,6 +14,7 @@ Pass in your game ID as a Guid, and your secret API key.  You can create API key
 ```C#
 var service = new LeaderboardService(
     yourGameID, 
+    yourLeaderboardID,
     new SecretAPIKey("your-secret-key")
 );
 ```
@@ -28,6 +29,7 @@ If you are making requests on behalf of a logged in player, create a new Player 
 ```C#
 var service = new PlayerLeaderboardService(
     yourGameID,
+    yourLeaderboardID,
     new SessionKey("players-session-key")
 );
 ```
@@ -39,6 +41,7 @@ Some requests do not require a secret key, or a player to be logged in.  You pro
 ```C#
 var service = new LeaderboardService(
     yourGameID
+    yourLeaderboardID,
 );
 ```
 
@@ -61,6 +64,112 @@ else
 {
     var thing = result.Thing;
 }
+```
+
+## Creating a Leaderboard
+
+It is not possible to create a leaderboard via the API, you must login to your [CGS account][cgs-account] and create leaderboards from there.
+
+## Create Score
+```C#
+service.CreateScore(new Scores.CreateScoreOptions
+{
+    Score = 1000,
+    OptValue1 = 5
+});
+```
+
+## Adjust Score
+```C#
+service.CreateScore(new Scores.CreateScoreOptions
+{
+    Score = 1000,
+    OptValue1 = 5
+});
+```
+
+## Create Shadow Ban
+```C#
+// On IP address
+service.CreateShadowBan(new ShadowBans.CreateIPShadowBanOptions("1.2.3.4"));
+
+// On Player ID
+service.CreateShadowBan(new ShadowBans.CreatePlayerShadowBanOptions(playerID));
+```
+
+## List Shadow Bans
+```C#
+// List IP bans
+service.ListIPShadowBans(new PaginationOptions(1, 20));
+
+// List Player bans
+service.ListPlayerShadowBans(new PaginationOptions(1, 20));
+```
+
+## Delete Shadow Bans
+```C#
+// Delete IP ban
+service.DeleteShadowBan(new ShadowBans.DeleteIPShadowBanOptions("1.2.3.4"));
+
+// Delete Player ban
+service.DeleteShadowBan(new ShadowBans.DeletePlayerShadowBanOptions(playerID));
+```
+
+## Create a Leaderboard Team
+```C#
+service.CreateTeam("Team Name");
+```
+
+## Update a Leaderboard Team
+```C#
+service.UpdateTeam(teamID, new Teams.UpdateTeamOptions
+{
+    Name = "New Team Name"
+});
+```
+
+## Get a Leaderboard Team
+```C#
+service.GetTeam(teamID);
+```
+
+## List Leaderboard Teams
+```C#
+service.ListTeams(
+    new Teams.ListTeamOptions
+    {
+        Ordering = GetTeamsOrdering.MostPlayers,
+    },
+    new PaginationOptions(1, 20)
+);
+```
+
+
+## Assign Player to a Leaderboard Team
+```C#
+service.AssignPlayerToTeam(teamID, playerID);
+```
+
+## Delete (Remove) Player from a Leaderboard Team
+```C#
+service.DeletePlayerFromTeam(teamID, playerID);
+```
+
+## List Players in a Leaderboard Team
+```C#
+service.ListTeamPlayers(
+    teamID,
+    new Teams.ListTeamPlayersOptions
+    {
+        Ordering = TeamPlayersOrdering.Score
+    },
+    new PaginationOptions(1, 20)
+);
+```
+
+## Delete a Leaderboard Team
+```C#
+service.DeleteTeam(teamID);
 ```
 
 

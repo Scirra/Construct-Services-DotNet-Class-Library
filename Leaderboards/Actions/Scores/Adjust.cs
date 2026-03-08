@@ -9,50 +9,19 @@ namespace ConstructServices.Leaderboards.Actions;
 
 public static partial class Scores
 {
-    extension(LeaderboardService service)
-    {
-        /// <summary>
-        /// Adjust an existing Score.
-        /// </summary>
-        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/scores/adjust-score" />
-        [UsedImplicitly]
-        public CreateScoreResponse AdjustScore(AdjustScoreBase adjustScoreOptions)
-        {
-            return Request.ExecuteSyncRequest<CreateScoreResponse>(
-                Config.EndPointPaths.Scores.Adjust,
-                service,
-                adjustScoreOptions.BuildFormData(service.LeaderboardID)
-            );
-        }
-        
-        /// <summary>
-        /// Adjust an existing Score.
-        /// </summary>
-        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/scores/adjust-score" />
-        [UsedImplicitly]
-        public async Task<CreateScoreResponse> AdjustScoreScoreAsync(AdjustScoreBase adjustScoreOptions)
-        {
-            return await Request.ExecuteAsyncRequest<CreateScoreResponse>(
-                Config.EndPointPaths.Scores.Adjust,
-                service,
-                adjustScoreOptions.BuildFormData(service.LeaderboardID)
-            );
-        }
-    }
-
-    extension(PlayerLeaderboardService service)
+    extension(LeaderboardServiceBase service)
     {
         /// <summary>
         /// Adjust existing Score
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/scores/adjust-score" />
         [UsedImplicitly]
-        public CreateScoreResponse AdjustScore(AdjustScoreByIDOptions adjustScoreOptions)
+        public CreateScoreResponse AdjustScore(Guid scoreID, AdjustScoreOptions adjustScoreOptions)
         {
             return Request.ExecuteSyncRequest<CreateScoreResponse>(
                 Config.EndPointPaths.Scores.Adjust,
                 service,
-                adjustScoreOptions.BuildFormData(service.LeaderboardID)
+                adjustScoreOptions.BuildFormData(service.LeaderboardID, scoreID, null)
             );
         }
         
@@ -61,12 +30,12 @@ public static partial class Scores
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/scores/adjust-score" />
         [UsedImplicitly]
-        public async Task<CreateScoreResponse> AdjustScoreScoreAsync(AdjustScoreByIDOptions adjustScoreOptions)
+        public async Task<CreateScoreResponse> AdjustScoreAsync(Guid scoreID, AdjustScoreOptions adjustScoreOptions)
         {
             return await Request.ExecuteAsyncRequest<CreateScoreResponse>(
                 Config.EndPointPaths.Scores.Adjust,
                 service,
-                adjustScoreOptions.BuildFormData(service.LeaderboardID)
+                adjustScoreOptions.BuildFormData(service.LeaderboardID, scoreID, null)
             );
         }
 
@@ -75,12 +44,12 @@ public static partial class Scores
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/scores/adjust-score" />
         [UsedImplicitly]
-        public CreateScoreResponse AdjustBestScore(AdjustBestScoreOptions adjustScoreOptions)
+        public CreateScoreResponse AdjustBestScore(Guid playerID, AdjustScoreOptions adjustScoreOptions)
         {
             return Request.ExecuteSyncRequest<CreateScoreResponse>(
                 Config.EndPointPaths.Scores.Adjust,
                 service,
-                adjustScoreOptions.BuildFormData(service.LeaderboardID)
+                adjustScoreOptions.BuildFormData(service.LeaderboardID, null, playerID)
             );
         }
         
@@ -89,22 +58,19 @@ public static partial class Scores
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/scores/adjust-score" />
         [UsedImplicitly]
-        public async Task<CreateScoreResponse> AdjustBestScoreAsync(AdjustBestScoreOptions adjustScoreOptions)
+        public async Task<CreateScoreResponse> AdjustBestScoreAsync(Guid playerID, AdjustScoreOptions adjustScoreOptions)
         {
             return await Request.ExecuteAsyncRequest<CreateScoreResponse>(
                 Config.EndPointPaths.Scores.Adjust,
                 service,
-                adjustScoreOptions.BuildFormData(service.LeaderboardID)
+                adjustScoreOptions.BuildFormData(service.LeaderboardID, null, playerID)
             );
         }
     }
 
     [UsedImplicitly]
-    public abstract class AdjustScoreBase
+    public sealed class AdjustScoreOptions
     {
-        internal Guid? ScoreID { private get; set; }
-        internal Guid? PlayerID { private get; set; }
-
         [UsedImplicitly]
         public long Adjustment { private get; set; }
 
@@ -117,10 +83,10 @@ public static partial class Scores
         [UsedImplicitly]
         public short? OptValue3 { private get; set; }
 
-        internal Dictionary<string, string> BuildFormData(Guid leaderboardID)
+        internal Dictionary<string, string> BuildFormData(Guid leaderboardID, Guid? scoreID, Guid? playerId)
         {            
             var timestamp = ((DateTimeOffset)DateTime.Now.ToUniversalTime()).ToUnixTimeSeconds();
-            var hash = Functions.GetSHA256Hash(leaderboardID + "." + Adjustment + "." + ScoreID + "." + timestamp + ".");
+            var hash = Functions.GetSHA256Hash(leaderboardID + "." + Adjustment + "." + scoreID + "." + timestamp + ".");
 
             var formData = new Dictionary<string, string>
             {
@@ -128,13 +94,13 @@ public static partial class Scores
                 { "timestamp", timestamp.ToString() },
                 { "adjustment", Adjustment.ToString() }
             };
-            if (ScoreID.HasValue)
+            if (scoreID.HasValue)
             {
-                formData.Add("scoreID", ScoreID.Value.ToString());
+                formData.Add("scoreID", scoreID.Value.ToString());
             }
-            if (PlayerID.HasValue)
+            if (playerId.HasValue)
             {
-                formData.Add("playerID", PlayerID.Value.ToString());
+                formData.Add("playerID", playerId.Value.ToString());
             }
             if (OptValue1.HasValue)
             {
@@ -149,30 +115,6 @@ public static partial class Scores
                 formData.Add("opt3", OptValue3.Value.ToString());
             }
             return formData;
-        }
-    }
-
-    [UsedImplicitly]
-    public sealed class AdjustScoreByIDOptions : AdjustScoreBase
-    {
-        public AdjustScoreByIDOptions(Guid scoreID)
-        {
-            ScoreID = scoreID;
-        }
-    }
-
-    [UsedImplicitly]
-    public sealed class AdjustBestScoreOptions : AdjustScoreBase
-    {
-        public AdjustBestScoreOptions() { }
-    }
-
-    [UsedImplicitly]
-    public sealed class AdjustPlayersScoreOptions : AdjustScoreBase
-    {
-        public AdjustPlayersScoreOptions(Guid playerID)
-        {
-            PlayerID = playerID;
         }
     }
 }
