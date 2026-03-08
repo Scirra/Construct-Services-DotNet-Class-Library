@@ -49,33 +49,25 @@ For full documentation, please refer to the [full Construct Game Services docs][
 > [!NOTE]
 > A lot of these examples can be called from both an API key authenticated service, or player authenticated service.  The method call for each service may require additional parameters (for example, most requests authenticated with an API key require a player ID parameter).  In the interests of being concise, we have not given code examples for both types of services.
 
-All methods are available as synchronous calls, and asynchronous calls.  All methods return an object that lets you know if the request succeeded or not.  If you're requesting data, the requested data will also be returned in this object.  A typically pattern when using this API would be:
-```C#
-var result = service.GetSomething();
-if (!result.Success)
-{
-    var errorMessage = result.ErrorMessage;    
-    // Retry or handle the error
-}
-else
-{
-    var thing = result.Thing;
-}
-```
+All methods are available as synchronous calls, and asynchronous calls.  All methods return an object that lets you know if the request succeeded or not.
 
 ## Create a Broadcast Channel
 ```C#
-service.CreateChannel(new CreateChannelOptions
+var createChannelResponse = service.CreateChannel(new CreateChannelOptions
 {
     Name = "Game Updates and News",
     Description = "For game updates and news!",
     AllowRatings = true
 });
+if(createChannelResponse.Success)
+{
+    var newChannel = createChannelResponse.Channel;
+}
 ```
 
 ## Update a Broadcast Channel
 ```C#
-service.UpdateChannel(
+var updateChannelResponse = service.UpdateChannel(
     channelID,
     new Channels.UpdateChannelOptions
     {
@@ -84,38 +76,58 @@ service.UpdateChannel(
         AllowRatings = true
     }
 );
+if (updateChannelResponse.Success)
+{
+    var updatedChannel = updateChannelResponse.Channel;
+}
 ```
 
 ## Get a Broadcast Channel
 ```C#
-service.GetChannel(channelID);
+var getChannelResponse = service.GetChannel(channelID);
+if (getChannelResponse.Success)
+{
+    var channel = getChannelResponse.Channel;
+}
 ```
 
 ## List all Broadcast Channels
 ```C#
-service.ListChannels();
+var listChannelsResponse = service.ListChannels();
+if (listChannelsResponse.Success)
+{
+    var channels = listChannelsResponse.Channels;
+}
 ```
 
 ## Delete a Broadcast Channel
 > [!WARNING]
 > This is a permanent and irreversible action.  Any messages in the channel are also deleted permamently.
 ```C#
-service.DeleteChannel(channelID);
+var deleteResponse = service.DeleteChannel(channelID);
+if (deleteResponse.Success)
+{
+    // Was deleted
+}
 ```
 
 ## Create a Broadcast Message
 ```C#
-service.CreateMessage(new CreateMessageOptions
+var createMessageResponse = service.CreateMessage(new CreateMessageOptions
 {
     ChannelID = channelID,
     Title = "New Feature Added",
     Text = "We're excited to introduce the following new features into the game..."
 });
+if (createMessageResponse.Success)
+{
+    var publishedMessage = createMessageResponse.Message;
+}
 ```
 
 ## Update a Broadcast Message
 ```C#
-service.UpdateMessage(
+var updateMessageResponse = service.UpdateMessage(
     messageID,
     new Messages.UpdateMessageOptions(
     {
@@ -123,33 +135,48 @@ service.UpdateMessage(
         Text = "We're introducing the following new features into the game..."
     }
 );
-
+if (updateMessageResponse.Success)
+{
+    // Was updated
+}
 ```
 ## Get a Broadcast Message
 ```C#
-service.GetMessage(messageID);
+var getMessageResponse = service.GetMessage(messageID);
+if (getMessageResponse.Success)
+{
+    var message = getMessageResponse.Message;
+}
 ```
 
 ## List Broadcast Messages
 > [!NOTE]
 > Always returns the messages newest first
 ```C#
-service.ListMessages(
+var listMessagesResponse = service.ListMessages(
     channelID, 
     new PaginationOptions(1, 20)
 );
+if (listMessagesResponse.Success)
+{
+    var messages = listMessagesResponse.Messages;
+}
 ```
 
 ## Delete a Broadcast Message
 ```C#
-service.DeleteMessage(messageID);
+var deleteMessageResponse = service.DeleteMessage(messageID);
+if (deleteMessageResponse.Success)
+{
+    // Message was deleted
+}
 ```
 
 ## Create a Broadcast Channel Rating Dimension
 ```C#
-service.CreateRatingDimension(
+var createDimensionResponse = service.CreateRatingDimension(
     channelID,
-    new Dimensions.CreateRatingDimensionOptions
+    new CreateRatingDimensionOptions
     {
         ID = "mydimension",
         Title = "Positivity",
@@ -157,29 +184,41 @@ service.CreateRatingDimension(
         MaxRating = 4
     }
 );
+if (createDimensionResponse.Success)
+{
+    var newDimension = createDimensionResponse.Dimension;
+}
 ```
 
 ## Update a Broadcast Channel Rating Dimension
 ```C#
-service.UpdateRatingDimension(
+var updateDimensionResponse = service.UpdateRatingDimension(
     channelID,
     "mydimension",
-    new Dimensions.UpdateRatingDimensionOptions
+    new UpdateRatingDimensionOptions
     {
         Title = "New title",
         MaxRating = 100
     }
 );
+if (updateDimensionResponse.Success)
+{
+    var updatedDimension = updateDimensionResponse.Dimension;
+}
 ```
 
 ## List all Broadcast Channels Rating Dimensions
 ```C#
-service.ListRatingDimensions(channelID);
+var listDimensionsResponse = service.ListRatingDimensions(channelID);
+if (listDimensionsResponse.Success)
+{
+    var dimensions = listDimensionsResponse.Dimensions;
+}
 ```
 
 ## Rate a Broadcast Message
 ```C#
-service.Rate(messageID, new RateObjectOptions
+var rateMessageResponse = service.Rate(messageID, new RateObjectOptions
 {
     DimensionlessRating = 5,
     DimensionRatings =
@@ -191,11 +230,19 @@ service.Rate(messageID, new RateObjectOptions
         }
     ]
 });
+if (rateMessageResponse.Success)
+{
+    var messageRating = rateMessageResponse.Rating;
+}
 ```
 
 ## Delete a Broadcast Channel Rating Dimension
 ```C#
-service.DeleteRatingDimension(channelID, "mydimension");
+var deleteDimensionResponse = service.DeleteRatingDimension(channelID, "mydimension");
+if (deleteDimensionResponse.Success)
+{
+    // Dimension was deleted
+}
 ```
 
 
