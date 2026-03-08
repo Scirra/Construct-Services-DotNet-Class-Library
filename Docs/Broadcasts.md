@@ -172,7 +172,7 @@ service.UpdateRatingDimension(
 );
 ```
 
-## List all Broadcast Channels Rating Dimension
+## List all Broadcast Channels Rating Dimensions
 ```C#
 service.ListRatingDimensions(channelID);
 ```

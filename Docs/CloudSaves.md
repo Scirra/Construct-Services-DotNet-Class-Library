@@ -205,5 +205,58 @@ service.ListCloudSaves(bucketID,
 service.DeleteBucket(bucketID);
 ```
 
+## Create a Bucket Rating Dimension
+```C#
+service.CreateRatingDimension(
+    bucketID,
+    new Dimensions.CreateRatingDimensionOptions
+    {
+        ID = "mydimension",
+        Title = "Graphics",
+        Description = "How do you rate the graphics in this save on a scale 0-10?",
+        MaxRating = 9
+    }
+);
+```
+
+## Update a Bucket Rating Dimension
+```C#
+service.UpdateRatingDimension(
+    bucketID,
+    "mydimension",
+    new Dimensions.UpdateRatingDimensionOptions
+    {
+        Title = "New title",
+        MaxRating = 100
+    }
+);
+```
+
+## List all Bucket Rating Dimensions
+```C#
+service.ListRatingDimensions(channelID);
+```
+
+## Rate a Cloud Save
+```C#
+service.Rate(cloudSaveID, new RateObjectOptions
+{
+    DimensionlessRating = 5,
+    DimensionRatings =
+    [
+        new DimensionRating
+        {
+            DimensionID = "mydimension",
+            Rating = 8
+        }
+    ]
+});
+```
+
+## Delete a Bucket Rating Dimension
+```C#
+service.DeleteRatingDimension(bucketID, "mydimension");
+```
+
 [cgs-account]: https://cgs.construct.net
 [cgs-docs]: https://www.construct.net/en/game-services/manuals/game-services/cloud-save/concepts
