@@ -51,6 +51,8 @@ For full documentation, please refer to the [full Construct Game Services docs][
 
 All methods are available as synchronous calls, and asynchronous calls.  All methods return an object that lets you know if the request succeeded or not.
 
+# Channels
+
 ## Create a Broadcast Channel
 ```C#
 var createChannelResponse = service.CreateChannel(new CreateChannelOptions
@@ -110,6 +112,8 @@ if (deleteResponse.Success)
     // Was deleted
 }
 ```
+
+# Messages
 
 ## Create a Broadcast Message
 ```C#
@@ -171,6 +175,8 @@ if (deleteMessageResponse.Success)
     // Message was deleted
 }
 ```
+
+# Ratings
 
 ## Create a Broadcast Channel Rating Dimension
 ```C#
