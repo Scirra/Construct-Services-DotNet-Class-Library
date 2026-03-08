@@ -81,11 +81,92 @@ service.CreateScore(new Scores.CreateScoreOptions
 
 ## Adjust Score
 ```C#
-service.CreateScore(new Scores.CreateScoreOptions
+// Adjust by score ID
+service.AdjustScore(scoreID, new Scores.AdjustScoreOptions
 {
-    Score = 1000,
-    OptValue1 = 5
+    Adjustment = 500
 });
+
+// Adjust current best score
+service.AdjustBestScore(new Scores.AdjustScoreOptions
+{
+    Adjustment = -100
+});
+```
+
+## List Newest Scores
+```C#
+// List all newest scores
+service.ListNewestScores(
+    new ListNewestScoresOptions(),
+    new PaginationOptions(1, 20)
+);
+
+// List all newest score from the UK
+service.ListNewestScores(
+    new ListNewestScoresOptions
+    {
+        Country = Country.UnitedKingdom
+    },
+    new PaginationOptions(1, 20)
+);
+
+// List all newest score from Germany
+service.ListNewestScores(
+    new ListNewestScoresOptions
+    {
+        CountryISO = "DE"
+    },
+    new PaginationOptions(1, 20)
+);
+```
+
+## List Players Scores
+> [!TIP]
+> Always returns best scores first
+```C#
+service.ListPlayerScores(playerID, new PaginationOptions(1, 20));
+```
+
+## List Score History
+```C#
+service.ListScoreHistory(scoreID);
+```
+
+## List Score Neighbours
+```C#
+service.ListScoreNeighbours(scoreID, new ListScoreNeighbourOptions
+{
+    Range = 5
+});
+```
+
+## List All Scores
+```C#
+// Get this months best scores
+service.ListScores(new ListScoreOptions
+{
+    Range = ScoreRange.Monthly
+});
+
+// Get last months best scores
+service.ListScores(new ListScoreOptions
+{
+    Range = ScoreRange.Monthly,
+    RangeOffset = 1
+});
+
+// Get all time best scores in the UK
+service.ListScores(new ListScoreOptions
+{
+    Range = ScoreRange.All,
+    Country = Country.UnitedKingdom
+});
+```
+
+## Delete Score
+```C#
+service.DeleteScore(scoreID);
 ```
 
 ## Create Shadow Ban
