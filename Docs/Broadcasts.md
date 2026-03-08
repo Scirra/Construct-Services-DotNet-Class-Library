@@ -51,6 +51,17 @@ For full documentation, please refer to the [full Construct Game Services docs][
 
 All methods are available as synchronous calls, and asynchronous calls.  All methods return an object that lets you know if the request succeeded or not.
 
+## Example Index
+
+ - [Broadcast Channel examples][internal-channels]  
+   Channels are top level objects that messages can be published to
+
+ - [Broadcast Message examples][internal-messages]  
+   Messages contain the actual message content you wish to publish to players
+
+ - [Broadcast Message Rating examples][internal-ratings]  
+   You can allow players to rate publish broadcast messages
+
 # Channels
 
 ## Create a Broadcast Channel
@@ -254,3 +265,6 @@ if (deleteDimensionResponse.Success)
 
 [cgs-account]: https://cgs.construct.net
 [cgs-docs]: https://www.construct.net/en/game-services/manuals/game-services/broadcasts/concepts
+[internal-channels]: #channels
+[internal-messages]: #messages
+[internal-ratings]: #ratings
