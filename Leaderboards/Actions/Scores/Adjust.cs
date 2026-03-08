@@ -38,7 +38,10 @@ public static partial class Scores
                 adjustScoreOptions.BuildFormData(service.LeaderboardID, scoreID, null)
             );
         }
-
+    }
+    
+    extension(LeaderboardService service)
+    {
         /// <summary>
         /// Adjust current best score
         /// </summary>
@@ -64,6 +67,37 @@ public static partial class Scores
                 Config.EndPointPaths.Scores.Adjust,
                 service,
                 adjustScoreOptions.BuildFormData(service.LeaderboardID, null, playerID)
+            );
+        }
+    }
+
+    extension(PlayerLeaderboardService service)
+    {
+        /// <summary>
+        /// Adjust current best score
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/scores/adjust-score" />
+        [UsedImplicitly]
+        public CreateScoreResponse AdjustBestScore(AdjustScoreOptions adjustScoreOptions)
+        {
+            return Request.ExecuteSyncRequest<CreateScoreResponse>(
+                Config.EndPointPaths.Scores.Adjust,
+                service,
+                adjustScoreOptions.BuildFormData(service.LeaderboardID, null, null)
+            );
+        }
+        
+        /// <summary>
+        /// Adjust current best score
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/leaderboards/api-end-points/scores/adjust-score" />
+        [UsedImplicitly]
+        public async Task<CreateScoreResponse> AdjustBestScoreAsync(AdjustScoreOptions adjustScoreOptions)
+        {
+            return await Request.ExecuteAsyncRequest<CreateScoreResponse>(
+                Config.EndPointPaths.Scores.Adjust,
+                service,
+                adjustScoreOptions.BuildFormData(service.LeaderboardID, null, null)
             );
         }
     }
