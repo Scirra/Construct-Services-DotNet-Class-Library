@@ -46,7 +46,7 @@ public static class Rating
     }
 
     [UsedImplicitly]
-    public class PlayerRating
+    public class DimensionRating
     {
         [UsedImplicitly]
         public string DimensionID { internal get; set; }
@@ -55,13 +55,13 @@ public static class Rating
         public byte Rating { internal get; set; }
     }
 
-    public class RateObjectOptions
+    public sealed class RateObjectOptions
     {
         [UsedImplicitly]
         public byte? DimensionlessRating { private get; set; }
 
         [UsedImplicitly]
-        public List<PlayerRating> DimensionRatings { private get; set; }
+        public List<DimensionRating> DimensionRatings { private get; set; }
         
         internal Common.Validations.Responses.ValidationResponseBase Validate()
         {
@@ -83,7 +83,7 @@ public static class Rating
             if (DimensionlessRating.HasValue)
             {
                 DimensionRatings ??= [];
-                DimensionRatings.Add(new PlayerRating
+                DimensionRatings.Add(new DimensionRating
                 {
                     DimensionID = string.Empty,
                     Rating = DimensionlessRating.Value

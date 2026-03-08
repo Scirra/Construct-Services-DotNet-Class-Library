@@ -184,7 +184,7 @@ service.Rate(messageID, new RateObjectOptions
     DimensionlessRating = 5,
     DimensionRatings =
     [
-        new PlayerRating
+        new DimensionRating
         {
             DimensionID = "mydimension",
             Rating = 4
