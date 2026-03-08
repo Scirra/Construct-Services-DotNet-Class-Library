@@ -63,6 +63,147 @@ else
 }
 ```
 
+## Create a Cloud Save
+```C#
+// Create a Cloud Save in a Bucket
+service.CreateCloudSave(new Saves.CreateCloudSaveOptions
+{
+    BucketID = bucketID,
+    Data = byteArray,
+    Key = "my.save.1",
+    Name = "My Save File",
+    Picture = new PictureData(pictureBytes)
+});
+
+// Create a private Cloud Save in the Players account
+service.CreateCloudSave(new Saves.CreateCloudSaveOptions
+{
+    Data = byteArray,
+    Key = "my.save.1",
+    Name = "My Save File",
+    Picture = new PictureData(pictureBytes)
+});
+```
+
+## Get a Cloud Save
+```C#
+service.GetCloudSave(cloudSaveID);
+```
+
+## Get a Cloud Save by Key
+```C#
+// Private save in Players account
+service.GetPlayerSaveByKey("my.key");
+
+// A save in a Bucket
+service.GetBucketSaveByKey(bucketID, "my.key");
+```
+
+## List a Players saves
+```C#
+
+// Private saves
+service.ListPrivateCloudSaves(new Saves.ListPlayersPrivateSavesOptions
+    {
+        SortBy = GetPlayerCloudSaveSortMethod.Newest
+    },
+    new PaginationOptions(1, 20)
+);
+
+// Saves in buckets
+service.ListPlayersCloudSaves(new Saves.ListPlayersSavesOptions
+    {
+        SortBy = GetPlayerCloudSaveSortMethod.KeyAZ,
+        Filters = new ListPlayerCloudSaveFilters
+        {
+            Key = "some.key"
+        }
+    },
+    new PaginationOptions(1, 20)
+);
+```
+
+## Get Cloud Save data
+```C#
+// By ID
+var bytes = service.GetCloudSaveBytes(cloudSaveID);
+
+// By Cloud Save object
+var bytes = service.GetCloudSaveBytes(cloudSaveObject);
+```
+
+## Delete a Cloud Saves Picture
+```C#
+service.DeletePicture(cloudSaveID);
+```
+
+## Set a Cloud Saves Picture
+```C#
+service.SetPicture(cloudSaveID, new PictureData(pictureBytes));
+```
+
+## Delete a Cloud Save
+```C#
+service.DeleteCloudSave(cloudSaveID);
+```
+
+## Create a Bucket
+```C#
+service.CreateBucket(new Buckets.CreateBucketOptions
+{
+    Name = "Official Examples"
+    AccessMode = CloudSaveBucketAccessMode.PublicRead,
+    AllowRatings = true
+});
+```
+
+## Update a Bucket
+```C#
+service.UpdateBucket(bucketID, new Buckets.UpdateBucketOptions
+{
+    Name = "New Name",
+    AccessMode = CloudSaveBucketAccessMode.PublicReadWrite,
+    MaxSavesPerPlayer = 3
+});
+```
+
+## Get a Bucket
+```C#
+service.GetBucket(bucketID);
+```
+
+## List all Buckets
+```C#
+service.ListBuckets(new Buckets.ListBucketOptions
+    {
+        SortBy = GetBucketsSortMethod.MostData
+    },
+    new PaginationOptions(1, 20)
+);
+```
+
+## List Bucket Saves
+```C#
+service.ListCloudSaves(bucketID,
+    new Buckets.ListBucketSavesOptions
+    {
+        Filters = new ListBucketCloudSaveFilters
+        {
+            PlayerIDs = playerIDs,
+            BlobIDs = blobIDs,
+            Key = "key.filter"
+        },
+        SortBy = ListBucketCloudSaveSortMethod.HighestRated
+    },
+    new PaginationOptions(1, 20)
+);
+```
+## Delete a Bucket
+> [!WARNING]
+> This is a permanent and irreversible action.  All Cloud Saves in the bucket will also be permanently deleted.
+```C#
+service.DeleteBucket(bucketID);
+```
 
 [cgs-account]: https://cgs.construct.net
 [cgs-docs]: https://www.construct.net/en/game-services/manuals/game-services/cloud-save/concepts

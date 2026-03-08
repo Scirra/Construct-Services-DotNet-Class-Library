@@ -9,10 +9,10 @@ namespace ConstructServices.CloudSave.Actions;
 
 public static partial class Saves
 {
-    extension(CloudSaveService service)
-    {        
+    extension(PlayerCloudSaveService service)
+    {   
         /// <summary>
-        /// List all players non private Cloud Saves
+        /// List this players non-private Cloud Saves
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/cloud-save/api-end-points/cloud-saves/get-cloud-saves" />
         [UsedImplicitly]
@@ -23,13 +23,13 @@ public static partial class Saves
             return Request.ExecuteSyncRequest<CloudSavesResponse>(
                 Config.EndPointPaths.Saves.ListPlayerSaves,
                 service,
-                listPlayersSavesOptions.BuildFormData(),
+                listPlayersSavesOptions.BuildFormData(null),
                 paginationOptions
             );
         }
 
         /// <summary>
-        /// List all players non private Cloud Saves
+        /// List this players non-private Cloud Saves
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/cloud-save/api-end-points/cloud-saves/get-cloud-saves" />
         [UsedImplicitly]
@@ -40,7 +40,80 @@ public static partial class Saves
             return await Request.ExecuteAsyncRequest<CloudSavesResponse>(
                 Config.EndPointPaths.Saves.ListPlayerSaves,
                 service,
-                listPlayersSavesOptions.BuildFormData(),
+                listPlayersSavesOptions.BuildFormData(null),
+                paginationOptions
+            );
+        }
+
+        /// <summary>
+        /// List all private Cloud Saves in this players account
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/cloud-save/api-end-points/cloud-saves/get-cloud-saves" />
+        [UsedImplicitly]
+        public CloudSavesResponse ListPrivateCloudSaves(
+            ListPlayersPrivateSavesOptions listPlayersPrivateSavesOptions,
+            PaginationOptions paginationOptions)
+        {
+            return Request.ExecuteSyncRequest<CloudSavesResponse>(
+                Config.EndPointPaths.Saves.ListPlayerSaves,
+                service,
+                listPlayersPrivateSavesOptions.BuildFormData(null),
+                paginationOptions
+            );
+        }
+
+        /// <summary>
+        /// List all private Cloud Saves in this players account
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/cloud-save/api-end-points/cloud-saves/get-cloud-saves" />
+        [UsedImplicitly]
+        public async Task<CloudSavesResponse> ListPrivateCloudSavesAsync(
+            ListPlayersPrivateSavesOptions listPlayersPrivateSavesOptions,
+            PaginationOptions paginationOptions)
+        {
+            return await Request.ExecuteAsyncRequest<CloudSavesResponse>(
+                Config.EndPointPaths.Saves.ListPlayerSaves,
+                service,
+                listPlayersPrivateSavesOptions.BuildFormData(null),
+                paginationOptions
+            );
+        }
+    }
+
+    extension(CloudSaveService service)
+    {        
+        /// <summary>
+        /// List all players non private Cloud Saves
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/cloud-save/api-end-points/cloud-saves/get-cloud-saves" />
+        [UsedImplicitly]
+        public CloudSavesResponse ListPlayersCloudSaves(
+            Guid playerID,
+            ListPlayersSavesOptions listPlayersSavesOptions,
+            PaginationOptions paginationOptions)
+        {
+            return Request.ExecuteSyncRequest<CloudSavesResponse>(
+                Config.EndPointPaths.Saves.ListPlayerSaves,
+                service,
+                listPlayersSavesOptions.BuildFormData(playerID),
+                paginationOptions
+            );
+        }
+
+        /// <summary>
+        /// List all players non private Cloud Saves
+        /// </summary>
+        /// <see href="https://www.construct.net/en/game-services/manuals/game-services/cloud-save/api-end-points/cloud-saves/get-cloud-saves" />
+        [UsedImplicitly]
+        public async Task<CloudSavesResponse> ListPlayersCloudSavesAsync(
+            Guid playerID,
+            ListPlayersSavesOptions listPlayersSavesOptions,
+            PaginationOptions paginationOptions)
+        {
+            return await Request.ExecuteAsyncRequest<CloudSavesResponse>(
+                Config.EndPointPaths.Saves.ListPlayerSaves,
+                service,
+                listPlayersSavesOptions.BuildFormData(playerID),
                 paginationOptions
             );
         }
@@ -51,13 +124,14 @@ public static partial class Saves
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/cloud-save/api-end-points/cloud-saves/get-cloud-saves" />
         [UsedImplicitly]
         public CloudSavesResponse ListPlayersPrivateCloudSaves(
+            Guid playerID,
             ListPlayersPrivateSavesOptions listPlayersPrivateSavesOptions,
             PaginationOptions paginationOptions)
         {
             return Request.ExecuteSyncRequest<CloudSavesResponse>(
                 Config.EndPointPaths.Saves.ListPlayerSaves,
                 service,
-                listPlayersPrivateSavesOptions.BuildFormData(),
+                listPlayersPrivateSavesOptions.BuildFormData(playerID),
                 paginationOptions
             );
         }
@@ -68,13 +142,14 @@ public static partial class Saves
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/cloud-save/api-end-points/cloud-saves/get-cloud-saves" />
         [UsedImplicitly]
         public async Task<CloudSavesResponse> ListPlayersPrivateCloudSavesAsync(
+            Guid playerID,
             ListPlayersPrivateSavesOptions listPlayersPrivateSavesOptions,
             PaginationOptions paginationOptions)
         {
             return await Request.ExecuteAsyncRequest<CloudSavesResponse>(
                 Config.EndPointPaths.Saves.ListPlayerSaves,
                 service,
-                listPlayersPrivateSavesOptions.BuildFormData(),
+                listPlayersPrivateSavesOptions.BuildFormData(playerID),
                 paginationOptions
             );
         }
@@ -85,22 +160,22 @@ public static partial class Saves
         private bool ReturnPrivateSaves { get; } = returnPrivateSaves;
 
         [UsedImplicitly]
-        public Guid PlayerID { private get; set; }
-
-        [UsedImplicitly]
         public Enums.GetPlayerCloudSaveSortMethod? SortBy { private get; set; }
 
         [UsedImplicitly]
         public ListPlayerCloudSaveFilters Filters { private get; set; }
 
-        internal Dictionary<string, string> BuildBaseFormData()
+        internal Dictionary<string, string> BuildBaseFormData(Guid? playerID)
         {
             var formData = new Dictionary<string, string>
             {
                 { "mode", "Player" },
-                { "playerID", PlayerID.ToString() },
                 { "bucketSaves", (!ReturnPrivateSaves).ToInt().ToString() }
             };
+            if (playerID.HasValue)
+            {
+                formData.Add("playerID", playerID.Value.ToString());
+            }
             if (SortBy.HasValue)
             {
                 formData.Add("orderBy", SortBy.ToString());
@@ -125,9 +200,9 @@ public static partial class Saves
     public sealed class ListPlayersPrivateSavesOptions()
         : ListPlayerSaveOptions(true)
     {
-        internal Dictionary<string, string> BuildFormData()
+        internal Dictionary<string, string> BuildFormData(Guid? playerID)
         {
-            var formData = BuildBaseFormData();
+            var formData = BuildBaseFormData(playerID);
             return formData;
         }
     }
@@ -136,9 +211,9 @@ public static partial class Saves
     public sealed class ListPlayersSavesOptions()
         : ListPlayerSaveOptions(false)
     {
-        internal Dictionary<string, string> BuildFormData()
+        internal Dictionary<string, string> BuildFormData(Guid? playerID)
         {
-            var formData = BuildBaseFormData();
+            var formData = BuildBaseFormData(playerID);
             return formData;
         }
     }    

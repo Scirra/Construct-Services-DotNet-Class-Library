@@ -118,7 +118,7 @@ public static class Run
                         var save = saveResult.Blob;
                         {
                             sw.Restart();
-                            var result = service.GetByID(save.ID);
+                            var result = service.GetCloudSave(save.ID);
                             results[nameof(CloudSaveTest.GetByID)] = new TestResult(result, sw);
                         }
 
@@ -172,10 +172,7 @@ public static class Run
                         if (player != null)
                         {
                             sw.Restart();
-                            var result = service.ListPlayersCloudSaves(new Saves.ListPlayersSavesOptions
-                            {
-                                PlayerID = player.ID
-                            }, new PaginationOptions(1, 10));
+                            var result = service.ListPlayersCloudSaves(player.ID, new Saves.ListPlayersSavesOptions(), new PaginationOptions(1, 10));
                             results[nameof(CloudSaveTest.ListPlayerSaves)] = new TestResult(result, sw);
                         }
                     }
