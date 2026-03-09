@@ -322,6 +322,7 @@ public static class Run
             results[test] = new TestResult();
         }
         return results
+            .OrderBy(c=> (int)c.Key)
             .Select(c=> 
                 new Tuple<string, TestResult>(c.Key.ToString(), c.Value)
             )
