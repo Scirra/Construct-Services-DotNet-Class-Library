@@ -1,5 +1,4 @@
 ﻿using ConstructServices.Ratings.Actions;
-using ConstructServices.Ratings.Responses;
 using JetBrains.Annotations;
 using System;
 using System.Threading.Tasks;
@@ -17,7 +16,7 @@ public static partial class Ratings
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/cloud-save/api-end-points/ratings/rate-cloud-save" />
         [UsedImplicitly]
-        public RateResponse Rate(Guid cloudSaveID, RateObjectOptions rateObjectOptions)
+        public BaseResponse Rate(Guid cloudSaveID, RateObjectOptions rateObjectOptions)
         {
             return service.Rate(Thing.CloudSave, cloudSaveID, Config.EndPointPaths.Ratings.Rate, rateObjectOptions);
         }
@@ -27,7 +26,7 @@ public static partial class Ratings
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/cloud-save/api-end-points/ratings/rate-cloud-save" />
         [UsedImplicitly]
-        public async Task<RateResponse> RateAsync(Guid cloudSaveID, RateObjectOptions rateObjectOptions)
+        public async Task<BaseResponse> RateAsync(Guid cloudSaveID, RateObjectOptions rateObjectOptions)
         {
             return await service.RateAsync(Thing.CloudSave, cloudSaveID, Config.EndPointPaths.Ratings.Rate, rateObjectOptions);
         }

@@ -7,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using ConstructServices.Authentication;
+using ConstructServices.Authentication.Actions;
 using ConstructServices.Common.Languages;
 
 namespace ConstructServices.Broadcasts.Tests;
@@ -23,6 +25,9 @@ public static class Run
         CreateRatingDimension,
         EditRatingDimension,
         GetRatingDimensions,
+        DimensionlessRating,
+        DimensionRating,
+        CombinedRating,
 
         CreateMessage,
         ListMessages,
@@ -43,7 +48,7 @@ public static class Run
         var sw = new Stopwatch();
         sw.Start();
 
-        // Channels
+        // CREATE CHANNEL
         {
             var createResult = service.CreateChannel(new Channels.CreateChannelOptions
             {
@@ -57,6 +62,7 @@ public static class Run
             {
                 var channel = createResult.Channel;
 
+                // LIST CHANNELS
                 {
                     sw.Restart();
                     var result = service.ListChannels();
@@ -67,26 +73,36 @@ public static class Run
                     }
                 }
 
+                // GET CHANNEL
                 {
                     sw.Restart();
                     var result = service.GetChannel(channel.ID);
                     results[BroadcastTest.GetChannel] = new TestResult(result, sw);
                 }
 
+                // UPDATE CHANNEL
                 {
                     sw.Restart();
-                    var result = service.UpdateChannel(channel.ID, new Channels.UpdateChannelOptions{Name = "New name"});
+                    var result = service.UpdateChannel(
+                        channel.ID,
+                        new Channels.UpdateChannelOptions
+                        {
+                            Name = "New name"
+                        }
+                    );
                     results[BroadcastTest.UpdateChannel] = new TestResult(result, sw);
                 }
 
+                // CREATE RATING DIMENSION
+                const string ratingDimensionID = "testdimension";
                 {
                     sw.Restart();
                     var createDimensionResult = service.CreateRatingDimension(
                         channel.ID,
                         new Dimensions.CreateRatingDimensionOptions
                         {
-                            ID = "testdimension",
-                            Language = SourceLanguage.Arabic,
+                            ID = ratingDimensionID,
+                            Language = SourceLanguage.English,
                             Title = "Test Title",
                             MaxRating = 10
                         }
@@ -97,6 +113,8 @@ public static class Run
                     {
                         var dimension = createDimensionResult.Dimension;
                         const string testLangCode = "RU";
+                        
+                        // UPDATE RATING DIMENSION
                         {
                             sw.Restart();
                             var result = service.UpdateRatingDimension(
@@ -109,6 +127,7 @@ public static class Run
                             results[BroadcastTest.EditRatingDimension] = new TestResult(result, sw);
                         }
 
+                        // LIST RATING DIMENSIONS
                         {
                             sw.Restart();
                             var result = service.ListRatingDimensions(channel.ID);
@@ -119,9 +138,13 @@ public static class Run
                             {
                                 results[BroadcastTest.GetRatingDimensions] = new TestResult(TestResultStatus.Failed, sw, "Language mismatch.");
                             }
+                            if (d != null && d.MaxRating != 10)
+                            {
+                                results[BroadcastTest.GetRatingDimensions] = new TestResult(TestResultStatus.Failed, sw, "Max rating mistmatch [" + d.MaxRating + "]");
+                            }
                         }
 
-                        // Messages
+                        // CREATE MESSAGE
                         {
                             {
                                 sw.Restart();
@@ -137,6 +160,7 @@ public static class Run
                                 {
                                     var message = createMessageResult.Message;
 
+                                    // LIST MESSAGES
                                     {
                                         sw.Restart();
                                         var result = service.ListMessages(channel.ID, new PaginationOptions(1, 20));
@@ -149,13 +173,8 @@ public static class Run
                                             }
                                         }
                                     }
-
-                                    {
-                                        sw.Restart();
-                                        var result = service.GetMessage(message.ID);
-                                        results[BroadcastTest.GetMessage] = new TestResult(result, sw);
-                                    }
                                     
+                                    // UPDATE MESSAGE
                                     {
                                         sw.Restart();
                                         var result = service.UpdateMessage(message.ID, new Messages.UpdateMessageOptions
@@ -165,6 +184,113 @@ public static class Run
                                         results[BroadcastTest.UpdateMessage] = new TestResult(result, sw);
                                     }
 
+                                    // RATE MESSAGE
+                                    {
+                                        var authService = new AuthenticationService(gameID, apiKey);
+                                        var createPlayerResult = authService.RegisterPlayer(
+                                            new Players.RegisterPlayerOptions
+                                            {
+                                                PlayerName = "Test" + new Random().Next(0, 10000)
+                                            }
+                                        );
+                                        if (createPlayerResult.Success)
+                                        {
+                                            var player = createPlayerResult.Player;
+                                            var playerService = new PlayerBroadcastService(gameID,
+                                                new SessionKey(createPlayerResult.Session.Key));
+                                            
+                                            // RATE MESSAGE DIMENSIONLESS
+                                            {
+                                                sw.Restart();
+                                                var result = playerService.Rate(
+                                                    message.ID, 
+                                                    new Rating.RateObjectOptions
+                                                    {
+                                                        DimensionlessRating = 5
+                                                    }
+                                                );
+                                                results[BroadcastTest.DimensionlessRating] = new TestResult(result, sw);
+                                            }
+
+                                            // RATE MESSAGE DIMENSION
+                                            {
+                                                sw.Restart();
+                                                var result = playerService.Rate(message.ID, new Rating.RateObjectOptions
+                                                {
+                                                    DimensionRatings =
+                                                    [
+                                                        new Rating.DimensionRating
+                                                        {
+                                                            DimensionID = dimension.ID,
+                                                            Rating = 5
+                                                        }
+                                                    ]
+                                                });
+                                                results[BroadcastTest.DimensionRating] = new TestResult(result, sw);
+                                            }
+                                            
+                                            // COMBINED RATING
+                                            {
+                                                sw.Restart();
+                                                var result = playerService.Rate(message.ID, new Rating.RateObjectOptions
+                                                {
+                                                    DimensionlessRating = 3,
+                                                    DimensionRatings =
+                                                    [
+                                                        new Rating.DimensionRating
+                                                        {
+                                                            DimensionID = dimension.ID,
+                                                            Rating = 5
+                                                        }
+                                                    ]
+                                                });
+                                                results[BroadcastTest.CombinedRating] = new TestResult(result, sw);
+                                            }
+                                            
+                                            // GET MESSAGE
+                                            {
+                                                sw.Restart();
+                                                var result = playerService.GetMessage(message.ID);
+                                                results[BroadcastTest.GetMessage] = new TestResult(result, sw);
+                                                if (result.Success)
+                                                {
+                                                    message = result.Message;
+
+                                                    var myRatings = result.Message.RatingStatus.MyRatings;
+                                                    if (!myRatings.ContainsKey(string.Empty))
+                                                    {
+                                                        results[BroadcastTest.GetMessage] =
+                                                            new TestResult(TestResultStatus.Failed, sw,
+                                                                "No dimensionless rating returned.");
+                                                    }
+                                                    else if (myRatings[string.Empty].Value != 3)
+                                                    {
+                                                        results[BroadcastTest.GetMessage] =
+                                                            new TestResult(TestResultStatus.Failed, sw,
+                                                                "Invalid dimensionless rating value [" + myRatings[string.Empty].Value + "].");
+                                                    }
+
+                                                    if (!myRatings.TryGetValue(dimension.ID, out var dimensionRating))
+                                                    {
+                                                        results[BroadcastTest.GetMessage] =
+                                                            new TestResult(TestResultStatus.Failed, sw,
+                                                                "No dimension rating returned.");
+                                                    }
+                                                    else if (dimensionRating.Value != 5)
+                                                    {
+                                                        results[BroadcastTest.GetMessage] =
+                                                            new TestResult(TestResultStatus.Failed, sw,
+                                                                "Invalid dimension rating value [" + myRatings[string.Empty].Value + "].");
+                                                    }
+                                                }
+                                            }
+
+                                            // DELETE PLAYER
+                                            authService.DeletePlayer(player.ID);
+                                        }
+                                    }
+
+                                    // DELETE MESSAGE
                                     {
                                         sw.Restart();
                                         var result = service.DeleteMessage(message.ID);
@@ -173,6 +299,8 @@ public static class Run
                                 }
                             }
                         }
+
+                        // DELETE RATING DIMENSION
                         {
                             sw.Restart();
                             var result = service.DeleteRatingDimension(channel.ID, dimension.ID);
@@ -181,7 +309,7 @@ public static class Run
                     }
                 }
 
-
+                // DELETE CHANNEL
                 {
                     sw.Restart();
                     var result = service.DeleteChannel(channel.ID);

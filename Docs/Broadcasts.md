@@ -252,7 +252,7 @@ var rateMessageResponse = service.Rate(messageID, new RateObjectOptions
 });
 if (rateMessageResponse.Success)
 {
-    var messageRating = rateMessageResponse.Rating;
+    // Rating succesfully recorded
 }
 ```
 

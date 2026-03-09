@@ -1,5 +1,4 @@
 ﻿using ConstructServices.Common;
-using ConstructServices.Ratings.Responses;
 using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
@@ -12,32 +11,32 @@ public static class Rating
 {
     extension(BaseService service)
     {
-        internal RateResponse Rate(
+        internal BaseResponse Rate(
             Thing forThing,
             Guid thingID,
             string apiEndPointPath,
             RateObjectOptions rateObjectOptions)
         {
             var validation = rateObjectOptions.Validate();
-            if (!validation.Valid) return new RateResponse(validation.ErrorMessage);
+            if (!validation.Valid) return new BaseResponse(validation.ErrorMessage);
 
-            return Request.ExecuteSyncRequest<RateResponse>(
+            return Request.ExecuteSyncRequest<BaseResponse>(
                 apiEndPointPath,
                 service,
                 rateObjectOptions.BuildFormData(forThing, thingID)
             );
         }
 
-        internal async Task<RateResponse> RateAsync(
+        internal async Task<BaseResponse> RateAsync(
             Thing forThing,
             Guid thingID,
             string apiEndPointPath,
             RateObjectOptions rateObjectOptions)
         {
             var validation = rateObjectOptions.Validate();
-            if (!validation.Valid) return new RateResponse(validation.ErrorMessage);
+            if (!validation.Valid) return new BaseResponse(validation.ErrorMessage);
 
-            return await Request.ExecuteAsyncRequest<RateResponse>(
+            return await Request.ExecuteAsyncRequest<BaseResponse>(
                 apiEndPointPath,
                 service,
                 rateObjectOptions.BuildFormData(forThing, thingID)

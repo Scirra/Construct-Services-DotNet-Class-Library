@@ -340,7 +340,7 @@ var rateResponse = service.Rate(cloudSaveID, new RateObjectOptions
 });
 if (rateResponse.Success)
 {
-    var cloudSaveRating = rateResponse.Rating;
+    // Rating succesfully recorded
 }
 ```
 
