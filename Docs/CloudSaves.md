@@ -51,10 +51,9 @@ For full documentation, please refer to the [full Construct Game Services docs][
 
 All methods are available as synchronous calls, and asynchronous calls.  All methods return an object that lets you know if the request succeeded or not.
 
-## Create a Cloud Save
+## Create a Cloud Save in a Bucket
 ```C#
-// Create a Cloud Save in a Bucket
-var createBucketSaveResponse = service.CreateCloudSave(new Saves.CreateCloudSaveOptions
+var createBucketSaveResponse = service.CreateCloudSave(new CreateCloudSaveOptions
 {
     BucketID = bucketID,
     Data = byteArray,
@@ -62,44 +61,70 @@ var createBucketSaveResponse = service.CreateCloudSave(new Saves.CreateCloudSave
     Name = "My Save File",
     Picture = new PictureData(pictureBytes)
 });
+if (createBucketSaveResponse.Success)
+{
+    var newSave = createBucketSaveResponse.CloudSave;
+}
+```
 
+## Create a private Cloud Save in a Players account
+```C#
 // Create a private Cloud Save in the Players account
-service.CreateCloudSave(new Saves.CreateCloudSaveOptions
+var createPrivateSaveResponse = service.CreateCloudSave(new CreateCloudSaveOptions
 {
     Data = byteArray,
     Key = "my.save.1",
     Name = "My Save File",
     Picture = new PictureData(pictureBytes)
 });
+if (createPrivateSaveResponse.Success)
+{
+    var newSave = createPrivateSaveResponse.CloudSave;
+}
 ```
 
 ## Get a Cloud Save
 ```C#
-service.GetCloudSave(cloudSaveID);
+var getCloudSaveResponse = service.GetCloudSave(cloudSaveID);
+if (getCloudSaveResponse.Success)
+{
+    var cloudSave = getCloudSaveResponse.CloudSave;
+}
 ```
 
 ## Get a Cloud Save by Key
 ```C#
 // Private save in Players account
-service.GetPlayerSaveByKey("my.key");
+var getPlayersPrivateCloudSaveResponse = service.GetPlayerSaveByKey("my.key");
+if (getPlayersPrivateCloudSaveResponse.Success)
+{
+    var cloudSave = getPlayersPrivateCloudSaveResponse.CloudSave;
+}
 
 // A save in a Bucket
-service.GetBucketSaveByKey(bucketID, "my.key");
+var getBucketCloudSaveResponse = service.GetBucketSaveByKey(bucketID, "my.key");
+if (getBucketCloudSaveResponse.Success)
+{
+    var cloudSave = getBucketCloudSaveResponse.CloudSave;
+}
 ```
 
 ## List a Players saves
 ```C#
-
 // Private saves
-service.ListPrivateCloudSaves(new Saves.ListPlayersPrivateSavesOptions
+var getPrivateSavesResponse = service.ListPrivateCloudSaves(new ListPlayersPrivateSavesOptions
     {
         SortBy = GetPlayerCloudSaveSortMethod.Newest
     },
     new PaginationOptions(1, 20)
 );
+if (getPrivateSavesResponse.Success)
+{
+    var cloudSaves = getPrivateSavesResponse.CloudSaves;
+}
 
 // Saves in buckets
-service.ListPlayersCloudSaves(new Saves.ListPlayersSavesOptions
+var getBucketSavesResponse = service.ListPlayersCloudSaves(new ListPlayersSavesOptions
     {
         SortBy = GetPlayerCloudSaveSortMethod.KeyAZ,
         Filters = new ListPlayerCloudSaveFilters
@@ -109,6 +134,10 @@ service.ListPlayersCloudSaves(new Saves.ListPlayersSavesOptions
     },
     new PaginationOptions(1, 20)
 );
+if (getBucketSavesResponse.Success)
+{
+    var cloudSaves = getBucketSavesResponse.CloudSaves;
+}
 ```
 
 ## Get Cloud Save data
@@ -122,58 +151,88 @@ var bytes = service.GetCloudSaveBytes(cloudSaveObject);
 
 ## Delete a Cloud Saves Picture
 ```C#
-service.DeletePicture(cloudSaveID);
+var deletePictureResponse = service.DeletePicture(cloudSaveID);
+if (deletePictureResponse.Success)
+{
+    // Picture was deleted
+}
 ```
 
 ## Set a Cloud Saves Picture
 ```C#
-service.SetPicture(cloudSaveID, new PictureData(pictureBytes));
+var setPictureResponse = service.SetPicture(cloudSaveID, new PictureData(pictureBytes));
+if (setPictureResponse.Success)
+{
+    // Picture was set
+}
 ```
 
 ## Delete a Cloud Save
+> [!WARNING]
+> This is a permanent and irreversible action.
 ```C#
-service.DeleteCloudSave(cloudSaveID);
+var deleteCloudSaveResponse = service.DeleteCloudSave(cloudSaveID);
+if (deleteCloudSaveResponse.Success)
+{
+    // Cloud save was deleted
+}
 ```
 
 ## Create a Bucket
 ```C#
-service.CreateBucket(new Buckets.CreateBucketOptions
+var createBucketResponse = service.CreateBucket(new CreateBucketOptions
 {
     Name = "Official Examples"
     AccessMode = CloudSaveBucketAccessMode.PublicRead,
     AllowRatings = true
 });
+if (createBucketResponse.Success)
+{
+    var newBucket = createBucketResponse.Bucket;
+}
 ```
 
 ## Update a Bucket
 ```C#
-service.UpdateBucket(bucketID, new Buckets.UpdateBucketOptions
+var updateBucketResponse = service.UpdateBucket(bucketID, new UpdateBucketOptions
 {
     Name = "New Name",
     AccessMode = CloudSaveBucketAccessMode.PublicReadWrite,
     MaxSavesPerPlayer = 3
 });
+if (updateBucketResponse.Success)
+{
+    var updatedBucket = updateBucketResponse.Bucket;
+}
 ```
 
 ## Get a Bucket
 ```C#
-service.GetBucket(bucketID);
+var getBucketResponse = service.GetBucket(bucketID);
+if (getBucketResponse.Success)
+{
+    var bucket = getBucketResponse.Bucket;
+}
 ```
 
 ## List all Buckets
 ```C#
-service.ListBuckets(new Buckets.ListBucketOptions
+var listBucketsResponse = service.ListBuckets(new ListBucketOptions
     {
         SortBy = GetBucketsSortMethod.MostData
     },
     new PaginationOptions(1, 20)
 );
+if (listBucketsResponse.Success)
+{
+    var buckets = listBucketsResponse.Buckets;
+}
 ```
 
 ## List Bucket Saves
 ```C#
-service.ListCloudSaves(bucketID,
-    new Buckets.ListBucketSavesOptions
+var listBucketSavesResponse = service.ListCloudSaves(bucketID,
+    new ListBucketSavesOptions
     {
         Filters = new ListBucketCloudSaveFilters
         {
@@ -185,17 +244,25 @@ service.ListCloudSaves(bucketID,
     },
     new PaginationOptions(1, 20)
 );
+if (listBucketSavesResponse.Success)
+{
+    var buckets = listBucketSavesResponse.CloudSaves;
+}
 ```
 ## Delete a Bucket
 > [!WARNING]
 > This is a permanent and irreversible action.  All Cloud Saves in the bucket will also be permanently deleted.
 ```C#
-service.DeleteBucket(bucketID);
+var deleteBucketResponse = service.DeleteBucket(bucketID);
+if (deleteBucketResponse.Success)
+{
+    // Bucket was deleted
+}
 ```
 
 ## Create a Bucket Rating Dimension
 ```C#
-service.CreateRatingDimension(
+var createRatingDimensionResponse = service.CreateRatingDimension(
     bucketID,
     new Dimensions.CreateRatingDimensionOptions
     {
@@ -205,11 +272,15 @@ service.CreateRatingDimension(
         MaxRating = 9
     }
 );
+if (createRatingDimensionResponse.Success)
+{
+    var newDimension = createRatingDimensionResponse.Dimension;
+}
 ```
 
 ## Update a Bucket Rating Dimension
 ```C#
-service.UpdateRatingDimension(
+var updateRatingDimensionResponse = service.UpdateRatingDimension(
     bucketID,
     "mydimension",
     new Dimensions.UpdateRatingDimensionOptions
@@ -218,16 +289,24 @@ service.UpdateRatingDimension(
         MaxRating = 100
     }
 );
+if (updateRatingDimensionResponse.Success)
+{
+    var updatedDimension = updateRatingDimensionResponse.Dimension;
+}
 ```
 
 ## List all Bucket Rating Dimensions
 ```C#
-service.ListRatingDimensions(channelID);
+var listRatingDimensionsResponse = service.ListRatingDimensions(bucketID);
+if (listRatingDimensionsResponse.Success)
+{
+    var ratingDimensions = listRatingDimensionsResponse.Dimensions;
+}
 ```
 
 ## Rate a Cloud Save
 ```C#
-service.Rate(cloudSaveID, new RateObjectOptions
+var rateResponse = service.Rate(cloudSaveID, new RateObjectOptions
 {
     DimensionlessRating = 5,
     DimensionRatings =
@@ -239,11 +318,19 @@ service.Rate(cloudSaveID, new RateObjectOptions
         }
     ]
 });
+if (rateResponse.Success)
+{
+    var cloudSaveRating = rateResponse.Rating;
+}
 ```
 
 ## Delete a Bucket Rating Dimension
 ```C#
-service.DeleteRatingDimension(bucketID, "mydimension");
+var deleteDimensionResponse = service.DeleteRatingDimension(bucketID, "mydimension");
+if (deleteDimensionResponse.Success)
+{
+    // Dimension was deleted
+}
 ```
 
 [cgs-account]: https://cgs.construct.net

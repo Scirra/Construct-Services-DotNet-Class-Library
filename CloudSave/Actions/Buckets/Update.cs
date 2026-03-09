@@ -4,6 +4,7 @@ using ConstructServices.Common;
 using JetBrains.Annotations;
 using System.Threading.Tasks;
 using ConstructServices.CloudSave.Enums;
+using ConstructServices.CloudSave.Responses;
 
 namespace ConstructServices.CloudSave.Actions;
 
@@ -16,9 +17,9 @@ public static partial class Buckets
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/cloud-save/api-end-points/buckets/edit-bucket" />
         [UsedImplicitly]
-        public BaseResponse UpdateBucket(Guid bucketID, UpdateBucketOptions updateBucketOptions)
+        public BucketResponse UpdateBucket(Guid bucketID, UpdateBucketOptions updateBucketOptions)
         {
-            return Request.ExecuteSyncRequest<BaseResponse>(
+            return Request.ExecuteSyncRequest<BucketResponse>(
                 Config.EndPointPaths.Buckets.Update,
                 service,
                 updateBucketOptions.BuildFormData(bucketID)
@@ -30,9 +31,9 @@ public static partial class Buckets
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/cloud-save/api-end-points/buckets/edit-bucket" />
         [UsedImplicitly]
-        public async Task<BaseResponse> UpdateBucketAsync(Guid bucketID, UpdateBucketOptions updateBucketOptions)
+        public async Task<BucketResponse> UpdateBucketAsync(Guid bucketID, UpdateBucketOptions updateBucketOptions)
         {
-            return await Request.ExecuteAsyncRequest<BaseResponse>(
+            return await Request.ExecuteAsyncRequest<BucketResponse>(
                 Config.EndPointPaths.Buckets.Update,
                 service,
                 updateBucketOptions.BuildFormData(bucketID)
