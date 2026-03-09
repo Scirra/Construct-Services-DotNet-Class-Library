@@ -41,7 +41,7 @@ You can read the full [API documentation here][api-docs].  Below are links to do
 You need to create a [Construct Game Services][cgs-account] account.  From here, you can create a new Game, and get your Game ID, which is required to make requests to these services.
 
 > [!TIP]
-> Even though the service is called the Construct Game Services, it can be used outside of the gaming world for other purpos
+> Even though the service is called the Construct Game Services, it can be used outside of the gaming world for other purposes!
 
 ### Translated content
 When text content is returned from a service, it is returned in the original language it was written in.  The object is returned with properties such as:
@@ -137,7 +137,8 @@ Some requests return results in paginated form.  For these requests, you'll need
 var requestedPage = 1;
 var recordsPerPage = 20;
 
-var result = service.ListPlayers(new ListPlayersOptions {
+var result = service.ListPlayers(
+	new ListPlayersOptions {
         Ordering = PlayerOrdering.Newest
     },
     new PaginationOptions(requestedPage, recordsPerPage)
