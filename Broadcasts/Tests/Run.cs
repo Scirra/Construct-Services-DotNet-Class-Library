@@ -103,7 +103,8 @@ public static class Run
                                 channel.ID, dimension.ID, new Dimensions.UpdateRatingDimensionOptions
                                 {
                                     Description = "New dimension description",
-                                    Title = "My new title"
+                                    Title = "My new title",
+                                    LanguageISO = testLangCode
                                 });
                             results[BroadcastTest.EditRatingDimension] = new TestResult(result, sw);
                         }
