@@ -1,10 +1,33 @@
-﻿# Cloud Save Requests
+﻿# Cloud Save Service
+
+For full documentation, please refer to the [full Construct Game Services docs][cgs-docs].  Please note, this library may contain some overload methods for convenience that do not have specific listed end points in the documentation.
+
+> [!NOTE]
+> A lot of these examples can be called from both an API key authenticated service, or player authenticated service.  The method call for each service may require additional parameters (for example, most requests authenticated with an API key require a player ID parameter).  In the interests of being concise, we have not given code examples for both types of services.
+
+All methods are available as synchronous calls, and asynchronous calls.  All methods return an object that lets you know if the request succeeded or not.
+
+# Cloud Save Service Examples
+
+ - [The Cloud Save Service object][internal-service]  
+   Create this object to make requests against this service
+
+ - [Cloud Save examples][internal-cloud-saves]  
+   Examples showing how to save and load data
+
+ - [Bucket examples][internal-buckets]  
+   Buckets are public containers/folders which players can save/load to and from
+
+ - [Cloud Save Rating examples][internal-ratings]  
+   You can allow players to rate Cloud Saves in buckets
+   
+# The Cloud Save Service Object
 
 To make requests against this service, you need to first create the relevant service object.  These are cheap objects, you can create them as and when you require them.  Service objects do not need disposing.
 
 There are a few ways to construct a service object depending on your intentions:
 
-## Requests where a secret API key is required
+### Requests where a secret API key is required
 
 > [!WARNING]
 > **Never** use the following code client side.  You are doing something wrong and potentially dangerous if you do this.
@@ -18,7 +41,7 @@ var service = new CloudSaveService(
 );
 ```
 
-## Requests as a logged in player
+### Requests as a logged in player
 
 > [!TIP]
 > This is safe to use client side as well as server side.
@@ -32,7 +55,7 @@ var service = new PlayerCloudSaveService(
 );
 ```
 
-## Requests where no authentication is required
+### Requests where no authentication is required
 
 Some requests do not require a secret key, or a player to be logged in.  You probably don't need to use this method, as the above two service objects can still call the end points that do not need authentication.
 
@@ -42,14 +65,7 @@ var service = new CloudSaveService(
 );
 ```
 
-# Example Code
-
-For full documentation, please refer to the [full Construct Game Services docs][cgs-docs].  Please note, this library may contain some overload methods for convenience that do not have specific listed end points in the documentation.
-
-> [!NOTE]
-> A lot of these examples can be called from both an API key authenticated service, or player authenticated service.  The method call for each service may require additional parameters (for example, most requests authenticated with an API key require a player ID parameter).  In the interests of being concise, we have not given code examples for both types of services.
-
-All methods are available as synchronous calls, and asynchronous calls.  All methods return an object that lets you know if the request succeeded or not.
+# Cloud Saves
 
 ## Create a Cloud Save in a Bucket
 ```C#
@@ -178,6 +194,8 @@ if (deleteCloudSaveResponse.Success)
 }
 ```
 
+# Buckets
+
 ## Create a Bucket
 ```C#
 var createBucketResponse = service.CreateBucket(new CreateBucketOptions
@@ -260,6 +278,8 @@ if (deleteBucketResponse.Success)
 }
 ```
 
+# Ratings
+
 ## Create a Bucket Rating Dimension
 ```C#
 var createRatingDimensionResponse = service.CreateRatingDimension(
@@ -335,3 +355,7 @@ if (deleteDimensionResponse.Success)
 
 [cgs-account]: https://cgs.construct.net
 [cgs-docs]: https://www.construct.net/en/game-services/manuals/game-services/cloud-save/concepts
+[internal-service]: #the-cloud-save-service-object
+[internal-cloud-saves]: #cloud-saves
+[internal-buckets]: #buckets
+[internal-ratings]: #ratings
