@@ -35,9 +35,9 @@ public static class Run
     }
 
     [UsedImplicitly]
-    public static Dictionary<string, TestResult> RunTests(Guid gameID, SecretAPIKey apiKey, Action<string> logger = null)
+    public static List<Tuple<string, TestResult>> RunTests(Guid gameID, SecretAPIKey apiKey, Action<string> logger = null)
     {
-        var results = new Dictionary<string, TestResult>();
+        var results = new Dictionary<CloudSaveTest, TestResult>();
         var service = new CloudSaveService(gameID, apiKey)
         {
             Logger = logger
@@ -51,7 +51,7 @@ public static class Run
                 AccessMode = CloudSaveBucketAccessMode.PublicReadWrite,
                 Name = "Test Bucket"
             });
-            results[nameof(CloudSaveTest.CreateBucket)] = new TestResult(createResult, sw);
+            results[CloudSaveTest.CreateBucket] = new TestResult(createResult, sw);
 
             if (createResult.Success)
             {
@@ -60,7 +60,7 @@ public static class Run
                 {
                     sw.Restart();
                     var result = service.GetBucket(bucket.ID);
-                    results[nameof(CloudSaveTest.GetBucket)] = new TestResult(result, sw);
+                    results[CloudSaveTest.GetBucket] = new TestResult(result, sw);
                 }
 
                 {
@@ -69,12 +69,12 @@ public static class Run
                     {
                         SortBy = GetBucketsSortMethod.LeastBlobs
                     }, new PaginationOptions(1, 50));
-                    results[nameof(CloudSaveTest.ListBuckets)] = new TestResult(result, sw);
+                    results[CloudSaveTest.ListBuckets] = new TestResult(result, sw);
                     if (result.Success)
                     {
                         if (result.Buckets.All(c => c.ID != bucket.ID))
                         {
-                            results[nameof(CloudSaveTest.ListBuckets)] = new TestResult(TestResultStatus.Failed, sw, "Bucket not found.");
+                            results[CloudSaveTest.ListBuckets] = new TestResult(TestResultStatus.Failed, sw, "Bucket not found.");
                         }
                     }
                 }
@@ -82,7 +82,7 @@ public static class Run
                 {
                     sw.Restart();
                     var result = service.UpdateBucket(bucket.ID, new Buckets.UpdateBucketOptions { AllowRatings = true, Name = "testupdate" });
-                    results[nameof(CloudSaveTest.UpdateBucket)] = new TestResult(result, sw);
+                    results[CloudSaveTest.UpdateBucket] = new TestResult(result, sw);
                 }
 
                 {
@@ -91,7 +91,7 @@ public static class Run
                     {
                         SortBy = ListBucketCloudSaveSortMethod.NameAZ
                     }, new PaginationOptions(1, 10));
-                    results[nameof(CloudSaveTest.ListBucketSaves)] = new TestResult(result, sw);
+                    results[CloudSaveTest.ListBucketSaves] = new TestResult(result, sw);
                 }
 
                 // Saves
@@ -111,7 +111,7 @@ public static class Run
                         Key = testSaveKey,
                         Data = data
                     });
-                    results[nameof(CloudSaveTest.CreateSave)] = new TestResult(saveResult, sw);
+                    results[CloudSaveTest.CreateSave] = new TestResult(saveResult, sw);
 
                     if (saveResult.Success)
                     {
@@ -119,13 +119,13 @@ public static class Run
                         {
                             sw.Restart();
                             var result = service.GetCloudSave(save.ID);
-                            results[nameof(CloudSaveTest.GetByID)] = new TestResult(result, sw);
+                            results[CloudSaveTest.GetByID] = new TestResult(result, sw);
                         }
 
                         {
                             sw.Restart();
                             var result = service.GetBucketSaveByKey(bucket.ID, testSaveKey);
-                            results[nameof(CloudSaveTest.GetByKey)] = new TestResult(result, sw);
+                            results[CloudSaveTest.GetByKey] = new TestResult(result, sw);
                         }
 
                         {
@@ -133,30 +133,30 @@ public static class Run
                             var result = service.GetCloudSaveBytes(save);
                             if (result.Length == data.Length)
                             {
-                                results[nameof(CloudSaveTest.GetBytes)] = new TestResult(TestResultStatus.Passed, sw);
+                                results[CloudSaveTest.GetBytes] = new TestResult(TestResultStatus.Passed, sw);
                             }
                             else
                             {
-                                results[nameof(CloudSaveTest.GetBytes)] = new TestResult(TestResultStatus.Failed, sw);
+                                results[CloudSaveTest.GetBytes] = new TestResult(TestResultStatus.Failed, sw);
                             }
                         }
 
                         {
                             sw.Restart();
                             var result = service.SetPicture(save.ID, new PictureData(new Uri("https://construct-static.com/images/v1746/r/global/construct-3-logo_v64.png", UriKind.Absolute)));
-                            results[nameof(CloudSaveTest.SetPicture)] = new TestResult(result, sw);
+                            results[CloudSaveTest.SetPicture] = new TestResult(result, sw);
                         }
 
                         {
                             sw.Restart();
                             var result = service.DeletePicture(save.ID);
-                            results[nameof(CloudSaveTest.DeletePicture)] = new TestResult(result, sw);
+                            results[CloudSaveTest.DeletePicture] = new TestResult(result, sw);
                         }
 
                         {
                             sw.Restart();
                             var result = service.DeleteCloudSave(save.ID);
-                            results[nameof(CloudSaveTest.DeleteSave)] = new TestResult(result, sw);
+                            results[CloudSaveTest.DeleteSave] = new TestResult(result, sw);
                         }
                     }
 
@@ -173,7 +173,7 @@ public static class Run
                         {
                             sw.Restart();
                             var result = service.ListPlayersCloudSaves(player.ID, new Saves.ListPlayersSavesOptions(), new PaginationOptions(1, 10));
-                            results[nameof(CloudSaveTest.ListPlayerSaves)] = new TestResult(result, sw);
+                            results[CloudSaveTest.ListPlayerSaves] = new TestResult(result, sw);
                         }
                     }
                 }
@@ -181,19 +181,20 @@ public static class Run
                 {
                     sw.Restart();
                     var result = service.DeleteBucket(bucket.ID);
-                    results[nameof(CloudSaveTest.DeleteBucket)] = new TestResult(result, sw);
+                    results[CloudSaveTest.DeleteBucket] = new TestResult(result, sw);
                 }
             }
         }
 
-        var testNames = Enum.GetNames(typeof(CloudSaveTest));
-        foreach (var testName in testNames)
+        var tests = Extensions.ToList<CloudSaveTest>();
+        foreach (var test in tests.Where(test => !results.ContainsKey(test)))
         {
-            if (!results.ContainsKey(testName))
-            {
-                results[testName] = new TestResult();
-            }
+            results[test] = new TestResult();
         }
-        return results;
+        return results
+            .Select(c=> 
+                new Tuple<string, TestResult>(c.Key.ToString(), c.Value)
+            )
+            .ToList();
     }
 }

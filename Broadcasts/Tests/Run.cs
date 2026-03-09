@@ -35,9 +35,9 @@ public static class Run
     }
 
     [UsedImplicitly]
-    public static Dictionary<string, TestResult> RunTests(Guid gameID, SecretAPIKey apiKey, Action<string> logger = null)
+    public static List<Tuple<string, TestResult>> RunTests(Guid gameID, SecretAPIKey apiKey, Action<string> logger = null)
     {
-        var results = new Dictionary<string, TestResult>();
+        var results = new Dictionary<BroadcastTest, TestResult>();
         var service = new BroadcastService(gameID, apiKey);
         
         var sw = new Stopwatch();
@@ -52,7 +52,7 @@ public static class Run
                 LanguageISO = "de",
                 AllowRatings = true
             });
-            results[nameof(BroadcastTest.CreateChannel)] = new TestResult(createResult, sw);
+            results[BroadcastTest.CreateChannel] = new TestResult(createResult, sw);
             if (createResult.Success)
             {
                 var channel = createResult.Channel;
@@ -60,23 +60,23 @@ public static class Run
                 {
                     sw.Restart();
                     var result = service.ListChannels();
-                    results[nameof(BroadcastTest.ListChannels)] = new TestResult(result, sw);
+                    results[BroadcastTest.ListChannels] = new TestResult(result, sw);
                     if (result.Success && result.Channels.All(c => c.ID != channel.ID))
                     {
-                        results[nameof(BroadcastTest.ListChannels)] = new TestResult(TestResultStatus.Failed, sw, "Channel not found.");
+                        results[BroadcastTest.ListChannels] = new TestResult(TestResultStatus.Failed, sw, "Channel not found.");
                     }
                 }
 
                 {
                     sw.Restart();
                     var result = service.GetChannel(channel.ID);
-                    results[nameof(BroadcastTest.GetChannel)] = new TestResult(result, sw);
+                    results[BroadcastTest.GetChannel] = new TestResult(result, sw);
                 }
 
                 {
                     sw.Restart();
                     var result = service.UpdateChannel(channel.ID, new Channels.UpdateChannelOptions{Name = "New name"});
-                    results[nameof(BroadcastTest.UpdateChannel)] = new TestResult(result, sw);
+                    results[BroadcastTest.UpdateChannel] = new TestResult(result, sw);
                 }
 
                 {
@@ -87,10 +87,11 @@ public static class Run
                         {
                             ID = "testdimension",
                             Language = SourceLanguage.Arabic,
-                            Title = "Test Title"
+                            Title = "Test Title",
+                            MaxRating = 10
                         }
                     );
-                    results[nameof(BroadcastTest.CreateRatingDimension)] = new TestResult(createDimensionResult, sw);
+                    results[BroadcastTest.CreateRatingDimension] = new TestResult(createDimensionResult, sw);
 
                     if (createDimensionResult.Success)
                     {
@@ -104,18 +105,18 @@ public static class Run
                                     Description = "New dimension description",
                                     Title = "My new title"
                                 });
-                            results[nameof(BroadcastTest.EditRatingDimension)] = new TestResult(result, sw);
+                            results[BroadcastTest.EditRatingDimension] = new TestResult(result, sw);
                         }
 
                         {
                             sw.Restart();
                             var result = service.ListRatingDimensions(channel.ID);
-                            results[nameof(BroadcastTest.GetRatingDimensions)] = new TestResult(result, sw);
+                            results[BroadcastTest.GetRatingDimensions] = new TestResult(result, sw);
 
                             var d = result.Dimensions.FirstOrDefault(d => d.ID == dimension.ID);
                             if (d != null && !d.OriginalLanguage.ISO.Equals(testLangCode, StringComparison.CurrentCultureIgnoreCase))
                             {
-                                results[nameof(BroadcastTest.GetRatingDimensions)] = new TestResult(TestResultStatus.Failed, sw, "Language mismatch.");
+                                results[BroadcastTest.GetRatingDimensions] = new TestResult(TestResultStatus.Failed, sw, "Language mismatch.");
                             }
                         }
 
@@ -129,7 +130,7 @@ public static class Run
                                     Text = "Test message",
                                     Title = "My title"
                                 });
-                                results[nameof(BroadcastTest.CreateMessage)] = new TestResult(createMessageResult, sw);
+                                results[BroadcastTest.CreateMessage] = new TestResult(createMessageResult, sw);
 
                                 if (createMessageResult.Success)
                                 {
@@ -138,12 +139,12 @@ public static class Run
                                     {
                                         sw.Restart();
                                         var result = service.ListMessages(channel.ID, new PaginationOptions(1, 20));
-                                        results[nameof(BroadcastTest.ListMessages)] = new TestResult(result, sw);
+                                        results[BroadcastTest.ListMessages] = new TestResult(result, sw);
                                         if (result.Success)
                                         {
                                             if (result.Messages.All(c => c.ID != message.ID))
                                             {
-                                                results[nameof(BroadcastTest.ListMessages)] = new TestResult(TestResultStatus.Failed, sw, "Message not found.");
+                                                results[BroadcastTest.ListMessages] = new TestResult(TestResultStatus.Failed, sw, "Message not found.");
                                             }
                                         }
                                     }
@@ -151,7 +152,7 @@ public static class Run
                                     {
                                         sw.Restart();
                                         var result = service.GetMessage(message.ID);
-                                        results[nameof(BroadcastTest.GetMessage)] = new TestResult(result, sw);
+                                        results[BroadcastTest.GetMessage] = new TestResult(result, sw);
                                     }
                                     
                                     {
@@ -160,13 +161,13 @@ public static class Run
                                         {
                                             Text = "Another test string"
                                         });
-                                        results[nameof(BroadcastTest.UpdateMessage)] = new TestResult(result, sw);
+                                        results[BroadcastTest.UpdateMessage] = new TestResult(result, sw);
                                     }
 
                                     {
                                         sw.Restart();
                                         var result = service.DeleteMessage(message.ID);
-                                        results[nameof(BroadcastTest.DeleteMessage)] = new TestResult(result, sw);
+                                        results[BroadcastTest.DeleteMessage] = new TestResult(result, sw);
                                     }
                                 }
                             }
@@ -174,7 +175,7 @@ public static class Run
                         {
                             sw.Restart();
                             var result = service.DeleteRatingDimension(channel.ID, dimension.ID);
-                            results[nameof(BroadcastTest.DeleteRatingDimension)] = new TestResult(result, sw);
+                            results[BroadcastTest.DeleteRatingDimension] = new TestResult(result, sw);
                         }
                     }
                 }
@@ -183,19 +184,20 @@ public static class Run
                 {
                     sw.Restart();
                     var result = service.DeleteChannel(channel.ID);
-                    results[nameof(BroadcastTest.DeleteChannel)] = new TestResult(result, sw);
+                    results[BroadcastTest.DeleteChannel] = new TestResult(result, sw);
                 }
             }
         }
 
-        var testNames = Enum.GetNames(typeof(BroadcastTest));
-        foreach (var testName in testNames)
+        var tests = Extensions.ToList<BroadcastTest>();
+        foreach (var test in tests.Where(test => !results.ContainsKey(test)))
         {
-            if (!results.ContainsKey(testName))
-            {
-                results[testName] = new TestResult();
-            }
+            results[test] = new TestResult();
         }
-        return results;
+        return results
+            .Select(c=> 
+                new Tuple<string, TestResult>(c.Key.ToString(), c.Value)
+            )
+            .ToList();
     }
 }

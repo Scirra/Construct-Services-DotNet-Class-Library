@@ -47,9 +47,9 @@ public static class Run
     }
 
     [UsedImplicitly]
-    public static Dictionary<string, TestResult> RunTests(Guid gameID, SecretAPIKey apiKey, Guid leaderboardID, Action<string> logger = null)
+    public static List<Tuple<string, TestResult>> RunTests(Guid gameID, SecretAPIKey apiKey, Guid leaderboardID, Action<string> logger = null)
     {
-        var results = new Dictionary<string, TestResult>();
+        var results = new Dictionary<LeaderboardTest, TestResult>();
         var service = new LeaderboardService(gameID, leaderboardID, apiKey);
 
         // Get player
@@ -69,7 +69,7 @@ public static class Run
                 {
                     sw.Start();
                     var createTeamResponse = service.CreateTeam("Test Team");
-                    results[nameof(LeaderboardTest.CreateTeam)] = new TestResult(createTeamResponse, sw);
+                    results[LeaderboardTest.CreateTeam] = new TestResult(createTeamResponse, sw);
                     if (createTeamResponse.Success)
                     {
                         var team = createTeamResponse.Team;
@@ -80,12 +80,12 @@ public static class Run
                             {
                                 Ordering = GetTeamsOrdering.Newest
                             }, new PaginationOptions(1, 20));
-                            results[nameof(LeaderboardTest.ListTeams)] = new TestResult(response, sw);
+                            results[LeaderboardTest.ListTeams] = new TestResult(response, sw);
                             if (response.Success)
                             {
                                 if (response.Teams.All(c => c.ID != team.ID))
                                 {
-                                    results[nameof(LeaderboardTest.ListTeams)] = new TestResult(TestResultStatus.Failed, sw, "Team not found.");
+                                    results[LeaderboardTest.ListTeams] = new TestResult(TestResultStatus.Failed, sw, "Team not found.");
                                 }
                             }
                         }
@@ -93,19 +93,19 @@ public static class Run
                         {
                             sw.Restart();
                             var response = service.GetTeam(team.ID);
-                            results[nameof(LeaderboardTest.GetTeam)] = new TestResult(response, sw);
+                            results[LeaderboardTest.GetTeam] = new TestResult(response, sw);
                         }
 
                         {
                             sw.Restart();
                             var response = service.UpdateTeam(team.ID, new Teams.UpdateTeamOptions{Name = "New Team Name"});
-                            results[nameof(LeaderboardTest.UpdateTeam)] = new TestResult(response, sw);
+                            results[LeaderboardTest.UpdateTeam] = new TestResult(response, sw);
                         }
 
                         {
                             sw.Restart();
                             var response = service.AssignPlayerToTeam(team.ID, player.ID);
-                            results[nameof(LeaderboardTest.AssignPlayer)] = new TestResult(response, sw);
+                            results[LeaderboardTest.AssignPlayer] = new TestResult(response, sw);
                         }
 
                         {
@@ -114,12 +114,12 @@ public static class Run
                             {
                                 Ordering = TeamPlayersOrdering.PlayerName
                             }, new PaginationOptions(1, 20));
-                            results[nameof(LeaderboardTest.ListPlayers)] = new TestResult(response, sw);
+                            results[LeaderboardTest.ListPlayers] = new TestResult(response, sw);
                             if (response.Success)
                             {
                                 if (response.Players.All(c => c.Player.ID != player.ID))
                                 {
-                                    results[nameof(LeaderboardTest.ListPlayers)] = new TestResult(TestResultStatus.Failed, sw, "Team Player not found.");
+                                    results[LeaderboardTest.ListPlayers] = new TestResult(TestResultStatus.Failed, sw, "Team Player not found.");
                                 }
                             }
                         }
@@ -127,31 +127,31 @@ public static class Run
                         {
                             sw.Restart();
                             var response = service.DeletePlayerFromTeam(team.ID, player.ID);
-                            results[nameof(LeaderboardTest.RemovePlayer)] = new TestResult(response, sw);
+                            results[LeaderboardTest.RemovePlayer] = new TestResult(response, sw);
                         }
 
                         {
                             sw.Restart();
                             var response = service.DeleteTeam(team.ID);
-                            results[nameof(LeaderboardTest.DeleteTeam)] = new TestResult(response, sw);
+                            results[LeaderboardTest.DeleteTeam] = new TestResult(response, sw);
                         }
 
                         // Bans
                         {
                             sw.Restart();
                             var response = service.CreateShadowBan(new ShadowBans.CreateIPShadowBanOptions(1));
-                            results[nameof(LeaderboardTest.CreateIPBan)] = new TestResult(response, sw);
+                            results[LeaderboardTest.CreateIPBan] = new TestResult(response, sw);
                         }
 
                         {
                             sw.Restart();
                             var response = service.ListIPShadowBans(new PaginationOptions(1, 20));
-                            results[nameof(LeaderboardTest.ListIPBan)] = new TestResult(response, sw);
+                            results[LeaderboardTest.ListIPBan] = new TestResult(response, sw);
                             if (response.Success)
                             {
                                 if (response.Bans.All(c => c.IPHash != 1))
                                 {
-                                    results[nameof(LeaderboardTest.ListIPBan)] = new TestResult(TestResultStatus.Failed, sw, "IP ban not found.");
+                                    results[LeaderboardTest.ListIPBan] = new TestResult(TestResultStatus.Failed, sw, "IP ban not found.");
                                 }
                             }
                         }
@@ -159,18 +159,18 @@ public static class Run
                         {
                             sw.Restart();
                             var response = service.CreateShadowBan(new ShadowBans.CreatePlayerShadowBanOptions(player.ID));
-                            results[nameof(LeaderboardTest.CreatePlayerBan)] = new TestResult(response, sw);
+                            results[LeaderboardTest.CreatePlayerBan] = new TestResult(response, sw);
                         }
 
                         {
                             sw.Restart();
                             var response = service.ListPlayerShadowBans(new PaginationOptions(1, 20));
-                            results[nameof(LeaderboardTest.ListPlayerBan)] = new TestResult(response, sw);
+                            results[LeaderboardTest.ListPlayerBan] = new TestResult(response, sw);
                             if (response.Success)
                             {
                                 if (response.Bans.All(c => c.Player.ID != player.ID))
                                 {
-                                    results[nameof(LeaderboardTest.ListPlayerBan)] = new TestResult(TestResultStatus.Failed, sw, "Player ban not found.");
+                                    results[LeaderboardTest.ListPlayerBan] = new TestResult(TestResultStatus.Failed, sw, "Player ban not found.");
                                 }
                             }
                         }
@@ -178,13 +178,13 @@ public static class Run
                         {
                             sw.Restart();
                             var response = service.DeleteShadowBan(new ShadowBans.DeleteIPShadowBanOptions(1));
-                            results[nameof(LeaderboardTest.DeleteIPBan)] = new TestResult(response, sw);
+                            results[LeaderboardTest.DeleteIPBan] = new TestResult(response, sw);
                         }
 
                         {
                             sw.Restart();
                             var response = service.DeleteShadowBan(new ShadowBans.DeletePlayerShadowBanOptions(player.ID));
-                            results[nameof(LeaderboardTest.DeletePlayerBan)] = new TestResult(response, sw);
+                            results[LeaderboardTest.DeletePlayerBan] = new TestResult(response, sw);
                         }
 
                         // Scores
@@ -198,7 +198,7 @@ public static class Run
                                 OptValue2 = 5,
                                 OptValue3 = 10
                             });
-                            results[nameof(LeaderboardTest.CreateScore)] = new TestResult(createScoreResponse, sw);
+                            results[LeaderboardTest.CreateScore] = new TestResult(createScoreResponse, sw);
                             if (createScoreResponse.Success)
                             {
                                 var score = createScoreResponse.Score;
@@ -210,7 +210,7 @@ public static class Run
                                         Adjustment = 100,
                                         OptValue1 = 4
                                     });
-                                    results[nameof(LeaderboardTest.AdjustScoreByID)] = new TestResult(response, sw);
+                                    results[LeaderboardTest.AdjustScoreByID] = new TestResult(response, sw);
                                 }
                                 {
                                     sw.Restart();
@@ -219,18 +219,18 @@ public static class Run
                                         Adjustment = 100,
                                         OptValue2 = 4
                                     });
-                                    results[nameof(LeaderboardTest.AdjustScoreByPlayer)] = new TestResult(response, sw);
+                                    results[LeaderboardTest.AdjustScoreByPlayer] = new TestResult(response, sw);
                                 }
 
                                 {
                                     sw.Restart();
                                     var response = service.ListNewestScores(new Scores.ListNewestScoresOptions(), new PaginationOptions(1, 20));
-                                    results[nameof(LeaderboardTest.ListNewest)] = new TestResult(response, sw);
+                                    results[LeaderboardTest.ListNewest] = new TestResult(response, sw);
                                     if (response.Success)
                                     {
                                         if (response.Scores.All(c => c.ID != score.ID))
                                         {
-                                            results[nameof(LeaderboardTest.ListNewest)] = new TestResult(TestResultStatus.Failed, sw, "Score not found in newest.");
+                                            results[LeaderboardTest.ListNewest] = new TestResult(TestResultStatus.Failed, sw, "Score not found in newest.");
                                         }
                                     }
                                 }
@@ -238,12 +238,12 @@ public static class Run
                                 {
                                     sw.Restart();
                                     var response = service.ListPlayerScores(player.ID, new PaginationOptions(1, 20));
-                                    results[nameof(LeaderboardTest.ListPlayerScores)] = new TestResult(response, sw);
+                                    results[LeaderboardTest.ListPlayerScores] = new TestResult(response, sw);
                                     if (response.Success)
                                     {
                                         if (response.Scores.All(c => c.ID != score.ID))
                                         {
-                                            results[nameof(LeaderboardTest.ListPlayerScores)] = new TestResult(TestResultStatus.Failed, sw, "Score not found in newest.");
+                                            results[LeaderboardTest.ListPlayerScores] = new TestResult(TestResultStatus.Failed, sw, "Score not found in newest.");
                                         }
                                     }
                                 }
@@ -251,13 +251,13 @@ public static class Run
                                 {
                                     sw.Restart();
                                     var response = service.ListScoreHistory(score.ID);
-                                    results[nameof(LeaderboardTest.ListScoreHistory)] = new TestResult(response, sw);
+                                    results[LeaderboardTest.ListScoreHistory] = new TestResult(response, sw);
                                 }
 
                                 {
                                     sw.Restart();
                                     var response = service.ListPlayersScoreHistory(player.ID);
-                                    results[nameof(LeaderboardTest.ListPlayersScoreHistory)] = new TestResult(response, sw);
+                                    results[LeaderboardTest.ListPlayersScoreHistory] = new TestResult(response, sw);
                                 }
 
                                 {
@@ -266,7 +266,7 @@ public static class Run
                                     {
                                         CompareRanks = 5
                                     });
-                                    results[nameof(LeaderboardTest.ListScoreNeighbours)] = new TestResult(response, sw);
+                                    results[LeaderboardTest.ListScoreNeighbours] = new TestResult(response, sw);
                                 }
 
                                 {
@@ -275,25 +275,25 @@ public static class Run
                                     {
                                         Range = 5
                                     });
-                                    results[nameof(LeaderboardTest.ListPlayerScoreNeighbours)] = new TestResult(response, sw);
+                                    results[LeaderboardTest.ListPlayerScoreNeighbours] = new TestResult(response, sw);
                                 }
 
                                 {
                                     sw.Restart();
                                     var response = service.ListScores(new Scores.ListScoreOptions(), new PaginationOptions(1, 10));
-                                    results[nameof(LeaderboardTest.ListScores)] = new TestResult(response, sw);
+                                    results[LeaderboardTest.ListScores] = new TestResult(response, sw);
                                 }
 
                                 {
                                     sw.Restart();
                                     var response = service.DeleteScore(score.ID);
-                                    results[nameof(LeaderboardTest.DeleteScore)] = new TestResult(response, sw);
+                                    results[LeaderboardTest.DeleteScore] = new TestResult(response, sw);
                                 }
 
                                 {
                                     sw.Restart();
                                     var response = service.DeletePlayerScores(player.ID);
-                                    results[nameof(LeaderboardTest.DeletePlayerScores)] = new TestResult(response, sw);
+                                    results[LeaderboardTest.DeletePlayerScores] = new TestResult(response, sw);
                                 }
                             }
                         }
@@ -302,15 +302,15 @@ public static class Run
             }
         }
 
-
-        var testNames = Enum.GetNames(typeof(LeaderboardTest));
-        foreach (var testName in testNames)
+        var tests = Extensions.ToList<LeaderboardTest>();
+        foreach (var test in tests.Where(test => !results.ContainsKey(test)))
         {
-            if (!results.ContainsKey(testName))
-            {
-                results[testName] = new TestResult();
-            }
+            results[test] = new TestResult();
         }
-        return results;
+        return results
+            .Select(c=> 
+                new Tuple<string, TestResult>(c.Key.ToString(), c.Value)
+            )
+            .ToList();
     }
 }

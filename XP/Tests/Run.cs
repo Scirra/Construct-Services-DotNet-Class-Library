@@ -36,9 +36,9 @@ public static class Run
     }
     
     [UsedImplicitly]
-    public static Dictionary<string, TestResult> RunTests(Guid gameID, SecretAPIKey apiKey, Action<string> logger = null)
+    public static List<Tuple<string, TestResult>> RunTests(Guid gameID, SecretAPIKey apiKey, Action<string> logger = null)
     {
-        var results = new Dictionary<string, TestResult>();
+        var results = new Dictionary<XPTest, TestResult>();
         var service = new XPService(gameID, apiKey);
 
         var sw = new Stopwatch();
@@ -56,7 +56,7 @@ public static class Run
                     Description = "Test Description"
                 }
             );
-            results[nameof(XPTest.CreateBonus)] = new TestResult(createResult, sw);
+            results[XPTest.CreateBonus] = new TestResult(createResult, sw);
             
             // Edit
             if (createResult.Success)
@@ -68,13 +68,13 @@ public static class Run
                     Title = "New title",
                     Description = "New description"
                 });
-                results[nameof(XPTest.EditBonus)] = new TestResult(editResult, sw);
+                results[XPTest.EditBonus] = new TestResult(editResult, sw);
                 
                 if (editResult.Success)
                 {
                     sw.Restart();
                     var getResult = service.GetBonus(bonus.ID);
-                    results[nameof(XPTest.GetBonus)] = new TestResult(getResult, sw);
+                    results[XPTest.GetBonus] = new TestResult(getResult, sw);
 
                     if (getResult.Success)
                     {
@@ -82,7 +82,7 @@ public static class Run
                         
                         sw.Restart();
                         var deleteResult = service.DeleteBonus(bonus.ID);
-                        results[nameof(XPTest.DeleteBonus)] = new TestResult(deleteResult, sw);
+                        results[XPTest.DeleteBonus] = new TestResult(deleteResult, sw);
                     }
                 }
             }
@@ -96,14 +96,14 @@ public static class Run
                 Start = null,
                 End = DateTime.UtcNow.AddDays(30)
             });
-            results[nameof(XPTest.ListBonuses)] = new TestResult(listResult, sw);
+            results[XPTest.ListBonuses] = new TestResult(listResult, sw);
         }
         
         // List active bonuses
         {
             sw.Restart();
             var listResult = service.ListActiveBonuses();
-            results[nameof(XPTest.ListActiveBonuses)] = new TestResult(listResult, sw);
+            results[XPTest.ListActiveBonuses] = new TestResult(listResult, sw);
         }
 
         // Create rank
@@ -116,7 +116,7 @@ public static class Run
                 AtXP = atXp,
                 Description = "My test description"
             });
-            results[nameof(XPTest.CreateRank)] = new TestResult(createResult, sw);
+            results[XPTest.CreateRank] = new TestResult(createResult, sw);
 
             if (createResult.Success)
             {
@@ -124,24 +124,24 @@ public static class Run
                 
                 sw.Restart();
                 var getResult = service.ListAllRanks();
-                results[nameof(XPTest.ListRanks)] = new TestResult(getResult, sw);
+                results[XPTest.ListRanks] = new TestResult(getResult, sw);
                 if (getResult.Success)
                 {
                     if (getResult.Ranks.All(c => c.ID != rank.ID))
                     {
-                        results[nameof(XPTest.ListRanks)] = new TestResult(TestResultStatus.Failed, sw, "Rank not found.");
+                        results[XPTest.ListRanks] = new TestResult(TestResultStatus.Failed, sw, "Rank not found.");
                     }
                     else
                     {
                         sw.Restart();
                         var updateResult = service.UpdateRank(rank.ID, new Rankings.UpdateXPRankOptions { Title = "Updated" });
-                        results[nameof(XPTest.UpdateRank)] = new TestResult(updateResult, sw);
+                        results[XPTest.UpdateRank] = new TestResult(updateResult, sw);
 
                         if (updateResult.Success)
                         {
                             sw.Restart();
                             var deleteResult = service.DeleteRank(rank.ID);
-                            results[nameof(XPTest.DeleteRank)] = new TestResult(deleteResult, sw);
+                            results[XPTest.DeleteRank] = new TestResult(deleteResult, sw);
                         }
                     }
                 }
@@ -160,39 +160,40 @@ public static class Run
             {
                 sw.Restart();
                 var addResult = service.AddXP(player.ID, new ModifyXPOptions(new Random().Next(1, 10)));
-                results[nameof(XPTest.AddXP)] = new TestResult(addResult, sw);
+                results[XPTest.AddXP] = new TestResult(addResult, sw);
 
                 if (addResult.Success)
                 {
                     sw.Restart();
                     var deductResult = service.RemoveXP(player.ID, new ModifyXPOptions(new Random().Next(1, 10)));
-                    results[nameof(XPTest.RemoveXP)] = new TestResult(deductResult, sw);
+                    results[XPTest.RemoveXP] = new TestResult(deductResult, sw);
 
                     if (deductResult.Success)
                     {
                         sw.Restart();
                         var setResult = service.SetXP(player.ID, new ModifyXPOptions(new Random().Next(1, 10000)));
-                        results[nameof(XPTest.SetXP)] = new TestResult(setResult, sw);
+                        results[XPTest.SetXP] = new TestResult(setResult, sw);
 
                         if (setResult.Success)
                         {
                             sw.Restart();
                             var getResult = service.GetXP(player.ID);
-                            results[nameof(XPTest.GetXP)] = new TestResult(getResult, sw);
+                            results[XPTest.GetXP] = new TestResult(getResult, sw);
                         }
                     }
                 }
             }
         }
 
-        var testNames = Enum.GetNames(typeof(XPTest));
-        foreach (var testName in testNames)
+        var tests = Extensions.ToList<XPTest>();
+        foreach (var test in tests.Where(test => !results.ContainsKey(test)))
         {
-            if (!results.ContainsKey(testName))
-            {
-                results[testName] = new TestResult();
-            }
+            results[test] = new TestResult();
         }
-        return results;
+        return results
+            .Select(c=> 
+                new Tuple<string, TestResult>(c.Key.ToString(), c.Value)
+            )
+            .ToList();
     }
 }
