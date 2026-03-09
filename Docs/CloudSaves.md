@@ -54,7 +54,7 @@ All methods are available as synchronous calls, and asynchronous calls.  All met
 ## Create a Cloud Save
 ```C#
 // Create a Cloud Save in a Bucket
-service.CreateCloudSave(new Saves.CreateCloudSaveOptions
+var createBucketSaveResponse = service.CreateCloudSave(new Saves.CreateCloudSaveOptions
 {
     BucketID = bucketID,
     Data = byteArray,
@@ -178,7 +178,7 @@ service.ListCloudSaves(bucketID,
         Filters = new ListBucketCloudSaveFilters
         {
             PlayerIDs = playerIDs,
-            BlobIDs = blobIDs,
+            CloudSaveIDs = cloudSaveIDs,
             Key = "key.filter"
         },
         SortBy = ListBucketCloudSaveSortMethod.HighestRated

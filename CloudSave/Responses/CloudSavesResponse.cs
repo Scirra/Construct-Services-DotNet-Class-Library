@@ -10,7 +10,7 @@ public sealed class CloudSavesResponse : BaseResponse
     public Pagination Pagination { get; set; }
 
     [JsonProperty(PropertyName = "blobs")]
-    public List<Objects.CloudSave> Blobs { get; set; }
+    public List<Objects.CloudSave> CloudSaves { get; set; }
 
     public CloudSavesResponse()
     {

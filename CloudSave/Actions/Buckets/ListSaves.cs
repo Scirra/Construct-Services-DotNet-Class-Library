@@ -89,10 +89,10 @@ public static partial class Buckets
                     formData.Add("playerIDs", string.Join(",", playerIDs));
                 }
 
-                var blobIDs = Filters.BlobIDs;
-                if (blobIDs != null && blobIDs.Any())
+                var cloudSaveIDs = Filters.CloudSaveIDs;
+                if (cloudSaveIDs != null && cloudSaveIDs.Any())
                 {
-                    formData.Add("blobIDs", string.Join(",", blobIDs));
+                    formData.Add("blobIDs", string.Join(",", cloudSaveIDs));
                 }
 
                 var totalRatings = Filters.TotalRatings;

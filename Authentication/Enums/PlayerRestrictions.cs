@@ -13,10 +13,10 @@ public enum PlayerRestriction
         
     /* 101-200 Cloud save restrictions */
     [PlayerRestriction("Cloud Save To Game Buckets", "Prevents player from being able to cloud save to game buckets.")]
-    [UsedImplicitly] PlayerUploadCloudSaveGameBucketBlobs = 101,
+    [UsedImplicitly] PlayerUploadBucketCloudSaves = 101,
 
     [PlayerRestriction("Cloud Save To Player Account", "Prevents player from being able to cloud save files to their own player account.")]
-    [UsedImplicitly] PlayerUploadCloudSavePlayerBlobs = 102,
+    [UsedImplicitly] PlayerUploadPrivateCloudSaves = 102,
 
     /* 201-300 Rating restrictions */
     [PlayerRestriction("Rate Things", "Prevents player from being able to rate things.")]

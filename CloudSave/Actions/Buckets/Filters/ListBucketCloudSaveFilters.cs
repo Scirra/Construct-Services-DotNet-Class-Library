@@ -11,5 +11,5 @@ public sealed class ListBucketCloudSaveFilters
     public HashSet<Guid> PlayerIDs { get; [UsedImplicitly] set; }
     public Dictionary<string, int> TotalRatings { get; [UsedImplicitly] set; }
     public Dictionary<string, byte> MinRating { get; [UsedImplicitly] set; }
-    public HashSet<Guid> BlobIDs { get; [UsedImplicitly] set; }
+    public HashSet<Guid> CloudSaveIDs { get; [UsedImplicitly] set; }
 }

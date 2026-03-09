@@ -18,7 +18,7 @@ public static partial class Saves
             var getResult = service.GetCloudSave(cloudSaveID);
             if (!getResult.Success) throw new Exception(getResult.ErrorMessage);
 
-            var cloudSave = getResult.Blob;
+            var cloudSave = getResult.CloudSave;
 
             return Task.Run(() => Request.DownloadBytes(
                 new Uri(cloudSave.DownloadURL),
@@ -35,7 +35,7 @@ public static partial class Saves
             var getResult = await service.GetCloudSaveAsync(cloudSaveID);
             if (!getResult.Success) throw new Exception(getResult.ErrorMessage);
 
-            var cloudSave = getResult.Blob;
+            var cloudSave = getResult.CloudSave;
 
             return await Request.DownloadBytes(
                 new Uri(cloudSave.DownloadURL),

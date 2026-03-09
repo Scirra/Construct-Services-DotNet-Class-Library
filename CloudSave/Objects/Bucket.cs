@@ -21,19 +21,19 @@ public sealed class Bucket
     public bool AllowRatings { get; private set; }
 
     [JsonProperty(PropertyName = "totalBlobs")]
-    public int TotalBlobs { get; private set; }
+    public int TotalCloudSaves { get; private set; }
 
     [JsonProperty(PropertyName = "totalBytes")]
     public long TotalBytes { get; private set; }
 
     [JsonProperty(PropertyName = "maxBlobSizeBytes")]
-    public int MaxBlobSizeBytes { get; private set; }
+    public int MaxCloudSaveSizeBytes { get; private set; }
 
     [JsonProperty(PropertyName = "maxBlobs")]
-    public int? MaxBlobs { get; private set; }
+    public int? MaxCloudSaves { get; private set; }
 
     [JsonProperty(PropertyName = "maxBlobsPerPlayer")]
-    public short? MaxBlobsPerPlayer { get; private set; }
+    public short? MaxCloudSavesPerPlayer { get; private set; }
 
     public Bucket()
     {

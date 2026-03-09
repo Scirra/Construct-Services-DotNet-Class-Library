@@ -115,7 +115,7 @@ public static class Run
 
                     if (saveResult.Success)
                     {
-                        var save = saveResult.Blob;
+                        var save = saveResult.CloudSave;
                         {
                             sw.Restart();
                             var result = service.GetCloudSave(save.ID);

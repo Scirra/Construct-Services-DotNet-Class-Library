@@ -6,7 +6,7 @@ namespace ConstructServices.CloudSave.Responses;
 public sealed class CloudSaveResponse : BaseResponse
 {
     [JsonProperty(PropertyName = "blob")]
-    public Objects.CloudSave Blob { get; set; }
+    public Objects.CloudSave CloudSave { get; set; }
 
     public CloudSaveResponse()
     {

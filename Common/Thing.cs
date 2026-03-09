@@ -5,7 +5,7 @@ namespace ConstructServices.Common;
 public enum Thing : byte
 {
     [UsedImplicitly]
-    CloudSaveBlob = 0,
+    CloudSave = 0,
 
     [UsedImplicitly]
     BroadcastChannel = 1,

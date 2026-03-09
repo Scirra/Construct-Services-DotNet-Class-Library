@@ -19,7 +19,7 @@ public static partial class Ratings
         [UsedImplicitly]
         public RateResponse Rate(Guid cloudSaveID, RateObjectOptions rateObjectOptions)
         {
-            return service.Rate(Thing.CloudSaveBlob, cloudSaveID, Config.EndPointPaths.Ratings.Rate, rateObjectOptions);
+            return service.Rate(Thing.CloudSave, cloudSaveID, Config.EndPointPaths.Ratings.Rate, rateObjectOptions);
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ public static partial class Ratings
         [UsedImplicitly]
         public async Task<RateResponse> RateAsync(Guid cloudSaveID, RateObjectOptions rateObjectOptions)
         {
-            return await service.RateAsync(Thing.CloudSaveBlob, cloudSaveID, Config.EndPointPaths.Ratings.Rate, rateObjectOptions);
+            return await service.RateAsync(Thing.CloudSave, cloudSaveID, Config.EndPointPaths.Ratings.Rate, rateObjectOptions);
         }
     }
 }
