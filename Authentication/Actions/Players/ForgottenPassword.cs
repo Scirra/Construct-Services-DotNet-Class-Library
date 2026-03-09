@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using ConstructServices.Authentication.Responses;
 using ConstructServices.Common;
 using JetBrains.Annotations;
 

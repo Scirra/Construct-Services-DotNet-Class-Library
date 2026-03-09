@@ -42,7 +42,7 @@ public static class Run
         SetAvatarByURL,
         SetAvatarByBase64,
         DeleteAvatar,
-        DeletePlayer,
+        DeletePlayer
     }
 
     [UsedImplicitly]
