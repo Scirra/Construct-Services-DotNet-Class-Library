@@ -19,7 +19,7 @@ public static partial class Players
             var emailValidation = Common.Validations.Authentication.Functions.IsEmailAddressValid(emailAddress);
             if (!emailValidation.Valid) return new BaseResponse(emailValidation.ErrorMessage);
 
-            return Request.ExecuteSyncRequest<LinkLoginProviderResponse>(
+            return Request.ExecuteSyncRequest<BaseResponse>(
                 Config.EndPointPaths.Players.ForgottenPassword,
                 service,
                 new Dictionary<string, string>

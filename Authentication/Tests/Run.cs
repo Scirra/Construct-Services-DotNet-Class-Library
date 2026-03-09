@@ -26,10 +26,13 @@ public static class Run
         CreatePlayer,
         ListNewestPlayers,
         ListMostRecentlyActivePlayers,
+        ListPlayersAlphabetically,
+        ListPlayersByID,
         GetPlayerByID,
         GetPlayerByPlayerName,
         ChangePlayerName,
         GetPlayerByUpdatedName,
+        GetExpandedPlayer,
         SetUsernamePassword,
         SetUsername,
         SetPassword,
@@ -165,6 +168,38 @@ public static class Run
                 }
             }
 
+            // LIST PLAYERS ALPHABETICALLY
+            {
+                const string testName = nameof(AuthTest.ListPlayersAlphabetically);
+                sw.Restart();
+                var result = service.ListPlayers(
+                    new Players.ListPlayersOptions
+                    {
+                        Ordering = PlayerOrdering.AZ
+                    },
+                    new PaginationOptions(1, 20)
+                );
+                results[testName] = new TestResult(result, sw);
+            }
+
+            // LIST PLAYERS BY ID
+            {
+                const string testName = nameof(AuthTest.ListPlayersByID);
+                sw.Restart();
+                var result = service.ListPlayers(
+                    new Players.ListPlayersOptions
+                    {
+                        PlayerIDs = [player.ID]
+                    },
+                    new PaginationOptions(1, 20)
+                );
+                results[testName] = new TestResult(result, sw);
+                if (result.Success && result.Players.All(c => c.ID != player.ID))
+                {
+                    results[testName] = new TestResult(TestResultStatus.Failed, sw, "New player ID not found.");
+                }
+            }
+
             // GET PLAYER BY ID
             {
                 const string testName = nameof(AuthTest.GetPlayerByID);
@@ -208,6 +243,14 @@ public static class Run
                 {
                     results[testName] = new TestResult(TestResultStatus.Failed, sw);
                 }
+            }
+
+            // GET EXPANDED PLAYER
+            {
+                const string testName = nameof(AuthTest.GetExpandedPlayer);
+                sw.Restart();
+                var result = service.GetExpandedPlayer(player.ID);
+                results[testName] = new TestResult(result, sw);
             }
 
             // SET USERNAME/PASSWORD
