@@ -21,6 +21,7 @@ internal static class Config
             internal const string Create = "/createrank.json";
             internal const string Delete = "/deleterank.json";
             internal const string DeleteLogo = "/deleteranklogo.json";
+            internal const string SetLogo = "/setranklogo.json";
             internal const string Update = "/editrank.json";
             internal const string List = "/listranks.json";
         }
