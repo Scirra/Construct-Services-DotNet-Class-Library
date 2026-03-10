@@ -239,6 +239,50 @@ if (updateRankResponse.Success)
 }
 ```
 
+## Set XP Rank Logo
+
+```C#
+    // Set rank image from binary data
+    var setLogoByBinaryResponse = xpService.SetRankLogo(
+        rankID,
+        new PictureData(bytes)
+    );
+    if (setLogoByBinaryResponse.Success)
+    {
+        // Rank image was set!
+    }
+
+    // Set rank image from image URL
+    var setLogoByURLResponse = xpService.SetRankLogo(
+        rankID,
+        new PictureData(new Uri(someURL, UriKind.Absolute))
+    );
+    if (setLogoByURLResponse.Success)
+    {
+        // Rank image was set!
+    }
+
+    // Set rank image from base 64 data
+    var setLogoByBase64Response = xpService.SetRankLogo(
+        rankID,
+        new PictureData(base64String)
+    );
+    if (setLogoByBase64Response.Success)
+    {
+        // Rank image was set!
+    }
+```
+
+## Delete Rank Logo
+
+```C#
+var deleteRankLogoResponse = xpService.DeleteRankLogo(rankID);
+if (deleteRankLogoResponse.Success)
+{
+    // Logo was deleted
+}
+```
+
 ## Delete an XP Rank
 
 ```C#
