@@ -26,6 +26,10 @@ public static class Run
 
         CreateRank,
         UpdateRank,
+        SetRankImageBase64,
+        SetRankImageURL,
+        DeleteRankImage,
+        SetRankImageBinary,
         ListRanks,
         DeleteRank,
 
@@ -136,14 +140,42 @@ public static class Run
                         sw.Restart();
                         var updateResult = service.UpdateRank(rank.ID, new Rankings.UpdateXPRankOptions { Title = "Updated" });
                         results[XPTest.UpdateRank] = new TestResult(updateResult, sw);
-
-                        if (updateResult.Success)
-                        {
-                            sw.Restart();
-                            var deleteResult = service.DeleteRank(rank.ID);
-                            results[XPTest.DeleteRank] = new TestResult(deleteResult, sw);
-                        }
                     }
+
+                    // SET RANK IMAGE BY BASE 64
+                    {
+                        sw.Restart();
+                        var setResult = service.SetRankLogo(rank.ID, new PictureData(Data.Base64ImageData));
+                        results[XPTest.SetRankImageBase64] = new TestResult(setResult, sw);
+                    }
+
+                    // SET RANK IMAGE BY URL
+                    {
+                        sw.Restart();
+                        var setResult = service.SetRankLogo(rank.ID, new PictureData(new Uri(Data.AvatarURL, UriKind.Absolute)));
+                        results[XPTest.SetRankImageURL] = new TestResult(setResult, sw);
+                    }
+
+                    // DELETE RANK IMAGE
+                    {
+                        sw.Restart();
+                        var setResult = service.DeleteRankLogo(rank.ID);
+                        results[XPTest.DeleteRankImage] = new TestResult(setResult, sw);
+                    }
+
+                    // SET RANK IMAGE DATA
+                    {
+                        sw.Restart();
+                        var setResult = service.SetRankLogo(rank.ID, new PictureData(Data.GetPictureBytes(Data.AvatarURL)));
+                        results[XPTest.SetRankImageBinary] = new TestResult(setResult, sw);
+                    }
+                }
+
+                // DELETE RANK
+                {
+                    sw.Restart();
+                    var deleteResult = service.DeleteRank(rank.ID);
+                    results[XPTest.DeleteRank] = new TestResult(deleteResult, sw);
                 }
             }
         }

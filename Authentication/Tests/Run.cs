@@ -285,7 +285,7 @@ public static class Run
                 var result = service.SetAvatar(
                     player.ID,
                     new PictureData(
-                        new Uri("https://construct-static.com/images/v1746/r/uploads/user/15844/avatar/94145/avatar_v128.jpg", UriKind.Absolute)
+                        new Uri(Data.AvatarURL, UriKind.Absolute)
                     )
                 );
                 results[AuthTest.SetAvatarByURL] = new TestResult(result, sw);

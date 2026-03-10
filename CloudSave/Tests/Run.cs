@@ -143,7 +143,7 @@ public static class Run
 
                         {
                             sw.Restart();
-                            var result = service.SetPicture(save.ID, new PictureData(new Uri("https://construct-static.com/images/v1746/r/global/construct-3-logo_v64.png", UriKind.Absolute)));
+                            var result = service.SetPicture(save.ID, new PictureData(new Uri(Data.CloudSavePictureURL, UriKind.Absolute)));
                             results[CloudSaveTest.SetPicture] = new TestResult(result, sw);
                         }
 
