@@ -1,8 +1,10 @@
 ﻿using ConstructServices.Common;
 using ConstructServices.Common.Languages;
+using ConstructServices.Common.Validations.Common;
 using ConstructServices.XP.Responses;
 using JetBrains.Annotations;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Functions = ConstructServices.Common.Validations.Common.Functions;
 
@@ -21,10 +23,11 @@ public static partial class Rankings
             var validation = createXPRankOptions.Validate();
             if (!validation.Valid) return new RankResponse(validation.ErrorMessage);
 
-            return Request.ExecuteSyncRequest<RankResponse>(
+            return Request.ExecuteMultiPartFormSyncRequest<RankResponse>(
                 Config.EndPointPaths.Rankings.Create,
                 xpService,
-                createXPRankOptions.BuildFormData()
+                createXPRankOptions.BuildFormData(),
+                createXPRankOptions.BuildBinaryFormData()
             );
         }
 
@@ -38,10 +41,11 @@ public static partial class Rankings
             var validation = createXPRankOptions.Validate();
             if (!validation.Valid) return new RankResponse(validation.ErrorMessage);
 
-            return await Request.ExecuteAsyncRequest<RankResponse>(
+            return await Request.ExecuteMultiPartFormAsyncRequest<RankResponse>(
                 Config.EndPointPaths.Rankings.Create,
                 xpService,
-                createXPRankOptions.BuildFormData()
+                createXPRankOptions.BuildFormData(),
+                createXPRankOptions.BuildBinaryFormData()
             );
         }
     }
@@ -76,8 +80,17 @@ public static partial class Rankings
             var languageValidation = Functions.IsSourceLanguageISOValid(LanguageISO, true);
             if (!languageValidation.Valid) return languageValidation;
 
+            if (Logo != null)
+            {
+                var logoValidation = Logo.IsPictureValid();
+                if (!logoValidation.Valid) return logoValidation;
+            }
+
             return new Common.Validations.Responses.SuccessfullValidation();
         }
+        
+        [UsedImplicitly]
+        public PictureData Logo { private get; set; }
 
         internal Dictionary<string, string> BuildFormData()
         {
@@ -88,7 +101,28 @@ public static partial class Rankings
                 { "language", LanguageISO },
                 { "xp", AtXP.ToString() }
             };
+            if (Logo != null)
+            {
+                if (!string.IsNullOrWhiteSpace(Logo.Base64))
+                {
+                    formData.Add("logo", Logo.Base64);
+                }
+                else if (Logo.URL != null)
+                {
+                    formData.Add("logoURL", Logo.URL.ToString());
+                }
+            }
             return formData;
+        }
+
+        internal Dictionary<string, ByteArrayContent> BuildBinaryFormData()
+        {
+            var postedBinaryData = new Dictionary<string, ByteArrayContent>();
+            if (Logo?.Bytes != null)
+            {
+                postedBinaryData.Add("logoData", new ByteArrayContent(Logo.Bytes));
+            }
+            return postedBinaryData;
         }
     }
 }

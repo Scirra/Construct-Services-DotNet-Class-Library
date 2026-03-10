@@ -1,6 +1,7 @@
-﻿using System;
-using ConstructServices.Common;
+﻿using ConstructServices.Common;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 
 namespace ConstructServices.XP.Objects;
 
@@ -26,6 +27,9 @@ public sealed class XPRank
     
     [JsonProperty(PropertyName = "responseLanguage")]
     public Language ResponseLanguage { get; set; }
+
+    [JsonProperty(PropertyName = "logos")]
+    public List<AvailablePicture> Logos { get; set; }
 
     public XPRank()
     {
