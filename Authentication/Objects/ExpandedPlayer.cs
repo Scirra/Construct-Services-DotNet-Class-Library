@@ -21,6 +21,9 @@ public sealed class ExpandedPlayer
 
     [JsonProperty(PropertyName = "successfulSignIns")]
     public int SuccessfulSignIns { get; set; }
+    
+    [JsonProperty(PropertyName = "consecutiveDailySignIns")]
+    public int ConsecutiveDailySignIns { get; set; }
 
     [JsonProperty(PropertyName = "lastSuccessfulSignIn")]
     public DateTime? LastSuccessfulSignIn { get; set; }
