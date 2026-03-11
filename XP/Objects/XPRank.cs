@@ -11,7 +11,7 @@ public sealed class XPRank
     public Guid ID { get; internal set; }
         
     [JsonProperty(PropertyName = "atXP")]
-    public long AtXP { get; internal set; }
+    public long AtXP { get; set; }
 
     [JsonProperty(PropertyName = "formattedAtXP")]
     public string FormattedAtXP { get; set; }
