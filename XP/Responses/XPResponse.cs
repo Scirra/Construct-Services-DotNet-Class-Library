@@ -1,6 +1,7 @@
 ﻿using ConstructServices.Common;
 using ConstructServices.XP.Objects;
 using Newtonsoft.Json;
+using System;
 
 namespace ConstructServices.XP.Responses;
 
@@ -16,7 +17,10 @@ public sealed class XPResponse : BaseResponse
     public XPRank Rank { get; set; }
 
     [JsonProperty(PropertyName = "nextRank")]
-    public XPRank NextRank { get; set; }
+    public XPRank NextRank { get; set; }    
+    
+    [JsonProperty(PropertyName = "leaderboardScoreID")]
+    public Guid? LeaderboardScoreID { get; set; }
 
     public XPResponse()
     {
