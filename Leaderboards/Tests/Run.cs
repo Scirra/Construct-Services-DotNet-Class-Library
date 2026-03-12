@@ -33,6 +33,7 @@ public static class Run
         DeletePlayerBan,
 
         CreateScore,
+        GetScore,
         AdjustScoreByID,
         AdjustScoreByPlayer,
         ListNewest,
@@ -203,6 +204,12 @@ public static class Run
                             {
                                 var score = createScoreResponse.Score;
                                 
+                                {
+                                    sw.Restart();
+                                    var response = service.GetScore(score.ID);
+                                    results[LeaderboardTest.GetScore] = new TestResult(response, sw);
+                                }
+
                                 {
                                     sw.Restart();
                                     var response = service.AdjustScore(score.ID, new Scores.AdjustScoreOptions

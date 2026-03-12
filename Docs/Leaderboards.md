@@ -93,6 +93,15 @@ if (createScoreResponse.Success)
 }
 ```
 
+## Get Score
+```C#
+var getScoreResponse = service.GetScore(scoreID);
+if (getScoreResponse.Success)
+{
+    var score = getScoreResponse.Score;
+}
+```
+
 ## Adjust Score
 ```C#
 // Adjust by score ID

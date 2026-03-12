@@ -10,6 +10,7 @@ internal static class Config
         {
             internal const string Adjust = "/adjustscore.json";
             internal const string Delete = "/deletescores.json";
+            internal const string Get = "/getscore.json";
             internal const string ListNewest = "/getnewestscores.json";
             internal const string ListPlayerScores = "/getplayerscores.json";
             internal const string ListScoreHistory = "/getscorehistory.json";
