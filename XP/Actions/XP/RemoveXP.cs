@@ -13,12 +13,12 @@ public static partial class XP
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/xp/remove-xp" />
         [UsedImplicitly]
-        public BaseResponse RemoveXP(Guid playerID, ModifyXPOptions modifyXPOptions)
+        public BaseResponse RemoveXP(Guid playerID, long amount)
         {
             return Request.ExecuteSyncRequest<BaseResponse>(
                 Config.EndPointPaths.XP.Remove,
                 xpService,
-                modifyXPOptions.BuildFormData(playerID)
+                ModifyXPOptions.BuildFormData(playerID, amount)
             );
         }
 
@@ -27,12 +27,12 @@ public static partial class XP
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/xp/remove-xp" />
         [UsedImplicitly]
-        public async Task<BaseResponse> RemoveXPAsync(Guid playerID, ModifyXPOptions modifyXPOptions)
+        public async Task<BaseResponse> RemoveXPAsync(Guid playerID, long amount)
         {
             return await Request.ExecuteAsyncRequest<BaseResponse>(
                 Config.EndPointPaths.XP.Remove,
                 xpService,
-                modifyXPOptions.BuildFormData(playerID)
+                ModifyXPOptions.BuildFormData(playerID, amount)
             );
         }
     }

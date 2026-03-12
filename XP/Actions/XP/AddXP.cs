@@ -13,12 +13,12 @@ public static partial class XP
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/xp/add-xp" />
         [UsedImplicitly]
-        public BaseResponse AddXP(Guid playerID, ModifyXPOptions modifyXPOptions)
+        public BaseResponse AddXP(Guid playerID, long addAmount)
         {
             return Request.ExecuteSyncRequest<BaseResponse>(
                 Config.EndPointPaths.XP.Add,
                 xpService,
-                modifyXPOptions.BuildFormData(playerID)
+                ModifyXPOptions.BuildFormData(playerID, addAmount)
             );
         }
 
@@ -27,12 +27,12 @@ public static partial class XP
         /// </summary>
         /// <see href="https://www.construct.net/en/game-services/manuals/game-services/xp/api-end-points/xp/add-xp" />
         [UsedImplicitly]
-        public async Task<BaseResponse> AddXPAsync(Guid playerID, ModifyXPOptions modifyXPOptions)
+        public async Task<BaseResponse> AddXPAsync(Guid playerID, long addAmount)
         {
             return await Request.ExecuteAsyncRequest<BaseResponse>(
                 Config.EndPointPaths.XP.Add,
                 xpService,
-                modifyXPOptions.BuildFormData(playerID)
+                ModifyXPOptions.BuildFormData(playerID, addAmount)
             );
         }
     }

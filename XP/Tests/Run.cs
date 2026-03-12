@@ -191,19 +191,19 @@ public static class Run
             if (player != null)
             {
                 sw.Restart();
-                var addResult = service.AddXP(player.ID, new ModifyXPOptions(new Random().Next(1, 10)));
+                var addResult = service.AddXP(player.ID, new Random().Next(1, 10));
                 results[XPTest.AddXP] = new TestResult(addResult, sw);
 
                 if (addResult.Success)
                 {
                     sw.Restart();
-                    var deductResult = service.RemoveXP(player.ID, new ModifyXPOptions(new Random().Next(1, 10)));
+                    var deductResult = service.RemoveXP(player.ID, new Random().Next(1, 10));
                     results[XPTest.RemoveXP] = new TestResult(deductResult, sw);
 
                     if (deductResult.Success)
                     {
                         sw.Restart();
-                        var setResult = service.SetXP(player.ID, new ModifyXPOptions(new Random().Next(1, 10000)));
+                        var setResult = service.SetXP(player.ID, new Random().Next(1, 10000));
                         results[XPTest.SetXP] = new TestResult(setResult, sw);
 
                         if (setResult.Success)
