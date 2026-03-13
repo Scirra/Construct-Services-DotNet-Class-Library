@@ -24,10 +24,7 @@ public static partial class Bonuses
             var bonus = getBonusResponse.Bonus;
             if (!bonus.IsLive)
             {
-                return new BonusResponse
-                {
-                    Bonus = bonus
-                };
+                return new BonusResponse("Bonus is already ended or hasn't yet started.");
             }
 
             var updateOptions = new UpdateXPBonusOptions
