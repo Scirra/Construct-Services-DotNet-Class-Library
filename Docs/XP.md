@@ -159,6 +159,17 @@ if (updateBonusResponse.Success)
 }
 ```
 
+## End an active XP Bonus prematurely
+
+
+```C#
+var endBonusResponse = service.EndBonus(bonusID);
+if (endBonusResponse.Success)
+{
+    var updatedBonus = endBonusResponse.Bonus;
+}
+```
+
 ## Get an XP Bonus
 
 ```C#
