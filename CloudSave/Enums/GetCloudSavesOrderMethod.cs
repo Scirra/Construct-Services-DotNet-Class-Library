@@ -2,7 +2,7 @@
 
 namespace ConstructServices.CloudSave.Enums;
 
-public enum GetPlayerCloudSaveSortMethod
+public enum ListPlayerCloudSavesSortMethod
 {
     [UsedImplicitly] NameAZ,
     [UsedImplicitly] NameZA,
@@ -11,7 +11,7 @@ public enum GetPlayerCloudSaveSortMethod
     [UsedImplicitly] Newest,
     [UsedImplicitly] Oldest
 }
-public enum ListBucketCloudSaveSortMethod
+public enum ListBucketCloudSavesSortMethod
 {
     [UsedImplicitly] NameAZ,
     [UsedImplicitly] NameZA,

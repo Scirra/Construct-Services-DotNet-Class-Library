@@ -54,7 +54,7 @@ public static partial class Buckets
     public sealed class ListBucketSavesOptions
     {
         [UsedImplicitly]
-        public ListBucketCloudSaveSortMethod? SortBy { private get; set; }
+        public ListBucketCloudSavesSortMethod? SortBy { private get; set; }
 
         [UsedImplicitly]
         public ListBucketCloudSaveFilters Filters { private get; set; }

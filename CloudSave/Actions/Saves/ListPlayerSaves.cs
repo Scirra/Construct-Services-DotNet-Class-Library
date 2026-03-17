@@ -160,7 +160,7 @@ public static partial class Saves
         private bool ReturnPrivateSaves { get; } = returnPrivateSaves;
 
         [UsedImplicitly]
-        public Enums.GetPlayerCloudSaveSortMethod? SortBy { private get; set; }
+        public Enums.ListPlayerCloudSavesSortMethod? SortBy { private get; set; }
 
         [UsedImplicitly]
         public ListPlayerCloudSaveFilters Filters { private get; set; }

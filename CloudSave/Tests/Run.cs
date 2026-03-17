@@ -89,7 +89,7 @@ public static class Run
                     sw.Restart();
                     var result = service.ListCloudSaves(bucket.ID, new Buckets.ListBucketSavesOptions
                     {
-                        SortBy = ListBucketCloudSaveSortMethod.NameAZ
+                        SortBy = ListBucketCloudSavesSortMethod.NameAZ
                     }, new PaginationOptions(1, 10));
                     results[CloudSaveTest.ListBucketSaves] = new TestResult(result, sw);
                 }
