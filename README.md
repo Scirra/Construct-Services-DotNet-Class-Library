@@ -174,9 +174,9 @@ When making these requests, you only need to specify the properties you wish to 
 
 ### Object Ratings
 
-When you fetch a ratable object, a rating status object will be returned with the object.  The property `IsRatable` indicates if this particular object can be rated or not (you can disable ratings on objects in your CGS account.)
+When you fetch a rateable object, a rating status object will be returned with the object.  The property `IsRateable` indicates if this particular object can be rated or not (you can disable ratings on objects in your CGS account.)
 
-If the object is ratable, a rating aggregate object will be available which gives you a summary and some other information about the ratings for this object.
+If the object is rateable, a rating aggregate object will be available which gives you a summary and some other information about the ratings for this object.
 
 ```C#
 var service = new CloudSaveService(gameID);
@@ -186,7 +186,7 @@ if (getResult.Success)
     var cloudSave = getResult.CloudSave;
     var ratingStatus = cloudSave.RatingStatus;
 
-    if (ratingStatus.IsRatable)
+    if (ratingStatus.IsRateable)
     {
 		// The dimensionless rating
         var dimensionlessRating = ratingStatus.Ratings[string.Empty];
