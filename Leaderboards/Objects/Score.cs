@@ -45,6 +45,9 @@ public sealed class Score
     [JsonProperty(PropertyName = "date")]
     public DateTime Date { get; private set; }
 
+    [JsonProperty(PropertyName = "formattedDate")]
+    public string FormattedDate { get; private set; }
+
     [JsonProperty(PropertyName = "player")]
     public Player Player { get; private set; }
 
