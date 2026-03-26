@@ -11,6 +11,9 @@ public sealed class Tier
     [JsonProperty(PropertyName = "name")]
     public string Name { get; private set; }
     
+    [JsonProperty(PropertyName = "originalLanguage")]
+    public Language OriginalLanguage { get; private set; }
+    
     [JsonProperty(PropertyName = "responseLanguage")]
     public Language ResponseLanguage { get; private set; }
 
