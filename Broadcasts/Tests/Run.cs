@@ -10,7 +10,6 @@ using System.Linq;
 using ConstructServices.Authentication;
 using ConstructServices.Authentication.Actions;
 using ConstructServices.Common.Languages;
-using Channels = ConstructServices.Achievements.Actions.Channels;
 
 namespace ConstructServices.Broadcasts.Tests;
 

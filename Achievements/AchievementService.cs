@@ -3,7 +3,7 @@ using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 
-namespace ConstructServices.Broadcasts;
+namespace ConstructServices.Achievements;
 
 public abstract class AchievementServiceBase : BaseService
 {

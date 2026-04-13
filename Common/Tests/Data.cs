@@ -1,5 +1,4 @@
 ﻿using System.Net;
-using System.Net.Http;
 
 namespace ConstructServices.Common.Tests;
 
