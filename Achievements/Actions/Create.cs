@@ -91,7 +91,13 @@ public static partial class Actions
         public PictureData AchievedLogo { private get; set; }
         
         internal Common.Validations.Responses.ValidationResponseBase Validate()
-        {
+        {            
+            var nameValidation = Common.Validations.Achievements.Functions.IsAchievementNameValid(Name);
+            if (!nameValidation.Valid) return nameValidation;
+
+            var languageValidation = Common.Validations.Common.Functions.IsSourceLanguageISOValid(LanguageISO, true);
+            if (!languageValidation.Valid) return languageValidation;
+
             if (UnachievedLogo != null)
             {
                 var pictureValidation = UnachievedLogo.IsPictureValid();

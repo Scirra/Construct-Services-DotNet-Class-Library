@@ -93,6 +93,12 @@ public static partial class Actions
         
         internal Common.Validations.Responses.ValidationResponseBase Validate()
         {
+            if (Name != null)
+            {
+                var nameValidation = Common.Validations.Achievements.Functions.IsAchievementNameValid(Name);
+                if (!nameValidation.Valid) return nameValidation;
+            }
+
             if (UnachievedLogo != null)
             {
                 var pictureValidation = UnachievedLogo.IsPictureValid();
