@@ -63,6 +63,9 @@ public sealed class Achievement
 
     [JsonProperty(PropertyName = "formattedTotalUniquePlayersAwarded")]
     public string FormattedTotalUniquePlayersAwarded { get; private set; }
+
+    [JsonProperty(PropertyName = "percentagePlayerBaseOwned")]
+    public decimal PercentagePlayerBaseOwned { get; private set; }
     
     [JsonProperty(PropertyName = "firstAwarded")]
     public DateTime? FirstAwarded { get; private set; }
