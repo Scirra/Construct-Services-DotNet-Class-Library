@@ -80,7 +80,7 @@ public sealed class Achievement
     public DateTime? LastAwarded  { get; private set; }    
     
     [JsonProperty(PropertyName = "clientProgressAllowed")]
-    internal bool ClientProgressAllowed { get; private set; }
+    public bool ClientProgressAllowed { get; private set; }
 
     public Achievement()
     {
