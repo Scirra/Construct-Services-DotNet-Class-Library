@@ -77,7 +77,10 @@ public sealed class Achievement
     public string FormattedLastAwarded { get; private set; }
         
     [JsonProperty(PropertyName = "lastAwarded")]
-    public DateTime? LastAwarded  { get; private set; }
+    public DateTime? LastAwarded  { get; private set; }    
+    
+    [JsonProperty(PropertyName = "clientProgressAllowed")]
+    internal bool ClientProgressAllowed { get; private set; }
 
     public Achievement()
     {
