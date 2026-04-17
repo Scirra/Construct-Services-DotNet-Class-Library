@@ -80,7 +80,15 @@ public static partial class Actions
         public int? MaxUnlocks { private get; set; }
 
         [UsedImplicitly]
-        public long? ProgressionRequired { private get; set; }
+        public long? ProgressionRequired { 
+            private get;
+            set
+            {
+                field = value;
+                ProgressionRequiredChange = true;
+            }
+        }
+        private bool ProgressionRequiredChange { get; set; }
 
         [UsedImplicitly]
         public List<XPBonus> XPBonuses { private get; set; }
@@ -145,9 +153,9 @@ public static partial class Actions
             {
                 formData.Add("maxUnlocks", MaxUnlocks.Value.ToString());
             }
-            if (ProgressionRequired.HasValue && ProgressionRequired.Value != 0)
+            if (ProgressionRequiredChange)
             {
-                formData.Add("progressionRequired", ProgressionRequired.Value.ToString());
+                formData.Add("progressionRequired", ProgressionRequired?.ToString());
             }
             if (XPBonuses != null)
             {
