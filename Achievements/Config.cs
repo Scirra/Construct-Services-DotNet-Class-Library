@@ -12,6 +12,7 @@ internal static class Config
         internal const string Delete = "/deleteachievement.json";
         internal const string Get = "/getachievement.json";
         internal const string List = "/listachievements.json";
+        internal const string ListAwardedPlayers = "/listawardedplayers.json";
         internal const string ListPlayerAchievements = "/listplayerachievements.json";
         internal const string Update = "/updateachievement.json";
     }
