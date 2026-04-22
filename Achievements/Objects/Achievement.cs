@@ -81,6 +81,9 @@ public sealed class Achievement
     
     [JsonProperty(PropertyName = "clientProgressAllowed")]
     public bool ClientProgressAllowed { get; private set; }
+    
+    [JsonProperty(PropertyName = "incrementOnly")]
+    public bool IncrementOnly { get; private set; }
 
     public Achievement()
     {

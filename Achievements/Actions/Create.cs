@@ -76,6 +76,9 @@ public static partial class Actions
         public bool IsSecret { private get; set; }
 
         [UsedImplicitly]
+        public bool IncrementOnly { private get; set; }
+
+        [UsedImplicitly]
         public int MaxUnlocks { private get; set; }
 
         [UsedImplicitly]
@@ -122,7 +125,8 @@ public static partial class Actions
                 { "language", LanguageISO },
                 { "clientProgressAllowed", ClientProgressAllowed.ToInt().ToString() },
                 { "isSecret", IsSecret.ToInt().ToString() },
-                { "maxUnlocks", MaxUnlocks.ToString() }
+                { "maxUnlocks", MaxUnlocks.ToString() },
+                { "incrementOnly", IncrementOnly.ToInt().ToString() }
             };
             if (ProgressionRequired.HasValue && ProgressionRequired.Value != 0)
             {

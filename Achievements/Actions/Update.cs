@@ -77,6 +77,9 @@ public static partial class Actions
         public bool? IsSecret { private get; set; }
 
         [UsedImplicitly]
+        public bool? IncrementOnly { private get; set; }
+
+        [UsedImplicitly]
         public int? MaxUnlocks { private get; set; }
 
         [UsedImplicitly]
@@ -148,6 +151,10 @@ public static partial class Actions
             if (IsSecret.HasValue)
             {
                 formData.Add("isSecret", IsSecret.Value.ToInt().ToString());
+            }
+            if (IncrementOnly.HasValue)
+            {
+                formData.Add("incrementOnly", IncrementOnly.Value.ToInt().ToString());
             }
             if (MaxUnlocks.HasValue)
             {
