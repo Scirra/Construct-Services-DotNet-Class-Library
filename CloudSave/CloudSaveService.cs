@@ -7,10 +7,10 @@ namespace ConstructServices.CloudSave;
 
 public abstract class CloudSaveServiceBase : BaseService
 {
-    internal CloudSaveServiceBase(Guid gameID) : base(gameID, Config.APIDomain)
+    internal CloudSaveServiceBase(Guid gameID, TimeSpan? httpTimeout = null) : base(gameID, Config.APIDomain, httpTimeout)
     {
     }
-    internal CloudSaveServiceBase(Guid gameID, SecretAPIKey aPiKey, SessionKey sessionKey) : base(gameID, Config.APIDomain, aPiKey, sessionKey)
+    internal CloudSaveServiceBase(Guid gameID, SecretAPIKey aPiKey, SessionKey sessionKey, TimeSpan? httpTimeout = null) : base(gameID, Config.APIDomain, aPiKey, sessionKey, httpTimeout)
     {
     }
 
@@ -22,10 +22,10 @@ public abstract class CloudSaveServiceBase : BaseService
 public sealed class CloudSaveService : CloudSaveServiceBase
 {
     [UsedImplicitly]
-    public CloudSaveService(Guid gameID) : base(gameID) { }
-    public CloudSaveService(Guid gameID, SecretAPIKey aPIKey) : base(gameID, aPIKey, null) { }
+    public CloudSaveService(Guid gameID, TimeSpan? httpTimeout = null) : base(gameID, httpTimeout) { }
+    public CloudSaveService(Guid gameID, SecretAPIKey aPIKey, TimeSpan? httpTimeout = null) : base(gameID, aPIKey, null, httpTimeout) { }
 }
 
 [UsedImplicitly]
-public sealed class PlayerCloudSaveService(Guid gameID, SessionKey sessionKey)
-    : CloudSaveServiceBase(gameID, null, sessionKey);
+public sealed class PlayerCloudSaveService(Guid gameID, SessionKey sessionKey, TimeSpan? httpTimeout = null)
+    : CloudSaveServiceBase(gameID, null, sessionKey, httpTimeout);

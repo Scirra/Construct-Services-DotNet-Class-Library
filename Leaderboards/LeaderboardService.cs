@@ -9,11 +9,11 @@ public abstract class LeaderboardServiceBase : BaseService
 {
     internal Guid LeaderboardID { get; }
 
-    internal LeaderboardServiceBase(Guid gameID, Guid leaderboardID) : base(gameID, Config.APIDomain)
+    internal LeaderboardServiceBase(Guid gameID, Guid leaderboardID, TimeSpan? httpTimeout = null) : base(gameID, Config.APIDomain, httpTimeout)
     {
         LeaderboardID = leaderboardID;
     }
-    internal LeaderboardServiceBase(Guid gameID, Guid leaderboardID, SecretAPIKey aPiKey, SessionKey sessionKey) : base(gameID, Config.APIDomain, aPiKey, sessionKey)
+    internal LeaderboardServiceBase(Guid gameID, Guid leaderboardID, SecretAPIKey aPiKey, SessionKey sessionKey, TimeSpan? httpTimeout = null) : base(gameID, Config.APIDomain, aPiKey, sessionKey, httpTimeout)
     {
         LeaderboardID = leaderboardID;
     }
@@ -39,10 +39,10 @@ public abstract class LeaderboardServiceBase : BaseService
 public sealed class LeaderboardService : LeaderboardServiceBase
 {
     [UsedImplicitly]
-    public LeaderboardService(Guid gameID, Guid leaderboardID) : base(gameID, leaderboardID) { }
-    public LeaderboardService(Guid gameID, Guid leaderboardID, SecretAPIKey aPIKey) : base(gameID, leaderboardID, aPIKey, null) { }
+    public LeaderboardService(Guid gameID, Guid leaderboardID, TimeSpan? httpTimeout = null) : base(gameID, leaderboardID, httpTimeout) { }
+    public LeaderboardService(Guid gameID, Guid leaderboardID, SecretAPIKey aPIKey, TimeSpan? httpTimeout = null) : base(gameID, leaderboardID, aPIKey, null, httpTimeout) { }
 }
 
 [UsedImplicitly]
-public sealed class PlayerLeaderboardService(Guid gameID, Guid leaderboardID, SessionKey sessionKey)
-    : LeaderboardServiceBase(gameID, leaderboardID, null, sessionKey);
+public sealed class PlayerLeaderboardService(Guid gameID, Guid leaderboardID, SessionKey sessionKey, TimeSpan? httpTimeout = null)
+    : LeaderboardServiceBase(gameID, leaderboardID, null, sessionKey, httpTimeout);

@@ -8,10 +8,10 @@ namespace ConstructServices.XP;
 
 public abstract class XPServiceBase : BaseService
 {
-    internal XPServiceBase(Guid gameID) : base(gameID, Config.APIDomain)
+    internal XPServiceBase(Guid gameID, TimeSpan? httpTimeout = null) : base(gameID, Config.APIDomain, httpTimeout)
     {
     }
-    internal XPServiceBase(Guid gameID, SecretAPIKey aPiKey, SessionKey sessionKey) : base(gameID, Config.APIDomain, aPiKey, sessionKey)
+    internal XPServiceBase(Guid gameID, SecretAPIKey aPiKey, SessionKey sessionKey, TimeSpan? httpTimeout = null) : base(gameID, Config.APIDomain, aPiKey, sessionKey, httpTimeout)
     {
     }
 
@@ -23,9 +23,9 @@ public abstract class XPServiceBase : BaseService
 public sealed class XPService : XPServiceBase
 {
     [UsedImplicitly]
-    public XPService(Guid gameID) : base(gameID) { }
-    public XPService(Guid gameID, SecretAPIKey aPIKey) : base(gameID, aPIKey, null) { }
+    public XPService(Guid gameID, TimeSpan? httpTimeout = null) : base(gameID, httpTimeout) { }
+    public XPService(Guid gameID, SecretAPIKey aPIKey, TimeSpan? httpTimeout = null) : base(gameID, aPIKey, null, httpTimeout) { }
 }
 
 [UsedImplicitly]
-public sealed class PlayerXPService(Guid gameID, SessionKey sessionKey) : XPServiceBase(gameID, null, sessionKey);
+public sealed class PlayerXPService(Guid gameID, SessionKey sessionKey, TimeSpan? httpTimeout = null) : XPServiceBase(gameID, null, sessionKey, httpTimeout);

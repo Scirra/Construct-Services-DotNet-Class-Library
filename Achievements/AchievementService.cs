@@ -7,10 +7,10 @@ namespace ConstructServices.Achievements;
 
 public abstract class AchievementServiceBase : BaseService
 {
-    internal AchievementServiceBase(Guid gameID) : base(gameID, Config.APIDomain)
+    internal AchievementServiceBase(Guid gameID, TimeSpan? httpTimeout = null) : base(gameID, Config.APIDomain, httpTimeout)
     {
     }
-    internal AchievementServiceBase(Guid gameID, SecretAPIKey aPiKey, SessionKey sessionKey) : base(gameID, Config.APIDomain, aPiKey, sessionKey)
+    internal AchievementServiceBase(Guid gameID, SecretAPIKey aPiKey, SessionKey sessionKey, TimeSpan? httpTimeout = null) : base(gameID, Config.APIDomain, aPiKey, sessionKey, httpTimeout)
     {
     }
 
@@ -21,11 +21,11 @@ public abstract class AchievementServiceBase : BaseService
 
 public sealed class AchievementService : AchievementServiceBase
 {
-    public AchievementService(Guid gameID) : base(gameID) { }
+    public AchievementService(Guid gameID, TimeSpan? httpTimeout = null) : base(gameID, httpTimeout) { }
 
     [UsedImplicitly]
-    public AchievementService(Guid gameID, SecretAPIKey aPIKey) : base(gameID, aPIKey, null) { }
+    public AchievementService(Guid gameID, SecretAPIKey aPIKey, TimeSpan? httpTimeout = null) : base(gameID, aPIKey, null, httpTimeout) { }
 }
 
 [method: UsedImplicitly]
-public sealed class PlayerAchievementService(Guid gameID, SessionKey sessionKey) : AchievementServiceBase(gameID, null, sessionKey);
+public sealed class PlayerAchievementService(Guid gameID, SessionKey sessionKey, TimeSpan? httpTimeout = null) : AchievementServiceBase(gameID, null, sessionKey, httpTimeout);

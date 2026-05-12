@@ -26,25 +26,31 @@ public abstract class BaseService
     internal string RequestedLanguage { get; private set; }
     internal CultureInfo Culture { get; private set; }
     internal SessionKey SessionKey { get; private set; }
-    
+    internal TimeSpan HTTPTimeout { get; private set; }
+    private static readonly TimeSpan DefaultHttpTimeout = TimeSpan.FromSeconds(30);
+
     internal BaseService(
         Guid gameID,
-        string apiHost)
+        string apiHost,
+        TimeSpan? httpTimeout)
     {
         GameID = gameID;
         APIHost = apiHost;
-    }
+        HTTPTimeout = httpTimeout ?? DefaultHttpTimeout;
+    }   
 
     internal BaseService(
         Guid gameID,
         string apiHost,
         SecretAPIKey aPiKey,
-        SessionKey sessionKey)
+        SessionKey sessionKey,
+        TimeSpan? httpTimeout)
     {
         GameID = gameID;
         APIHost = apiHost;
         APIKey = aPiKey;
         SessionKey = sessionKey;
+        HTTPTimeout = httpTimeout ?? DefaultHttpTimeout;
     }
     
     /// <summary>

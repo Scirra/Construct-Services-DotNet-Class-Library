@@ -81,12 +81,14 @@ internal static class Request
                     };
 
                     using var httpClient = new HttpClient(handler);
+                    httpClient.Timeout = service.HTTPTimeout;
                     using var response = await httpClient.PostAsync(apiURL, formContent);
                     json = await response.Content.ReadAsStringAsync();
                 }
                 else
                 {
                     using var httpClient = new HttpClient();
+                    httpClient.Timeout = service.HTTPTimeout;
                     using var response = await httpClient.PostAsync(apiURL, formContent);
                     json = await response.Content.ReadAsStringAsync();
                 }
@@ -174,12 +176,14 @@ internal static class Request
                         ServerCertificateCustomValidationCallback = (_, _, _, _) => true
                     };
                     using var httpClient = new HttpClient(handler);
+                    httpClient.Timeout = service.HTTPTimeout;
                     using var response = await httpClient.PostAsync(apiURL, formContent);
                     json = await response.Content.ReadAsStringAsync();
                 }
                 else
                 {
                     using var httpClient = new HttpClient();
+                    httpClient.Timeout = service.HTTPTimeout;
                     using var response = await httpClient.PostAsync(apiURL, formContent);
                     json = await response.Content.ReadAsStringAsync();
                 }
@@ -224,12 +228,14 @@ internal static class Request
                     ServerCertificateCustomValidationCallback = (_, _, _, _) => true
                 };
                 using var httpClient = new HttpClient(handler);
+                httpClient.Timeout = service.HTTPTimeout;
                 using var response = await httpClient.PostAsync(absolutePath, formContent);
                 r = await response.Content.ReadAsByteArrayAsync();
             }
             else
             {
                 using var httpClient = new HttpClient();
+                httpClient.Timeout = service.HTTPTimeout;
                 using var response = await httpClient.PostAsync(absolutePath, formContent);
                 r = await response.Content.ReadAsByteArrayAsync();
             }

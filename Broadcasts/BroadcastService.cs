@@ -7,10 +7,10 @@ namespace ConstructServices.Broadcasts;
 
 public abstract class BroadcastServiceBase : BaseService
 {
-    internal BroadcastServiceBase(Guid gameID) : base(gameID, Config.APIDomain)
+    internal BroadcastServiceBase(Guid gameID, TimeSpan? httpTimeout = null) : base(gameID, Config.APIDomain, httpTimeout)
     {
     }
-    internal BroadcastServiceBase(Guid gameID, SecretAPIKey aPiKey, SessionKey sessionKey) : base(gameID, Config.APIDomain, aPiKey, sessionKey)
+    internal BroadcastServiceBase(Guid gameID, SecretAPIKey aPiKey, SessionKey sessionKey, TimeSpan? httpTimeout = null) : base(gameID, Config.APIDomain, aPiKey, sessionKey, httpTimeout)
     {
     }
 
@@ -21,11 +21,11 @@ public abstract class BroadcastServiceBase : BaseService
 
 public sealed class BroadcastService : BroadcastServiceBase
 {
-    public BroadcastService(Guid gameID) : base(gameID) { }
+    public BroadcastService(Guid gameID, TimeSpan? httpTimeout = null) : base(gameID, httpTimeout) { }
 
     [UsedImplicitly]
-    public BroadcastService(Guid gameID, SecretAPIKey aPIKey) : base(gameID, aPIKey, null) { }
+    public BroadcastService(Guid gameID, SecretAPIKey aPIKey, TimeSpan? httpTimeout = null) : base(gameID, aPIKey, null, httpTimeout) { }
 }
 
 [method: UsedImplicitly]
-public sealed class PlayerBroadcastService(Guid gameID, SessionKey sessionKey) : BroadcastServiceBase(gameID, null, sessionKey);
+public sealed class PlayerBroadcastService(Guid gameID, SessionKey sessionKey, TimeSpan? httpTimeout = null) : BroadcastServiceBase(gameID, null, sessionKey, httpTimeout);
