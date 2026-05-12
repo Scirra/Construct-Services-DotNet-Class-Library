@@ -1,14 +1,47 @@
-﻿using Newtonsoft.Json;
+﻿using ConstructServices.Common.Validations.Common;
+using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using ConstructServices.Common.Validations.Common;
 
 namespace ConstructServices.Common;
 
 internal static class Request
 {
+    private static class HttpClientFactoryProvider
+    {
+        private static IHttpClientFactory Factory_ { get; set; }
+        private static IHttpClientFactory Factory
+        {
+            get
+            {
+                if (Factory_ == null)
+                {
+                    var services = new ServiceCollection();
+                    
+                    services.AddHttpClient("CGSPublicClient");
+                    services.AddHttpClient("UnsafeClient")
+                        .ConfigurePrimaryHttpMessageHandler(() =>
+                            new HttpClientHandler
+                            {
+                                ClientCertificateOptions = ClientCertificateOption.Manual,
+                                ServerCertificateCustomValidationCallback = (_, _, _, _) => true
+                            });
+
+                    var provider = services.BuildServiceProvider();
+                    Factory_ = provider.GetRequiredService<IHttpClientFactory>();
+                }
+
+                return Factory_;
+            }
+        }
+
+        internal static HttpClient GetHttpClient(string name)
+            => Factory.CreateClient(name);
+    }
+
     internal static T ExecuteMultiPartFormSyncRequest<T>(
         string relativeEndPointPath,
         BaseService service,
@@ -74,20 +107,14 @@ internal static class Request
                 // Accept self-signed
                 if (GlobalConfig.DevMode)
                 {
-                    var handler = new HttpClientHandler
-                    {
-                        ClientCertificateOptions = ClientCertificateOption.Manual,
-                        ServerCertificateCustomValidationCallback = (_, _, _, _) => true
-                    };
-
-                    using var httpClient = new HttpClient(handler);
+                    using var httpClient = HttpClientFactoryProvider.GetHttpClient("UnsafeClient");
                     httpClient.Timeout = service.HTTPTimeout;
                     using var response = await httpClient.PostAsync(apiURL, formContent);
                     json = await response.Content.ReadAsStringAsync();
                 }
                 else
                 {
-                    using var httpClient = new HttpClient();
+                    using var httpClient = HttpClientFactoryProvider.GetHttpClient("CGSPublicClient");
                     httpClient.Timeout = service.HTTPTimeout;
                     using var response = await httpClient.PostAsync(apiURL, formContent);
                     json = await response.Content.ReadAsStringAsync();
@@ -170,19 +197,14 @@ internal static class Request
                 // Accept self-signed
                 if (GlobalConfig.DevMode)
                 {
-                    var handler = new HttpClientHandler
-                    {
-                        ClientCertificateOptions = ClientCertificateOption.Manual,
-                        ServerCertificateCustomValidationCallback = (_, _, _, _) => true
-                    };
-                    using var httpClient = new HttpClient(handler);
+                    using var httpClient = HttpClientFactoryProvider.GetHttpClient("UnsafeClient");
                     httpClient.Timeout = service.HTTPTimeout;
                     using var response = await httpClient.PostAsync(apiURL, formContent);
                     json = await response.Content.ReadAsStringAsync();
                 }
                 else
                 {
-                    using var httpClient = new HttpClient();
+                    using var httpClient = HttpClientFactoryProvider.GetHttpClient("CGSPublicClient");
                     httpClient.Timeout = service.HTTPTimeout;
                     using var response = await httpClient.PostAsync(apiURL, formContent);
                     json = await response.Content.ReadAsStringAsync();
@@ -222,19 +244,14 @@ internal static class Request
             // Accept self-signed
             if (GlobalConfig.DevMode)
             {
-                var handler = new HttpClientHandler
-                {
-                    ClientCertificateOptions = ClientCertificateOption.Manual,
-                    ServerCertificateCustomValidationCallback = (_, _, _, _) => true
-                };
-                using var httpClient = new HttpClient(handler);
+                using var httpClient = HttpClientFactoryProvider.GetHttpClient("UnsafeClient");
                 httpClient.Timeout = service.HTTPTimeout;
                 using var response = await httpClient.PostAsync(absolutePath, formContent);
                 r = await response.Content.ReadAsByteArrayAsync();
             }
             else
             {
-                using var httpClient = new HttpClient();
+                using var httpClient = HttpClientFactoryProvider.GetHttpClient("CGSPublicClient");
                 httpClient.Timeout = service.HTTPTimeout;
                 using var response = await httpClient.PostAsync(absolutePath, formContent);
                 r = await response.Content.ReadAsByteArrayAsync();
