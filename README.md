@@ -218,6 +218,13 @@ An additional property `ratingStatus.MyRatings` is returned if the request is au
 
    See the [Examples][docs-auth] or read the [full API documentation][docs-auth-api]
 
+ - ## Achievement Service
+   Allow you to award achievements to players, or if the achievement is progressive then progress the achievement.
+
+   It's possible to define secret achievements, and also setup achievements so that clients cannot award or progress them.
+
+   See the [Examples][docs-achievements] or read the [full API documentation][docs-achievements-api]
+
  - ## Broadcast Service
    Allows you to create Broadcast Channels, and from these channels create Broadcast Messages that are accessible to all players in your game/application. For example, you might create a channel "New Features" and publish messages into this channel describing new features you have introduced when you update your game.
 
@@ -265,6 +272,8 @@ pull request][pulls].
 [cgs-account]: https://cgs.construct.net
 [docs-auth]: https://github.com/Scirra/Construct-Services-DotNet-Class-Library/blob/master/Docs/Authentication.md
 [docs-auth-api]: https://www.construct.net/en/game-services/manuals/game-services/authentication/concepts
+[docs-achievements]: https://github.com/Scirra/Construct-Services-DotNet-Class-Library/blob/master/Docs/Achievements.md
+[docs-achievements-api]: https://www.construct.net/en/game-services/manuals/game-services/achievements/concepts
 [docs-broadcast]: https://github.com/Scirra/Construct-Services-DotNet-Class-Library/blob/master/Docs/Broadcasts.md
 [docs-broadcast-api]: https://www.construct.net/en/game-services/manuals/game-services/broadcasts/concepts
 [docs-cloudsave]: https://github.com/Scirra/Construct-Services-DotNet-Class-Library/blob/master/Docs/CloudSaves.md
