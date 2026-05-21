@@ -10,37 +10,33 @@ namespace ConstructServices.Common;
 
 internal static class Request
 {
-    private static class HttpClientFactoryProvider
+    private const string ClientName = "MainClient";
+    private static ServiceProvider ServiceProvider;
+    private static readonly Lazy<IHttpClientFactory> Factory = new(CreateFactory);
+    private static IHttpClientFactory CreateFactory()
     {
-        private static IHttpClientFactory Factory_ { get; set; }
-        private static IHttpClientFactory Factory
+        var services = new ServiceCollection();
+        if (!GlobalConfig.DevMode)
         {
-            get
-            {
-                if (Factory_ == null)
-                {
-                    var services = new ServiceCollection();
-                    
-                    services.AddHttpClient("CGSPublicClient");
-                    services.AddHttpClient("UnsafeClient")
-                        .ConfigurePrimaryHttpMessageHandler(() =>
-                            new HttpClientHandler
-                            {
-                                ClientCertificateOptions = ClientCertificateOption.Manual,
-                                ServerCertificateCustomValidationCallback = (_, _, _, _) => true
-                            });
-
-                    var provider = services.BuildServiceProvider();
-                    Factory_ = provider.GetRequiredService<IHttpClientFactory>();
-                }
-
-                return Factory_;
-            }
+            services.AddHttpClient(ClientName);
         }
-
-        internal static HttpClient GetHttpClient(string name)
-            => Factory.CreateClient(name);
+        else
+        {
+            services.AddHttpClient(ClientName)
+                .ConfigurePrimaryHttpMessageHandler(() =>
+                {
+                    return new HttpClientHandler
+                    {
+                        ClientCertificateOptions = ClientCertificateOption.Manual,
+                        ServerCertificateCustomValidationCallback = (_, _, _, _) => true
+                    };
+                });
+        }
+        ServiceProvider = services.BuildServiceProvider();
+        return ServiceProvider.GetRequiredService<IHttpClientFactory>();
     }
+    internal static HttpClient GetHttpClient()
+        => Factory.Value.CreateClient(ClientName);
 
     internal static T ExecuteMultiPartFormSyncRequest<T>(
         string relativeEndPointPath,
@@ -104,21 +100,10 @@ internal static class Request
             
             try
             {
-                // Accept self-signed
-                if (GlobalConfig.DevMode)
-                {
-                    using var httpClient = HttpClientFactoryProvider.GetHttpClient("UnsafeClient");
-                    httpClient.Timeout = service.HTTPTimeout;
-                    using var response = await httpClient.PostAsync(apiURL, formContent);
-                    json = await response.Content.ReadAsStringAsync();
-                }
-                else
-                {
-                    using var httpClient = HttpClientFactoryProvider.GetHttpClient("CGSPublicClient");
-                    httpClient.Timeout = service.HTTPTimeout;
-                    using var response = await httpClient.PostAsync(apiURL, formContent);
-                    json = await response.Content.ReadAsStringAsync();
-                }
+                using var httpClient = GetHttpClient();
+                httpClient.Timeout = service.HTTPTimeout;
+                using var response = await httpClient.PostAsync(apiURL, formContent);
+                json = await response.Content.ReadAsStringAsync();
             }
             catch (Exception ex)
             {
@@ -194,21 +179,10 @@ internal static class Request
         {
             try
             {
-                // Accept self-signed
-                if (GlobalConfig.DevMode)
-                {
-                    using var httpClient = HttpClientFactoryProvider.GetHttpClient("UnsafeClient");
-                    httpClient.Timeout = service.HTTPTimeout;
-                    using var response = await httpClient.PostAsync(apiURL, formContent);
-                    json = await response.Content.ReadAsStringAsync();
-                }
-                else
-                {
-                    using var httpClient = HttpClientFactoryProvider.GetHttpClient("CGSPublicClient");
-                    httpClient.Timeout = service.HTTPTimeout;
-                    using var response = await httpClient.PostAsync(apiURL, formContent);
-                    json = await response.Content.ReadAsStringAsync();
-                }
+                using var httpClient = GetHttpClient();
+                httpClient.Timeout = service.HTTPTimeout;
+                using var response = await httpClient.PostAsync(apiURL, formContent);
+                json = await response.Content.ReadAsStringAsync();
             }
             catch (Exception ex)
             {
@@ -241,21 +215,10 @@ internal static class Request
         using var formContent = new FormUrlEncodedContent(formData);
         try
         {
-            // Accept self-signed
-            if (GlobalConfig.DevMode)
-            {
-                using var httpClient = HttpClientFactoryProvider.GetHttpClient("UnsafeClient");
-                httpClient.Timeout = service.HTTPTimeout;
-                using var response = await httpClient.PostAsync(absolutePath, formContent);
-                r = await response.Content.ReadAsByteArrayAsync();
-            }
-            else
-            {
-                using var httpClient = HttpClientFactoryProvider.GetHttpClient("CGSPublicClient");
-                httpClient.Timeout = service.HTTPTimeout;
-                using var response = await httpClient.PostAsync(absolutePath, formContent);
-                r = await response.Content.ReadAsByteArrayAsync();
-            }
+            using var httpClient = GetHttpClient();
+            httpClient.Timeout = service.HTTPTimeout;
+            using var response = await httpClient.PostAsync(absolutePath, formContent);
+            r = await response.Content.ReadAsByteArrayAsync();
         }
         catch (Exception)
         {
