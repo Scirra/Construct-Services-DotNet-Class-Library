@@ -27,8 +27,8 @@ From within Visual Studio:
 1. Open the Solution Explorer.
 2. Right-click on a project within your solution.
 3. Click on _Manage NuGet Packages..._
-4. Click on the _Browse_ tab and search for "Stripe.net".
-5. Click on the Stripe.net package, select the appropriate version in the
+4. Click on the _Browse_ tab and search for "ConstructServices".
+5. Click on the ConstructServices package, select the appropriate version in the
    right-tab and click _Install_.
 
 # Documentation
@@ -45,7 +45,7 @@ You need to create a [Construct Game Services][cgs-account] account.  From here,
 
 ### Translated content
 When text content is returned from a service, it is returned in the original language it was written in.  The object is returned with properties such as:
-```C#
+```json
 {
 	title: "My Test Title",
 	text: "Example test string",
@@ -211,7 +211,7 @@ An additional property `ratingStatus.MyRatings` is returned if the request is au
 
 	- Change their player name (displayed to other users)
 	- Set an avatar
-	- Link their account to other login providers allowing for multiple sign in optionsh
+	- Link their account to other login providers allowing for multiple sign in options
 	- Delete their account
     - Set an email address for their account
     - Request a forgotten password
@@ -233,7 +233,7 @@ An additional property `ratingStatus.MyRatings` is returned if the request is au
    See the [Examples][docs-broadcast] or read the [full API documentation][docs-broadcast-api]
 
  - ## CloudSave Service
-   Allow players to save blobs of data into the cloud for retrieval at a later date. The most useful and simple applciation for this is allowing players to save their game progress. You can also save a picture alongside a cloud save to represent the data more visually - for example a screenshot of the game where the save game was created.
+   Allows player to save blobs of data into the cloud for retrieval at a later date. The most useful and simple application for this is allowing players to save their game progress. You can also save a picture alongside a cloud save to represent the data more visually - for example a screenshot of the game where the save game was created.
    
 	You can also create public Game Buckets that players can save data into - for example if your game allows you to create custom levels, you could create a public bucket for these levels and allow players to share their creations with other players. These data blobs can also be rated with multiple dimensions, and returned to players sorted by the ratings.
 
@@ -260,7 +260,7 @@ An additional property `ratingStatus.MyRatings` is returned if the request is au
 
 	 - Add, remove or set a players XP
 	 - Define ranks for XP, unlocked by players when they reach certain XP levels.
-	 - Define periods where XP earnt is multiplied by a custom amount (EG a 3x XP bonus weekend)
+	 - Define periods where XP earned is multiplied by a custom amount (EG a 3x XP bonus weekend)
 	
    See the [Examples][docs-xp] or read the [full API documentation][docs-xp-api]
 
@@ -274,7 +274,7 @@ For full documentation, please refer to the [notifications docs][cgs-notificatio
 
 Pass in the session key if the player is signed in, otherwise omit the session key parameter for guests.  Guests only receive messages that are not relating to a specific player, for example a new broadcast message was published.  Signed in players can receive all the message types.
 
-You then pass in an action method which handles any received message.  Optionally you can also pass in an error action method to handle and thrown exceptions.
+You then pass in an action method which handles any received message.  Optionally you can also pass in an error action method to handle any exceptions.
 
 > [!TIP]
 > Make sure you dispose the client using `client.Dispose()` when the client is no longer needed!
@@ -305,17 +305,17 @@ var client = new NotificationClient(
             }
             case MessageType.AchievementAwarded:
             {
-                var achievementAwardedMessage = (NewBroadcastWebsocketMessage)message;
+                var achievementAwardedMessage = (AchievementAwardedWebsocketMessage)message;
                 break;
             }
             case MessageType.XPChanged:
             {
-                var xpChangedMessage = (NewBroadcastWebsocketMessage)message;
+                var xpChangedMessage = (XPChangedWebsocketMessage)message;
                 break;
             }
             case MessageType.XPRankChanged:
             {
-                var xpRankChangedMessage = (NewBroadcastWebsocketMessage)message;
+                var xpRankChangedMessage = (XPRankChangedWebsocketMessage)message;
                 break;
             }
             default:
@@ -323,6 +323,8 @@ var client = new NotificationClient(
         }
     },
     (e) => throw e);
+
+	await client.ConnectAsync();
 ```
 
 # Support
