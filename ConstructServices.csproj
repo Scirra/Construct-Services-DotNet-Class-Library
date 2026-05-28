@@ -34,6 +34,7 @@
 
   <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" Version="2025.2.4" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="10.0.8" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
 	<None Include="$(MSBuildThisFileDirectory)README.md" Pack="true" PackagePath="" />

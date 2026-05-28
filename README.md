@@ -264,6 +264,67 @@ An additional property `ratingStatus.MyRatings` is returned if the request is au
 	
    See the [Examples][docs-xp] or read the [full API documentation][docs-xp-api]
 
+# Live Notifications
+
+You can connect players to the Construct Game Services to receive certain live notifications, such as when the player has been awarded an achievement, has earnt XP, has been promoted to a new XP rank or a new broadcast message was published to the player base.
+
+For full documentation, please refer to the [notifications docs][cgs-notifications-docs].
+
+## Creating a Notification Client
+
+Pass in the session key if the player is signed in, otherwise omit the session key parameter for guests.  Guests only receive messages that are not relating to a specific player, for example a new broadcast message was published.  Signed in players can receive all the message types.
+
+You then pass in an action method which handles any received message.  Optionally you can also pass in an error action method to handle and thrown exceptions.
+
+> [!TIP]
+> Make sure you dispose the client using `client.Dispose()` when the client is no longer needed!
+
+Data returned in the messages won't return entire objects - instead it will provide you the relevant object ID's.  Use the relevant service end points to retrieve the full object based on these ID's.  An example for a new broadcast message can be found below:
+
+```C#
+var client = new NotificationClient(
+    gameID, 
+    new SessionKey("abc..."),
+    (message) => {
+        switch (message.MessageType)
+        {
+            case MessageType.NewBroadcastMessage:
+            {
+                var newBroadcastMessage = (NewBroadcastWebsocketMessage)message;
+				var messageID = newBroadcastMessage.MessageID;
+
+                var broadcastService = new BroadcastService(gameID);
+                var getBroadcastMessageResult = broadcastService.GetMessage(messageID);
+                if (getBroadcastMessageResult.Success)
+                {
+                    var fullMessageObj = getBroadcastMessageResult.Message;
+                    // Popup a message to the user showing this new message has been published
+                }
+				
+				break;
+            }
+            case MessageType.AchievementAwarded:
+            {
+                var achievementAwardedMessage = (NewBroadcastWebsocketMessage)message;
+                break;
+            }
+            case MessageType.XPChanged:
+            {
+                var xpChangedMessage = (NewBroadcastWebsocketMessage)message;
+                break;
+            }
+            case MessageType.XPRankChanged:
+            {
+                var xpRankChangedMessage = (NewBroadcastWebsocketMessage)message;
+                break;
+            }
+            default:
+                return;
+        }
+    },
+    (e) => throw e);
+```
+
 # Support
 
 For any requests, bug or comments, please [open an issue][issues] or [submit a
@@ -289,3 +350,4 @@ pull request][pulls].
 [package-manager-console]: https://docs.microsoft.com/en-us/nuget/tools/package-manager-console
 [issues]: https://github.com/Scirra/Construct-Services-DotNet-Class-Library/issues/new
 [pulls]: https://github.com/Scirra/Construct-Services-DotNet-Class-Library/pulls
+[cgs-notifications-docs]: https://www.construct.net/en/game-services/manuals/game-services/notifications/concepts
