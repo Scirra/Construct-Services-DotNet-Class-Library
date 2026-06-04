@@ -67,6 +67,9 @@ public static partial class Channels
 
         [UsedImplicitly]
         public bool? AllowRatings { private get; set; }
+
+        [UsedImplicitly]
+        public HashSet<Guid> DiscordWebhookIDs { private get; set; }
     
         internal Common.Validations.Responses.ValidationResponseBase Validate()
         {
@@ -80,15 +83,31 @@ public static partial class Channels
         }
 
         internal Dictionary<string, string> BuildFormData(Guid channelID)
-        {        
-            var formData = new Dictionary<string, string>
+        {
+            var formData = new Dictionary<string, string>()
             {
-                { "channelID", channelID.ToString() },
-                { "name", Name },
-                { "description", Description },
-                { "language", LanguageISO }
+                { "channelID", channelID.ToString() }
             };
-            if(AllowRatings.HasValue) formData.Add("allowRatings", AllowRatings.Value.ToInt().ToString());
+            if (Name != null)
+            {
+                formData.Add("name", Name);
+            }
+            if (Description != null)
+            {
+                formData.Add("description", Description);
+            }
+            if (LanguageISO != null)
+            {
+                formData.Add("language", LanguageISO);
+            }
+            if (DiscordWebhookIDs != null)
+            {
+                formData.Add("discordWebhookIDs", string.Join(",", DiscordWebhookIDs));
+            }
+            if(AllowRatings.HasValue)
+            {
+                formData.Add("allowRatings", AllowRatings.Value.ToInt().ToString());
+            }
             return formData;
         }
     }
