@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using ConstructServices.Broadcasts.Responses;
 using ConstructServices.Common;
@@ -67,6 +68,9 @@ public static partial class Channels
         [UsedImplicitly]
         public bool AllowRatings { private get; set; }
 
+        [UsedImplicitly]
+        public HashSet<Guid> DiscordWebhookIDs { private get; set; }
+
         internal Common.Validations.Responses.ValidationResponseBase Validate()
         {
             var nameValidation = Common.Validations.Broadcasts.Functions.IsChannelNameValid(Name);
@@ -85,7 +89,8 @@ public static partial class Channels
                 { "name", Name },
                 { "description", Description },
                 { "language", LanguageISO },
-                { "allowRatings", AllowRatings.ToInt().ToString() }
+                { "allowRatings", AllowRatings.ToInt().ToString() },
+                { "discordWebhookIDs", string.Join(",", DiscordWebhookIDs ?? []) }
             };
             return formData;
         }

@@ -52,6 +52,9 @@ public sealed class Channel
     
     [JsonProperty(PropertyName = "responseLanguage")]
     public Language ResponseLanguage { get; private set; }
+    
+    [JsonProperty(PropertyName = "discordWebhookIDs")]
+    public HashSet<Guid> DiscordWebhookIDs { get; private set; }
 
     public Channel()
     {
