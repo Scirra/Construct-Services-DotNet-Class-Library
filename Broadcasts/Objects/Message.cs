@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using ConstructServices.Common;
 using ConstructServices.Ratings.Objects;
 
@@ -69,6 +70,9 @@ public sealed class Message
     
     [JsonProperty(PropertyName = "responseLanguage")]
     public Language ResponseLanguage { get; private set; }
+
+    [JsonProperty(PropertyName = "hostedBroadcastURLs")]
+    public List<HostedBroadcastURL> HostedBroadcastURLs { get; set; }
 
     public Message()
     {
