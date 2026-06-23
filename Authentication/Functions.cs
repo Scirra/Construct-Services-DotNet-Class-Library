@@ -33,11 +33,6 @@ public static class Functions
                 logoFilename = "discord-logo.svg";
                 break;
             }
-            case LoginProvider.X:
-            {
-                logoFilename = "x-logo.svg";
-                break;
-            }
             case LoginProvider.Reddit:
             {
                 logoFilename = "reddit-logo.svg";

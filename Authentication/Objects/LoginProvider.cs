@@ -5,7 +5,6 @@ public enum LoginProvider : byte
     UsernamePassword = 0,
     Facebook = 1,
     Discord = 2,
-    X = 3,
     Reddit = 4,
     Yandex = 5,
     Google = 6,
